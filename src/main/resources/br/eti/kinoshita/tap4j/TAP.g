@@ -1,7 +1,25 @@
 grammar TAP;
 
 options {
-     language = Java;
+     language = Java;     
+}
+
+tokens 
+{
+  VERSION='TAP version';
+  PLAN_SKIP_PREFIX='1..0';
+  TODO='todo';
+  SKIP='skip';
+  OK='ok';
+  NOT_OK='not ok';
+  SKIP_DIRECTIVE='SKIP';
+  TODO_DIRECTIVE='TODO';
+  BAIL_OUT='Bail out!';
+  SHARP='#';
+  SEMI=';';
+  PLAN_PREFIX='1..';
+  ONE='1';
+  DOT='.';
 }
 
 @header {
@@ -23,36 +41,76 @@ options {
 
 tapFile
 	:
-	header
+	header? plan EOF
 	;
+
+// HEADER
 
 header
-	:
-		(comment|version)* 
-	;
+  :
+  (comment)* version? NEWLINE
+  ;
+ 
+version
+  :
+  VERSION tapProtocolVersion=POSITIVE_INTEGER (comment)*
+  ; 
 
 comment
-	:
-	'#' value=STRING { this.commentsList.add($value.getText()); }
-	;
-
-version : 'TAP' {System.out.println("Achou a versao!");};
-
-STRING 	: ('a'..'z' | 'A'..'Z' | ' ')+ ;
-NUMBER  : ('0'..'9')+;
-//WS : (' ' |'\t' | '\r' | '\n' | '\f')+ {skip();} ;
-WS
-  : ( ' '
-    | '\t'
-    | '\f'
-
-    // handle newlines
-    | ( '\r\n'  // DOS/Windows
-      | '\r'    // Macintosh
-      | '\n'    // Unix
-      )
-      // increment the line count in the scanner
-      { System.out.println("Whoopie!");  }
-    )
-    { $channel=HIDDEN; }
+  :
+  SHARP (SHARP|STRING)* NEWLINE
   ;
+
+// PLAN
+
+plan
+  :
+  (comment)* ( planSimple | planTodo | planSkipAll )
+  ;
+
+planSimple
+  :
+  STRING+
+  ;
+
+planSkipAll
+  :
+  PLAN_SKIP_PREFIX SKIP reason (comment)*
+  ;
+
+reason
+  :
+  STRING+
+  ;
+// !!! OBSOLETE
+planTodo
+  :
+  planSimple TODO (comment)*
+  ;
+
+// EXTRA TOKENS
+
+POSITIVE_INTEGER
+  :
+  ('1'..'9') ('0'..'9')*
+  ;
+
+INTEGER
+  :
+  ('0'..'9')+
+  ;
+  
+STRING
+  :
+  ('a'..'z'|'A'..'Z'|'0'..'9'|'.')+
+  ;
+
+NEWLINE
+    : '\r' | '\n' {skip();}
+    ;
+
+WS
+    : (' '|'\r'|'\t'|'\u000C'|'\n') {$channel=HIDDEN;} 
+    ;
+
+

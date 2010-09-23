@@ -42,21 +42,24 @@ public interface TapConsumer
 	 * 
 	 * @param testResult Test Result line
 	 */
-	public void parseLine( String testResult );
+	public void parseLine( String testResult ) 
+	throws TapParserException;
 	
 	/**
 	 * Parses a Tap Stream.
 	 * 
 	 * @param tapStream Tap Stream
 	 */
-	public void parseTapStream( String tapStream );
+	public void parseTapStream( String tapStream ) 
+	throws TapParserException;
 	
 	/**
 	 * Parses a Tap File.
 	 * 
 	 * @param tapFile Tap File
 	 */
-	public void parseFile( File tapFile );
+	public void parseFile( File tapFile ) 
+	throws TapParserException;
 	
 	/* -- Test Execution information methods -- */
 	
@@ -105,6 +108,11 @@ public interface TapConsumer
 	 * @return List of Test Results
 	 */
 	public List<TestResult> getListOfTestResults();
+	
+	/**
+	 * @return true if any not ok occurred
+	 */
+	public Boolean containsNotOk();
 	
 	/**
 	 * @return true if the Stream contains any Bail Out expression

@@ -41,7 +41,7 @@ tokens
 
 tapFile
 	:
-	header? plan EOF
+	header?  plan body footer EOF
 	;
 
 // HEADER
@@ -53,47 +53,66 @@ header
  
 version
   :
-  VERSION tapProtocolVersion=POSITIVE_INTEGER (comment)*
+  VERSION tapProtocolVersion=POSITIVE_INTEGER (comment)* EOF
   ; 
 
 comment
   :
-  SHARP (SHARP|STRING)* NEWLINE
+  SHARP (SHARP|STRING)* (NEWLINE | EOF)
   ;
 
 // PLAN
 
 plan
   :
-  (comment)* ( planSimple | planTodo | planSkipAll )
+  //(comment)* ( planSimple | planTodo | planSkipAll )
+  (comment)* ( planSimple | planSkipAll ) EOF
   ;
 
 planSimple
   :
-  STRING+
+  STRING+ ( NEWLINE | EOF )
   ;
 
 planSkipAll
   :
-  PLAN_SKIP_PREFIX SKIP reason (comment)*
+  PLAN_SKIP_PREFIX SKIP reason (comment)* EOF
   ;
 
 reason
   :
-  STRING+
+  STRING+ EOF
   ;
 // !!! OBSOLETE
-planTodo
-  :
-  planSimple TODO (comment)*
-  ;
+//planTodo
+//  :
+//  planSimple TODO (comment)* NEWLINE
+//  ;
+
+// BODY
+body 
+	:	
+	(comment)* (testResult)? NEWLINE
+	;
+	
+testResult
+	:	status POSITIVE_INTEGER? description? EOF;
+	
+description
+	:	STRING+ EOF;
+	
+status 
+	:	(OK | NOT_OK) EOF;
+	
+footer
+	:	comment? EOF;
 
 // EXTRA TOKENS
 
 POSITIVE_INTEGER
   :
-  ('1'..'9') ('0'..'9')*
-  ;
+  '1'..'9'+ ('.' '0'..'9'+)? EOF
+  ; 
 
 INTEGER
   :
@@ -106,7 +125,7 @@ STRING
   ;
 
 NEWLINE
-    : '\r' | '\n' {skip();}
+    : '\r' | '\n' {$channel=HIDDEN;}
     ;
 
 WS

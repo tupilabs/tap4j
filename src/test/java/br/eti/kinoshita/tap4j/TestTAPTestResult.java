@@ -65,7 +65,7 @@ extends Assert
 		
 		assertTrue( okTestResult.getTestNumber() > 0 );
 		
-		assertEquals( okTestResult.getTestStatus(), StatusValues.OK );
+		assertEquals( okTestResult.getStatus(), StatusValues.OK );
 		
 		assertNull( okTestResult.getDirective() );
 		
@@ -83,7 +83,7 @@ extends Assert
 		
 		assertTrue ( notOkTestResult.getTestNumber() > 0 );
 		
-		assertEquals( notOkTestResult.getTestStatus(), StatusValues.NOT_OK );
+		assertEquals( notOkTestResult.getStatus(), StatusValues.NOT_OK );
 		
 		assertNull ( notOkTestResult.getDirective() );
 		
@@ -101,7 +101,7 @@ extends Assert
 		
 		assertTrue( okTestResultSkip.getTestNumber() > 0 );
 		
-		assertEquals( okTestResultSkip.getTestStatus(), StatusValues.OK );
+		assertEquals( okTestResultSkip.getStatus(), StatusValues.OK );
 		
 		assertNotNull( okTestResultSkip.getDirective() );
 		

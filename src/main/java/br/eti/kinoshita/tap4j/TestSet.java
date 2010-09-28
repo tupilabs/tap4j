@@ -56,7 +56,25 @@ implements Serializable
 	 * @see {@link TestResult}
 	 * @see {@link BailOut}
 	 */
-	private List<TapLine> tapLines;
+	private List<TapLine> tapLines = new ArrayList<TapLine>();
+	
+	/**
+	 * List of Test Results.
+	 * @see {@link TestResult}
+	 */
+	private List<TestResult> testResults = new ArrayList<TestResult>();
+	
+	/**
+	 * List of Bail Outs.
+	 * @see {@link BailOut}
+	 */
+	private List<BailOut> bailOuts = new ArrayList<BailOut>();
+	
+	/**
+	 * List of comments.
+	 * @see {@link Comment}
+	 */
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	/**
 	 * TAP Footer.
@@ -65,20 +83,11 @@ implements Serializable
 	private Footer footer;
 	
 	/**
-	 * List of comments.
-	 * @see {@link Comment}
-	 */
-	private List<Comment> comments;
-	
-	/**
 	 * Default constructor.
 	 */
 	public TestSet()
 	{
 		super();
-		this.tapLines = new ArrayList<TapLine>();
-		this.comments = new ArrayList<Comment>();
-		
 	}
 	
 	/**
@@ -118,10 +127,35 @@ implements Serializable
 	 * or a BailOut.
 	 * @see {@link TestResult}
 	 * @see {@link BailOut}
+	 * @see {@link Comment}
 	 */
 	public List<TapLine> getTapLines()
 	{
 		return this.tapLines;
+	}
+	
+	/**
+	 * @return List of Test Results.
+	 */
+	public List<TestResult> getTestResults()
+	{
+		return this.testResults;
+	}
+	
+	/**
+	 * @return List of Bail Outs.
+	 */
+	public List<BailOut> getBailOuts()
+	{
+		return this.bailOuts;
+	}
+	
+	/**
+	 * @return List of Comments.
+	 */
+	public List<Comment> getComments()
+	{
+		return this.comments;
 	}
 	
 	/**
@@ -130,18 +164,36 @@ implements Serializable
 	 * @param tapLine TAP Line.
 	 * @return True if the TAP Line could be added into the list successfully.
 	 */
-	public boolean addTapLine( TapLine tapLine )
+	protected boolean addTapLine( TapLine tapLine )
 	{
 		return this.tapLines.add( tapLine );
 	}
 	
 	/**
-	 * @param index Index of the TAP Line in the list to be removed.
-	 * @return The removed TAP Line object.
+	 * @param testResult Test Result.
 	 */
-	public TapLine removeTapLine( int index )
+	public boolean addTestResult( TestResult testResult )
 	{
-		return this.tapLines.remove( index );
+		this.testResults.add( testResult );
+		return this.tapLines.add( testResult );
+	}
+	
+	/**
+	 * @param bailOut Bail Out.
+	 */
+	public boolean addBailOut( BailOut bailOut )
+	{
+		this.bailOuts.add( bailOut );
+		return this.tapLines.add( bailOut );
+	}
+	
+	/**
+	 * @param comment Comment.
+	 */
+	public boolean addComment( Comment comment )
+	{
+		this.comments.add( comment );
+		return this.tapLines.add( comment );
 	}
 	
 	/**
@@ -150,17 +202,90 @@ implements Serializable
 	 * @param tapLine TAP Line object.
 	 * @return True if could successfully remove the TAP Line from the list.
 	 */
-	public boolean removeTapLine( TapLine tapLine )
+	protected boolean removeTapLine( TapLine tapLine )
 	{
 		return this.tapLines.remove( tapLine );
 	}
 	
 	/**
-	 * @return Number of TAP Lines.
+	 * Removes a Test Result from the list.
+	 * 
+	 * @param testResult Test Result.
+	 * @return True if could successfully remove the Test Result from the list.
 	 */
-	public int countTapLines()
+	public boolean removeTestResult( TestResult testResult )
+	{
+		if ( this.tapLines.remove( testResult ) )
+		{
+			this.testResults.remove( testResult );
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes a Bail Out from the list.
+	 * 
+	 * @param bailOut Bail Out object.
+	 * @return True if could successfully remove the Bail Out from the list.
+	 */
+	public boolean removeBailOut( BailOut bailOut )
+	{
+		if ( this.tapLines.remove( bailOut ) )
+		{
+			this.bailOuts.remove( bailOut );
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes a Comment from the list.
+	 * 
+	 * @param comment Comment.
+	 * @return True if could successfully remove the Comment from the list.
+	 */
+	public boolean removeComment( Comment comment )
+	{
+		if ( this.tapLines.remove( comment ) )
+		{
+			this.comments.remove( comment );
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @return Number of TAP Lines. It includes Test Results, Bail Outs and 
+	 * Comments (the footer is not included).
+	 */
+	public int getNumberOfTapLines()
 	{
 		return this.tapLines.size();
+	}
+	
+	/**
+	 * @return Number of Test Results.
+	 */
+	public int getNumberOfTestResults()
+	{
+		return this.testResults.size();
+	}
+	
+	/**
+	 * @return Number of Bail Outs.
+	 */
+	public int getNumberOfBailOuts()
+	{
+		return this.bailOuts.size();
+	}
+	
+	/**
+	 * @return Number of Comments.
+	 */
+	public int getNumberOfComments()
+	{
+		return this.comments.size();
 	}
 	
 	/**
@@ -180,51 +305,6 @@ implements Serializable
 	}
 	
 	/**
-	 * @return List of Comments.
-	 */
-	public List<Comment> getComments()
-	{
-		return this.comments;
-	}
-	
-	/**
-	 * Adds a comment.
-	 * 
-	 * @param comment Comment.
-	 * @return True if the Comment could be added into the list successfully.
-	 */
-	public boolean addComment( Comment comment )
-	{
-		return this.comments.add( comment );
-	}
-	
-	/**
-	 * @param index The index of the comment to be removed from the list.
-	 * @return The removed Comment object.
-	 */
-	public Comment removeComment ( int index )
-	{
-		return this.comments.remove( index );
-	}
-	
-	/**
-	 * @param comment Comment.
-	 * @return True if could successfully remove the Comment from the list.
-	 */
-	public boolean removeComment ( Comment comment )
-	{
-		return this.comments.remove( comment );
-	}
-	
-	/**
-	 * @return Number of comments in the List.
-	 */
-	public int countComments()
-	{
-		return this.comments.size();
-	}
-	
-	/**
 	 * @return True if it has any Bail Out statement, false otherwise.
 	 */
 	public boolean hasBailOut()
@@ -241,6 +321,81 @@ implements Serializable
 		}
 		
 		return isBailOut;
+	}
+	
+	/**
+	 * @return Summary of the TAP Stream.
+	 */
+	public String getSummary()
+	{
+		final StringBuffer summary = new StringBuffer();
+		
+		if ( this.header != null )
+		{
+			summary.append( this.header.toString() );
+			summary.append( System.getProperty("line.separator"));
+		}
+		
+		if ( this.plan != null )
+		{
+			summary.append( this.plan.toString() );
+			summary.append( System.getProperty("line.separator"));
+		}
+		
+		Integer numberOfTestResults = this.getNumberOfTestResults();
+		
+		summary.append(numberOfTestResults + " tests.");
+		
+		if( this.getNumberOfBailOuts() > 0 )
+		{
+			summary.append( "Contains Bail out!");
+			summary.append( System.getProperty("line.separator"));
+		}
+		
+		if ( this.footer != null )
+		{
+			summary.append( "Footer: " + footer.getText() );
+			summary.append( System.getProperty("line.separator"));
+		}
+		
+		return summary.toString();
+	}
+	
+	/**
+	 * @return Details of the TAP Stream.
+	 * @see {@link #toString()}
+	 */
+	public String getDetails()
+	{
+		return this.toString();
+	}
+	
+	@Override
+	public String toString()
+	{
+		final StringBuffer sb = new StringBuffer();
+		
+		if ( header != null )
+		{
+			sb.append( header.toString() );
+			sb.append ( System.getProperty("line.separator") );
+		}
+		
+		sb.append( plan.toString() );
+		sb.append ( System.getProperty("line.separator") );
+		
+		for( TapLine tapLine : tapLines )
+		{
+			sb.append( tapLine.toString() );
+			sb.append ( System.getProperty("line.separator") );
+		}
+		
+		if ( footer != null )
+		{
+			sb.append( footer.toString() );
+		}
+		
+		return sb.toString();
 	}
 	
 }

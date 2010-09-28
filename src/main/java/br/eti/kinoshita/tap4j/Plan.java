@@ -50,7 +50,7 @@ implements Serializable
 	/**
 	 * TAP Plan skip. If present the tests should not be executed.
 	 */
-	private PlanSkip skip;
+	private SkipPlan skip;
 	
 	/**
 	 * A comment.
@@ -79,7 +79,7 @@ implements Serializable
 	public Plan( 
 			Integer initialTestNumber, 
 			Integer lastTestNumber, 
-			PlanSkip skip)
+			SkipPlan skip)
 	{
 		this.initialTestNumber = initialTestNumber;
 		this.lastTestNumber = lastTestNumber;
@@ -115,7 +115,7 @@ implements Serializable
 	 * @return Plan Skip with reason.
 	 * @see {@link #isSkip()}
 	 */
-	public PlanSkip getSkip()
+	public SkipPlan getSkip()
 	{
 		return this.skip;
 	}
@@ -125,7 +125,7 @@ implements Serializable
 	 * 
 	 * @param skip Plan Skip. 
 	 */
-	public void setSkip( PlanSkip skip )
+	public void setSkip( SkipPlan skip )
 	{
 		this.skip = skip;
 	}
@@ -167,6 +167,12 @@ implements Serializable
 			sb.append( " skip " );
 			sb.append( this.skip.getReason() );
 		}
+		
+		if ( this.comment != null )
+		{
+			sb.append( this.comment.toString() );
+		}
+		
 		return sb.toString();
 	}
 	

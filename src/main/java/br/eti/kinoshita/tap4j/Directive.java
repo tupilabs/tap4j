@@ -73,7 +73,7 @@ public class Directive
 	@Override
 	public String toString()
 	{
-		return Util.getDirectiveText(directiveValue) + " " + this.reason;
+		return "# " + Util.getDirectiveText(directiveValue) + " " + this.reason;
 	}
 	
 }

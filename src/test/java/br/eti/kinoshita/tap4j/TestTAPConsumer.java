@@ -23,6 +23,8 @@
  */
 package br.eti.kinoshita.tap4j;
 
+import java.io.File;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -31,65 +33,35 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPPlan 
+public class TestTAPConsumer 
 extends Assert
 {
 
-	protected Plan simplePlan;
-	protected Plan skipAllPlan;
-	
-	protected final static Integer initialTestNumber = 1;
-	protected final static Integer lastTestNumber = 3;
-	
-	protected final static String reason = "Function not yet implemented.";
+	protected TapConsumer consumer;
 	
 	@BeforeTest
 	public void setUp()
 	{
-		simplePlan = new Plan(initialTestNumber, lastTestNumber);
-		skipAllPlan = new Plan(initialTestNumber, lastTestNumber, new SkipPlan( reason ));
+		consumer = new DefaultTapConsumer();
 	}
 	
 	@Test
-	public void testSimplePlan()
+	public void testConsumer()
 	{
-		assertTrue( simplePlan != null );
+		try
+		{
+			consumer.parseFile( new File("c:\\tmp\\tap1.t") );
+		} 
+		catch (TapParserException e)
+		{
+			fail("Failed to parse TAP file: " + e.getMessage(), e);
+		}
 		
-		assertEquals( simplePlan.getInitialTestNumber() , initialTestNumber );
+		consumer.printSummary( System.out );
 		
-		assertEquals( simplePlan.getLastTestNumber(), lastTestNumber );
+		System.out.println("\n\n###\n\n");
 		
-		assertNull ( simplePlan.getSkip() );
-		
-		assertFalse( simplePlan.isSkip() );
-		
-		String toStringResult = simplePlan.toString();
-		
-		final String expectedOutput = "1..3";
-		
-		assertEquals( toStringResult ,expectedOutput );
-	}
-	
-	@Test
-	public void testSkipAllPlan()
-	{
-		assertTrue( skipAllPlan != null );
-		
-		assertEquals( skipAllPlan.getInitialTestNumber(), initialTestNumber );
-		
-		assertEquals( skipAllPlan.getLastTestNumber(), lastTestNumber );
-		
-		assertTrue( skipAllPlan.isSkip() );
-		
-		assertNotNull( skipAllPlan.getSkip() );
-		
-		assertEquals( skipAllPlan.getSkip().getReason(), TestTAPPlan.reason);
-		
-		String toStringResult = skipAllPlan.toString();
-		
-		final String expectedOutput = "1..3 skip " + TestTAPPlan.reason;
-		
-		assertEquals( toStringResult ,expectedOutput );
+		consumer.printDetails( System.out );
 	}
 	
 }

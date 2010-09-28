@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,43 @@
  */
 package br.eti.kinoshita.tap4j;
 
+import java.io.Serializable;
+
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapFilter
+public class SkipPlan 
+implements Serializable 
 {
 
+	/**
+	 * The reason for the skip.
+	 */
+	private String reason;
+	
+	/**
+	 * Constructor with parameter.
+	 * 
+	 * @param reason Skip reason.
+	 */
+	public SkipPlan( String reason )
+	{
+		this.reason = reason;
+	}
+	
+	/**
+	 * @return Skip reason.
+	 */
+	public String getReason()
+	{
+		return this.reason;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.reason;
+	}
+	
 }

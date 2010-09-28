@@ -35,9 +35,17 @@ import java.util.List;
 public interface TapConsumer
 {
 
-	public static final String REGEX_TEST_LINE = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|TODO)\\s*([^#]+))?\\s*(#.*)?"; 
+	/* -- Regular expressions -- */
 	
-	public static final String REGEX_TEST_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
+	public static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+).*";
+	
+	public static final String REGEX_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
+	
+	public static final String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|TODO)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
+	
+	public static final String REGEX_BAIL_OUT = "\\s*Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
+	
+	public static final String REGEX_COMMENT = "\\s*#\\s*(.*)";
 	
 	/* -- Reading methods -- */
 	
@@ -46,7 +54,7 @@ public interface TapConsumer
 	 * 
 	 * @param testResult Test Result line
 	 */
-	public void parseLine( String testResult ) 
+	public void parseLine( String tapLine ) 
 	throws TapParserException;
 	
 	/**
@@ -68,69 +76,85 @@ public interface TapConsumer
 	/* -- Test Execution information methods -- */
 	
 	/**
-	 * @return The Header of the Tap File
+	 * @return Header.
 	 */
-	public String getHeader();
+	public Header getHeader();
 	
 	/**
-	 * @return Test Plan
+	 * @return Plan.
 	 */
-	public TestTAPPlan getTestPlan();
-	
-	/**
-	 * @return TAP version
-	 */
-	public Integer getTapVersion();
+	public Plan getPlan();
 
-	/** 
-	 * @return true if the executor should ignore all tests, false otherwise
+	/**
+	 * @return List of TAP Lines.
 	 */
-	public Boolean isSkipAllTests();
+	public List<TapLine> getTapLines();
 	
 	/**
-	 * @return Reason to skip all tests
+	 * @return List of Test Results.
 	 */
-	public String getSkipAllTestsReason();
+	public List<TestResult> getTestResults();
 	
 	/**
-	 * @return Number of tests
+	 * @return List of Bail Outs.
+	 */
+	public List<BailOut> getBailOuts();
+	
+	/**
+	 * @return List of Comments.
+	 */
+	public List<Comment> getComments();
+	
+	/**
+	 * @return Number of TAP Lines.
+	 */
+	public Integer getNumberOfTapLines();
+	
+	/**
+	 * @return Number of Test Results.
 	 */
 	public Integer getNumberOfTestResults();
 	
 	/**
-	 * @return Number of comments
+	 * @return Number of Bail Outs.
+	 */
+	public Integer getNumberOfBailOuts();
+	
+	/**
+	 * @return Number of Comments.
 	 */
 	public Integer getNumberOfComments();
 	
 	/**
-	 * @return List of comments
-	 */
-	public List<Comment> getListOfComments();
-	
-	/**
-	 * @param testNumber Number of test to be retrieved
-	 * @return A single test result
+	 * @param testNumber Number of test to be retrieved.
+	 * @return A single test result.
 	 */
 	public TestResult getTestResult( Integer testNumber );
 	
 	/**
-	 * @return List of Test Results
-	 */
-	public List<TestResult> getListOfTestResults();
-	
-	/**
-	 * @return true if any not ok occurred
+	 * @return true if any not ok occurred.
 	 */
 	public Boolean containsNotOk();
 	
 	/**
-	 * @return true if the Stream contains any Bail Out expression
+	 * @return true if any ok occurred.
+	 */
+	public Boolean containsOk();
+	
+	/**
+	 * @return true if the Stream contains any Bail Outs.
 	 */
 	public Boolean containsBailOut();
 	
-	public List<String> getListOfBailOuts();
+	/**
+	 * @return Footer.
+	 */
+	public Footer getFooter();
 	
-	public String getFooter();
+	/**
+	 * @return Test Set.
+	 */
+	public TestSet getTestSet();
 	
 	/* -- Output methods -- */
 	

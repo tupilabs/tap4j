@@ -33,7 +33,7 @@ implements TapLine
 	/**
 	 * Test Status (OK, NOT OK).
 	 */
-	private StatusValues testStatus;
+	private StatusValues status;
 
 	/**
 	  * Test Number.
@@ -51,29 +51,34 @@ implements TapLine
 	private Directive directive;
 
 	/**
+	 * Comment.
+	 */
+	private Comment comment;
+	
+	/**
 	 * Constructor with parameter.
 	 * 
 	 * @param testStatus Status of the test.
 	 */
 	public TestResult( StatusValues testStatus )
 	{
-		this.testStatus = testStatus;
+		this.status = testStatus;
 	}
 
 	/**
 	 * @return Status of the test.
 	 */
-	public StatusValues getTestStatus()
+	public StatusValues getStatus()
 	{
-		return this.testStatus;
+		return this.status;
 	}
 
 	/**
-	 * @param testStatus Status of the test.
+	 * @param status Status of the test.
 	 */
-	public void setTestStatus( StatusValues testStatus )
+	public void setStatus( StatusValues status )
 	{
-		this.testStatus = testStatus;
+		this.status = status;
 	}
 	
 	/**
@@ -124,17 +129,35 @@ implements TapLine
 		this.directive = directive;
 	}
 	
+	/**
+	 * @return The comment set for this Test Result.
+	 */
+	public Comment getComment()
+	{
+		return this.comment;
+	}
+	
+	/**
+	 * @param comment Comment.
+	 */
+	public void setComment( Comment comment )
+	{
+		this.comment = comment;
+	}
+	
 	@Override
 	public String toString()
 	{
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append( Util.getStatusText(testStatus) );
+		sb.append( Util.getStatusText(status) );
 		
 		Util.appendIfNotNull(sb, " ", testNumber, null);
 		Util.appendIfNotNull(sb, " ", description, null);
 		
-		Util.appendIfNotNull(sb, " # ", directive, null);
+		Util.appendIfNotNull(sb, null, directive, null);
+		
+		Util.appendIfNotNull(sb, null, comment, null);
 		
 		return sb.toString();
 	}

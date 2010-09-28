@@ -81,7 +81,13 @@ implements TapLine
 	@Override
 	public String toString()
 	{
-		return "Bail out!" + ((this.reason != null) ? " " + this.reason : "");
+		StringBuffer sb = new StringBuffer();
+		sb.append( "Bail out!" + ((this.reason != null) ? " " + this.reason : "") );
+		if ( this.comment != null )
+		{
+			sb.append( this.comment.toString() );
+		}
+		return sb.toString();
 	}
 	
 }

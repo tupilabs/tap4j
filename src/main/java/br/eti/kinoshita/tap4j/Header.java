@@ -86,7 +86,16 @@ implements Serializable
 	@Override
 	public String toString()
 	{
-		return "TAP version " + this.version;
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append( "TAP version " + this.version );
+		
+		if ( this.comment != null )
+		{
+			sb.append ( this.comment.toString() );
+		}
+		
+		return sb.toString();
 	}
 	
 }

@@ -23,43 +23,45 @@
  */
 package br.eti.kinoshita.tap4j;
 
-import java.io.Serializable;
-
 /**
+ * An ordinary text. It can be added to the TestSet, however it isn't parsed 
+ * by the TAP Consumer. Used only for debugging, customization or back 
+ * compatibility.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class PlanSkip 
-implements Serializable 
+public class Text 
+implements TapLine
 {
 
 	/**
-	 * The reason for the skip.
+	 * Value of Text.
 	 */
-	private String reason;
+	private final String value;
 	
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param reason Skip reason.
+	 * @param value String value.
 	 */
-	public PlanSkip( String reason )
+	public Text( String value )
 	{
-		this.reason = reason;
+		this.value = value;
 	}
 	
 	/**
-	 * @return Skip reason.
+	 * @return Value of the String.
 	 */
-	public String getReason()
+	public String getValue()
 	{
-		return this.reason;
+		return this.value;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return this.reason;
+		return this.value;
 	}
 	
 }

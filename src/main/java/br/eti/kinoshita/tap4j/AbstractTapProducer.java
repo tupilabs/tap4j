@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract Tap Producer. Implements few basic methods.
+ * Abstract TAP Producer. Implements few basic methods.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0

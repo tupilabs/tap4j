@@ -46,8 +46,13 @@ extends AbstractTapConsumer
 	protected Pattern bailOutREGEX = Pattern.compile ( REGEX_BAIL_OUT );
 	protected Pattern commentREGEX = Pattern.compile ( REGEX_COMMENT );
 	
-	boolean headerAlreadySet = false;
-	boolean planAlreadySet = false;
+	boolean isFirstLine = true;
+	
+	boolean isHeaderSet = false;
+	boolean isPlanSet = false;
+	
+	// Helper String to check the Footer
+	String lastLine = null;
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseLine(java.lang.String)
@@ -60,13 +65,19 @@ extends AbstractTapConsumer
 			return;
 		}
 		
+		lastLine = tapLine;
+		
 		Matcher matcher = null;
 		
 		// Header 
 		matcher = headerREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
+			
+			this.checkTAPHeaderParsingLocationAndDuplicity();
+			
 			this.extractHeader ( tapLine, matcher );
+			this.isFirstLine = false;
 			return;
 		}
 		
@@ -74,7 +85,11 @@ extends AbstractTapConsumer
 		matcher = planREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
+			
+			this.checkTAPPlanDuplicity();
+			
 			this.extractPlan ( tapLine, matcher);
+			this.isFirstLine = false;
 			return;
 		}
 		
@@ -102,8 +117,39 @@ extends AbstractTapConsumer
 			return;
 		}
 		
+		// Any text. It should not be parsed by the consumer.
 		final Text text = new Text( tapLine );
 		this.tapLines.add( text );
+	}
+
+	/**
+	 * Checks the Header location and duplicity. The Header must be the first 
+	 * element and cannot occurs more than on time. However the Header is 
+	 * optional.
+	 */
+	private void checkTAPHeaderParsingLocationAndDuplicity() 
+	throws TapParserException
+	{
+		if ( isHeaderSet )
+		{
+			throw new TapParserException( "Duplicated TAP Header found." );
+		}
+		if ( ! isFirstLine )
+		{
+			throw new TapParserException( "Invalid position of TAP Header. It must be the first element (apart of Comments) in the TAP Stream." );
+		}
+	}
+	
+	/**
+	 * Checks if there are more than one TAP Plan in the TAP Stream. 
+	 */
+	private void checkTAPPlanDuplicity() 
+	throws TapParserException
+	{
+		if ( isPlanSet )
+		{
+			throw new TapParserException( "Duplicated TAP Plan found." );
+		}
 	}
 
 	/**
@@ -250,6 +296,39 @@ extends AbstractTapConsumer
 		this.comments.add( comment );
 		this.tapLines.add( comment );
 	}
+	
+	/**
+	 * <p>This method should be called if you want to check if the last line of 
+	 * the TAP Stream is a Comment. Then this line will be our Footer.</p>
+	 * 
+	 * <p>When this method is called if the last line is a comment, 
+	 * the footer is probably already present in comments and taplines lists. 
+	 * So this method removes the footer from comments and taplines lists 
+	 * and sets the TAP Stream footer.</p>
+	 */
+	private void extractFooter()
+	{
+		if ( lastLine != null )
+		{
+			// Comment
+			Matcher matcher = commentREGEX.matcher( lastLine );
+			if ( matcher.matches() )
+			{
+				String text = matcher.group ( 1 );
+				Comment comment = new Comment ( text );
+				
+				if ( this.comments.contains( comment ) )
+				{
+					this.comments.remove( comment );
+					this.tapLines.remove( comment );
+				}
+				
+				Footer footer = new Footer( text );
+				this.footer = footer;
+				
+			}
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseTapStream(java.lang.String)
@@ -268,6 +347,8 @@ extends AbstractTapConsumer
 				line = scanner.nextLine();
 				this.parseLine( line );
 			}
+			
+			this.extractFooter();
 		} 
 		catch ( Exception e )
 		{
@@ -299,6 +380,8 @@ extends AbstractTapConsumer
 				line = scanner.nextLine();
 				this.parseLine( line );
 			}
+			
+			this.extractFooter();
 		} 
 		catch ( Exception e )
 		{

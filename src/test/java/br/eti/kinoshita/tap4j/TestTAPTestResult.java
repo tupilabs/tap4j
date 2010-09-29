@@ -107,8 +107,8 @@ extends Assert
 		
 		String toStringResult = okTestResultSkip.toString();
 		
-		final String expectedValue = "ok " + okTestResultSkip.getTestNumber() + 
-					" # " + okTestResultSkip.getDirective();
+		final String expectedValue = "ok " + okTestResultSkip.getTestNumber() 
+		+ okTestResultSkip.getDirective();
 		
 		assertEquals( toStringResult, expectedValue );
 	}

@@ -21,11 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j;
+package br.eti.kinoshita.tap4j.model;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.model.Directive;
+import br.eti.kinoshita.tap4j.model.TestResult;
+import br.eti.kinoshita.tap4j.util.DirectiveValues;
+import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
  * Tests Test Results and Directives/Status.

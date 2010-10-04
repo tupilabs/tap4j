@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,48 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+package br.eti.kinoshita.tap4j.util;
 
 /**
+ * Test Directive value. Valid values are SKIP and TOD O, represent respectively
+ * "SKIP" and "TOD O". (Extra space added purposefully to avoid task scanning
+ * problems).
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapProducer 
-extends Assert
+public enum DirectiveValues
 {
-	
-	private static final Integer TAP_VERSION = 13;
-	private TapProducer tapProducer;
-	
-	@BeforeMethod
-	public void setUp()
-	{
-		tapProducer = new DefaultTapProducer( );
-		Header header = new Header( TAP_VERSION );
-		tapProducer.setHeader(header);
-		Plan plan = new Plan(1, 3);
-		tapProducer.setPlan(plan);
-		Comment singleComment = new Comment( "Starting tests" );
-		tapProducer.addComment( singleComment );
-		
-		TestResult tr1 = new TestResult(StatusValues.OK);
-		tapProducer.addTestResult(tr1);
-		
-		TestResult tr2 = new TestResult(StatusValues.NOT_OK);
-		tr2.setTestNumber(2);
-		tapProducer.addTestResult(tr2);
-		
-		tapProducer.addFooter( new Footer("End") );
-	}
-	
-	@Test
-	public void testTapProducer()
-	{
-		tapProducer.printTo( System.out );
-	}
-	
+	SKIP, TODO
 }

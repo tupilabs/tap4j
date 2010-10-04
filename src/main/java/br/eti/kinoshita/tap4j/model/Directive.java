@@ -21,42 +21,62 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j;
+package br.eti.kinoshita.tap4j.model;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import br.eti.kinoshita.tap4j.util.DirectiveValues;
+import br.eti.kinoshita.tap4j.util.Util;
 
 /**
+ * Represents a Test Directive. Usually it would be a TODO or SKIP directive.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPHeader 
-extends Assert
+public class Directive
 {
 
-	protected Header header;
+	/**
+	 * Directive Value (TODO, SKIP).
+	 */
+	private final DirectiveValues directiveValue;
 	
-	protected final static Integer version = 13;
+	/**
+	 * Reason for the directive.
+	 */
+	private final String reason;
 	
-	@BeforeTest
-	public void setUp()
+	/**
+	 * Constructor with parameters.
+	 * 
+	 * @param directiveValue Directive Value.
+	 * @param reason Reason for the directive.
+	 */
+	public Directive( DirectiveValues directiveValue, String reason )
 	{
-		this.header = new Header( version );
+		this.directiveValue = directiveValue;
+		this.reason = reason;
 	}
 	
-	@Test
-	public void testHeader()
+	/**
+	 * @return Directive Value.
+	 */
+	public DirectiveValues getDirectiveValue()
 	{
-		assertNotNull( this.header );
-		
-		assertEquals( this.header.getVersion(), TestTAPHeader.version );
-		
-		final String expectedOutput = "TAP version " + TestTAPHeader.version ;
-		
-		String toStringResult = this.header.toString();
-		
-		assertEquals( expectedOutput, toStringResult );
+		return this.directiveValue;
+	}
+	
+	/**
+	 * @return Reason for the directive.
+	 */
+	public String getReason()
+	{
+		return this.reason;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "# " + Util.getDirectiveText(directiveValue) + " " + this.reason;
 	}
 	
 }

@@ -21,47 +21,82 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j;
+package br.eti.kinoshita.tap4j.model;
 
-import java.io.File;
+import java.io.Serializable;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 /**
+ * TAP Header. Each TAP File has at most one header in the beginning of it. The 
+ * only thing that can precede the Header are comments. However a Header is not 
+ * required in a TAP File (i.e. the Header is optional).
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPConsumer 
-extends Assert
+public class TapHeader 
+implements Serializable
 {
-
-	protected TapConsumer consumer;
 	
-	@BeforeTest
-	public void setUp()
+	/**
+	 * TAP file version.
+	 */
+	private Integer version;
+	
+	/**
+	 * Header optional comment.
+	 */
+	private Comment comment;
+	
+	/**
+	 * Constructor with parameter.
+	 * 
+	 * @param version TAP file version.
+	 */
+	public TapHeader( Integer version )
 	{
-		consumer = new DefaultTapConsumer();
+		this.version = version;
 	}
 	
-	@Test
-	public void testConsumer()
+	/**
+	 * @return The TAP file version.
+	 */
+	public Integer getVersion()
 	{
-		try
+		return this.version;
+	}
+	
+	/**
+	 * @return Header comment.
+	 */
+	public Comment getComment()
+	{
+		return this.comment;
+	}
+	
+	/**
+	 * Sets a comment into the Header.
+	 * 
+	 * @param comment Header comment.
+	 */
+	public void setComment( Comment comment )
+	{
+		this.comment = comment;
+	}
+	
+	@Override
+	public String toString()
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append( "TAP version " + this.version );
+		
+		if ( this.comment != null )
 		{
-			consumer.parseFile( new File("c:\\tmp\\tap1.t") );
-		} 
-		catch (TapParserException e)
-		{
-			fail("Failed to parse TAP file: " + e.getMessage(), e);
+			sb.append ( this.comment.toString() );
 		}
 		
-		consumer.printSummary( System.out );
-		
-		System.out.println("\n\n###\n\n");
-		
-		consumer.printDetails( System.out );
+		return sb.toString();
 	}
 	
 }

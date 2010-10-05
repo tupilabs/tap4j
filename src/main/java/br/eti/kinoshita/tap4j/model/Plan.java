@@ -34,7 +34,7 @@ import java.io.Serializable;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TapPlan 
+public class Plan 
 implements Serializable
 {
 
@@ -64,7 +64,7 @@ implements Serializable
 	 * @param initialTestNumber Initial test number (usually is 1).
 	 * @param lastTestNumber Last test number (may be 0 if to skip all tests).
 	 */
-	public TapPlan( Integer initialTestNumber, Integer lastTestNumber )
+	public Plan( Integer initialTestNumber, Integer lastTestNumber )
 	{
 		this.initialTestNumber = initialTestNumber;
 		this.lastTestNumber = lastTestNumber;
@@ -77,7 +77,7 @@ implements Serializable
 	 * @param lastTestNumber Last test number (may be 0 if to skip all tests).
 	 * @param skip Plan skip with a reason.
 	 */
-	public TapPlan( 
+	public Plan( 
 			Integer initialTestNumber, 
 			Integer lastTestNumber, 
 			SkipPlan skip)

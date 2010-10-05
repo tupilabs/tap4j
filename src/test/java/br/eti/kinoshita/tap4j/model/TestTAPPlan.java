@@ -27,9 +27,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.model.TapPlan;
-import br.eti.kinoshita.tap4j.model.SkipPlan;
-
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
@@ -38,8 +35,8 @@ public class TestTAPPlan
 extends Assert
 {
 
-	protected TapPlan simplePlan;
-	protected TapPlan skipAllPlan;
+	protected Plan simplePlan;
+	protected Plan skipAllPlan;
 	
 	protected final static Integer initialTestNumber = 1;
 	protected final static Integer lastTestNumber = 3;
@@ -49,8 +46,8 @@ extends Assert
 	@BeforeTest
 	public void setUp()
 	{
-		simplePlan = new TapPlan(initialTestNumber, lastTestNumber);
-		skipAllPlan = new TapPlan(initialTestNumber, lastTestNumber, new SkipPlan( reason ));
+		simplePlan = new Plan(initialTestNumber, lastTestNumber);
+		skipAllPlan = new Plan(initialTestNumber, lastTestNumber, new SkipPlan( reason ));
 	}
 	
 	@Test

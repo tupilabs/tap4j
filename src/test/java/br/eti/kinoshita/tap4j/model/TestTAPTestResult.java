@@ -27,8 +27,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.model.Directive;
-import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.util.DirectiveValues;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 

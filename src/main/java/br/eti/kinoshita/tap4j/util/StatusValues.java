@@ -32,5 +32,21 @@ package br.eti.kinoshita.tap4j.util;
  */
 public enum StatusValues
 {
-	OK, NOT_OK
+	OK("ok"), NOT_OK("not ok");
+	
+	private String textValue;
+	
+	StatusValues(String textValue)
+	{
+		this.textValue = textValue;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() 
+	{
+		return this.textValue;
+	}
 }

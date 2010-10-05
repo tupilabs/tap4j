@@ -23,40 +23,16 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import java.io.Serializable;
 
 /**
+ * A TAP Line. A TAP line represents a TestResult or a BailOut.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPHeader 
-extends Assert
+public interface TapResult 
+extends Serializable
 {
 
-	protected Header header;
-	
-	protected final static Integer version = 13;
-	
-	@BeforeTest
-	public void setUp()
-	{
-		this.header = new Header( version );
-	}
-	
-	@Test
-	public void testHeader()
-	{
-		assertNotNull( this.header );
-		
-		assertEquals( this.header.getVersion(), TestTAPHeader.version );
-		
-		final String expectedOutput = "TAP version " + TestTAPHeader.version ;
-		
-		String toStringResult = this.header.toString();
-		
-		assertEquals( expectedOutput, toStringResult );
-	}
-	
 }

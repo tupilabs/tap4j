@@ -28,13 +28,12 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-import br.eti.kinoshita.tap4j.TapParserException;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
-import br.eti.kinoshita.tap4j.model.TapTail;
-import br.eti.kinoshita.tap4j.model.TapHeader;
-import br.eti.kinoshita.tap4j.model.TapPlan;
-import br.eti.kinoshita.tap4j.model.TapStatement;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 
@@ -76,17 +75,17 @@ public interface TapConsumer
 	/**
 	 * @return Header.
 	 */
-	public TapHeader getHeader();
+	public Header getHeader();
 	
 	/**
 	 * @return Plan.
 	 */
-	public TapPlan getPlan();
+	public Plan getPlan();
 
 	/**
 	 * @return List of TAP Lines.
 	 */
-	public List<TapStatement> getTapLines();
+	public List<TapResult> getTapLines();
 	
 	/**
 	 * @return List of Test Results.
@@ -147,7 +146,7 @@ public interface TapConsumer
 	/**
 	 * @return Footer.
 	 */
-	public TapTail getFooter();
+	public Footer getFooter();
 	
 	/**
 	 * @return Test Set.

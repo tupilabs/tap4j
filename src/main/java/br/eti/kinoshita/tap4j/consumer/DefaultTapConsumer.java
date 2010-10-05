@@ -31,15 +31,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.eti.kinoshita.tap4j.TapParserException;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Directive;
-import br.eti.kinoshita.tap4j.model.TapTail;
-import br.eti.kinoshita.tap4j.model.TapHeader;
-import br.eti.kinoshita.tap4j.model.TapPlan;
 import br.eti.kinoshita.tap4j.model.SkipPlan;
-import br.eti.kinoshita.tap4j.model.TapStatement;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.model.Text;
@@ -190,7 +189,7 @@ extends AbstractTapConsumer
 	{
 		final Integer version = Integer.parseInt( matcher.group( 1 ) );
 		
-		final TapHeader header = new TapHeader( version );
+		final Header header = new Header( version );
 		
 		final String commentToken = matcher.group( 2 );
 		
@@ -214,8 +213,8 @@ extends AbstractTapConsumer
 		Integer lastTest = Integer.parseInt( matcher.group(3) );
 		
 		
-		TapPlan plan = null;
-		plan = new TapPlan( initialTest, lastTest );
+		Plan plan = null;
+		plan = new Plan( initialTest, lastTest );
 		
 		String skipToken = matcher.group(4);
 		if ( skipToken != null )
@@ -351,7 +350,7 @@ extends AbstractTapConsumer
 					this.tapLines.remove( comment );
 				}
 				
-				TapTail footer = new TapTail( text );
+				Footer footer = new Footer( text );
 				this.footer = footer;
 				
 			}
@@ -458,8 +457,8 @@ extends AbstractTapConsumer
 		{
 			pw.println( testSet.getPlan().toString() );
 		}
-		List<TapStatement> tapLines = testSet.getTapLines();
-		for ( TapStatement tapLine :  tapLines)
+		List<TapResult> tapLines = testSet.getTapLines();
+		for ( TapResult tapLine :  tapLines)
 		{
 			pw.println( tapLine.toString() );
 		}
@@ -483,8 +482,8 @@ extends AbstractTapConsumer
 		{
 			ps.println( testSet.getPlan().toString() );
 		}
-		List<TapStatement> tapLines = testSet.getTapLines();
-		for ( TapStatement tapLine :  tapLines)
+		List<TapResult> tapLines = testSet.getTapLines();
+		for ( TapResult tapLine :  tapLines)
 		{
 			ps.println( tapLine.toString() );
 		}

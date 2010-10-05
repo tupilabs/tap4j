@@ -33,5 +33,22 @@ package br.eti.kinoshita.tap4j.util;
  */
 public enum DirectiveValues
 {
-	SKIP, TODO
+	SKIP ("SKIP"), TODO ("TODO");
+	
+	private String textValue;
+	
+	DirectiveValues(String textValue)
+	{
+		this.textValue = textValue;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() 
+	{
+		return this.textValue;
+	}
+	
 }

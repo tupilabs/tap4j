@@ -29,10 +29,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.TapParserException;
-import br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer;
-import br.eti.kinoshita.tap4j.consumer.TapConsumer;
-
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0

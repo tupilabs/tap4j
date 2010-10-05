@@ -32,7 +32,7 @@ package br.eti.kinoshita.tap4j.model;
  * @since 1.0
  */
 public class Comment 
-implements TapStatement 
+implements TapResult 
 {
 
 	/**

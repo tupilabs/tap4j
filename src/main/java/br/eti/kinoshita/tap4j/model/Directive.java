@@ -24,7 +24,6 @@
 package br.eti.kinoshita.tap4j.model;
 
 import br.eti.kinoshita.tap4j.util.DirectiveValues;
-import br.eti.kinoshita.tap4j.util.Util;
 
 /**
  * Represents a Test Directive. Usually it would be a TODO or SKIP directive.
@@ -76,7 +75,7 @@ public class Directive
 	@Override
 	public String toString()
 	{
-		return "# " + Util.getDirectiveText(directiveValue) + " " + this.reason;
+		return "# " + directiveValue + " " + this.reason;
 	}
 	
 }

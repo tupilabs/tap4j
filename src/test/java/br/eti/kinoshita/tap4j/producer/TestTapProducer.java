@@ -23,20 +23,15 @@
  */
 package br.eti.kinoshita.tap4j.producer;
 
-import java.io.PrintStream;
-import java.io.StringWriter;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import br.eti.kinoshita.tap4j.model.Comment;
-import br.eti.kinoshita.tap4j.model.TapTail;
-import br.eti.kinoshita.tap4j.model.TapHeader;
-import br.eti.kinoshita.tap4j.model.TapPlan;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
-import br.eti.kinoshita.tap4j.producer.DefaultTapProducer;
-import br.eti.kinoshita.tap4j.producer.TapProducer;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
@@ -54,9 +49,9 @@ extends Assert
 	public void setUp()
 	{
 		tapProducer = new DefaultTapProducer( );
-		TapHeader header = new TapHeader( TAP_VERSION );
+		Header header = new Header( TAP_VERSION );
 		tapProducer.setHeader(header);
-		TapPlan plan = new TapPlan(1, 3);
+		Plan plan = new Plan(1, 3);
 		tapProducer.setPlan(plan);
 		Comment singleComment = new Comment( "Starting tests" );
 		tapProducer.addComment( singleComment );
@@ -68,7 +63,7 @@ extends Assert
 		tr2.setTestNumber(2);
 		tapProducer.addTestResult(tr2);
 		
-		tapProducer.addFooter( new TapTail("End") );
+		tapProducer.addFooter( new Footer("End") );
 	}
 	
 	@Test

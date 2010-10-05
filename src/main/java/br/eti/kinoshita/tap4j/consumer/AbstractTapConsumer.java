@@ -28,10 +28,10 @@ import java.util.List;
 
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
-import br.eti.kinoshita.tap4j.model.TapTail;
-import br.eti.kinoshita.tap4j.model.TapHeader;
-import br.eti.kinoshita.tap4j.model.TapPlan;
-import br.eti.kinoshita.tap4j.model.TapStatement;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.util.StatusValues;
@@ -56,17 +56,17 @@ implements TapConsumer
 	/**
 	 * Header.
 	 */
-	protected TapHeader header;
+	protected Header header;
 	
 	/**
 	 * Plan.
 	 */
-	protected TapPlan plan;
+	protected Plan plan;
 	
 	/**
 	 * List of TAP Lines (test results, bail outs and comments).
 	 */
-	protected List<TapStatement> tapLines = new ArrayList<TapStatement>();
+	protected List<TapResult> tapLines = new ArrayList<TapResult>();
 	
 	/**
 	 * List of Test Results.
@@ -86,12 +86,12 @@ implements TapConsumer
 	/**
 	 * Footer.
 	 */
-	protected TapTail footer;
+	protected Footer footer;
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getHeader()
 	 */
-	public TapHeader getHeader()
+	public Header getHeader()
 	{
 		return this.header;
 	}
@@ -99,7 +99,7 @@ implements TapConsumer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getPlan()
 	 */
-	public TapPlan getPlan()
+	public Plan getPlan()
 	{
 		return this.plan;
 	}
@@ -107,7 +107,7 @@ implements TapConsumer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTapLines()
 	 */
-	public List<TapStatement> getTapLines()
+	public List<TapResult> getTapLines()
 	{
 		return this.tapLines;
 	}
@@ -236,7 +236,7 @@ implements TapConsumer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getFooter()
 	 */
-	public TapTail getFooter()
+	public Footer getFooter()
 	{
 		return this.footer;
 	}
@@ -248,7 +248,7 @@ implements TapConsumer
 		testSet.setHeader( this.header );
 		testSet.setPlan( this.plan );
 		
-		for ( TapStatement tapLine : tapLines )
+		for ( TapResult tapLine : tapLines )
 		{
 			testSet.addTapLine( tapLine );
 		}

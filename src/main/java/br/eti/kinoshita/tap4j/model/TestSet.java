@@ -41,15 +41,15 @@ implements Serializable
 
 	/**
 	 * TAP Header.
-	 * @see {@link TapHeader}
+	 * @see {@link Header}
 	 */
-	private TapHeader header;
+	private Header header;
 	
 	/**
 	 * TAP Plan.
-	 * @see {@link TapPlan}
+	 * @see {@link Plan}
 	 */
-	private TapPlan plan;
+	private Plan plan;
 	
 	/**
 	 * List of TAP Lines.
@@ -57,7 +57,7 @@ implements Serializable
 	 * @see {@link TestResult}
 	 * @see {@link BailOut}
 	 */
-	private List<TapStatement> tapLines = new ArrayList<TapStatement>();
+	private List<TapResult> tapLines = new ArrayList<TapResult>();
 	
 	/**
 	 * List of Test Results.
@@ -79,9 +79,9 @@ implements Serializable
 	
 	/**
 	 * TAP Footer.
-	 * @see {@link TapTail}
+	 * @see {@link Footer}
 	 */
-	private TapTail footer;
+	private Footer footer;
 	
 	/**
 	 * Default constructor.
@@ -94,7 +94,7 @@ implements Serializable
 	/**
 	 * @return TAP Header.
 	 */
-	public TapHeader getHeader()
+	public Header getHeader()
 	{
 		return this.header;
 	}
@@ -102,7 +102,7 @@ implements Serializable
 	/**
 	 * @param header TAP Header.
 	 */
-	public void setHeader( TapHeader header )
+	public void setHeader( Header header )
 	{
 		this.header = header;
 	}
@@ -110,7 +110,7 @@ implements Serializable
 	/**
 	 * @return TAP Plan.
 	 */
-	public TapPlan getPlan()
+	public Plan getPlan()
 	{
 		return this.plan;
 	}
@@ -118,7 +118,7 @@ implements Serializable
 	/**
 	 * @param plan TAP Plan.
 	 */
-	public void setPlan( TapPlan plan )
+	public void setPlan( Plan plan )
 	{
 		this.plan = plan;
 	}
@@ -130,7 +130,7 @@ implements Serializable
 	 * @see {@link BailOut}
 	 * @see {@link Comment}
 	 */
-	public List<TapStatement> getTapLines()
+	public List<TapResult> getTapLines()
 	{
 		return this.tapLines;
 	}
@@ -165,7 +165,7 @@ implements Serializable
 	 * @param tapLine TAP Line.
 	 * @return True if the TAP Line could be added into the list successfully.
 	 */
-	public boolean addTapLine( TapStatement tapLine )
+	public boolean addTapLine( TapResult tapLine )
 	{
 		return this.tapLines.add( tapLine );
 	}
@@ -203,7 +203,7 @@ implements Serializable
 	 * @param tapLine TAP Line object.
 	 * @return True if could successfully remove the TAP Line from the list.
 	 */
-	protected boolean removeTapLine( TapStatement tapLine )
+	protected boolean removeTapLine( TapResult tapLine )
 	{
 		return this.tapLines.remove( tapLine );
 	}
@@ -292,7 +292,7 @@ implements Serializable
 	/**
 	 * @return Footer
 	 */
-	public TapTail getFooter()
+	public Footer getFooter()
 	{
 		return this.footer;
 	}
@@ -300,7 +300,7 @@ implements Serializable
 	/**
 	 * @param footer Footer
 	 */
-	public void setFooter( TapTail footer )
+	public void setFooter( Footer footer )
 	{
 		this.footer = footer;
 	}
@@ -312,7 +312,7 @@ implements Serializable
 	{
 		boolean isBailOut = false;
 		
-		for ( TapStatement tapLine : tapLines )
+		for ( TapResult tapLine : tapLines )
 		{
 			if ( tapLine instanceof BailOut )
 			{
@@ -385,7 +385,7 @@ implements Serializable
 		sb.append( plan.toString() );
 		sb.append ( System.getProperty("line.separator") );
 		
-		for( TapStatement tapLine : tapLines )
+		for( TapResult tapLine : tapLines )
 		{
 			sb.append( tapLine.toString() );
 			sb.append ( System.getProperty("line.separator") );

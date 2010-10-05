@@ -34,7 +34,7 @@ import java.io.Serializable;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TapHeader 
+public class Header 
 implements Serializable
 {
 	
@@ -53,7 +53,7 @@ implements Serializable
 	 * 
 	 * @param version TAP file version.
 	 */
-	public TapHeader( Integer version )
+	public Header( Integer version )
 	{
 		this.version = version;
 	}

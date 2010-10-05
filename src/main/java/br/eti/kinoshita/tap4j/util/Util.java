@@ -34,54 +34,6 @@ package br.eti.kinoshita.tap4j.util;
 public class Util
 {
 	
-	private static final String STATUS_OK = "ok";
-	private static final String STATUS_NOT_OK = "not ok";
-	private static final String DIRECTIVE_SKIP = "SKIP";
-	private static final String DIRECTIVE_TODO = "TODO";
-	
-	/**
-	 * Returns the text equivalent to the test status.
-	 * @param testStatus
-	 * @return
-	 */
-	public static String getStatusText( StatusValues testStatus )
-	{
-		if ( testStatus == null )
-		{
-			return null;
-		}
-		else if ( testStatus.equals( StatusValues.OK ) )
-		{
-			return STATUS_OK;
-		} 
-		else			
-		{
-			return STATUS_NOT_OK;
-		}
-	}
-	
-	/**
-	 * Returns the text equivalent to the test directive.
-	 * 
-	 * @param testDirective
-	 * @return
-	 */
-	public static String getDirectiveText( DirectiveValues testDirective )
-	{
-		if ( testDirective == null )
-		{
-			return null;
-		}
-		else if ( testDirective.equals( DirectiveValues.SKIP ) )
-		{
-			return DIRECTIVE_SKIP;
-		} 
-		else 		
-		{
-			return DIRECTIVE_TODO;
-		}
-	}
-	
 	/**
 	 * Appends a text to the StringBuffer with a prefix and suffix.
 	 * 

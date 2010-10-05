@@ -29,7 +29,7 @@ package br.eti.kinoshita.tap4j.model;
  * @since 1.0
  * @see {@link Comment}
  */
-public class TapTail 
+public class Footer 
 extends Comment
 {
 
@@ -39,7 +39,7 @@ extends Comment
 	 * @param text Footer text
 	 * @see {@link Comment#Comment(String)}
 	 */
-	public TapTail(String text)
+	public Footer(String text)
 	{
 		super(text);
 	}

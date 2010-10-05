@@ -31,7 +31,7 @@ import br.eti.kinoshita.tap4j.util.Util;
  * @since 1.0
  */
 public class TestResult 
-implements TapStatement
+implements TapResult
 {
 	/**
 	 * Test Status (OK, NOT OK).
@@ -153,7 +153,7 @@ implements TapStatement
 	{
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append( Util.getStatusText(status) );
+		sb.append( status );
 		
 		Util.appendIfNotNull(sb, " ", testNumber, null);
 		Util.appendIfNotNull(sb, " ", description, null);

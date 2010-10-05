@@ -28,10 +28,10 @@ import java.util.List;
 
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
-import br.eti.kinoshita.tap4j.model.TapTail;
-import br.eti.kinoshita.tap4j.model.TapHeader;
-import br.eti.kinoshita.tap4j.model.TapPlan;
-import br.eti.kinoshita.tap4j.model.TapStatement;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 
 /**
@@ -47,28 +47,28 @@ implements TapProducer
 	/**
 	 * Header.
 	 */
-	protected TapHeader header;
+	protected Header header;
 	
 	/**
 	 * Plan.
 	 */
-	protected TapPlan plan;
+	protected Plan plan;
 	
 	/**
 	 * List of Tap Lines.
 	 */
-	protected List<TapStatement> tapLines = new ArrayList<TapStatement>();
+	protected List<TapResult> tapLines = new ArrayList<TapResult>();
 	
 	/**
 	 * Footer.
 	 */
-	protected TapTail footer;
+	protected Footer footer;
 	
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapProducer#setHeader(br.eti.kinoshita.tap4j.Header)
 	 */
-	public void setHeader(TapHeader header) 
+	public void setHeader(Header header) 
 	{
 		this.header = header;
 	}
@@ -76,7 +76,7 @@ implements TapProducer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapProducer#setPlan(br.eti.kinoshita.tap4j.Plan)
 	 */
-	public void setPlan(TapPlan plan) 
+	public void setPlan(Plan plan) 
 	{
 		this.plan = plan;
 	}
@@ -100,7 +100,7 @@ implements TapProducer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapProducer#getTapLines()
 	 */
-	public List<TapStatement> getTapLines() 
+	public List<TapResult> getTapLines() 
 	{
 		return this.tapLines;
 	}
@@ -116,7 +116,7 @@ implements TapProducer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapProducer#addFooter(br.eti.kinoshita.tap4j.Footer)
 	 */
-	public void addFooter(TapTail footer) 
+	public void addFooter(Footer footer) 
 	{
 		this.footer = footer;
 	}

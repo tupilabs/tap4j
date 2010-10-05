@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import br.eti.kinoshita.tap4j.model.TapStatement;
+import br.eti.kinoshita.tap4j.model.TapResult;
 
 /**
  * Default implementation of a TAP Producer. This class implements only methods 
@@ -55,7 +55,7 @@ extends AbstractTapProducer
 		
 		ps.println( plan.toString() );
 		
-		for( TapStatement tapLine : tapLines )
+		for( TapResult tapLine : tapLines )
 		{
 			ps.println( tapLine.toString() );
 		}
@@ -78,7 +78,7 @@ extends AbstractTapProducer
 		
 		pw.println( plan.toString() );
 		
-		for( TapStatement tapLine : tapLines )
+		for( TapResult tapLine : tapLines )
 		{
 			pw.println( tapLine.toString() );
 		}
@@ -108,7 +108,7 @@ extends AbstractTapProducer
 			
 			writer.println( plan.toString() );
 			
-			for( TapStatement tapLine : tapLines )
+			for( TapResult tapLine : tapLines )
 			{
 				writer.println( tapLine.toString() );
 			}

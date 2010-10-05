@@ -1,7 +1,7 @@
-/*
+/* 
  * The MIT License
- *
- * Copyright (c) <2010> <Bruno P. Kinoshita>
+ * 
+ * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
-
-import java.io.Serializable;
+package br.eti.kinoshita.tap4j.consumer;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
- * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 1.0
+ * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ * @since 20/09/2010
  */
-public interface TapStatement 
-extends Serializable
+public class TapParserException extends Exception
 {
+
+	/**
+	 * 
+	 */
+	public TapParserException()
+	{
+	}
+
+	/**
+	 * @param message
+	 */
+	public TapParserException(String message)
+	{
+		super(message);
+	}
+
+	/**
+	 * @param cause
+	 */
+	public TapParserException(Throwable cause)
+	{
+		super(cause);
+	}
+
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public TapParserException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
 
 }

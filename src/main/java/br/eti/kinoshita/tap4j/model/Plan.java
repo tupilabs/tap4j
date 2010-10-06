@@ -37,6 +37,11 @@ import java.io.Serializable;
 public class Plan 
 implements Serializable
 {
+	
+	/**
+	 * Default initial test step.
+	 */
+	private static final Integer INITIAL_TEST_STEP = 1;
 
 	/**
 	 * TAP Plan initial test number.
@@ -68,6 +73,30 @@ implements Serializable
 	{
 		this.initialTestNumber = initialTestNumber;
 		this.lastTestNumber = lastTestNumber;
+	}
+	
+	/**
+	 * Constructor with parameters.
+	 * 
+	 * @param amountOfTests How many tests we have in the plan.
+	 */
+	public Plan( Integer amountOfTests )
+	{
+		this.initialTestNumber = INITIAL_TEST_STEP;
+		this.lastTestNumber = amountOfTests;
+	}
+	
+	/**
+	 * Constructor with parameters
+	 * 
+ 	 * @param amountOfTests How many tests we have in the plan.
+	 * @param skip Plan skip with a reason.
+	 */
+	public Plan(Integer amountOfTests, SkipPlan skip )
+	{
+		this.initialTestNumber = INITIAL_TEST_STEP;
+		this.lastTestNumber = amountOfTests;
+		this.skip = skip;
 	}
 	
 	/**

@@ -3,4 +3,4 @@
 ok 1 
 not ok 2 - IO Error: Couldn't find file "Bug.txt"
 ok 3
-# End of execution
+TAP End of execution

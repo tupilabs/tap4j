@@ -31,6 +31,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Directive;
@@ -85,7 +87,7 @@ extends AbstractTapConsumer
 	public void parseLine( String tapLine ) 
 	throws TapParserException
 	{
-		if ( tapLine == null || tapLine.trim().length() <= 0 )
+		if ( StringUtils.isEmpty( tapLine ) )
 		{
 			return;
 		}

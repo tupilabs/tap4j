@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,23 +23,20 @@
  */
 package br.eti.kinoshita.tap4j.producer;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.commons.lang.StringUtils;
+
+import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.TestResult;
 
 /**
- * Default implementation of a TAP Producer. This class implements only methods 
- * associated to printing the TAP Stream into some kind of media. The rest of 
- * the methods are handled by the Abstract TAP Producer.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
- * @see {@link AbstractTapProducer}
  */
-public class DefaultTapProducer 
-extends AbstractTapProducer
+public class DefaultTapCoreProducer 
+extends DefaultTapProducer
 {
 
 	/* (non-Javadoc)
@@ -47,45 +44,46 @@ extends AbstractTapProducer
 	 */
 	public void printTo(PrintWriter pw) 
 	{
-		if ( header != null )
-		{
-			pw.println( header.toString() );
-		}
+		// Ignore header
+//		if ( header != null )
+//		{
+//			ps.println( header.toString() );
+//		}
 		
-		pw.println( plan.toString() );
+		//ps.println( plan.toString() );
+		Plan plan = new Plan( this.numberOfBailOuts + this.numberOfTestResults );
+		pw.println( plan );
 		
+		int index = 1;
 		for( TapResult tapLine : tapLines )
 		{
-			pw.println( tapLine.toString() );
-		}
-		
-		if ( footer != null )
-		{
-			pw.println( footer.toString() );
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapProducer#printTo(java.io.File)
-	 */
-	public void printTo(File file) 
-	throws IOException
-	{
-		PrintWriter writer = null;		
-		try 
-		{
-			writer = new PrintWriter( file );
-			
-			this.printTo( writer );
-		} 
-		finally 
-		{
-			if ( writer != null )
+			if ( tapLine instanceof TestResult )
 			{
-				writer.close();
+				TestResult testResult = (TestResult) tapLine ;
+				pw.print( testResult.getStatus() );
+				pw.print( " " + index );
+				if ( ! StringUtils.isEmpty( testResult.getDescription() ) ) 
+				{
+					pw.print(" " + testResult.getDescription());
+				}
+				if ( testResult.getDirective() != null )
+				{
+					pw.print(" " + testResult.getDirective().toString());
+				}
+				pw.println();
+				index += 1;
+			}
+			else
+			{
+				pw.println( tapLine );
 			}
 		}
 		
+		// Ignore footer
+//		if ( footer != null )
+//		{
+//			ps.println( footer.toString() );
+//		}
 	}
 	
 }

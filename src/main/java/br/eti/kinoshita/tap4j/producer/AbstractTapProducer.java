@@ -28,10 +28,10 @@ import java.util.List;
 
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TapResult;
-import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 
 /**
@@ -60,6 +60,21 @@ implements TapProducer
 	protected List<TapResult> tapLines = new ArrayList<TapResult>();
 	
 	/**
+	 * Number of Test Results.
+	 */
+	protected Integer numberOfTestResults = 0;
+	
+	/**
+	 * Number of Bail Outs.
+	 */
+	protected Integer numberOfBailOuts = 0;
+	
+	/**
+	 * Number of Comments.
+	 */
+	protected Integer numberOfComments = 0;
+	
+	/**
 	 * Footer.
 	 */
 	protected Footer footer;
@@ -86,7 +101,16 @@ implements TapProducer
 	 */
 	public boolean addTestResult(TestResult testResult) 
 	{
+		this.numberOfTestResults += 1;
 		return this.tapLines.add( testResult );
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.producer.TapProducer#getNumberOfTestResults()
+	 */
+	public Integer getNumberOfTestResults()
+	{
+		return this.numberOfTestResults;
 	}
 	
 	/* (non-Javadoc)
@@ -94,7 +118,16 @@ implements TapProducer
 	 */
 	public boolean addBailOut(BailOut bailOut) 
 	{
+		this.numberOfBailOuts += 1;
 		return this.tapLines.add( bailOut );
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.producer.TapProducer#getNumberOfBailOuts()
+	 */
+	public Integer getNumberOfBailOuts()
+	{
+		return this.numberOfBailOuts;
 	}
 	
 	/* (non-Javadoc)
@@ -110,13 +143,22 @@ implements TapProducer
 	 */
 	public boolean addComment(Comment comment) 
 	{
+		this.numberOfComments += 1;
 		return this.tapLines.add( comment );
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.producer.TapProducer#getNumberOfComments()
+	 */
+	public Integer getNumberOfComments()
+	{
+		return this.numberOfComments;
 	}
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapProducer#addFooter(br.eti.kinoshita.tap4j.Footer)
 	 */
-	public void addFooter(Footer footer) 
+	public void setFooter(Footer footer) 
 	{
 		this.footer = footer;
 	}

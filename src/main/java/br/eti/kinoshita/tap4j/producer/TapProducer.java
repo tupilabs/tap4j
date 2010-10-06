@@ -25,16 +25,15 @@ package br.eti.kinoshita.tap4j.producer;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TapResult;
-import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 
 /**
@@ -66,9 +65,19 @@ public interface TapProducer
 	public boolean addTestResult( TestResult testResult );
 	
 	/**
+	 * @return Number of Test Results.
+	 */
+	public Integer getNumberOfTestResults();
+	
+	/**
 	 * @param bailOut Bail Out.
 	 */
 	public boolean addBailOut( BailOut bailOut );
+	
+	/**
+	 * @return Number of Bail Outs.
+	 */
+	public Integer getNumberOfBailOuts();
 	
 	/**
 	 * @return List of TAP Lines.
@@ -80,21 +89,19 @@ public interface TapProducer
 	 * @param comment Comment.
 	 */
 	public boolean addComment( Comment comment );
+	
+	/**
+	 * @return Number of comments.
+	 */
+	public Integer getNumberOfComments();
 
 	/* -- Footer -- */
 	/**
 	 * @param footer Footer.
 	 */
-	public void addFooter( Footer footer );
+	public void setFooter( Footer footer );
 	
 	/* -- Printing the TAP Stream -- */
-	
-	/**
-	 * Prints the TAP Stream into a Print Stream.
-	 * 
-	 * @param ps The Print Stream.
-	 */
-	public void printTo( PrintStream ps );
 	
 	/**
 	 * Prints the TAP Stream into a Print Writer.

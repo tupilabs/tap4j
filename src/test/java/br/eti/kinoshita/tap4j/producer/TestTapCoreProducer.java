@@ -43,7 +43,7 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapProducer 
+public class TestTapCoreProducer 
 extends Assert
 {
 	
@@ -58,7 +58,7 @@ extends Assert
 	@BeforeTest
 	public void setUp()
 	{
-		tapProducer = new DefaultTapProducer( );
+		tapProducer = new DefaultTapCoreProducer( );
 		Header header = new Header( TAP_VERSION );
 		tapProducer.setHeader(header);
 		Plan plan = new Plan(INITIAL_TEST_STEP, 3);

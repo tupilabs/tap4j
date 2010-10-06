@@ -241,6 +241,9 @@ implements TapConsumer
 		return this.footer;
 	}
 
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestSet()
+	 */
 	public TestSet getTestSet()
 	{
 		testSet = new TestSet();

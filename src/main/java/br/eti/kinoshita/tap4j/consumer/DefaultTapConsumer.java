@@ -36,11 +36,11 @@ import org.apache.commons.lang.StringUtils;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Directive;
-import br.eti.kinoshita.tap4j.model.SkipPlan;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.SkipPlan;
 import br.eti.kinoshita.tap4j.model.TapResult;
-import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.model.Text;
@@ -56,7 +56,7 @@ extends AbstractTapConsumer
 {
 	/* -- Regular expressions -- */
 	
-	public static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+).*";
+	public static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
 	
 	public static final String REGEX_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
 	
@@ -66,20 +66,30 @@ extends AbstractTapConsumer
 	
 	public static final String REGEX_COMMENT = "\\s*#\\s*(.*)";
 	
+	public static final String REGEX_FOOTER = "\\s*TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
+	
 	/* -- REGEX -- */
 	protected Pattern headerREGEX = Pattern.compile( REGEX_HEADER );
 	protected Pattern planREGEX = Pattern.compile( REGEX_PLAN );
 	protected Pattern testResultREGEX = Pattern.compile( REGEX_TEST_RESULT );
 	protected Pattern bailOutREGEX = Pattern.compile ( REGEX_BAIL_OUT );
 	protected Pattern commentREGEX = Pattern.compile ( REGEX_COMMENT );
+	protected Pattern footerREGEX = Pattern.compile ( REGEX_FOOTER );
 	
-	boolean isFirstLine = true;
+	protected boolean isFirstLine = true;
 	
-	boolean isHeaderSet = false;
-	boolean isPlanSet = false;
+	protected boolean isHeaderSet = false;
+	protected boolean isPlanSet = false;
+	
+	protected boolean isPlanBeforeTestResult = false;
 	
 	// Helper String to check the Footer
-	String lastLine = null;
+	protected String lastLine = null;
+	
+	public boolean isPlanBeforeTestResult()
+	{
+		return this.isPlanBeforeTestResult;
+	}
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseLine(java.lang.String)
@@ -92,9 +102,18 @@ extends AbstractTapConsumer
 			return;
 		}
 		
-		lastLine = tapLine;
-		
 		Matcher matcher = null;
+		
+		// Comment
+		matcher = commentREGEX.matcher( tapLine );
+		if ( matcher.matches() )
+		{
+			this.extractComment( tapLine, matcher );
+			return;
+		}
+		
+		// Last line that is not a comment.
+		lastLine = tapLine;
 		
 		// Header 
 		matcher = headerREGEX.matcher( tapLine );
@@ -114,6 +133,8 @@ extends AbstractTapConsumer
 		{
 			
 			this.checkTAPPlanDuplicity();
+			
+			this.checkIfTAPPlanIsSetBeforeTestResultsOrBailOut();
 			
 			this.extractPlan ( tapLine, matcher);
 			this.isFirstLine = false;
@@ -136,17 +157,28 @@ extends AbstractTapConsumer
 			return;
 		}
 		
-		// Comment
-		matcher = commentREGEX.matcher( tapLine );
+		// Footer
+		matcher = footerREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.extractComment( tapLine, matcher );
+			this.extractFooter( tapLine, matcher );
 			return;
 		}
 		
 		// Any text. It should not be parsed by the consumer.
 		final Text text = new Text( tapLine );
 		this.tapLines.add( text );
+	}
+
+	/**
+	 * Checks if the TAP Plan is set before any Test Result or Bail Out.
+	 */
+	private void checkIfTAPPlanIsSetBeforeTestResultsOrBailOut()
+	{
+		if ( this.testResults.size() <= 0 && this.bailOuts.size() <= 0 )
+		{
+			this.isPlanBeforeTestResult = true;
+		}
 	}
 
 	/**
@@ -181,6 +213,28 @@ extends AbstractTapConsumer
 		isPlanSet = true;
 	}
 
+	/**
+	 * This method is called after the TAP Stream has already been parsed. 
+	 * So we just check if the plan was found before test result or bail outs. 
+	 * If so, skip this check. Otherwise, we shall check if the last line 
+	 * is the TAP Plan.
+	 */
+	private void checkTAPPlanPosition() 
+	throws TapParserException
+	{
+		if ( ! this.isPlanBeforeTestResult )
+		{
+			Matcher matcher = planREGEX.matcher( lastLine );
+			
+			if ( matcher.matches() )
+			{
+				return; // OK
+			}
+			
+			throw new TapParserException("Invalid position of TAP Plan.");
+		}
+	}
+	
 	/**
 	 * Extracts the Header from a TAP Line.
 	 * 
@@ -327,36 +381,26 @@ extends AbstractTapConsumer
 	}
 	
 	/**
-	 * <p>This method should be called if you want to check if the last line of 
-	 * the TAP Stream is a Comment. Then this line will be our Footer.</p>
+	 * Simply extracts the footer from the TAP line.
 	 * 
-	 * <p>When this method is called if the last line is a comment, 
-	 * the footer is probably already present in comments and taplines lists. 
-	 * So this method removes the footer from comments and taplines lists 
-	 * and sets the TAP Stream footer.</p>
+	 * @param tapLine TAP line.
+	 * @param matcher REGEX Matcher.
 	 */
-	private void extractFooter()
+	private void extractFooter( String tapLine, Matcher matcher )
 	{
-		if ( lastLine != null )
+		String text = matcher.group ( 1 );				
+		Footer footer = new Footer( text );
+		
+		final String commentToken = matcher.group( 2 );
+		
+		if ( commentToken != null )
 		{
-			// Comment
-			Matcher matcher = commentREGEX.matcher( lastLine );
-			if ( matcher.matches() )
-			{
-				String text = matcher.group ( 1 );
-				Comment comment = new Comment ( text );
-				
-				if ( this.comments.contains( comment ) )
-				{
-					this.comments.remove( comment );
-					this.tapLines.remove( comment );
-				}
-				
-				Footer footer = new Footer( text );
-				this.footer = footer;
-				
-			}
+			String commentText = matcher.group( 3 );
+			final Comment comment = new Comment ( commentText );
+			footer.setComment( comment );
 		}
+		
+		this.footer = footer;
 	}
 
 	/* (non-Javadoc)
@@ -377,7 +421,7 @@ extends AbstractTapConsumer
 				this.parseLine( line );
 			}
 			
-			this.extractFooter();
+			this.checkTAPPlanPosition();
 		} 
 		catch ( Exception e )
 		{
@@ -410,7 +454,7 @@ extends AbstractTapConsumer
 				this.parseLine( line );
 			}
 			
-			this.extractFooter();
+			this.checkTAPPlanPosition();
 		} 
 		catch ( Exception e )
 		{

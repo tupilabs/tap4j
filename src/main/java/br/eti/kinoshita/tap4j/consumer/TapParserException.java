@@ -23,22 +23,28 @@
  */
 package br.eti.kinoshita.tap4j.consumer;
 
+
 /**
+ * This exception is thrown by the Tap Parser ({@link TapConsumer}).
+ * 
  * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * @since 20/09/2010
+ * @see {@link TapConsumer}
  */
 public class TapParserException extends Exception
 {
 
 	/**
-	 * 
+	 * Default constructor.
 	 */
 	public TapParserException()
 	{
 	}
 
 	/**
-	 * @param message
+	 * Constructor with parameter.
+	 * 
+	 * @param message Exception message.
 	 */
 	public TapParserException(String message)
 	{
@@ -46,7 +52,9 @@ public class TapParserException extends Exception
 	}
 
 	/**
-	 * @param cause
+	 * Constructor with parameter.
+	 * 
+	 * @param cause Exception cause.
 	 */
 	public TapParserException(Throwable cause)
 	{
@@ -54,8 +62,10 @@ public class TapParserException extends Exception
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * Constructor with paramters.
+	 * 
+	 * @param message Exception message.
+	 * @param cause Exception cause.
 	 */
 	public TapParserException(String message, Throwable cause)
 	{

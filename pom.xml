@@ -22,8 +22,22 @@
 			<name>Bruno P. Kinoshita</name>
 			<timezone>-3 GMT</timezone>
 			<url>http://www.kinoshita.eti.br</url>
+			<roles>
+				<role>developer</role>
+			</roles>
 		</developer>
 	</developers>
+	
+	<contributors>
+		<contributor>
+			<email>cesarfa83@gmail.com</email>
+			<name>César Fernandes de Almeida</name>
+			<timezone>-3 GMT</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</contributor>
+	</contributors>
 
 	<url>http://sourceforge.net/projects/tap4j/</url>
 

@@ -38,6 +38,8 @@ import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 
 /**
+ * TAP Consumer is the responsible for generating the TAP Stream.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
@@ -155,12 +157,32 @@ public interface TapConsumer
 	
 	/* -- Output methods -- */
 	
+	/**
+	 * Prints the summary of tests to a Print Writer.
+	 * 
+	 * @param pw Print Writer.
+	 */
 	public void printSummary( PrintWriter pw );
 	
+	/**
+	 * Prints the summary of tests to a Print Stream.
+	 * 
+	 * @param ps Print Stream.
+	 */
 	public void printSummary( PrintStream ps );
 	
+	/**
+	 * Prints the details of tests to a Print Writer.
+	 * 
+	 * @param pw Print Writer.
+	 */
 	public void printDetails( PrintWriter pw );
 	
+	/**
+	 * Prints the details of tests to a Print Stream.
+	 * 
+	 * @param ps Print Stream.
+	 */
 	public void printDetails(PrintStream ps);
 	
 }

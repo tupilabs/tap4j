@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="tap4j">
+  <bannerLeft>
+    <name>tap4j</name>
+    <src>images/tap4j-project.png</src>
+    <href>http://sourceforge.net/projects/tap4j/</href>
+  </bannerLeft>
+  <body>
+    <links>
+      <item name="Test Anything homepage" href="http://www.testanything.org" />
+      <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
+    </links>
+
+    <menu name="tap4j">
+      <item name="Introduction" href="index.html"/>
+      <item name="Download" href="files/"/>
+    </menu>
+
+    <menu ref="reports"/>
+
+  </body>
+  
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-stylus-skin</artifactId>
+    <version>1.0</version>
+  </skin>
+  
+</project>

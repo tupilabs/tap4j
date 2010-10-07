@@ -23,6 +23,27 @@
  */
 package br.eti.kinoshita.tap4j;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer;
+import br.eti.kinoshita.tap4j.consumer.TapConsumer;
+import br.eti.kinoshita.tap4j.consumer.TapParserException;
+import br.eti.kinoshita.tap4j.model.Comment;
+import br.eti.kinoshita.tap4j.model.Footer;
+import br.eti.kinoshita.tap4j.model.Header;
+import br.eti.kinoshita.tap4j.model.Plan;
+import br.eti.kinoshita.tap4j.model.TestResult;
+import br.eti.kinoshita.tap4j.producer.DefaultTapProducer;
+import br.eti.kinoshita.tap4j.producer.TapProducer;
+import br.eti.kinoshita.tap4j.util.StatusValues;
+
 /**
  * Test where the producer outputs a tap file and then a consumer reads it and 
  * checks if the values are correct. For example, you create a test with a Test 
@@ -32,7 +53,91 @@ package br.eti.kinoshita.tap4j;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestProduceConsume
+public class TestProduceConsume extends Assert
 {
-
+	private static final Integer TAP_VERSION = 13;
+	private TapProducer tapProducer;
+	private TapConsumer tapConsumer;
+	
+	// Temp file to where we output the generated tap stream.
+	private File tempFile;
+	
+	private static final Integer INITIAL_TEST_STEP = 1;
+	
+	@BeforeTest
+	public void setUp()
+	{
+		tapProducer = new DefaultTapProducer( );
+		tapConsumer = new DefaultTapConsumer();
+		
+		Header header = new Header( TAP_VERSION );
+		tapProducer.setHeader(header);
+		
+		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
+		Comment commentPlan = new Comment("Testing something with a plan that I don´t know exactly what it is about!");
+		plan.setComment(commentPlan);
+		tapProducer.setPlan(plan);
+		
+		Comment singleComment = new Comment( "Starting tests" );
+		tapProducer.addComment( singleComment );
+		
+		TestResult tr1 = new TestResult(StatusValues.OK);
+		tapProducer.addTestResult(tr1);
+		
+		TestResult tr2 = new TestResult(StatusValues.NOT_OK);
+		tapProducer.addTestResult(tr2);
+		
+		TestResult tr3 = new TestResult(StatusValues.OK);
+		Comment commentTr3 = new Comment("Test 3 :)");
+		tr3.setComment(commentTr3);
+		tapProducer.addTestResult(tr3);
+		
+		tapProducer.setFooter( new Footer("End") );
+		
+		try
+		{
+			tempFile = File.createTempFile("tap", "t");
+		} 
+		catch (IOException e)
+		{
+			fail("Failed to create temp file: " + e.getMessage(), e);
+		}
+	}
+	
+	@Test
+	public void testTapProducer()
+	{
+		assertTrue ( tapProducer.getTapLines().size() > 0 );
+		
+		try
+		{
+			tapProducer.printTo( tempFile );
+		}
+		catch ( Exception e  )
+		{
+			fail("Failed to print TAP Stream into file.", e);
+		}
+	}
+	
+	
+	@Test( dependsOnMethods = {"testTapProducer"} )
+	public void testConsumer()
+	{
+		try
+		{
+			tapConsumer.parseFile( tempFile );
+			
+			assertNotNull( tapConsumer.getHeader() );
+			
+			assertNotNull( tapConsumer.getPlan() );
+			
+			assertTrue( tapConsumer.getNumberOfTestResults() == 0);
+			
+			assertNull( tapConsumer.getFooter() );
+		} 
+		catch (TapParserException e)
+		{
+			fail("Failed to parse TAP file: " + e.getMessage(), e);
+		}
+	}
 }

@@ -108,7 +108,7 @@ extends AbstractTapConsumer
 		matcher = commentREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.extractComment( tapLine, matcher );
+			this.extractComment( matcher );
 			return;
 		}
 		
@@ -122,7 +122,7 @@ extends AbstractTapConsumer
 			
 			this.checkTAPHeaderParsingLocationAndDuplicity();
 			
-			this.extractHeader ( tapLine, matcher );
+			this.extractHeader ( matcher );
 			this.isFirstLine = false;
 			return;
 		}
@@ -136,7 +136,7 @@ extends AbstractTapConsumer
 			
 			this.checkIfTAPPlanIsSetBeforeTestResultsOrBailOut();
 			
-			this.extractPlan ( tapLine, matcher);
+			this.extractPlan ( matcher);
 			this.isFirstLine = false;
 			return;
 		}
@@ -145,7 +145,7 @@ extends AbstractTapConsumer
 		matcher = testResultREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.extractTestResult ( tapLine, matcher );
+			this.extractTestResult ( matcher );
 			return;
 		}
 		
@@ -153,7 +153,7 @@ extends AbstractTapConsumer
 		matcher = bailOutREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.extractBailOut( tapLine, matcher );
+			this.extractBailOut( matcher );
 			return;
 		}
 		
@@ -161,7 +161,7 @@ extends AbstractTapConsumer
 		matcher = footerREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.extractFooter( tapLine, matcher );
+			this.extractFooter( matcher );
 			return;
 		}
 		
@@ -238,10 +238,9 @@ extends AbstractTapConsumer
 	/**
 	 * Extracts the Header from a TAP Line.
 	 * 
-	 * @param tapLine TAP Line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractHeader( String tapLine, Matcher matcher )
+	private void extractHeader( Matcher matcher )
 	{
 		final Integer version = Integer.parseInt( matcher.group( 1 ) );
 		
@@ -260,10 +259,9 @@ extends AbstractTapConsumer
 	}
 	
 	/**
-	 * @param tapLine TAP Line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractPlan( String tapLine, Matcher matcher )
+	private void extractPlan( Matcher matcher )
 	{
 		Integer initialTest = Integer.parseInt( matcher.group(1) );
 		Integer lastTest = Integer.parseInt( matcher.group(3) );
@@ -292,10 +290,9 @@ extends AbstractTapConsumer
 	}
 
 	/**
-	 * @param tapLine TAP Line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractTestResult( String tapLine, Matcher matcher )
+	private void extractTestResult( Matcher matcher )
 	{
 		TestResult testResult = null;
 		
@@ -345,10 +342,9 @@ extends AbstractTapConsumer
 	}
 	
 	/**
-	 * @param tapLine TAP Line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractBailOut( String tapLine, Matcher matcher )
+	private void extractBailOut( Matcher matcher )
 	{
 		String reason = matcher.group(1);
 		
@@ -368,10 +364,9 @@ extends AbstractTapConsumer
 	}
 	
 	/**
-	 * @param tapLine TAP Line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractComment( String tapLine, Matcher matcher )
+	private void extractComment( Matcher matcher )
 	{
 		String text = matcher.group ( 1 );
 		Comment comment = new Comment ( text );
@@ -383,10 +378,9 @@ extends AbstractTapConsumer
 	/**
 	 * Simply extracts the footer from the TAP line.
 	 * 
-	 * @param tapLine TAP line.
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractFooter( String tapLine, Matcher matcher )
+	private void extractFooter( Matcher matcher )
 	{
 		String text = matcher.group ( 1 );				
 		Footer footer = new Footer( text );

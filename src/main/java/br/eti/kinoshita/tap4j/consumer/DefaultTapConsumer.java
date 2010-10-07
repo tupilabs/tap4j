@@ -310,9 +310,9 @@ extends AbstractTapConsumer
 			status = StatusValues.NOT_OK;
 		}
 		
-		testResult = new TestResult( status );			
+		Integer testNumber = Integer.parseInt(matcher.group(2));
+		testResult = new TestResult( status, testNumber );			
 		
-		testResult.setTestNumber(Integer.parseInt(matcher.group(2)));
 		testResult.setDescription(matcher.group(3));
 		
 		String directiveToken = matcher.group(4);

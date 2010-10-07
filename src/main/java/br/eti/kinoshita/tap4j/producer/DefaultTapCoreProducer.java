@@ -54,14 +54,14 @@ extends DefaultTapProducer
 		Plan plan = new Plan( this.numberOfBailOuts + this.numberOfTestResults );
 		pw.println( plan );
 		
-		int index = 1;
 		for( TapResult tapLine : tapLines )
 		{
 			if ( tapLine instanceof TestResult )
 			{
 				TestResult testResult = (TestResult) tapLine ;
 				pw.print( testResult.getStatus() );
-				pw.print( " " + index );
+				pw.print( testResult.getTestNumber() );
+				
 				if ( ! StringUtils.isEmpty( testResult.getDescription() ) ) 
 				{
 					pw.print(" " + testResult.getDescription());
@@ -71,7 +71,6 @@ extends DefaultTapProducer
 					pw.print(" " + testResult.getDirective().toString());
 				}
 				pw.println();
-				index += 1;
 			}
 			else
 			{

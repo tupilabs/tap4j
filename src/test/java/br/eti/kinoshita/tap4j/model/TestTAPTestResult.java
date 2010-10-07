@@ -47,15 +47,13 @@ extends Assert
 	@BeforeTest
 	public void setUp()
 	{
-		okTestResult = new TestResult( StatusValues.OK );
-		okTestResult.setTestNumber(1);
+		okTestResult = new TestResult( StatusValues.OK, 1 );
 		okTestResult.setDescription("- First test");
 		
-		notOkTestResult = new TestResult( StatusValues.NOT_OK );
-		notOkTestResult.setTestNumber(2);
+		notOkTestResult = new TestResult( StatusValues.NOT_OK, 2 );
 		
-		okTestResultSkip = new TestResult( StatusValues.OK );
-		okTestResultSkip.setTestNumber(3);
+		okTestResultSkip = new TestResult( StatusValues.OK, 3 );
+
 		Directive skipDirective = new Directive( DirectiveValues.SKIP, "Skip it until next release of the produce." );
 		okTestResultSkip.setDirective( skipDirective );
 

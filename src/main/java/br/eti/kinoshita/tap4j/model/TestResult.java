@@ -62,10 +62,12 @@ implements TapResult
 	 * Constructor with parameter.
 	 * 
 	 * @param testStatus Status of the test.
+	 * @param testNumber Number of the test.
 	 */
-	public TestResult( StatusValues testStatus )
+	public TestResult( StatusValues testStatus, Integer testNumber )
 	{
 		this.status = testStatus;
+		this.testNumber = testNumber;
 	}
 
 	/**

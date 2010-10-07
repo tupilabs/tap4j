@@ -66,10 +66,10 @@ extends Assert
 		Comment singleComment = new Comment( "Starting tests" );
 		tapProducer.addComment( singleComment );
 		
-		TestResult tr1 = new TestResult(StatusValues.OK);
+		TestResult tr1 = new TestResult(StatusValues.OK, 1);
 		tapProducer.addTestResult(tr1);
 		
-		TestResult tr2 = new TestResult(StatusValues.NOT_OK);
+		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
 		tr2.setTestNumber(2);
 		tapProducer.addTestResult(tr2);
 		

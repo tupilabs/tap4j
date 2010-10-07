@@ -23,9 +23,7 @@
  */
 package br.eti.kinoshita.tap4j;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -51,6 +49,8 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * created and check if the consumer can read the String. Voilà.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * @author César Fernandes de Almeida
+ * 
  * @since 1.0
  */
 public class TestProduceConsume extends Assert
@@ -81,13 +81,13 @@ public class TestProduceConsume extends Assert
 		Comment singleComment = new Comment( "Starting tests" );
 		tapProducer.addComment( singleComment );
 		
-		TestResult tr1 = new TestResult(StatusValues.OK);
+		TestResult tr1 = new TestResult(StatusValues.OK, 1);
 		tapProducer.addTestResult(tr1);
 		
-		TestResult tr2 = new TestResult(StatusValues.NOT_OK);
+		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
 		tapProducer.addTestResult(tr2);
 		
-		TestResult tr3 = new TestResult(StatusValues.OK);
+		TestResult tr3 = new TestResult(StatusValues.OK, 3);
 		Comment commentTr3 = new Comment("Test 3 :)");
 		tr3.setComment(commentTr3);
 		tapProducer.addTestResult(tr3);
@@ -131,7 +131,7 @@ public class TestProduceConsume extends Assert
 			
 			assertNotNull( tapConsumer.getPlan() );
 			
-			assertTrue( tapConsumer.getNumberOfTestResults() == 0);
+			assertTrue( tapConsumer.getNumberOfTestResults() == 3);
 			
 			assertNull( tapConsumer.getFooter() );
 		} 

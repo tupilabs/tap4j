@@ -133,7 +133,7 @@ public class TestProduceConsume extends Assert
 			
 			assertTrue( tapConsumer.getNumberOfTestResults() == 3);
 			
-			assertNull( tapConsumer.getFooter() );
+			assertNotNull( tapConsumer.getFooter() );
 		} 
 		catch (TapParserException e)
 		{

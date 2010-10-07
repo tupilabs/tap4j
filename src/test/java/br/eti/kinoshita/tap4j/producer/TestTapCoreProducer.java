@@ -23,9 +23,7 @@
  */
 package br.eti.kinoshita.tap4j.producer;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.testng.Assert;
@@ -98,36 +96,36 @@ extends Assert
 			fail("Failed to print TAP Stream into file.", e);
 		}
 		
-		BufferedReader reader = null;
-		
-		try
-		{
-			reader = new BufferedReader( new FileReader( tempFile ) );
-			
-			String line = null;
-			
-			while ( (line = reader.readLine()) != null )
-			{
-				System.out.println(line);
-			}
-		}
-		catch (Exception e)
-		{
-			fail("Failed to read temp file.", e);
-		} 
-		finally 
-		{
-			if ( reader != null )
-			{
-				try
-				{
-					reader.close();
-				} catch (Exception e2)
-				{
-					e2.printStackTrace(System.err);
-				}
-				reader = null;
-			}
-		}
+//		BufferedReader reader = null;
+//		
+//		try
+//		{
+//			reader = new BufferedReader( new FileReader( tempFile ) );
+//			
+//			String line = null;
+//			
+//			while ( (line = reader.readLine()) != null )
+//			{
+//				System.out.println(line);
+//			}
+//		}
+//		catch (Exception e)
+//		{
+//			fail("Failed to read temp file.", e);
+//		} 
+//		finally 
+//		{
+//			if ( reader != null )
+//			{
+//				try
+//				{
+//					reader.close();
+//				} catch (Exception e2)
+//				{
+//					e2.printStackTrace(System.err);
+//				}
+//				reader = null;
+//			}
+//		}
 	}
 }

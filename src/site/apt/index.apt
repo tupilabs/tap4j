@@ -1,0 +1,25 @@
+tap4j
+
+ tap4j is an implementation of the TAP - <<Test Anything Protocol>> - for <<Java>>. 
+ TAP is a standard way to document test execution. There are two main roles in 
+ TAP, a producer and a consumer.
+
+ The <<TAP Consumer>> is responsible for producing a <TAP Stream>. 
+ The above is an example of a TAP Stream.
+
++---+
+1..4
+ok 1 - Input file opened
+not ok 2
+ok 3 - Read the rest of the file
+#TAP meta information
+not ok 4 - Summarized correctly # TODO Not written yet
++---+
+
+ Usually the TAP Stream is written into a file.
+  
+ On the other hand, the <<TAP Producer>> read and parses this TAP Stream and 
+ let the developer use the data about the Test Execution.
+ 
+[./images/drawing1.jpg] tap4j producer and consumer
+ 

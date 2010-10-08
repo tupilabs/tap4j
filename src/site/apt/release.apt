@@ -1,0 +1,22 @@
+Release Notes
+
+* Version 1.0
+
+ * Basic TAP Producers
+
+ 	* <<Default TAP Producer>>: lets the user specify Plan, Test Results, Bailt Outs, 
+ 	Header, Footer and comments. With this producer the user has no restraints on 
+ 	how to create the TAP Stream.
+ 
+ 	* <<Default TAP Core Producer>>: is a simplified version of the TAP producer 
+ 	that outputs only the Test Results status, number and description. You don't 
+ 	need to specify a Plan, as this producer calculates how many test results you 
+ 	added and simply creates a plan from 1..n, where n is the number of test 
+ 	results added.
+ 
+ * <<Basic TAP Consumer>>: Reads a file and matches each line against a REGEX. 
+ If the regex matches than the consumer make a few more checks on position of the 
+ elements as well as duplicity.
+ 
+ * Basic TAP model objects, including Plan, Header, TestResult, Comment, 
+ Bail Out and Footer.

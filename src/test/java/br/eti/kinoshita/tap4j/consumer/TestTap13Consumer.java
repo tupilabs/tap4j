@@ -21,17 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j.consumer;
 
+import java.io.File;
+
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import junit.framework.Assert;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapResult 
-extends TapElement
+public class TestTap13Consumer 
+extends Assert
 {
 
+	protected Tap13Consumer consumer;
+	
+	@BeforeMethod
+	public void setUp()
+	{
+		consumer = new Tap13Consumer();
+	}
+	
+	@Test
+	public void test1()
+	{
+		try 
+		{
+			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/1.tap").getFile()) );
+			
+			
+		} 
+		catch (TapParserException e) 
+		{
+			fail("" + e.getMessage());
+		}
+	}
+	
 }

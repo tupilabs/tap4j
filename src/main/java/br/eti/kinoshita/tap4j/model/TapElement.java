@@ -23,15 +23,16 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import java.io.Serializable;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
+ * Any element that belongs to TAP.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapResult 
-extends TapElement
+public interface TapElement 
+extends Serializable 
 {
 
 }

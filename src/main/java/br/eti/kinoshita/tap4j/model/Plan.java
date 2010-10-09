@@ -23,7 +23,6 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-import java.io.Serializable;
 
 
 /**
@@ -35,7 +34,7 @@ import java.io.Serializable;
  * @since 1.0
  */
 public class Plan 
-implements Serializable
+implements TapElement
 {
 	
 	/**

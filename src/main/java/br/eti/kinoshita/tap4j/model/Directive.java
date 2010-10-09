@@ -23,6 +23,8 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import java.io.Serializable;
+
 import br.eti.kinoshita.tap4j.util.DirectiveValues;
 
 /**
@@ -31,7 +33,8 @@ import br.eti.kinoshita.tap4j.util.DirectiveValues;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Directive
+public class Directive 
+implements Serializable
 {
 
 	/**

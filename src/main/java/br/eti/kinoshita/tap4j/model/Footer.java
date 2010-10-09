@@ -23,7 +23,6 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-import java.io.Serializable;
 
 
 /**
@@ -36,7 +35,7 @@ import java.io.Serializable;
  * @see {@link Comment}
  */
 public class Footer 
-implements Serializable
+implements TapElement
 {
 
 	/**

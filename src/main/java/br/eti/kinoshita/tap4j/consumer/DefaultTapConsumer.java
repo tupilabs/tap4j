@@ -173,7 +173,7 @@ extends AbstractTapConsumer
 	/**
 	 * Checks if the TAP Plan is set before any Test Result or Bail Out.
 	 */
-	private void checkIfTAPPlanIsSetBeforeTestResultsOrBailOut()
+	protected void checkIfTAPPlanIsSetBeforeTestResultsOrBailOut()
 	{
 		if ( this.testResults.size() <= 0 && this.bailOuts.size() <= 0 )
 		{
@@ -186,7 +186,7 @@ extends AbstractTapConsumer
 	 * element and cannot occurs more than on time. However the Header is 
 	 * optional.
 	 */
-	private void checkTAPHeaderParsingLocationAndDuplicity() 
+	protected void checkTAPHeaderParsingLocationAndDuplicity() 
 	throws TapParserException
 	{
 		if ( isHeaderSet )
@@ -203,7 +203,7 @@ extends AbstractTapConsumer
 	/**
 	 * Checks if there are more than one TAP Plan in the TAP Stream. 
 	 */
-	private void checkTAPPlanDuplicity() 
+	protected void checkTAPPlanDuplicity() 
 	throws TapParserException
 	{
 		if ( isPlanSet )
@@ -219,7 +219,7 @@ extends AbstractTapConsumer
 	 * If so, skip this check. Otherwise, we shall check if the last line 
 	 * is the TAP Plan.
 	 */
-	private void checkTAPPlanPosition() 
+	protected void checkTAPPlanPosition() 
 	throws TapParserException
 	{
 		if ( ! this.isPlanBeforeTestResult )
@@ -240,7 +240,7 @@ extends AbstractTapConsumer
 	 * 
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractHeader( Matcher matcher )
+	protected void extractHeader( Matcher matcher )
 	{
 		final Integer version = Integer.parseInt( matcher.group( 1 ) );
 		
@@ -261,11 +261,10 @@ extends AbstractTapConsumer
 	/**
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractPlan( Matcher matcher )
+	protected void extractPlan( Matcher matcher )
 	{
 		Integer initialTest = Integer.parseInt( matcher.group(1) );
 		Integer lastTest = Integer.parseInt( matcher.group(3) );
-		
 		
 		Plan plan = null;
 		plan = new Plan( initialTest, lastTest );
@@ -292,7 +291,7 @@ extends AbstractTapConsumer
 	/**
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractTestResult( Matcher matcher )
+	protected void extractTestResult( Matcher matcher )
 	{
 		TestResult testResult = null;
 		
@@ -344,7 +343,7 @@ extends AbstractTapConsumer
 	/**
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractBailOut( Matcher matcher )
+	protected void extractBailOut( Matcher matcher )
 	{
 		String reason = matcher.group(1);
 		
@@ -366,7 +365,7 @@ extends AbstractTapConsumer
 	/**
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractComment( Matcher matcher )
+	protected void extractComment( Matcher matcher )
 	{
 		String text = matcher.group ( 1 );
 		Comment comment = new Comment ( text );
@@ -380,7 +379,7 @@ extends AbstractTapConsumer
 	 * 
 	 * @param matcher REGEX Matcher.
 	 */
-	private void extractFooter( Matcher matcher )
+	protected void extractFooter( Matcher matcher )
 	{
 		String text = matcher.group ( 1 );				
 		Footer footer = new Footer( text );

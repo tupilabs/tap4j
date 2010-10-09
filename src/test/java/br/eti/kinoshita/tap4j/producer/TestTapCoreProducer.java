@@ -75,7 +75,7 @@ extends Assert
 		
 		try
 		{
-			tempFile = File.createTempFile("tap", "t");
+			tempFile = File.createTempFile("tap4j_", ".tap");
 		} catch (IOException e)
 		{
 			fail("Failed to create temp file: " + e.getMessage(), e);

@@ -1,0 +1,15 @@
+   TAP version 13
+   1..3
+   ok 1
+   not ok 2 - an important test
+     ---
+     file:        foo.t
+     line:        45
+     description: an important test
+     found:       this
+     wanted:      that
+     raw_test:    is( "this", "that", "an important test" );
+     extensions:
+       THAC0:     16
+     ...
+   ok 3

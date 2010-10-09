@@ -36,7 +36,7 @@ import br.eti.kinoshita.tap4j.model.SkipPlan;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPConsumer 
+public class TestDefaultTAPConsumer 
 extends Assert
 {
 
@@ -48,13 +48,13 @@ extends Assert
 		consumer = new DefaultTapConsumer();
 	}
 	
-	// tap1.t
+	// tap1.tap
 	@Test
 	public void testConsumer_tap1()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_internet/tap1.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_internet/tap1.tap").getFile()) );
 			assertTrue( consumer.getNumberOfTestResults() == 2);
 			Footer footer = consumer.getFooter();
 			assertNull( footer );
@@ -66,13 +66,13 @@ extends Assert
 		
 	}
 	
-	// output.t
+	// output.tap
 	@Test
 	public void testConsumer_output()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_internet/output.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_internet/output.tap").getFile()) );
 			assertTrue( consumer.getNumberOfTestResults() == 10);
 			Footer footer = consumer.getFooter();
 			assertNull( footer );
@@ -85,13 +85,13 @@ extends Assert
 		}
 	}
 	
-	// comment_planskipall.t
+	// comment_planskipall.tap
 	@Test
 	public void testConsumer_comment_planskipall()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/comment_planskipall.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/comment_planskipall.tap").getFile()) );
 			assertTrue( consumer.getNumberOfTestResults() == 0);
 			Footer footer = consumer.getFooter();
 			assertNull( footer );
@@ -105,13 +105,13 @@ extends Assert
 		}
 	}
 	
-	// header_plan_tr_footer.t
+	// header_plan_tr_footer.tap
 	@Test
 	public void testConsumer_header_plan_tr_footer()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/header_plan_tr_footer.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/header_plan_tr_footer.tap").getFile()) );
 			
 			assertNotNull( consumer.getHeader() );
 			
@@ -131,13 +131,13 @@ extends Assert
 		}
 	}
 	
-	// header_plan_tr.t
+	// header_plan_tr.tap
 	@Test
 	public void testConsumer_header_plan_tr()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/header_plan_tr.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/header_plan_tr.tap").getFile()) );
 			
 			assertNotNull( consumer.getHeader() );
 			
@@ -155,13 +155,13 @@ extends Assert
 		}
 	}
 	
-	// header_plan.t
+	// header_plan.tap
 	@Test
 	public void testConsumer_header_plan()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/header_plan.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/header_plan.tap").getFile()) );
 			
 			assertNotNull( consumer.getHeader() );
 			
@@ -177,13 +177,13 @@ extends Assert
 		}
 	}
 	
-	// header_planskipall.t
+	// header_planskipall.tap
 	@Test
 	public void testConsumer_header_planskipall()
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/header_planskipall.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/header_planskipall.tap").getFile()) );
 			
 			assertNotNull( consumer.getHeader() );
 			
@@ -203,14 +203,14 @@ extends Assert
 		}
 	}
 	
-	// header_tr_plan.t
+	// header_tr_plan.tap
 	@Test
 	public void testConsumer_header_tr_plan() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/header_tr_plan.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/header_tr_plan.tap").getFile()) );
 			
 			assertTrue( consumer.getTestResults().size() == 2 );
 			
@@ -224,14 +224,14 @@ extends Assert
 		}
 	}
 	
-	// plan_comment_tr_footer.t
+	// plan_comment_tr_footer.tap
 	@Test
 	public void testConsumer_plan_comment_tr_footer() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/plan_comment_tr_footer.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/plan_comment_tr_footer.tap").getFile()) );
 			
 			assertNull( consumer.getHeader() );
 			
@@ -251,14 +251,14 @@ extends Assert
 		}
 	}
 	
-	// plan_tr.t
+	// plan_tr.tap
 	@Test
 	public void testConsumer_plan_tr() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/plan_tr.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/plan_tr.tap").getFile()) );
 			
 			assertNull( consumer.getHeader() );
 			
@@ -278,14 +278,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_comment_tr_bailout_header.t
+	// invalid_comment_tr_bailout_header.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_comment_tr_bailout_header() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_comment_tr_bailout_header.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_comment_tr_bailout_header.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -295,14 +295,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_header_tr.t
+	// invalid_header_tr.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_header_tr() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_header_tr.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_header_tr.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -312,14 +312,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_plan_header_plan.t
+	// invalid_plan_header_plan.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_plan_header_plan() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_plan_header_plan.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_plan_header_plan.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -329,14 +329,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_plan_tr_header.t
+	// invalid_plan_tr_header.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_plan_tr_header() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_plan_tr_header.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_plan_tr_header.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -346,14 +346,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_tr_footer.t
+	// invalid_tr_footer.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_tr_footer() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_tr_footer.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_tr_footer.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -363,14 +363,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_tr_header_header_tr.t
+	// invalid_tr_header_header_tr.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_tr_header_header_tr() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_tr_header_header_tr.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_tr_header_header_tr.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -380,14 +380,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_tr_plan_header.t
+	// invalid_tr_plan_header.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_tr_plan_header() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_tr_plan_header.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_tr_plan_header.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 
@@ -397,14 +397,14 @@ extends Assert
 		}
 	}
 	
-	// invalid_tr.t
+	// invalid_tr.tap
 	@Test(expectedExceptions=TapParserException.class)
 	public void testConsumer_invalid_tr() 
 	throws TapParserException
 	{
 		try
 		{
-			consumer.parseFile( new File(TestTAPConsumer.class.getResource("/input_tap4j/invalid_tr.t").getFile()) );
+			consumer.parseFile( new File(TestDefaultTAPConsumer.class.getResource("/input_tap4j/invalid_tr.tap").getFile()) );
 			
 			fail("Not supposed to get here.");
 		} 

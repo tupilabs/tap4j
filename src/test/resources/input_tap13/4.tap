@@ -1,0 +1,4 @@
+# http://svn.hexten.net/tapx/tap-tests/t/source/skip.yaml
+    TAP version 13
+    1..0 # SKIP skip testing
+    TAP done

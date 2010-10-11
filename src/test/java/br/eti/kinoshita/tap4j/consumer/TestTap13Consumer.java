@@ -51,7 +51,7 @@ extends Assert
 	{
 		try 
 		{
-			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/1.tap").getFile()) );
+			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/2.tap").getFile()) );
 			
 			
 		} 

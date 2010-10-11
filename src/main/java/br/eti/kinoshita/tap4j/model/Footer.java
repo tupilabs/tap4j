@@ -35,7 +35,7 @@ package br.eti.kinoshita.tap4j.model;
  * @see {@link Comment}
  */
 public class Footer 
-implements TapElement
+extends TapMetaElement
 {
 
 	/**

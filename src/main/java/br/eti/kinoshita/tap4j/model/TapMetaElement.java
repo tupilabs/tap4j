@@ -23,74 +23,54 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-
-
+import java.util.LinkedHashMap;
 
 /**
- * Represents a Bail Out TAP Line. The test execution should be suspended if 
- * there is a Bail Out. 
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class BailOut 
-extends TapResult
+public abstract class TapMetaElement 
+implements TapElement
 {
+	
+	/**
+	 * Tap Element meta map.
+	 */
+	protected final LinkedHashMap<String, Object> meta = new LinkedHashMap<String, Object>();
 
-	/**
-	 * Reason to Bail Out.
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#addMetaInformation(java.lang.String, java.lang.Object)
 	 */
-	private String reason;
-	
-	/**
-	 * Optional comment.
-	 */
-	private Comment comment;
-	
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param reason Reason to Bail Out.
-	 */
-	public BailOut( String reason )
+	public void addMetaInformation( String key, Object value )
 	{
-		this.reason = reason;
-	}
-	
-	/**
-	 * @return Reason to Bail Out.
-	 */
-	public String getReason()
-	{
-		return this.reason;
-	}
-	
-	/**
-	 * @return Bail Out comment.
-	 */
-	public Comment getComment()
-	{
-		return this.comment;
-	}
-	
-	/**
-	 * @param comment Bail Out comment.
-	 */
-	public void setComment( Comment comment )
-	{
-		this.comment = comment;
-	}
-	
-	@Override
-	public String toString()
-	{
-		StringBuffer sb = new StringBuffer();
-		sb.append( "Bail out!" + ((this.reason != null) ? " " + this.reason : "") );
-		if ( this.comment != null )
+		if ( key != null )
 		{
-			sb.append( this.comment.toString() );
+			key = key.trim();
 		}
-		return sb.toString();
+		if ( value != null )
+		{
+			if ( value instanceof String )
+			{
+				value = ((String)value).trim();
+			}
+		}
+		this.meta.put( key, value );
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#getMetaInformation(java.lang.String)
+	 */
+	public Object getMetaInformation( String key )
+	{
+		return this.meta.get( key );
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#getMeta()
+	 */
+	public LinkedHashMap<String, Object> getMeta()
+	{
+		return this.meta;
 	}
 	
 }

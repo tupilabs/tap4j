@@ -33,7 +33,7 @@ package br.eti.kinoshita.tap4j.model;
  * @since 1.0
  */
 public class Text 
-implements TapResult
+extends TapResult
 {
 
 	/**

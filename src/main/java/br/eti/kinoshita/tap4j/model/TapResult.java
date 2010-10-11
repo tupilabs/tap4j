@@ -30,8 +30,8 @@ package br.eti.kinoshita.tap4j.model;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapResult 
-extends TapElement
+public abstract class TapResult 
+extends TapMetaElement
 {
 
 }

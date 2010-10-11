@@ -31,7 +31,7 @@ import br.eti.kinoshita.tap4j.util.Util;
  * @since 1.0
  */
 public class TestResult 
-implements TapResult
+extends TapResult
 {
 	/**
 	 * Test Status (OK, NOT OK).

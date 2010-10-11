@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.yaml.snakeyaml.Yaml;
 
 import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.Text;
@@ -53,6 +54,13 @@ extends DefaultTapConsumer
 	 * element with some multiline text.
 	 */
 	protected int currentIndentationLevel = -1;
+	
+	/**
+	 * YAML parser and emitter.
+	 */
+	protected Yaml yaml = new Yaml();
+	
+	protected StringBuffer metaBuffer = new StringBuffer();
 	
 	protected Pattern indentationREGEX = Pattern.compile( "((\\s|\\t)*)?.*" );
 	
@@ -92,18 +100,44 @@ extends DefaultTapConsumer
 			if ( matcher.matches() )
 			{
 				String spaces = matcher.group ( 1 );
-				int indentantion = spaces.length();
-				if ( indentantion > this.baseIndentationLevel )
+				int indentation = spaces.length();
+				this.currentIndentationLevel = indentation;
+				if ( indentation > this.baseIndentationLevel )
 				{
-					// TODO: process meta information
-					System.out.println( "Meta: " + tapLine );
+					// we are at the start of the meta tags
+					if ( tapLine.trim().equals("---") || tapLine.trim().equals("...") )
+					{
+						return;
+					}
+					metaBuffer.append( tapLine );
+					metaBuffer.append( "\n" );
 					return;
 				}
-				if ( indentantion < this.baseIndentationLevel )
+				if ( indentation < this.baseIndentationLevel )
 				{
 					throw new TapParserException("Invalid indentantion. Check your TAP Stream. Line: " + tapLine);
 				}
 			}
+		}
+		
+		// If we found any meta, then process it with SnakeYAML
+		if (  metaBuffer.length() > 0 )
+		{
+			try
+			{
+				Iterable<?> it = (Iterable<?>)yaml.loadAll( metaBuffer.toString() );
+				
+				for ( Object data : it )
+				{
+					System.out.println(data);
+				}
+			}catch ( Exception ex )
+			{
+				throw new TapParserException("Error parsing YAML ["+metaBuffer.toString()+"]: " + ex.getMessage(), ex);
+			}
+			
+			// System.out.println(metaBuffer.toString());
+			metaBuffer = new StringBuffer();
 		}
 		
 		// Header 
@@ -120,6 +154,7 @@ extends DefaultTapConsumer
 			{
 				this.baseIndentationLevel = 0;
 			}
+			this.currentIndentationLevel = this.baseIndentationLevel;
 			
 			this.checkTAPHeaderParsingLocationAndDuplicity();
 			

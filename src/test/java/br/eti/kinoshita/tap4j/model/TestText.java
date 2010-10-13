@@ -28,45 +28,29 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * Tests TAP Footer.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
+public class TestText 
 extends Assert
 {
 
-	protected Footer footer;
-	
-	private final static String FOOTER_TEXT = "done";
+	protected Text text;
 	
 	@BeforeMethod
 	public void setUp()
 	{
-		footer = new Footer( FOOTER_TEXT );		
+		text = new Text( "Invalid token" );
 	}
 	
 	@Test
-	public void testFooter()
+	public void testText()
 	{
-		String expectedValue = FOOTER_TEXT;
-		assertNotNull( footer );
-		assertNotNull( footer.getText() );
-		assertEquals(footer.getText(), expectedValue);
-		assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
-	}
-	
-	@Test
-	public void testFooterWithComment()
-	{
-		footer.setComment( new Comment("Footer's comment.") );
+		assertNotNull( text.getValue() );
 		
-		assertNotNull( this.footer.getComment() );
+		assertNull( text.getDiagnostic() );
 		
-		assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+		assertEquals( text.getValue(), text.toString() );
 	}
 	
 }

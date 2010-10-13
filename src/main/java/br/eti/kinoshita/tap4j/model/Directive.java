@@ -78,7 +78,13 @@ implements Serializable
 	@Override
 	public String toString()
 	{
-		return "# " + directiveValue + " " + this.reason;
+		StringBuffer sb = new StringBuffer();
+		sb.append( "# " + directiveValue );
+		if ( this.reason != null )
+		{
+			sb.append( " " + this.reason );
+		}
+		return sb.toString();
 	}
 	
 }

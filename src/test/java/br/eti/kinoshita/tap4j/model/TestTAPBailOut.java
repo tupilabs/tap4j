@@ -60,7 +60,7 @@ extends Assert
 		
 		assertNotNull( bailOut.getComment().getText() );
 		
-		assertEquals( bailOut.toString(), "Bail out! " + REASON + bailOut.getComment().toString());
+		assertEquals( bailOut.toString(), "Bail out! " + REASON + " " +  bailOut.getComment().toString());
 		
 		bailOut = new BailOut(null);
 		assertNull( bailOut.getReason() );

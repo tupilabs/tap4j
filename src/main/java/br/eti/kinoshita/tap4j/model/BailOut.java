@@ -88,7 +88,7 @@ extends TapResult
 		sb.append( "Bail out!" + ((this.reason != null) ? " " + this.reason : "") );
 		if ( this.comment != null )
 		{
-			sb.append( this.comment.toString() );
+			sb.append( " " + this.comment.toString() );
 		}
 		return sb.toString();
 	}

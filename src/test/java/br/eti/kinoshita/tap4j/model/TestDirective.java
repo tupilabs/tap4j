@@ -27,46 +27,44 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import br.eti.kinoshita.tap4j.util.DirectiveValues;
+
 /**
- * Tests TAP Footer.
+ * Tests a TAP directive.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
+public class TestDirective 
 extends Assert
 {
 
-	protected Footer footer;
-	
-	private final static String FOOTER_TEXT = "done";
+	private Directive directive;
 	
 	@BeforeMethod
 	public void setUp()
 	{
-		footer = new Footer( FOOTER_TEXT );		
+		directive = new Directive(DirectiveValues.TODO, "Not implemented yet.");
 	}
 	
 	@Test
-	public void testFooter()
+	public void testDirective()
 	{
-		String expectedValue = FOOTER_TEXT;
-		assertNotNull( footer );
-		assertNotNull( footer.getText() );
-		assertEquals(footer.getText(), expectedValue);
-		assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
+		assertEquals( directive.toString(), "# TODO Not implemented yet.");
+		
+		assertEquals( directive.getReason(), "Not implemented yet.");
+		
+		assertEquals( directive.getDirectiveValue(), DirectiveValues.TODO );
 	}
 	
 	@Test
-	public void testFooterWithComment()
+	public void testNoReason()
 	{
-		footer.setComment( new Comment("Footer's comment.") );
+		directive = new Directive(DirectiveValues.SKIP, null);
 		
-		assertNotNull( this.footer.getComment() );
+		assertNull( directive.getReason() );
 		
-		assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+		assertEquals( directive.toString(), "# SKIP" );
 	}
 	
 }

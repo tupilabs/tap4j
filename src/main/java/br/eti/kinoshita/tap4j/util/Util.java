@@ -35,6 +35,11 @@ public class Util
 {
 	
 	/**
+	 * Hiding the constructor of the utility class.
+	 */
+	private Util(){}
+	
+	/**
 	 * Appends a text to the StringBuffer with a prefix and suffix.
 	 * 
 	 * @param sb

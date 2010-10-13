@@ -199,7 +199,7 @@ extends AbstractTapElementDiagnostic
 		
 		if ( this.comment != null )
 		{
-			sb.append( this.comment.toString() );
+			sb.append( " " + this.comment.toString() );
 		}
 		
 		return sb.toString();

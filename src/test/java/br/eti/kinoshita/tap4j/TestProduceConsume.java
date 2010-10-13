@@ -33,6 +33,7 @@ import org.testng.annotations.Test;
 import br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer;
 import br.eti.kinoshita.tap4j.consumer.TapConsumer;
 import br.eti.kinoshita.tap4j.consumer.TapParserException;
+import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
@@ -134,10 +135,41 @@ public class TestProduceConsume extends Assert
 			assertTrue( tapConsumer.getNumberOfTestResults() == 3);
 			
 			assertNotNull( tapConsumer.getFooter() );
+			
+			assertTrue( tapConsumer.getTapLines().size() > 0 );
+			
+			assertTrue( tapConsumer.getNumberOfTapLines() > 0 );
+			
+			assertTrue( tapConsumer.containsOk() );
+			
+			assertFalse( tapConsumer.containsBailOut() );
+			
+			assertTrue( tapConsumer.containsNotOk() );
+			
+			assertTrue( tapConsumer.getComments().size() > 0 );
+			
+			assertTrue( tapConsumer.getNumberOfComments() > 0 );
+			
+			assertTrue( tapConsumer.getComments().size() == tapConsumer.getNumberOfComments() );
+			
+			assertNotNull( tapConsumer.getTestSet());
+			
+			assertEquals( tapConsumer.getTestResult(1).getStatus(), StatusValues.OK );
+			
 		} 
 		catch (TapParserException e)
 		{
 			fail("Failed to parse TAP file: " + e.getMessage(), e);
 		}
+	}
+	
+	@Test
+	public void testWithBailOut()
+	{
+		BailOut bailOut = new BailOut(null);
+		
+		tapConsumer.getBailOuts().add( bailOut );
+		
+		assertTrue( tapConsumer.containsBailOut() );
 	}
 }

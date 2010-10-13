@@ -24,7 +24,7 @@
 package br.eti.kinoshita.tap4j.model;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -39,7 +39,7 @@ extends Assert
 	
 	protected final static Integer version = 13;
 	
-	@BeforeTest
+	@BeforeMethod
 	public void setUp()
 	{
 		this.header = new Header( version );
@@ -57,6 +57,18 @@ extends Assert
 		String toStringResult = this.header.toString();
 		
 		assertEquals( expectedOutput, toStringResult );
+	}
+	
+	@Test
+	public void testComment()
+	{
+		this.header.setComment( new Comment("Header's comment.") );
+		
+		assertNotNull( this.header.getComment() );
+		
+		assertEquals( this.header.getComment().getText(), "Header's comment.");
+		
+		assertEquals( this.header.toString(), "TAP version " + version + " # Header's comment.");
 	}
 	
 }

@@ -21,52 +21,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j;
+
+import java.lang.reflect.Constructor;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import br.eti.kinoshita.tap4j.util.Util;
+
 /**
- * Tests TAP Footer.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
-extends Assert
+public class TestUtil extends Assert
 {
 
-	protected Footer footer;
-	
-	private final static String FOOTER_TEXT = "done";
-	
+	private StringBuffer sb;
+
 	@BeforeMethod
 	public void setUp()
 	{
-		footer = new Footer( FOOTER_TEXT );		
+		sb = new StringBuffer();
+		sb.append("Anything");
 	}
-	
+
 	@Test
-	public void testFooter()
+	public void testAppends()
 	{
-		String expectedValue = FOOTER_TEXT;
-		assertNotNull( footer );
-		assertNotNull( footer.getText() );
-		assertEquals(footer.getText(), expectedValue);
-		assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
+		Util.appendIfNotNull(sb, " appended text");
+		assertEquals(sb.toString(), "Anything appended text");
+
+		Util.appendIfNotNull(sb, " - ", " Tom T.", null);
+		assertEquals(sb.toString(), "Anything appended text -  Tom T.");
 	}
-	
+
 	@Test
-	public void testFooterWithComment()
+	public void testUtilConstructor()
 	{
-		footer.setComment( new Comment("Footer's comment.") );
-		
-		assertNotNull( this.footer.getComment() );
-		
-		assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+		try
+		{
+			final Constructor<?> c = Util.class.getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			final Object o = c.newInstance((Object[]) null);
+
+			assertNotNull(o);
+		}
+		catch (Exception e)
+		{
+			fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
+		}
 	}
-	
+
 }

@@ -24,16 +24,15 @@
 package br.eti.kinoshita.tap4j.consumer;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
+import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TapResult;
-import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.model.TestSet;
 
@@ -165,24 +164,10 @@ public interface TapConsumer
 	public void printSummary( PrintWriter pw );
 	
 	/**
-	 * Prints the summary of tests to a Print Stream.
-	 * 
-	 * @param ps Print Stream.
-	 */
-	public void printSummary( PrintStream ps );
-	
-	/**
 	 * Prints the details of tests to a Print Writer.
 	 * 
 	 * @param pw Print Writer.
 	 */
 	public void printDetails( PrintWriter pw );
-	
-	/**
-	 * Prints the details of tests to a Print Stream.
-	 * 
-	 * @param ps Print Stream.
-	 */
-	public void printDetails(PrintStream ps);
 	
 }

@@ -95,9 +95,9 @@ extends AbstractTapElementDiagnostic
 		
 		if ( this.comment != null )
 		{
-			sb.append ( this.comment.toString() );
+			sb.append ( " " + this.comment.toString() );
 		}
-		return "TAP " + this.text;
+		return sb.toString();
 	}
 
 }

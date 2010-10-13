@@ -47,7 +47,9 @@ extends Assert
 	public void setUp()
 	{
 		simplePlan = new Plan(initialTestNumber, lastTestNumber);
-		skipAllPlan = new Plan(initialTestNumber, lastTestNumber, new SkipPlan( reason ));
+		simplePlan.setComment( new Comment("Plan's comment.") );
+		SkipPlan skip = new SkipPlan( reason );
+		skipAllPlan = new Plan(lastTestNumber, skip);
 	}
 	
 	@Test
@@ -63,9 +65,13 @@ extends Assert
 		
 		assertFalse( simplePlan.isSkip() );
 		
+		assertNotNull( simplePlan.getComment() );
+		
+		assertEquals( simplePlan.getComment().toString(), "# Plan's comment." );
+		
 		String toStringResult = simplePlan.toString();
 		
-		final String expectedOutput = "1..3";
+		final String expectedOutput = "1..3 # Plan's comment.";
 		
 		assertEquals( toStringResult ,expectedOutput );
 	}
@@ -90,6 +96,24 @@ extends Assert
 		final String expectedOutput = "1..3 skip " + TestTAPPlan.reason;
 		
 		assertEquals( toStringResult ,expectedOutput );
+		
+		skipAllPlan = new Plan(skipAllPlan.getInitialTestNumber(), skipAllPlan.getLastTestNumber(), skipAllPlan.getSkip());
+		
+		assertNotNull( skipAllPlan );
+		
+		assertNotNull( skipAllPlan.getSkip() );
+		
+		assertEquals( skipAllPlan.getSkip().getReason(), reason );
+	}
+	
+	@Test
+	public void testSkip()
+	{
+		SkipPlan skip = skipAllPlan.getSkip();
+		
+		assertEquals( skip.getReason(), reason );
+		
+		assertEquals( skip.toString(), reason );
 	}
 	
 }

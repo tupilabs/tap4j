@@ -31,6 +31,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
@@ -82,6 +83,12 @@ extends Assert
 		tr2.setTestNumber(2);
 		tapProducer.addTestResult(tr2);
 		
+		BailOut bailOut = new BailOut("Test 2 failed");
+		tapProducer.addBailOut( bailOut );
+		
+		Comment simpleComment = new Comment("Test bailed out.");
+		tapProducer.addComment( simpleComment );
+		
 		tapProducer.setFooter( new Footer("End") );
 		
 		try
@@ -99,11 +106,17 @@ extends Assert
 	{
 		assertTrue ( tapProducer.getTapLines().size() > 0 );
 		
+		assertTrue( tapProducer.getNumberOfTestResults() == 2 );
+		
+		assertTrue( tapProducer.getNumberOfBailOuts() == 1 );
+		
+		assertTrue( tapProducer.getNumberOfComments() == 2 );
+		
 		try
 		{
 			tapProducer.printTo( tempFile );
 			
-			System.out.println(tempFile);
+			//System.out.println(tempFile);
 		}
 		catch ( Exception e  )
 		{

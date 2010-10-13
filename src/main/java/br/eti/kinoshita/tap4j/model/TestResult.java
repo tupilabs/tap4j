@@ -162,7 +162,7 @@ extends TapResult
 		
 		Util.appendIfNotNull(sb, null, directive, null);
 		
-		Util.appendIfNotNull(sb, null, comment, null);
+		Util.appendIfNotNull(sb, " ", comment, null);
 		
 		return sb.toString();
 	}

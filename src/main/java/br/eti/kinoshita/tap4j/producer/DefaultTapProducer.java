@@ -26,7 +26,13 @@ package br.eti.kinoshita.tap4j.producer;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.DumperOptions.LineBreak;
+import org.yaml.snakeyaml.Yaml;
+
+import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.TapResult;
 
 /**
@@ -42,27 +48,28 @@ public class DefaultTapProducer
 extends AbstractTapProducer
 {
 
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapProducer#printTo(java.io.PrintWriter)
+	/**
+	 * YAML parser and emitter.
 	 */
-	public void printTo(PrintWriter pw) 
+	protected Yaml yaml;
+	
+	/**
+	 * Default constructor.
+	 */
+	public DefaultTapProducer()
 	{
-		if ( header != null )
-		{
-			pw.println( header.toString() );
-		}
+		super();
 		
-		pw.println( plan.toString() );
-		
-		for( TapResult tapLine : tapLines )
-		{
-			pw.println( tapLine.toString() );
-		}
-		
-		if ( footer != null )
-		{
-			pw.println( footer.toString() );
-		}
+		DumperOptions options = new DumperOptions();
+		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		options.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN); 
+		options.setLineBreak(LineBreak.getPlatformLineBreak());
+		options.setExplicitStart( true );
+		options.setExplicitEnd( true );
+		options.setIndent(10);
+		// TBD: set indent is not working on yaml, perhaps we should implement 
+		// a representer...
+		yaml = new Yaml( options );
 	}
 
 	/* (non-Javadoc)
@@ -85,7 +92,50 @@ extends AbstractTapProducer
 				writer.close();
 			}
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapProducer#printTo(java.io.PrintWriter)
+	 */
+	public void printTo(PrintWriter pw) 
+	{
+		if ( header != null )
+		{
+			pw.println( header.toString() );
+			this.printDiagnostic( header, pw );
+		}
 		
+		pw.println( plan.toString() );
+		this.printDiagnostic( plan, pw );
+		
+		for( TapResult tapLine : tapLines )
+		{
+			pw.println( tapLine.toString() );
+			this.printDiagnostic( tapLine, pw );
+		}
+		
+		if ( footer != null )
+		{
+			pw.println( footer.toString() );
+			this.printDiagnostic( footer, pw );
+		}
+	}
+
+	/**
+	 * Prints diagnostic of the TAP Element into the Print Writer.
+	 * 
+	 * @param tapElement TAP element
+	 * @param pw PrintWriter
+	 */
+	protected void printDiagnostic( TapElement tapElement, PrintWriter pw )
+	{
+		Map<String, Object> diagnostic = tapElement.getDiagnostic();
+		if ( diagnostic != null )
+		{
+			String diagnosticText = this.yaml.dump( diagnostic );
+			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
+			pw.print( diagnosticText );
+		}
 	}
 	
 }

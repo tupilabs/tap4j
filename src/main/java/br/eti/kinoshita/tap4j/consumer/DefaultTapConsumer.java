@@ -411,7 +411,10 @@ extends AbstractTapConsumer
 			while ( scanner.hasNextLine() )
 			{
 				line = scanner.nextLine();
-				this.parseLine( line );
+				if ( StringUtils.isNotBlank(line) )
+				{
+					this.parseLine( line );
+				}				
 			}
 			
 			this.checkTAPPlanPosition();
@@ -444,7 +447,10 @@ extends AbstractTapConsumer
 			while ( scanner.hasNextLine() )
 			{
 				line = scanner.nextLine();
-				this.parseLine( line );
+				if ( StringUtils.isNotBlank(line) )
+				{
+					this.parseLine( line );
+				}
 			}
 			
 			this.checkTAPPlanPosition();

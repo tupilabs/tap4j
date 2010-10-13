@@ -25,11 +25,11 @@ package br.eti.kinoshita.tap4j.producer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.yaml.snakeyaml.Yaml;
 
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
@@ -66,9 +66,16 @@ extends Assert
 		tapProducer.addComment( singleComment );
 		
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
-		Yaml yaml = new Yaml();
-		yaml.
-		tr1.setDiagnostic(diagnostic)
+		LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+		diagnostic.put("file", "testingproducer.txt");
+		diagnostic.put("time", System.currentTimeMillis());
+		diagnostic.put("Tester", "Bruno P. Kinoshita");
+		LinkedHashMap<String, Object> map2 = new LinkedHashMap<String, Object>();
+		map2.put("EHCTA", 1233);
+		map2.put("TRANSACTION", 3434);
+		diagnostic.put("Audit", map2);
+		tr1.setDiagnostic( diagnostic );
+		//tr1.setDiagnostic(diagnostic)
 		tapProducer.addTestResult(tr1);
 		
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);

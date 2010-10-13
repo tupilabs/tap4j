@@ -23,27 +23,49 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-import java.io.Serializable;
-import java.util.Map;
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 /**
- * Any element that belongs to TAP.
+ * Tests TAP Bail Out element.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapElement 
-extends Serializable 
+public class TestTAPBailOut 
+extends Assert
 {
 	
-	/**
-	 * @return yaml diagnostic information.
-	 */
-	public Map<String, Object> getDiagnostic();
+	protected BailOut bailOut;
 	
-	/**
-	 * @param meta yaml diagnostic information.
-	 */
-	public void setDiagnostic(Map<String, Object> meta);
+	private final static String REASON = "It is monday.";
 	
+	@BeforeTest
+	public void setUp()
+	{
+		bailOut = new BailOut( REASON );
+		
+		bailOut.setComment( new Comment("Bail out comment") );
+	}
+	
+	@Test
+	public void testBailOut()
+	{
+		assertNotNull( bailOut );
+		
+		assertEquals( bailOut.getReason(), REASON );
+		
+		assertNotNull( bailOut.getComment() );
+		
+		assertNotNull( bailOut.getComment().getText() );
+		
+		assertEquals( bailOut.toString(), "Bail out! " + REASON + bailOut.getComment().toString());
+		
+		bailOut = new BailOut(null);
+		assertNull( bailOut.getReason() );
+		
+		assertEquals( bailOut.toString(), "Bail out!" );
+	}
+
 }

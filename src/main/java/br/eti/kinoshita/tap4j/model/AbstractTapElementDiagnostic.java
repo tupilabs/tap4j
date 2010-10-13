@@ -23,6 +23,8 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import java.util.Map;
+
 
 /**
  * TAP Element that supports diagnostic information.
@@ -37,12 +39,12 @@ implements TapElement
 	/**
 	 * Iterable object returned by snakeyaml.
 	 */
-	protected Iterable<?> diagnostic = null;
+	protected Map<String, Object> diagnostic = null;
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.model.TapElement#getDiagnostic()
 	 */
-	public Iterable<?> getDiagnostic() 
+	public Map<String, Object> getDiagnostic() 
 	{
 		return this.diagnostic;
 	}
@@ -50,7 +52,7 @@ implements TapElement
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.model.TapElement#setDiagnostic(java.lang.Iterable)
 	 */
-	public void setDiagnostic(Iterable<?> diagnostic) 
+	public void setDiagnostic(Map<String, Object> diagnostic) 
 	{
 		this.diagnostic = diagnostic;
 	}

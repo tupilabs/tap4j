@@ -24,8 +24,7 @@
 package br.eti.kinoshita.tap4j.consumer;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -75,13 +74,11 @@ extends Assert
 			
 			assertTrue ( consumer.getTestResult(2).getStatus() == StatusValues.NOT_OK );
 			
-			Iterable<?> diagnostic = consumer.getTestResult(2).getDiagnostic();
+			Map<String, Object> diagnostic = consumer.getTestResult(2).getDiagnostic();
 			
 			assertNotNull( diagnostic );
 			
-			Iterator<?> mapIt = diagnostic.iterator();
-			LinkedHashMap<?, ?> map = (LinkedHashMap<?, ?>)mapIt.next();
-			assertEquals( map.get("file"), "t/something.t" );
+			assertEquals( diagnostic.get("file"), "t/something.t" );
 			
 			assertTrue ( consumer.getTestResult(3).getStatus() == StatusValues.OK );
 			

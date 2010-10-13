@@ -24,11 +24,15 @@
 package br.eti.kinoshita.tap4j.consumer;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+
+import junit.framework.Assert;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import junit.framework.Assert;
+import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
@@ -51,8 +55,35 @@ extends Assert
 	{
 		try 
 		{
-			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/2.tap").getFile()) );
+			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/1.tap").getFile()) );
 			
+			assertNotNull( consumer.getHeader() );
+			
+			assertTrue ( consumer.getHeader().getVersion() == 13 );
+			
+			assertNotNull( consumer.getPlan() );
+			
+			assertTrue ( consumer.getPlan().getInitialTestNumber() == 1 );
+			
+			assertTrue( consumer.getPlan().getLastTestNumber() == 3 );
+			
+			assertTrue( consumer.getTestResults().size() == 3 );
+			
+			assertTrue ( consumer.getTestResult(1).getStatus() == StatusValues.OK );
+			
+			assertNull ( consumer.getTestResult(1).getDiagnostic() );
+			
+			assertTrue ( consumer.getTestResult(2).getStatus() == StatusValues.NOT_OK );
+			
+			Iterable<?> diagnostic = consumer.getTestResult(2).getDiagnostic();
+			
+			assertNotNull( diagnostic );
+			
+			Iterator<?> mapIt = diagnostic.iterator();
+			LinkedHashMap<?, ?> map = (LinkedHashMap<?, ?>)mapIt.next();
+			assertEquals( map.get("file"), "t/something.t" );
+			
+			assertTrue ( consumer.getTestResult(3).getStatus() == StatusValues.OK );
 			
 		} 
 		catch (TapParserException e) 

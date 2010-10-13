@@ -24,7 +24,6 @@
 package br.eti.kinoshita.tap4j.model;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 
 /**
  * Any element that belongs to TAP.
@@ -35,11 +34,15 @@ import java.util.LinkedHashMap;
 public interface TapElement 
 extends Serializable 
 {
-
-	public void addMetaInformation(String key, Object value);
 	
-	public Object getMetaInformation(String key);
+	/**
+	 * @return yaml diagnostic information.
+	 */
+	public Iterable<?> getDiagnostic();
 	
-	public LinkedHashMap<String, Object> getMeta();
+	/**
+	 * @param meta yaml diagnostic information.
+	 */
+	public void setDiagnostic(Iterable<?> meta);
 	
 }

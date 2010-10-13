@@ -23,54 +23,36 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
-import java.util.LinkedHashMap;
 
 /**
+ * TAP Element that supports diagnostic information.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapMetaElement 
+public abstract class AbstractTapElementDiagnostic 
 implements TapElement
 {
 	
 	/**
-	 * Tap Element meta map.
+	 * Iterable object returned by snakeyaml.
 	 */
-	protected final LinkedHashMap<String, Object> meta = new LinkedHashMap<String, Object>();
-
+	protected Iterable<?> diagnostic = null;
+	
 	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.model.TapElement#addMetaInformation(java.lang.String, java.lang.Object)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#getDiagnostic()
 	 */
-	public void addMetaInformation( String key, Object value )
+	public Iterable<?> getDiagnostic() 
 	{
-		if ( key != null )
-		{
-			key = key.trim();
-		}
-		if ( value != null )
-		{
-			if ( value instanceof String )
-			{
-				value = ((String)value).trim();
-			}
-		}
-		this.meta.put( key, value );
+		return this.diagnostic;
 	}
 	
 	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.model.TapElement#getMetaInformation(java.lang.String)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#setDiagnostic(java.lang.Iterable)
 	 */
-	public Object getMetaInformation( String key )
+	public void setDiagnostic(Iterable<?> diagnostic) 
 	{
-		return this.meta.get( key );
+		this.diagnostic = diagnostic;
 	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.model.TapElement#getMeta()
-	 */
-	public LinkedHashMap<String, Object> getMeta()
-	{
-		return this.meta;
-	}
-	
+		
 }

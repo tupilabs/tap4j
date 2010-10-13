@@ -104,7 +104,9 @@ extends DefaultTapConsumer
 				this.currentIndentationLevel = indentation;
 				if ( indentation > this.baseIndentationLevel )
 				{
-					// we are at the start of the meta tags
+					// we are at the start of the meta tags, but we should ignore 
+					// the --- or ...
+					// TBD: check how snakeyaml can handle these tokens.
 					if ( tapLine.trim().equals("---") || tapLine.trim().equals("...") )
 					{
 						return;
@@ -123,15 +125,18 @@ extends DefaultTapConsumer
 		// If we found any meta, then process it with SnakeYAML
 		if (  metaBuffer.length() > 0 )
 		{
+			
+			if ( this.lastParsedElement == null )
+			{
+				throw new TapParserException("Found meta information without a previous TAP element.");
+			}
+			
 			try
 			{
-				Iterable<?> it = (Iterable<?>)yaml.loadAll( metaBuffer.toString() );
-				
-				for ( Object data : it )
-				{
-					System.out.println(data);
-				}
-			}catch ( Exception ex )
+				Iterable<?> metaIterable = (Iterable<?>)yaml.loadAll( metaBuffer.toString() );
+				this.lastParsedElement.setDiagnostic( metaIterable );	
+			}
+			catch ( Exception ex )
 			{
 				throw new TapParserException("Error parsing YAML ["+metaBuffer.toString()+"]: " + ex.getMessage(), ex);
 			}

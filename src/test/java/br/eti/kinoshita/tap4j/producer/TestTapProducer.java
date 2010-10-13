@@ -29,6 +29,7 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.yaml.snakeyaml.Yaml;
 
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
@@ -65,6 +66,9 @@ extends Assert
 		tapProducer.addComment( singleComment );
 		
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
+		Yaml yaml = new Yaml();
+		yaml.
+		tr1.setDiagnostic(diagnostic)
 		tapProducer.addTestResult(tr1);
 		
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
@@ -75,7 +79,7 @@ extends Assert
 		
 		try
 		{
-			tempFile = File.createTempFile("tap_", "tap");
+			tempFile = File.createTempFile("tap4j_", ".tap");
 		} 
 		catch (IOException e)
 		{
@@ -91,6 +95,8 @@ extends Assert
 		try
 		{
 			tapProducer.printTo( tempFile );
+			
+			System.out.println(tempFile);
 		}
 		catch ( Exception e  )
 		{

@@ -50,7 +50,7 @@ extends Assert
 	@Test
 	public void testDirective()
 	{
-		assertEquals( directive.toString(), "# TODO Not implemented yet.");
+		assertEquals( directive.toString(), " # TODO Not implemented yet.");
 		
 		assertEquals( directive.getReason(), "Not implemented yet.");
 		
@@ -64,7 +64,7 @@ extends Assert
 		
 		assertNull( directive.getReason() );
 		
-		assertEquals( directive.toString(), "# SKIP" );
+		assertEquals( directive.toString(), " # SKIP" );
 	}
 	
 }

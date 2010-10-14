@@ -79,7 +79,7 @@ implements Serializable
 	public String toString()
 	{
 		StringBuffer sb = new StringBuffer();
-		sb.append( "# " + directiveValue );
+		sb.append( " # " + directiveValue );
 		if ( this.reason != null )
 		{
 			sb.append( " " + this.reason );

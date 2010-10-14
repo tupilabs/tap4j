@@ -23,13 +23,7 @@
  */
 package br.eti.kinoshita.tap4j.ext;
 
-import java.io.IOException;
-
-import junit.framework.Assert;
-
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -37,39 +31,10 @@ import org.testng.annotations.Test;
  * @since 1.0
  */
 @Listeners(value={Tap4jTestNGTestListener.class})
-public class TestNGIntegration 
-extends Assert
+@Test(singleThreaded=true)
+public class TestNGIntegration2
 {
+	
+	
 
-	@Test(singleThreaded=true)
-	public void simpleTestOk()
-	{
-		assertTrue( 1 > 0 );
-	}
-	
-	@SuppressWarnings("unused")
-	@Parameters({"name", "age"})
-	@Test(singleThreaded=true,successPercentage=0,dependsOnMethods={"simpleTestOk"}, expectedExceptions=IOException.class, description="A test that purposefully fails.")
-	public void simpleTestFail(@Optional("Johnson") String name, @Optional("19") Integer age) 
-	throws Exception
-	{
-		if ( 1 > 0 )
-		{
-			throw new Exception("Error");	
-		}
-		fail("no reason");
-	}
-	
-	@Test(dependsOnMethods={"simpleTestFail"}, alwaysRun=false)
-	public void simpleTestSkip()
-	{
-		
-	}
-	
-	@Test
-	public void anotherThatFails()
-	{
-		assertEquals(13, System.currentTimeMillis());		
-	}
-	
 }

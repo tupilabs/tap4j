@@ -1,4 +1,4 @@
-Download tap4j
+Download
 
   tap4j is a Java API to produce and consume TAP files (also known as TAP Streams). 
   In order to use tap4j in your project simply put its jar in your project build path 

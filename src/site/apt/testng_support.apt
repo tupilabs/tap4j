@@ -1,0 +1,42 @@
+TestNG support
+
+ We introduced TestNG support in tap4j 1.1. The integration between tap4j and 
+ TestNG is achieved through the use of a TestNG Test Listener 
+ {{{http://testng.org/doc/documentation-main.html#testng-listeners}(TestNG Listeners)}}.
+ 
+ In order to be able to produce tap files with TestNG you have to specify to 
+ TestNG that you will be using a Listener. This can be done through command line, 
+ suite xml file or Test class Listeners Annotation.
+ 
+* Command line
+ 
++---+
+java -classpath testng.jar;tap4j-1.1.jar;%CLASSPATH% org.testng.TestNG -listener br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener test\testng.xml
++---+
+
+* TestNG suite xml
+ 
+ Add the following to your TestNG suite xml file in order to produce TAP Streams 
+ within your TestNG tests. Do not forget to add tap4j-1.1.jar into your  
+ classpath during execution of the tests.
+
++---+
+<suite>
+ 
+  <listeners>
+    <listener class-name="br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener" />
+  </listeners>
+ 
+...
++---+
+
+* Listeners Annotation
+ 
+ Add the @Listeners annotation to your Test class. See 
+ br.eti.kinoshita.tap4j.ext.TestNGIntegration.java for a sample.
+ 
++---+
+@Listeners(value={br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener.class})
+public class MyTestClass {
+...
++---+

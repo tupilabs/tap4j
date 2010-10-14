@@ -15,12 +15,22 @@
       <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
     </links>
 
-    <menu name="tap4j">
+    <menu name="Reference">
       <item name="Introduction" href="index.html"/>
       <item name="Download" href="downloads.html"/>
-      <item name="Release Notes" href="release.html"/>
+      <item name="Release Notes" href="release_notes.html"/>
       <item name="Roadmap" href="roadmap.html"/>
       <item name="FAQ" href="faq.html"/>
+      <item name="Related projects" href="related_projects.html"/>
+    </menu>
+    
+    <menu name="Tutorial">
+      <item name="Consumers" href="consumers.html"/>
+      <item name="Producers" href="producers.html"/>
+    </menu>
+    
+    <menu name="tap4j Extensions">
+    	<item name="TestNG support" href="testng_support.html"/>
     </menu>
 
     <menu ref="reports" />
@@ -30,7 +40,7 @@
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-stylus-skin</artifactId>
-    <version>1.0</version>
+    <version>1.2</version>
   </skin>
   
 </project>

@@ -1,5 +1,21 @@
 Release Notes
 
+* Version 1.1
+
+ * <<Tap13Consumer>>: This new consumer parses yaml-like TAP diagnostic.
+ 
+ * Added yaml support to <<DefaultTapProducer>>.
+ 
+ * Increased code coverage from 62%/46% (line/branch) up to 95%/80%.
+ 
+ * Fixed minor bugs found whilst increasing code coverage.
+ 
+ * Started to open issues on SF.net Issue Tracker to maintain project history.
+ 
+ * Reduced Cyclomatic Complexity from {{{http://tap4j.sourceforge.net/apidocs/br/eti/kinoshita/tap4j/consumer/Tap13Consumer.html#parseLine(java.lang.String)}Tap13Consumer#parseLine}} that reached 20 back to 10.
+
+ * Added TestNG Support.
+
 * Version 1.0
 
  * Basic TAP Producers

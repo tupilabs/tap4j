@@ -1,0 +1,87 @@
+Consumers
+
+ Consumers are basically parsers. They can load a file or a String and parse 
+ its contents and build objects, letting the user or another API to use TAP.
+ 
+ Given the following TAP Stream:
+ 
++---+
+TAP version 13
+1..0 skip Testing...
+not ok 1 Failed to execute IO operation. # Reviewing
+ok 2 Test passed OK! # SKIP Always skip
+not ok 3 Failed to execute IO operation. # Reviewing
+# Sample comment
+ok 4 Test passed OK! # TODO We'll implement this in the next release.
+not ok 5 Failed to execute IO operation. # Reviewing
+ok 6 Test passed OK! # TODO We'll implement this in the next release.
+Bail out! Server unavailable!
+Text to be ignored
+not ok 7 Failed to execute IO operation. # Reviewing
+ok 8 Test passed OK! # TODO We'll implement this in the next release.
+not ok 9 Failed to execute IO operation. # Reviewing
+ok 10 Test passed OK! # TODO We'll implement this in the next release.
+# Simple footer.
++---+
+
+ We could parse it using tap4j as follows:
+ 
++---+
+...
+public static void main ( String[] args ) 
+throws TapParserException
+{
+    TapConsumer consumer = consumer = new DefaultTapConsumer();
+	
+    consumer.parseFile( new File(Sample.class.getResource("/input/data.tap").getFile()) );
+	
+    System.out.println( "Found " + consumer.getNumberOfTestResults() + " test results." );
+}
+...
++---+
+
+ Causing the output 'Found 10 test results.'.
+ 
+* yaml-like diagnostic 
+
+ In version 1.1 tap4j supports yaml-like diagnostic lines. 
+
++---+
+TAP version 13
+1..4
+ok 1 testDirective
+ok 2 testNoReason
+not ok 3
+  ---
+  file: br.eti.kinoshita.tap4j.CarTest
+  description: A simple test with cars
+  wanted: '198km'
+  found: '120km'
+  extensions:
+    Start: 1287077800020
+    End: 1287077800020
+  ...
+ok 4 testTapProducer
++---+
+
+ Parsing it is now pretty easy thanks to 
+ {{{http://code.google.com/p/snakeyaml/}snakeyaml}} project. However you must 
+ use Tap13Consumer instead of DefaultTapConsumer.
+ 
++---+
+...
+public static void main ( String[] args ) 
+throws TapParserException
+{
+    TapConsumer consumer = consumer = new Tap13Consumer();
+	
+    consumer.parseFile( new File(Sample.class.getResource("/sample/yaml.tap").getFile()) );
+	
+    System.out.println( "Found " + consumer.getNumberOfTestResults() + " test results." );
+    
+    consumer.getTestResult( 3 ).getDiagnostics().get("file").toString();
+}
+...
++---+
+
+ The diagnostics object is a LinkedHashMap<String, Object>.

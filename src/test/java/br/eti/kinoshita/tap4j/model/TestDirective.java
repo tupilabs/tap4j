@@ -23,15 +23,48 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.util.DirectiveValues;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
+ * Tests a TAP directive.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public class TestDirective 
+extends Assert
 {
 
+	private Directive directive;
+	
+	@BeforeMethod
+	public void setUp()
+	{
+		directive = new Directive(DirectiveValues.TODO, "Not implemented yet.");
+	}
+	
+	@Test
+	public void testDirective()
+	{
+		assertEquals( directive.toString(), "# TODO Not implemented yet.");
+		
+		assertEquals( directive.getReason(), "Not implemented yet.");
+		
+		assertEquals( directive.getDirectiveValue(), DirectiveValues.TODO );
+	}
+	
+	@Test
+	public void testNoReason()
+	{
+		directive = new Directive(DirectiveValues.SKIP, null);
+		
+		assertNull( directive.getReason() );
+		
+		assertEquals( directive.toString(), "# SKIP" );
+	}
+	
 }

@@ -24,6 +24,8 @@
 package br.eti.kinoshita.tap4j.consumer;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -48,9 +50,22 @@ extends Assert
 		consumer = new DefaultTapConsumer();
 	}
 	
+	@Test
+	public void simpleTest()
+	{
+		try
+		{
+			consumer.parseLine(null);
+		} 
+		catch (TapParserException e)
+		{
+			fail( "Error parsing null line: " + e.getMessage(), e );
+		}
+	}
+	
 	// tap1.tap
 	@Test
-	public void testConsumer_tap1()
+	public void testConsumer_tap1_andPrintDetails()
 	{
 		try
 		{
@@ -58,6 +73,12 @@ extends Assert
 			assertTrue( consumer.getNumberOfTestResults() == 2);
 			Footer footer = consumer.getFooter();
 			assertNull( footer );
+			StringWriter writer = new StringWriter();
+			PrintWriter pw = new PrintWriter( writer );
+			consumer.printDetails( pw );
+			
+			StringBuffer sb = writer.getBuffer();
+			assertTrue( sb.toString().length() > 0 );
 		} 
 		catch (TapParserException e)
 		{
@@ -68,7 +89,7 @@ extends Assert
 	
 	// output.tap
 	@Test
-	public void testConsumer_output()
+	public void testConsumer_output_andPrintSummary()
 	{
 		try
 		{
@@ -78,6 +99,13 @@ extends Assert
 			assertNull( footer );
 			assertTrue( consumer.getNumberOfBailOuts() == 1);
 			assertTrue( consumer.getBailOuts().get(0).getReason().equals("Server unavailable!"));
+			
+			StringWriter writer = new StringWriter();
+			PrintWriter pw = new PrintWriter( writer );
+			consumer.printSummary( pw );
+			
+			StringBuffer sb = writer.getBuffer();
+			assertTrue( sb.toString().length() > 0 );
 		} 
 		catch (TapParserException e)
 		{
@@ -411,6 +439,43 @@ extends Assert
 		catch (TapParserException e)
 		{
 			throw e;
+		}
+	}
+	
+	@Test
+	public void testConsumer_tapStream1_andPrintDetails()
+	{
+		StringBuffer tapStream = new StringBuffer();
+		
+		tapStream.append("TAP version 13 # the header\n");
+		tapStream.append("1..1\n");
+		tapStream.append("ok 1\n");
+		tapStream.append("Bail out! Out of memory exception # Contact admin! 9988\n");
+		
+		try
+		{
+			consumer.parseTapStream( tapStream.toString() );
+			
+			assertTrue( consumer.getPlan().getLastTestNumber() == 1 );
+			
+			assertNotNull( consumer.getHeader() );
+			
+			assertNotNull( consumer.getHeader().getComment() );
+			
+			assertEquals( consumer.getBailOuts().get(0).getReason(), "Out of memory exception ");
+			
+			assertEquals( consumer.getBailOuts().get(0).getComment().getText(), "Contact admin! 9988" );
+			
+			StringWriter writer = new StringWriter();
+			PrintWriter pw = new PrintWriter( writer );
+			consumer.printDetails( pw );
+			
+			StringBuffer sb = writer.getBuffer();
+			assertTrue( sb.toString().length() > 0 );
+		} 
+		catch (TapParserException e)
+		{
+			fail("Failed to parse TAP stream: " + e.getMessage(), e);
 		}
 	}
 	

@@ -21,17 +21,61 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.consumer.TapParserException;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public class TestTapParserException 
+extends Assert
 {
+	
+	private TapParserException exception;
+	
+	@Test
+	public void testTapParserException1()
+	{
+		exception = new TapParserException();
+		
+		assertNotNull( exception );
+	}
+	
+	@Test
+	public void testTapParserException2()
+	{
+		exception = new TapParserException("Error parsing document");
+		
+		assertNotNull( exception );
+		
+		assertEquals( exception.getMessage(), "Error parsing document");
+	}
+	
+	@Test
+	public void testTapParserException3()
+	{
+		exception = new TapParserException(new NullPointerException("Null TAP Stream"));
+		
+		assertNotNull( exception );
+		
+		assertTrue( exception.getCause() instanceof NullPointerException );
+	}
+	
+	@Test
+	public void testTapParserException4()
+	{
+		exception = new TapParserException("Null", new NullPointerException());
+		
+		assertNotNull( exception );
+		
+		assertEquals( exception.getMessage(), "Null");
+		
+		assertTrue( exception.getCause() instanceof NullPointerException );
+	}
 
 }

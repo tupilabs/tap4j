@@ -23,15 +23,49 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
+ * Tests TAP Bail Out element.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public class TestTAPBailOut 
+extends Assert
 {
+	
+	protected BailOut bailOut;
+	
+	private final static String REASON = "It is monday.";
+	
+	@BeforeTest
+	public void setUp()
+	{
+		bailOut = new BailOut( REASON );
+		
+		bailOut.setComment( new Comment("Bail out comment") );
+	}
+	
+	@Test
+	public void testBailOut()
+	{
+		assertNotNull( bailOut );
+		
+		assertEquals( bailOut.getReason(), REASON );
+		
+		assertNotNull( bailOut.getComment() );
+		
+		assertNotNull( bailOut.getComment().getText() );
+		
+		assertEquals( bailOut.toString(), "Bail out! " + REASON + " " +  bailOut.getComment().toString());
+		
+		bailOut = new BailOut(null);
+		assertNull( bailOut.getReason() );
+		
+		assertEquals( bailOut.toString(), "Bail out!" );
+	}
 
 }

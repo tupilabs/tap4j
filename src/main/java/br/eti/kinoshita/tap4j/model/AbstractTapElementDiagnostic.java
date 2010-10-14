@@ -23,15 +23,38 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import java.util.Map;
+
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
+ * TAP Element that supports diagnostic information.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public abstract class AbstractTapElementDiagnostic 
+implements TapElement
 {
-
+	
+	/**
+	 * Iterable object returned by snakeyaml.
+	 */
+	protected Map<String, Object> diagnostic = null;
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#getDiagnostic()
+	 */
+	public Map<String, Object> getDiagnostic() 
+	{
+		return this.diagnostic;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.model.TapElement#setDiagnostic(java.lang.Iterable)
+	 */
+	public void setDiagnostic(Map<String, Object> diagnostic) 
+	{
+		this.diagnostic = diagnostic;
+	}
+		
 }

@@ -24,7 +24,6 @@
 package br.eti.kinoshita.tap4j.consumer;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
@@ -411,7 +410,10 @@ extends AbstractTapConsumer
 			while ( scanner.hasNextLine() )
 			{
 				line = scanner.nextLine();
-				this.parseLine( line );
+				if ( StringUtils.isNotBlank(line) )
+				{
+					this.parseLine( line );
+				}				
 			}
 			
 			this.checkTAPPlanPosition();
@@ -444,7 +446,10 @@ extends AbstractTapConsumer
 			while ( scanner.hasNextLine() )
 			{
 				line = scanner.nextLine();
-				this.parseLine( line );
+				if ( StringUtils.isNotBlank(line) )
+				{
+					this.parseLine( line );
+				}
 			}
 			
 			this.checkTAPPlanPosition();
@@ -473,16 +478,6 @@ extends AbstractTapConsumer
 	}
 
 	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#printSummary(java.io.PrintStream)
-	 */
-	public void printSummary( PrintStream ps )
-	{
-		TestSet testSet = this.getTestSet();
-		String summary = testSet.getSummary();
-		ps.println( summary );
-	}
-
-	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#printDetails(java.io.PrintWriter)
 	 */
 	public void printDetails( PrintWriter pw )
@@ -504,31 +499,6 @@ extends AbstractTapConsumer
 		if ( testSet.getFooter() != null )
 		{
 			pw.println( testSet.getFooter().toString() );
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#printDetails(java.io.PrintStream)
-	 */
-	public void printDetails( PrintStream ps )
-	{
-		TestSet testSet = this.getTestSet();
-		if ( testSet.getHeader() != null )
-		{
-			ps.println( testSet.getHeader().toString() );
-		}
-		if ( testSet.getPlan() != null )
-		{
-			ps.println( testSet.getPlan().toString() );
-		}
-		List<TapResult> tapLines = testSet.getTapLines();
-		for ( TapResult tapLine :  tapLines)
-		{
-			ps.println( tapLine.toString() );
-		}
-		if ( testSet.getFooter() != null )
-		{
-			ps.println( testSet.getFooter().toString() );
 		}
 	}
 

@@ -24,6 +24,8 @@
 package br.eti.kinoshita.tap4j.model;
 
 
+
+
 /**
  * Represents a Bail Out TAP Line. The test execution should be suspended if 
  * there is a Bail Out. 
@@ -32,7 +34,7 @@ package br.eti.kinoshita.tap4j.model;
  * @since 1.0
  */
 public class BailOut 
-implements TapResult
+extends TapResult
 {
 
 	/**
@@ -86,7 +88,7 @@ implements TapResult
 		sb.append( "Bail out!" + ((this.reason != null) ? " " + this.reason : "") );
 		if ( this.comment != null )
 		{
-			sb.append( this.comment.toString() );
+			sb.append( " " + this.comment.toString() );
 		}
 		return sb.toString();
 	}

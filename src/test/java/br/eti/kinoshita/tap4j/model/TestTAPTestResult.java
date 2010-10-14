@@ -52,11 +52,14 @@ extends Assert
 		
 		notOkTestResult = new TestResult( StatusValues.NOT_OK, 2 );
 		
-		okTestResultSkip = new TestResult( StatusValues.OK, 3 );
+		okTestResultSkip = new TestResult( StatusValues.NOT_OK, 3 );
 
 		Directive skipDirective = new Directive( DirectiveValues.SKIP, "Skip it until next release of the produce." );
 		okTestResultSkip.setDirective( skipDirective );
 
+		Comment comment = new Comment( "This status is set to true in another method." );
+		okTestResultSkip.setComment( comment );
+		
 	}
 	
 	@Test
@@ -102,16 +105,21 @@ extends Assert
 		
 		assertTrue( okTestResultSkip.getTestNumber() > 0 );
 		
+		okTestResultSkip.setStatus( StatusValues.OK );
+		
 		assertEquals( okTestResultSkip.getStatus(), StatusValues.OK );
 		
 		assertNotNull( okTestResultSkip.getDirective() );
 		
 		String toStringResult = okTestResultSkip.toString();
 		
+		assertNotNull( okTestResultSkip.getComment() );
+		
 		final String expectedValue = "ok " + okTestResultSkip.getTestNumber() 
-		+ okTestResultSkip.getDirective();
+		+ okTestResultSkip.getDirective() + " # This status is set to true in another method.";
 		
 		assertEquals( toStringResult, expectedValue );
+
 	}
 	
 }

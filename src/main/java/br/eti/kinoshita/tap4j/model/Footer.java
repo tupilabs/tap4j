@@ -35,7 +35,7 @@ package br.eti.kinoshita.tap4j.model;
  * @see {@link Comment}
  */
 public class Footer 
-implements TapElement
+extends AbstractTapElementDiagnostic
 {
 
 	/**
@@ -95,9 +95,9 @@ implements TapElement
 		
 		if ( this.comment != null )
 		{
-			sb.append ( this.comment.toString() );
+			sb.append ( " " + this.comment.toString() );
 		}
-		return "TAP " + this.text;
+		return sb.toString();
 	}
 
 }

@@ -34,7 +34,7 @@ package br.eti.kinoshita.tap4j.model;
  * @since 1.0
  */
 public class Header 
-implements TapElement
+extends AbstractTapElementDiagnostic
 {
 	
 	/**
@@ -92,7 +92,7 @@ implements TapElement
 		
 		if ( this.comment != null )
 		{
-			sb.append ( this.comment.toString() );
+			sb.append ( " " + this.comment.toString() );
 		}
 		
 		return sb.toString();

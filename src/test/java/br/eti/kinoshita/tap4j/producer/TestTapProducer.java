@@ -25,11 +25,13 @@ package br.eti.kinoshita.tap4j.producer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
@@ -65,17 +67,33 @@ extends Assert
 		tapProducer.addComment( singleComment );
 		
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
+		LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+		diagnostic.put("file", "testingproducer.txt");
+		diagnostic.put("time", System.currentTimeMillis());
+		diagnostic.put("Tester", "Bruno P. Kinoshita");
+		LinkedHashMap<String, Object> map2 = new LinkedHashMap<String, Object>();
+		map2.put("EHCTA", 1233);
+		map2.put("TRANSACTION", 3434);
+		diagnostic.put("Audit", map2);
+		tr1.setDiagnostic( diagnostic );
+		//tr1.setDiagnostic(diagnostic)
 		tapProducer.addTestResult(tr1);
 		
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
 		tr2.setTestNumber(2);
 		tapProducer.addTestResult(tr2);
 		
+		BailOut bailOut = new BailOut("Test 2 failed");
+		tapProducer.addBailOut( bailOut );
+		
+		Comment simpleComment = new Comment("Test bailed out.");
+		tapProducer.addComment( simpleComment );
+		
 		tapProducer.setFooter( new Footer("End") );
 		
 		try
 		{
-			tempFile = File.createTempFile("tap_", "tap");
+			tempFile = File.createTempFile("tap4j_", ".tap");
 		} 
 		catch (IOException e)
 		{
@@ -88,9 +106,17 @@ extends Assert
 	{
 		assertTrue ( tapProducer.getTapLines().size() > 0 );
 		
+		assertTrue( tapProducer.getNumberOfTestResults() == 2 );
+		
+		assertTrue( tapProducer.getNumberOfBailOuts() == 1 );
+		
+		assertTrue( tapProducer.getNumberOfComments() == 2 );
+		
 		try
 		{
 			tapProducer.printTo( tempFile );
+			
+			//System.out.println(tempFile);
 		}
 		catch ( Exception e  )
 		{

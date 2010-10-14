@@ -23,10 +23,11 @@
  */
 package br.eti.kinoshita.tap4j.consumer;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
+import org.yaml.snakeyaml.Yaml;
 
 import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.Text;
@@ -54,6 +55,13 @@ extends DefaultTapConsumer
 	 */
 	protected int currentIndentationLevel = -1;
 	
+	/**
+	 * YAML parser and emitter.
+	 */
+	protected Yaml yaml = new Yaml();
+	
+	protected StringBuffer diagnosticBuffer = new StringBuffer();
+	
 	protected Pattern indentationREGEX = Pattern.compile( "((\\s|\\t)*)?.*" );
 	
 	/* (non-Javadoc)
@@ -63,11 +71,6 @@ extends DefaultTapConsumer
 	public void parseLine(String tapLine) 
 	throws TapParserException 
 	{
-
-		if ( StringUtils.isEmpty( tapLine ) || StringUtils.isWhitespace( tapLine ) )
-		{
-			return;
-		}
 		
 		Matcher matcher = null;
 		
@@ -92,34 +95,34 @@ extends DefaultTapConsumer
 			if ( matcher.matches() )
 			{
 				String spaces = matcher.group ( 1 );
-				int indentantion = spaces.length();
-				if ( indentantion > this.baseIndentationLevel )
+				int indentation = spaces.length();
+				this.currentIndentationLevel = indentation;
+				if ( indentation > this.baseIndentationLevel )
 				{
-					// TODO: process meta information
-					System.out.println( "Meta: " + tapLine );
+					// we are at the start of the meta tags, but we should ignore 
+					// the --- or ...
+					// TBD: check how snakeyaml can handle these tokens.
+					
+					this.appendTapLineToDiagnosticBuffer( tapLine );
+					
 					return;
 				}
-				if ( indentantion < this.baseIndentationLevel )
-				{
-					throw new TapParserException("Invalid indentantion. Check your TAP Stream. Line: " + tapLine);
-				}
+				
+				// indentation cannot be less then the base indentation level
+				this.checkIndentationLevel( indentation, tapLine );
 			}
 		}
+		
+		// Check if we have some diagnostic set in the buffer
+		this.checkAndParseTapDiagnostic();
 		
 		// Header 
 		matcher = headerREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			Matcher indentMatcher = indentationREGEX.matcher( tapLine );
-			if ( indentMatcher.matches() )
-			{
-				String spaces = indentMatcher.group ( 1 );
-				this.baseIndentationLevel = spaces.length();
-			} 
-			else 
-			{
-				this.baseIndentationLevel = 0;
-			}
+			this.baseIndentationLevel = this.getIndentationLevel( tapLine );
+			
+			this.currentIndentationLevel = this.baseIndentationLevel;
 			
 			this.checkTAPHeaderParsingLocationAndDuplicity();
 			
@@ -131,16 +134,13 @@ extends DefaultTapConsumer
 			return;
 		}
 		
-		if ( this.header == null )
-		{
-			throw new TapParserException("Missing required TAP Header element.");
-		}
+		// Check if the header was set
+		this.checkHeader();
 		
 		// Plan 
 		matcher = planREGEX.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			
 			this.checkTAPPlanDuplicity();
 			
 			this.checkIfTAPPlanIsSetBeforeTestResultsOrBailOut();
@@ -192,10 +192,119 @@ extends DefaultTapConsumer
 		this.tapLines.add( text );
 
 	}
+
+	/**
+	 * Checks if the indentation is greater than the 
+	 * {@link #baseIndentationLevel}
+	 * 
+	 * @param indentation indentation level
+	 * @throws TapParserException if indentation is less then the 
+	 *   {@link #baseIndentationLevel}.
+	 */
+	private void checkIndentationLevel( int indentation, String tapLine )
+	throws TapParserException
+	{
+		if ( indentation < this.baseIndentationLevel )
+		{
+			throw new TapParserException("Invalid indentantion. " +
+					"Check your TAP Stream. Line: " + tapLine);
+		}
+	}
+
+	/**
+	 * Gets the indentation level of a line.
+	 * 
+	 * @param tapLine line.
+	 * @return indentation level of a line.
+	 */
+	private int getIndentationLevel( String tapLine )
+	{
+		int indentationLevel = 0;
+		
+		final Matcher indentMatcher = indentationREGEX.matcher( tapLine );
+		
+		if ( indentMatcher.matches() )
+		{
+			String spaces = indentMatcher.group ( 1 );
+			indentationLevel = spaces.length();
+		} 
+		return indentationLevel;
+	}
+
+	/**
+	 * <p>Checks if there is any diagnostic information on the diagnostic 
+	 * buffer.</p>
+	 * 
+	 * <p>If so, tries to parse it using snakeyaml.</p>
+	 * 
+	 * @throws TapParserException
+	 */
+	private void checkAndParseTapDiagnostic() 
+	throws TapParserException
+	{
+		// If we found any meta, then process it with SnakeYAML
+		if (  diagnosticBuffer.length() > 0 )
+		{
+			
+			if ( this.lastParsedElement == null )
+			{
+				throw new TapParserException("Found diagnostic information without a previous TAP element.");
+			}
+			
+			try
+			{
+				//Iterable<?> metaIterable = (Iterable<?>)yaml.loadAll( diagnosticBuffer.toString() );
+				@SuppressWarnings("unchecked")
+				Map<String, Object> metaIterable = (Map<String, Object>)yaml.load( diagnosticBuffer.toString() );
+				this.lastParsedElement.setDiagnostic( metaIterable );	
+			}
+			catch ( Exception ex )
+			{
+				throw new TapParserException("Error parsing YAML ["+diagnosticBuffer.toString()+"]: " + ex.getMessage(), ex);
+			}
+			
+			diagnosticBuffer = new StringBuffer();
+		}
+	}
 	
+	/**
+	 * Checks if the Header was set.
+	 * 
+	 * @throws TapParserException
+	 */
+	private void checkHeader() 
+	throws TapParserException
+	{
+		if ( this.header == null )
+		{
+			throw new TapParserException("Missing required TAP Header element.");
+		}
+	}
+	
+	/**
+	 * Appends a diagnostic line to diagnostic buffer. If the diagnostic line 
+	 * contains --- or ... then it ignores this line. In the end of each line 
+	 * it appends a break line.
+	 * 
+	 * @param diagnosticLine diagnostic line
+	 */
+	private void appendTapLineToDiagnosticBuffer( String diagnosticLine )
+	{
+		if ( diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...") )
+		{
+			return;
+		}
+		diagnosticBuffer.append( diagnosticLine );
+		diagnosticBuffer.append( "\n" );
+	}
+
+	/**
+	 * @return true if the base indentation is already defined, false  
+	 * otherwise.
+	 */
 	protected boolean isBaseIndentationAlreadyDefined()
 	{
 		return this.baseIndentationLevel >= 0;
 	}
-	
+		
 }

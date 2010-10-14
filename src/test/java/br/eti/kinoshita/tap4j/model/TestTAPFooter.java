@@ -24,7 +24,7 @@
 package br.eti.kinoshita.tap4j.model;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -41,7 +41,7 @@ extends Assert
 	
 	private final static String FOOTER_TEXT = "done";
 	
-	@BeforeTest
+	@BeforeMethod
 	public void setUp()
 	{
 		footer = new Footer( FOOTER_TEXT );		
@@ -55,6 +55,18 @@ extends Assert
 		assertNotNull( footer.getText() );
 		assertEquals(footer.getText(), expectedValue);
 		assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
+	}
+	
+	@Test
+	public void testFooterWithComment()
+	{
+		footer.setComment( new Comment("Footer's comment.") );
+		
+		assertNotNull( this.footer.getComment() );
+		
+		assertEquals( this.footer.getComment().getText(), "Footer's comment.");
+		
+		assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
 	}
 	
 }

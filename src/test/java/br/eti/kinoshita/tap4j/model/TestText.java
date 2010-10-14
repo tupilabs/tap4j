@@ -23,15 +23,34 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public class TestText 
+extends Assert
 {
 
+	protected Text text;
+	
+	@BeforeMethod
+	public void setUp()
+	{
+		text = new Text( "Invalid token" );
+	}
+	
+	@Test
+	public void testText()
+	{
+		assertNotNull( text.getValue() );
+		
+		assertNull( text.getDiagnostic() );
+		
+		assertEquals( text.getValue(), text.toString() );
+	}
+	
 }

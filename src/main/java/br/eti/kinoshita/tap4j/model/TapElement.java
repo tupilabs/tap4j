@@ -24,6 +24,7 @@
 package br.eti.kinoshita.tap4j.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Any element that belongs to TAP.
@@ -34,5 +35,15 @@ import java.io.Serializable;
 public interface TapElement 
 extends Serializable 
 {
-
+	
+	/**
+	 * @return yaml diagnostic information.
+	 */
+	public Map<String, Object> getDiagnostic();
+	
+	/**
+	 * @param meta yaml diagnostic information.
+	 */
+	public void setDiagnostic(Map<String, Object> meta);
+	
 }

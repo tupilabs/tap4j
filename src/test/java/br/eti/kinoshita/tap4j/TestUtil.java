@@ -21,17 +21,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j;
 
+import java.lang.reflect.Constructor;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.util.Util;
 
 /**
- * A TAP Line. A TAP line represents a TestResult or a BailOut.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class TapResult 
-extends AbstractTapElementDiagnostic
+public class TestUtil extends Assert
 {
+
+	private StringBuffer sb;
+
+	@BeforeMethod
+	public void setUp()
+	{
+		sb = new StringBuffer();
+		sb.append("Anything");
+	}
+
+	@Test
+	public void testAppends()
+	{
+		Util.appendIfNotNull(sb, " appended text");
+		assertEquals(sb.toString(), "Anything appended text");
+
+		Util.appendIfNotNull(sb, " - ", " Tom T.", null);
+		assertEquals(sb.toString(), "Anything appended text -  Tom T.");
+	}
+
+	@Test
+	public void testUtilConstructor()
+	{
+		try
+		{
+			final Constructor<?> c = Util.class.getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			final Object o = c.newInstance((Object[]) null);
+
+			assertNotNull(o);
+		}
+		catch (Exception e)
+		{
+			fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
+		}
+	}
 
 }

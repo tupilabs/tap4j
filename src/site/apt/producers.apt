@@ -1,6 +1,6 @@
 Producers
  
- Producers produce TAP Streams. A consumer is able, for instance, to output the 
+ Producers produce TAP Streams. A producer is able, for instance, to output the 
  following text.
  
 +---+

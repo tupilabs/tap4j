@@ -23,25 +23,15 @@
  */
 package br.eti.kinoshita.tap4j.ext;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
-
-import br.eti.kinoshita.tap4j.model.Directive;
-import br.eti.kinoshita.tap4j.model.Header;
-import br.eti.kinoshita.tap4j.model.Plan;
-import br.eti.kinoshita.tap4j.model.SkipPlan;
-import br.eti.kinoshita.tap4j.model.TestResult;
-import br.eti.kinoshita.tap4j.producer.DefaultTapProducer;
-import br.eti.kinoshita.tap4j.producer.TapProducer;
-import br.eti.kinoshita.tap4j.util.DirectiveValues;
-import br.eti.kinoshita.tap4j.util.StatusValues;
+import src.main.java.br.eti.kinoshita.tap4j.model.Directive;
+import src.main.java.br.eti.kinoshita.tap4j.model.Header;
+import src.main.java.br.eti.kinoshita.tap4j.model.Plan;
+import src.main.java.br.eti.kinoshita.tap4j.model.SkipPlan;
+import src.main.java.br.eti.kinoshita.tap4j.model.TestResult;
+import src.main.java.br.eti.kinoshita.tap4j.producer.DefaultTapProducer;
+import src.main.java.br.eti.kinoshita.tap4j.producer.TapProducer;
+import src.main.java.br.eti.kinoshita.tap4j.util.DirectiveValues;
+import src.main.java.br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
  * Provides integration with TestNG through the TestListenerAdapter class.
@@ -132,17 +122,13 @@ extends TestListenerAdapter
 		}
 		else 
 		{
-			if (!directory.mkdirs()) 
+			// Double-check that some other thread or process hasn't made
+			// the directory in the background
+			if (!directory.mkdirs() && !directory.isDirectory()) 
 			{
-				
-				// Double-check that some other thread or process hasn't made
-				// the directory in the background
-				if (!directory.isDirectory())
-				{
-					String message =
-						"Unable to create directory " + directory;
-					throw new IOException(message);
-				}
+				String message =
+					"Unable to create directory " + directory;
+				throw new IOException(message);
 			}
 		} 
 		

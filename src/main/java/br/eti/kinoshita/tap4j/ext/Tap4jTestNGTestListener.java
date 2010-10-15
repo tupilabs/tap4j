@@ -33,7 +33,6 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
-import br.eti.kinoshita.tap4j.ext.ExtUtil;
 import br.eti.kinoshita.tap4j.model.Directive;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;

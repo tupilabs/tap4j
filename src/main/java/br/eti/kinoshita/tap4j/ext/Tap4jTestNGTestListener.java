@@ -72,7 +72,21 @@ extends TestListenerAdapter
 	 * Counter for number of tests.
 	 */
 	protected static int counter = 0;
+	
+	/**
+	 * The name of the Test Class.
+	 */
+	private String testClassName;
 
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onTestStart(org.testng.ITestResult)
+	 */
+	@Override
+	public void onTestStart( ITestResult result )
+	{
+		this.testClassName = result.getTestClass().getName();
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.testng.TestListenerAdapter#onStart(org.testng.ITestContext)
 	 */
@@ -305,11 +319,11 @@ extends TestListenerAdapter
 	public void onFinish(ITestContext testContext) 
 	{
 		counter = 0;
-		final String testName = testContext.getName() + ".tap";
+		final String tapFileName = this.testClassName + ".tap";
 		
 		try 
 		{
-			this.tapProducer.printTo(new File( TAP_OUTPUT_DIRECTORY, testName ));
+			this.tapProducer.printTo(new File( TAP_OUTPUT_DIRECTORY, tapFileName ));
 		}
 		catch (IOException e) 
 		{

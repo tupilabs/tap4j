@@ -306,5 +306,16 @@ extends DefaultTapConsumer
 	{
 		return this.baseIndentationLevel >= 0;
 	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer#postProcess()
+	 */
+	@Override
+	protected void postProcess() 
+	throws TapParserException 
+	{
+		super.postProcess();
+		this.checkAndParseTapDiagnostic();
+	}
 		
 }

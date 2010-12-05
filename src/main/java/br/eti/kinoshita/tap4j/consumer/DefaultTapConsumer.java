@@ -451,8 +451,7 @@ extends AbstractTapConsumer
 					this.parseLine( line );
 				}
 			}
-			
-			this.checkTAPPlanPosition();
+			this.postProcess();
 		} 
 		catch ( Exception e )
 		{
@@ -465,6 +464,16 @@ extends AbstractTapConsumer
 				scanner.close();
 			}
 		}
+	}
+
+	/**
+	 * @throws TapParserException 
+	 * 
+	 */
+	protected void postProcess() 
+	throws TapParserException 
+	{
+		this.checkTAPPlanPosition();
 	}
 
 	/* (non-Javadoc)

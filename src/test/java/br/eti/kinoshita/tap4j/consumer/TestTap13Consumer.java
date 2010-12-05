@@ -89,4 +89,40 @@ extends Assert
 		}
 	}
 	
+	@Test
+	public void test2()
+	{
+		try 
+		{
+			consumer.parseFile( new File(TestTap13Consumer.class.getResource("/input_tap13/br.eti.kinoshita.testng.TestGoogleBrunoKinoshita.tap").getFile()) );
+			
+			assertNotNull( consumer.getHeader() );
+			
+			assertTrue ( consumer.getHeader().getVersion() == 13 );
+			
+			assertNotNull( consumer.getPlan() );
+			
+			assertTrue ( consumer.getPlan().getInitialTestNumber() == 1 );
+			
+			assertTrue( consumer.getPlan().getLastTestNumber() == 1 );
+			
+			assertTrue( consumer.getTestResults().size() == 1 );
+			
+			assertTrue ( consumer.getTestResult(1).getStatus() == StatusValues.NOT_OK );
+			
+			assertNotNull ( consumer.getTestResult(1).getDiagnostic() );
+			
+			Map<String, Object> diagnostic = consumer.getTestResult(1).getDiagnostic();
+			
+			assertNotNull( diagnostic );
+			
+			assertEquals( diagnostic.get("file"), "br.eti.kinoshita.testng.TestGoogleBrunoKinoshita.java" );
+			
+		} 
+		catch (TapParserException e) 
+		{
+			fail("" + e.getMessage());
+		}
+	}
+	
 }

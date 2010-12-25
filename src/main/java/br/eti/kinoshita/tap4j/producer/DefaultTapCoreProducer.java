@@ -60,6 +60,7 @@ extends DefaultTapProducer
 			{
 				TestResult testResult = (TestResult) tapLine ;
 				pw.print( testResult.getStatus() );
+				pw.print( " " );
 				pw.print( testResult.getTestNumber() );
 				
 				if ( ! StringUtils.isEmpty( testResult.getDescription() ) ) 

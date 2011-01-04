@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-@Listeners(value={Tap4jTestNGTestListener.class})
+@Listeners(value={TestTAPReporter.class})
 @Test(singleThreaded=true)
 public class TestNGIntegration2
 {

@@ -36,7 +36,7 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-@Listeners(value={Tap4jTestNGTestListener.class})
+@Listeners(value={TestTAPReporter.class})
 public class TestNGIntegration 
 extends Assert
 {

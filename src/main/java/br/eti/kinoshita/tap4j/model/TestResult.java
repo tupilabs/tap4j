@@ -58,6 +58,12 @@ extends TapResult
 	 */
 	private Comment comment;
 	
+	public TestResult()
+	{
+		this.status = StatusValues.NOT_OK;
+		this.testNumber = -1;
+	}
+	
 	/**
 	 * Constructor with parameter.
 	 * 

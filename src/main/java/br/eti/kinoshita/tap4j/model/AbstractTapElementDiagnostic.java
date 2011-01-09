@@ -23,6 +23,7 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -39,7 +40,7 @@ implements TapElement
 	/**
 	 * Iterable object returned by snakeyaml.
 	 */
-	protected Map<String, Object> diagnostic = null;
+	protected Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.model.TapElement#getDiagnostic()

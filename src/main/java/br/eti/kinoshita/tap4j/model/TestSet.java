@@ -390,6 +390,14 @@ implements Serializable
 		
 		return foundTestResult;
 	}
+	
+	/**
+	 * @return Next test number. 
+	 */
+	public int getNextTestNumber()
+	{
+		return (this.testResults.size()+1);
+	}
 
 	/**
 	 * @return Summary of the TAP Stream.

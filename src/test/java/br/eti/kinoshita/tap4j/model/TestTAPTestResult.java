@@ -50,7 +50,9 @@ extends Assert
 		okTestResult = new TestResult( StatusValues.OK, 1 );
 		okTestResult.setDescription("- First test");
 		
-		notOkTestResult = new TestResult( StatusValues.NOT_OK, 2 );
+		notOkTestResult = new TestResult( );
+		notOkTestResult.setStatus(StatusValues.NOT_OK);
+		notOkTestResult.setTestNumber(2);
 		
 		okTestResultSkip = new TestResult( StatusValues.NOT_OK, 3 );
 

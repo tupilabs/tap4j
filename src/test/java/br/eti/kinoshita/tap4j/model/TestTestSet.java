@@ -107,6 +107,8 @@ extends Assert
 		
 		assertTrue( this.testSet.getNumberOfTestResults() == 1 );
 		
+		assertTrue( this.testSet.getNextTestNumber() == 2 );
+		
 		assertTrue( this.testSet.hasBailOut() );
 		
 		assertTrue (this.testSet.getBailOuts().size() == 1 );

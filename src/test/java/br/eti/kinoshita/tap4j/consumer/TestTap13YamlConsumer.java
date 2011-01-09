@@ -73,7 +73,7 @@ extends Assert
 			
 			assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.OK );
 			
-			assertNull ( testSet.getTestResult(1).getDiagnostic() );
+			assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
 			
 			assertTrue ( testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK );
 			

@@ -91,7 +91,9 @@ public class TestProduceConsume extends Assert
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
 		testSet.addTestResult(tr1);
 		
-		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
+		TestResult tr2 = new TestResult();
+		tr2.setStatus(StatusValues.NOT_OK);
+		tr2.setTestNumber(testSet.getNextTestNumber());
 		testSet.addTestResult(tr2);
 		
 		TestResult tr3 = new TestResult(StatusValues.OK, 3);

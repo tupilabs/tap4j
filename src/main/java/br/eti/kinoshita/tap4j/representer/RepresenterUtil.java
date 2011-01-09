@@ -52,7 +52,7 @@ public class RepresenterUtil
 	protected static void printDiagnostic( Yaml yaml, TapElement tapElement, PrintWriter pw )
 	{
 		Map<String, Object> diagnostic = tapElement.getDiagnostic();
-		if ( diagnostic != null )
+		if ( diagnostic != null && diagnostic.size() > 0 )
 		{
 			String diagnosticText = yaml.dump( diagnostic );
 			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");

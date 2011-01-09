@@ -48,7 +48,7 @@ extends Assert
 	{
 		assertNotNull( text.getValue() );
 		
-		assertNull( text.getDiagnostic() );
+		assertNotNull( text.getDiagnostic() );
 		
 		assertEquals( text.getValue(), text.toString() );
 	}

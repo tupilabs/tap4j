@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.consumer;
+package br.eti.kinoshita.tap4j.parser;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Directive;
@@ -50,9 +51,10 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class DefaultTapConsumer 
-extends AbstractTapConsumer
+public class Tap13Parser 
+implements Parser 
 {
+
 	/* -- Regular expressions -- */
 	
 	public static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
@@ -85,16 +87,244 @@ extends AbstractTapConsumer
 	// Helper String to check the Footer
 	protected String lastLine = null;
 	
+	/**
+	 * Test Set.
+	 */
+	protected TestSet testSet;
+	
+	/**
+	 * Header.
+	 */
+	protected Header header;
+	
+	/**
+	 * Plan.
+	 */
+	protected Plan plan;
+	
+	/**
+	 * List of TAP Lines (test results, bail outs and comments).
+	 */
+	protected List<TapResult> tapLines = new ArrayList<TapResult>();
+	
+	/**
+	 * List of Test Results.
+	 */
+	protected List<TestResult> testResults = new ArrayList<TestResult>();
+	
+	/**
+	 * List of Bail Outs.
+	 */
+	protected List<BailOut> bailOuts = new ArrayList<BailOut>();
+	
+	/**
+	 * List of Comments.
+	 */
+	protected List<Comment> comments = new ArrayList<Comment>();
+	
+	/**
+	 * Footer.
+	 */
+	protected Footer footer;
+	
 	public boolean isPlanBeforeTestResult()
 	{
 		return this.isPlanBeforeTestResult;
 	}
 	
 	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getHeader()
+	 */
+	public Header getHeader()
+	{
+		return this.header;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getPlan()
+	 */
+	public Plan getPlan()
+	{
+		return this.plan;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTapLines()
+	 */
+	public List<TapResult> getTapLines()
+	{
+		return this.tapLines;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfTapLines()
+	 */
+	public Integer getNumberOfTapLines()
+	{
+		return this.tapLines.size();
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestResults()
+	 */
+	public List<TestResult> getTestResults()
+	{
+		return this.testResults;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestResult(java.lang.Integer)
+	 */
+	public TestResult getTestResult( Integer testNumber )
+	{
+		TestResult foundTestResult = null;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getTestNumber() != null && testResult.getTestNumber().equals(testNumber) )
+			{
+				foundTestResult = testResult;
+				break;
+			}
+		}
+		
+		return foundTestResult;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsOk()
+	 */
+	public Boolean containsOk()
+	{
+		Boolean containsOk = false;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getStatus().equals( StatusValues.OK ) )
+			{
+				containsOk = true;
+				break;
+			}
+		}
+		
+		return containsOk;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsNotOk()
+	 */
+	public Boolean containsNotOk()
+	{
+		Boolean containsNotOk = false;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getStatus().equals( StatusValues.NOT_OK ) )
+			{
+				containsNotOk = true;
+				break;
+			}
+		}
+		
+		return containsNotOk;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfTestResults()
+	 */
+	public Integer getNumberOfTestResults()
+	{
+		return this.testResults.size();
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsBailOut()
+	 */
+	public Boolean containsBailOut()
+	{
+		return this.bailOuts.size() > 0;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getBailOuts()
+	 */
+	public List<BailOut> getBailOuts()
+	{
+		return this.bailOuts;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfBailOuts()
+	 */
+	public Integer getNumberOfBailOuts()
+	{
+		return this.bailOuts.size();
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getComments()
+	 */
+	public List<Comment> getComments()
+	{
+		return this.comments;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfComments()
+	 */
+	public Integer getNumberOfComments()
+	{
+		return this.comments.size();
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getFooter()
+	 */
+	public Footer getFooter()
+	{
+		return this.footer;
+	}
+
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestSet()
+	 */
+	public TestSet getTestSet()
+	{
+		testSet = new TestSet();
+		
+		testSet.setHeader( this.header );
+		testSet.setPlan( this.plan );
+		
+		for ( TapResult tapLine : tapLines )
+		{
+			testSet.addTapLine( tapLine );
+		}
+		
+		for( TestResult testResult : testResults )
+		{
+			testSet.addTestResult( testResult );
+		}
+		
+		for ( BailOut bailOut : bailOuts )
+		{
+			this.testSet.addBailOut(bailOut);
+		}
+		
+		for ( Comment comment : comments )
+		{
+			this.testSet.addComment( comment );
+		}
+		
+		testSet.setFooter( this.footer );
+		
+		return testSet;
+	}
+	
+	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseLine(java.lang.String)
 	 */
 	public void parseLine( String tapLine ) 
-	throws TapParserException
+	throws ParserException
 	{
 		if ( StringUtils.isEmpty( tapLine ) )
 		{
@@ -186,15 +416,15 @@ extends AbstractTapConsumer
 	 * optional.
 	 */
 	protected void checkTAPHeaderParsingLocationAndDuplicity() 
-	throws TapParserException
+	throws ParserException
 	{
 		if ( isHeaderSet )
 		{
-			throw new TapParserException( "Duplicated TAP Header found." );
+			throw new ParserException( "Duplicated TAP Header found." );
 		}
 		if ( ! isFirstLine )
 		{
-			throw new TapParserException( "Invalid position of TAP Header. It must be the first element (apart of Comments) in the TAP Stream." );
+			throw new ParserException( "Invalid position of TAP Header. It must be the first element (apart of Comments) in the TAP Stream." );
 		}
 		isHeaderSet = true;
 	}
@@ -203,11 +433,11 @@ extends AbstractTapConsumer
 	 * Checks if there are more than one TAP Plan in the TAP Stream. 
 	 */
 	protected void checkTAPPlanDuplicity() 
-	throws TapParserException
+	throws ParserException
 	{
 		if ( isPlanSet )
 		{
-			throw new TapParserException( "Duplicated TAP Plan found." );
+			throw new ParserException( "Duplicated TAP Plan found." );
 		}
 		isPlanSet = true;
 	}
@@ -219,7 +449,7 @@ extends AbstractTapConsumer
 	 * is the TAP Plan.
 	 */
 	protected void checkTAPPlanPosition() 
-	throws TapParserException
+	throws TapConsumerException
 	{
 		if ( ! this.isPlanBeforeTestResult )
 		{
@@ -230,7 +460,7 @@ extends AbstractTapConsumer
 				return; // OK
 			}
 			
-			throw new TapParserException("Invalid position of TAP Plan.");
+			throw new TapConsumerException("Invalid position of TAP Plan.");
 		}
 	}
 	
@@ -398,7 +628,8 @@ extends AbstractTapConsumer
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseTapStream(java.lang.String)
 	 */
-	public void parseTapStream( String tapStream ) throws TapParserException
+	public TestSet parseTapStream( String tapStream ) 
+	throws ParserException
 	{
 		Scanner scanner = null;
 		
@@ -420,7 +651,7 @@ extends AbstractTapConsumer
 		} 
 		catch ( Exception e )
 		{
-			throw new TapParserException( "Error parsing TAP Stream: " + e.getMessage(), e );
+			throw new ParserException( "Error parsing TAP Stream: " + e.getMessage(), e );
 		}
 		finally 
 		{
@@ -429,12 +660,16 @@ extends AbstractTapConsumer
 				scanner.close();
 			}
 		}
+		
+		return this.getTestSet();
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#parseFile(java.io.File)
 	 */
-	public void parseFile( File tapFile ) throws TapParserException
+	public TestSet parseFile( File tapFile ) 
+	throws ParserException
 	{
 		Scanner scanner = null;
 		
@@ -455,7 +690,7 @@ extends AbstractTapConsumer
 		} 
 		catch ( Exception e )
 		{
-			throw new TapParserException( "Error parsing TAP Stream: " + e.getMessage(), e );
+			throw new ParserException( "Error parsing TAP Stream: " + e.getMessage(), e );
 		}
 		finally 
 		{
@@ -464,51 +699,18 @@ extends AbstractTapConsumer
 				scanner.close();
 			}
 		}
+		
+		return this.getTestSet();
 	}
 
 	/**
-	 * @throws TapParserException 
+	 * @throws TapConsumerException 
 	 * 
 	 */
 	protected void postProcess() 
-	throws TapParserException 
+	throws TapConsumerException 
 	{
 		this.checkTAPPlanPosition();
 	}
-
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#printSummary(java.io.PrintWriter)
-	 */
-	public void printSummary( PrintWriter pw )
-	{
-		TestSet testSet = this.getTestSet();
-		String summary = testSet.getSummary();
-		pw.println( summary );
-	}
-
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#printDetails(java.io.PrintWriter)
-	 */
-	public void printDetails( PrintWriter pw )
-	{
-		TestSet testSet = this.getTestSet();
-		if ( testSet.getHeader() != null )
-		{
-			pw.println( testSet.getHeader().toString() );
-		}
-		if ( testSet.getPlan() != null )
-		{
-			pw.println( testSet.getPlan().toString() );
-		}
-		List<TapResult> tapLines = testSet.getTapLines();
-		for ( TapResult tapLine :  tapLines)
-		{
-			pw.println( tapLine.toString() );
-		}
-		if ( testSet.getFooter() != null )
-		{
-			pw.println( testSet.getFooter().toString() );
-		}
-	}
-
+	
 }

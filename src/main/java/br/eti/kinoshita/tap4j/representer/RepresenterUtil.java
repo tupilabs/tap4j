@@ -21,55 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.representer;
 
-import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
-import junit.framework.Assert;
+import org.yaml.snakeyaml.Yaml;
 
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import br.eti.kinoshita.tap4j.model.TapElement;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-@Listeners(value={TestTAPReporter.class})
-public class TestNGIntegration 
-extends Assert
+public class RepresenterUtil 
 {
 
-	@Test(singleThreaded=true)
-	public void simpleTestOk()
+	private RepresenterUtil()
 	{
-		assertTrue( 1 > 0 );
+		super();
 	}
 	
-	@SuppressWarnings("unused")
-	@Parameters({"name", "age"})
-	@Test(singleThreaded=true,successPercentage=0,dependsOnMethods={"simpleTestOk"}, expectedExceptions=IOException.class, description="A test that purposefully fails.")
-	public void simpleTestFail(@Optional("Johnson") String name, @Optional("19") Integer age) 
-	throws Exception
+	/**
+	 * Prints diagnostic of the TAP Element into the Print Writer.
+	 * 
+	 * @param yaml YAML instance to dump YAML documents
+	 * @param tapElement TAP element
+	 * @param pw PrintWriter
+	 */
+	protected static void printDiagnostic( Yaml yaml, TapElement tapElement, PrintWriter pw )
 	{
-		if ( 1 > 0 )
+		Map<String, Object> diagnostic = tapElement.getDiagnostic();
+		if ( diagnostic != null )
 		{
-			throw new Exception("Error");	
+			String diagnosticText = yaml.dump( diagnostic );
+			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
+			pw.print( diagnosticText );
 		}
-		fail("no reason");
-	}
-	
-	@Test(dependsOnMethods={"simpleTestFail"}, alwaysRun=false)
-	public void simpleTestSkip()
-	{
-		
-	}
-	
-	@Test
-	public void anotherThatFails()
-	{
-		assertEquals(13, System.currentTimeMillis());		
 	}
 	
 }

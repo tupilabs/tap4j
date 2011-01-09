@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.consumer;
+package br.eti.kinoshita.tap4j.parser;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.Yaml;
 
+import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
 import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.Text;
 
@@ -36,11 +37,11 @@ import br.eti.kinoshita.tap4j.model.Text;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Tap13Consumer 
-extends DefaultTapConsumer 
+public class Tap13YamlParser 
+extends Tap13Parser 
 {
 
-	protected TapElement lastParsedElement = null;
+protected TapElement lastParsedElement = null;
 	
 	/**
 	 * Indicator of the base indentation level. Usually defined by the TAP 
@@ -69,7 +70,7 @@ extends DefaultTapConsumer
 	 */
 	@Override
 	public void parseLine(String tapLine) 
-	throws TapParserException 
+	throws ParserException 
 	{
 		
 		Matcher matcher = null;
@@ -135,7 +136,7 @@ extends DefaultTapConsumer
 		}
 		
 		// Check if the header was set
-		this.checkHeader();
+		// this.checkHeader();
 		
 		// Plan 
 		matcher = planREGEX.matcher( tapLine );
@@ -198,15 +199,15 @@ extends DefaultTapConsumer
 	 * {@link #baseIndentationLevel}
 	 * 
 	 * @param indentation indentation level
-	 * @throws TapParserException if indentation is less then the 
+	 * @throws TapConsumerException if indentation is less then the 
 	 *   {@link #baseIndentationLevel}.
 	 */
 	private void checkIndentationLevel( int indentation, String tapLine )
-	throws TapParserException
+	throws ParserException
 	{
 		if ( indentation < this.baseIndentationLevel )
 		{
-			throw new TapParserException("Invalid indentantion. " +
+			throw new ParserException("Invalid indentantion. " +
 					"Check your TAP Stream. Line: " + tapLine);
 		}
 	}
@@ -237,10 +238,10 @@ extends DefaultTapConsumer
 	 * 
 	 * <p>If so, tries to parse it using snakeyaml.</p>
 	 * 
-	 * @throws TapParserException
+	 * @throws TapConsumerException
 	 */
 	private void checkAndParseTapDiagnostic() 
-	throws TapParserException
+	throws ParserException
 	{
 		// If we found any meta, then process it with SnakeYAML
 		if (  diagnosticBuffer.length() > 0 )
@@ -248,7 +249,7 @@ extends DefaultTapConsumer
 			
 			if ( this.lastParsedElement == null )
 			{
-				throw new TapParserException("Found diagnostic information without a previous TAP element.");
+				throw new ParserException("Found diagnostic information without a previous TAP element.");
 			}
 			
 			try
@@ -260,26 +261,27 @@ extends DefaultTapConsumer
 			}
 			catch ( Exception ex )
 			{
-				throw new TapParserException("Error parsing YAML ["+diagnosticBuffer.toString()+"]: " + ex.getMessage(), ex);
+				throw new ParserException("Error parsing YAML ["+diagnosticBuffer.toString()+"]: " + ex.getMessage(), ex);
 			}
 			
 			diagnosticBuffer = new StringBuffer();
 		}
 	}
 	
-	/**
+	/*
 	 * Checks if the Header was set.
 	 * 
-	 * @throws TapParserException
+	 * @throws TapConsumerException
+	 * @deprecated
 	 */
-	private void checkHeader() 
-	throws TapParserException
-	{
-		if ( this.header == null )
-		{
-			throw new TapParserException("Missing required TAP Header element.");
-		}
-	}
+//	void checkHeader() 
+//	throws TapConsumerException
+//	{
+//		if ( this.header == null )
+//		{
+//			throw new TapConsumerException("Missing required TAP Header element.");
+//		}
+//	}
 	
 	/**
 	 * Appends a diagnostic line to diagnostic buffer. If the diagnostic line 
@@ -312,10 +314,10 @@ extends DefaultTapConsumer
 	 */
 	@Override
 	protected void postProcess() 
-	throws TapParserException 
+	throws TapConsumerException 
 	{
 		super.postProcess();
 		this.checkAndParseTapDiagnostic();
 	}
-		
+	
 }

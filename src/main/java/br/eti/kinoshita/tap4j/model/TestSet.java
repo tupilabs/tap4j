@@ -27,6 +27,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.eti.kinoshita.tap4j.util.StatusValues;
+
 
 /**
  * A Test Set is the top element in a TAP File. It holds references to the 
@@ -324,6 +326,71 @@ implements Serializable
 		return isBailOut;
 	}
 	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsOk()
+	 */
+	public Boolean containsOk()
+	{
+		Boolean containsOk = false;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getStatus().equals( StatusValues.OK ) )
+			{
+				containsOk = true;
+				break;
+			}
+		}
+		
+		return containsOk;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsNotOk()
+	 */
+	public Boolean containsNotOk()
+	{
+		Boolean containsNotOk = false;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getStatus().equals( StatusValues.NOT_OK ) )
+			{
+				containsNotOk = true;
+				break;
+			}
+		}
+		
+		return containsNotOk;
+	}
+
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsBailOut()
+	 */
+	public Boolean containsBailOut()
+	{
+		return this.bailOuts.size() > 0;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestResult(java.lang.Integer)
+	 */
+	public TestResult getTestResult( Integer testNumber )
+	{
+		TestResult foundTestResult = null;
+		
+		for( TestResult testResult : this.testResults )
+		{
+			if ( testResult.getTestNumber() != null && testResult.getTestNumber().equals(testNumber) )
+			{
+				foundTestResult = testResult;
+				break;
+			}
+		}
+		
+		return foundTestResult;
+	}
+
 	/**
 	 * @return Summary of the TAP Stream.
 	 */

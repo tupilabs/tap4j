@@ -21,20 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.representer;
 
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.TestSet;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-@Listeners(value={TestTAPReporter.class})
-@Test(singleThreaded=true)
-public class TestNGIntegration2
+public class Tap13Representer 
+implements Representer
 {
-	
-	
+
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.representer.Representer#representData(br.eti.kinoshita.tap4j.model.TestSet)
+	 */
+	public String representData(TestSet testSet) 
+	{
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter( sw );
+		if ( testSet.getHeader() != null )
+		{
+			pw.println( testSet.getHeader().toString() );
+		}
+		
+		pw.println( testSet.getPlan().toString() );
+		
+		for( TapResult tapLine : testSet.getTapLines() )
+		{
+			pw.println( tapLine.toString() );
+		}
+		
+		if ( testSet.getFooter() != null )
+		{
+			pw.println( testSet.getFooter().toString() );
+		}
+		return sw.toString();
+	}
 
 }

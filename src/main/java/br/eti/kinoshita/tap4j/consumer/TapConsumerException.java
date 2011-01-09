@@ -23,25 +23,53 @@
  */
 package br.eti.kinoshita.tap4j.consumer;
 
-import java.io.File;
-
-import br.eti.kinoshita.tap4j.model.TestSet;
 
 /**
- * TAP Consumer is the responsible for generating the TAP Stream.
+ * This exception is thrown by the Tap Parser ({@link TapConsumer}).
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 1.0
+ * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ * @since 20/09/2010
+ * @see {@link TapConsumer}
  */
-public interface TapConsumer
+public class TapConsumerException extends RuntimeException
 {
-	
-	public TestSet load( File file ) 
-	throws TapConsumerException;
-	
-	public TestSet load( String tapStream ) 
-	throws TapConsumerException;
-	
-	public TestSet getTestSet( );
-	
+
+	/**
+	 * Default constructor.
+	 */
+	public TapConsumerException()
+	{
+	}
+
+	/**
+	 * Constructor with parameter.
+	 * 
+	 * @param message Exception message.
+	 */
+	public TapConsumerException(String message)
+	{
+		super(message);
+	}
+
+	/**
+	 * Constructor with parameter.
+	 * 
+	 * @param cause Exception cause.
+	 */
+	public TapConsumerException(Throwable cause)
+	{
+		super(cause);
+	}
+
+	/**
+	 * Constructor with paramters.
+	 * 
+	 * @param message Exception message.
+	 * @param cause Exception cause.
+	 */
+	public TapConsumerException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+
 }

@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,31 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.producer;
+package br.eti.kinoshita.tap4j.representer;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.io.StringWriter;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.LineBreak;
 import org.yaml.snakeyaml.Yaml;
 
-import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.TapResult;
+import br.eti.kinoshita.tap4j.model.TestSet;
 
 /**
- * Default implementation of a TAP Producer. This class implements only methods 
- * associated to printing the TAP Stream into some kind of media. The rest of 
- * the methods are handled by the Abstract TAP Producer.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
- * @see {@link AbstractTapProducer}
  */
-public class DefaultTapProducer 
-extends AbstractTapProducer
+public class Tap13YamlRepresenter 
+implements Representer
 {
 
 	/**
@@ -56,7 +49,7 @@ extends AbstractTapProducer
 	/**
 	 * Default constructor.
 	 */
-	public DefaultTapProducer()
+	public Tap13YamlRepresenter()
 	{
 		super();
 		
@@ -71,71 +64,35 @@ extends AbstractTapProducer
 		// a representer...
 		yaml = new Yaml( options );
 	}
-
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapProducer#printTo(java.io.File)
-	 */
-	public void printTo(File file) 
-	throws IOException
-	{
-		PrintWriter writer = null;		
-		try 
-		{
-			writer = new PrintWriter( file );
-			
-			this.printTo( writer );
-		} 
-		finally 
-		{
-			if ( writer != null )
-			{
-				writer.close();
-			}
-		}
-	}
 	
 	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapProducer#printTo(java.io.PrintWriter)
+	 * @see br.eti.kinoshita.tap4j.representer.Representer#representData(br.eti.kinoshita.tap4j.model.TestSet)
 	 */
-	public void printTo(PrintWriter pw) 
+	public String representData(TestSet testSet) 
 	{
-		if ( header != null )
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter( sw );
+		if ( testSet.getHeader() != null )
 		{
-			pw.println( header.toString() );
-			this.printDiagnostic( header, pw );
+			pw.println( testSet.getHeader().toString() );
+			RepresenterUtil.printDiagnostic( yaml, testSet.getHeader(), pw );
 		}
 		
-		pw.println( plan.toString() );
-		this.printDiagnostic( plan, pw );
+		pw.println( testSet.getPlan().toString() );
+		RepresenterUtil.printDiagnostic( yaml, testSet.getPlan(), pw );
 		
-		for( TapResult tapLine : tapLines )
+		for( TapResult tapLine : testSet.getTapLines() )
 		{
 			pw.println( tapLine.toString() );
-			this.printDiagnostic( tapLine, pw );
+			RepresenterUtil.printDiagnostic( yaml,tapLine, pw );
 		}
 		
-		if ( footer != null )
+		if ( testSet.getFooter() != null )
 		{
-			pw.println( footer.toString() );
-			this.printDiagnostic( footer, pw );
+			pw.println( testSet.getFooter().toString() );
+			RepresenterUtil.printDiagnostic( yaml, testSet.getFooter(), pw );
 		}
+		return sw.toString();
 	}
 
-	/**
-	 * Prints diagnostic of the TAP Element into the Print Writer.
-	 * 
-	 * @param tapElement TAP element
-	 * @param pw PrintWriter
-	 */
-	protected void printDiagnostic( TapElement tapElement, PrintWriter pw )
-	{
-		Map<String, Object> diagnostic = tapElement.getDiagnostic();
-		if ( diagnostic != null )
-		{
-			String diagnosticText = this.yaml.dump( diagnostic );
-			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
-			pw.print( diagnosticText );
-		}
-	}
-	
 }

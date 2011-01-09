@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,27 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.consumer;
-
-import java.io.File;
-
-import br.eti.kinoshita.tap4j.model.TestSet;
+package br.eti.kinoshita.tap4j.util;
 
 /**
- * TAP Consumer is the responsible for generating the TAP Stream.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapConsumer
+public enum TapVersions 
 {
+
+	TAP_1(1),
+	TAP_2(2),
+	TAP_3(3),
+	TAP_4(4),
+	TAP_5(5),
+	TAP_6(6),
+	TAP_7(7),
+	TAP_8(8),
+	TAP_9(9),
+	TAP_10(10),
+	TAP_11(11),
+	TAP_12(12),
+	TAP_13(13);
 	
-	public TestSet load( File file ) 
-	throws TapConsumerException;
+	private Integer version;
 	
-	public TestSet load( String tapStream ) 
-	throws TapConsumerException;
+	TapVersions(Integer version)
+	{
+		this.version = version;
+	}
 	
-	public TestSet getTestSet( );
+	public Integer getValue()
+	{
+		return this.version;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.version.toString();
+	}
 	
 }

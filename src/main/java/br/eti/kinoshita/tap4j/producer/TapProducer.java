@@ -24,17 +24,9 @@
 package br.eti.kinoshita.tap4j.producer;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.io.Writer;
 
-import br.eti.kinoshita.tap4j.model.BailOut;
-import br.eti.kinoshita.tap4j.model.Comment;
-import br.eti.kinoshita.tap4j.model.Footer;
-import br.eti.kinoshita.tap4j.model.Header;
-import br.eti.kinoshita.tap4j.model.Plan;
-import br.eti.kinoshita.tap4j.model.TapResult;
-import br.eti.kinoshita.tap4j.model.TestResult;
+import br.eti.kinoshita.tap4j.model.TestSet;
 
 /**
  * Produces a TAP Stream.
@@ -45,77 +37,13 @@ import br.eti.kinoshita.tap4j.model.TestResult;
 public interface TapProducer
 {
 	
-	/* -- Header -- */
-	/**
-	 * @param header Header.
-	 */
-	public void setHeader( Header header );
+	public String dump( TestSet testSet ) 
+	throws TapProducerException;
 	
-	/* -- Plan -- */
-	/**
-	 * @param plan Plan.
-	 */
-	public void setPlan( Plan plan );
+	public void dump( TestSet testSet, Writer writer ) 
+	throws TapProducerException;
 	
-	/* -- Test Results and Bail Outs -- */
-	
-	/**
-	 * @param testResult Test Result.
-	 */
-	public boolean addTestResult( TestResult testResult );
-	
-	/**
-	 * @return Number of Test Results.
-	 */
-	public Integer getNumberOfTestResults();
-	
-	/**
-	 * @param bailOut Bail Out.
-	 */
-	public boolean addBailOut( BailOut bailOut );
-	
-	/**
-	 * @return Number of Bail Outs.
-	 */
-	public Integer getNumberOfBailOuts();
-	
-	/**
-	 * @return List of TAP Lines.
-	 */
-	public List<TapResult> getTapLines();
-	
-	/* -- Comment -- */
-	/**
-	 * @param comment Comment.
-	 */
-	public boolean addComment( Comment comment );
-	
-	/**
-	 * @return Number of comments.
-	 */
-	public Integer getNumberOfComments();
-
-	/* -- Footer -- */
-	/**
-	 * @param footer Footer.
-	 */
-	public void setFooter( Footer footer );
-	
-	/* -- Printing the TAP Stream -- */
-	
-	/**
-	 * Prints the TAP Stream into a Print Writer.
-	 * 
-	 * @param pw The Print Writer.
-	 */
-	public void printTo( PrintWriter pw );
-	
-	/**
-	 * Prints a TAP Stream into a File.
-	 * 
-	 * @param file File to print the TAP Stream into it.
-	 */
-	public void printTo( File file ) 
-	throws IOException;
+	public void dump( TestSet testSet, File output ) 
+	throws TapProducerException;
 
 }

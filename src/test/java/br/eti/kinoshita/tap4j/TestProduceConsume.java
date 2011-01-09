@@ -30,17 +30,19 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer;
 import br.eti.kinoshita.tap4j.consumer.TapConsumer;
-import br.eti.kinoshita.tap4j.consumer.TapParserException;
+import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
+import br.eti.kinoshita.tap4j.consumer.TapConsumerImpl;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TestResult;
-import br.eti.kinoshita.tap4j.producer.DefaultTapProducer;
+import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.producer.TapProducer;
+import br.eti.kinoshita.tap4j.producer.TapProducerImpl;
+import br.eti.kinoshita.tap4j.representer.Tap13YamlRepresenter;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
@@ -60,6 +62,8 @@ public class TestProduceConsume extends Assert
 	private TapProducer tapProducer;
 	private TapConsumer tapConsumer;
 	
+	private TestSet testSet;
+	
 	// Temp file to where we output the generated tap stream.
 	private File tempFile;
 	
@@ -68,32 +72,34 @@ public class TestProduceConsume extends Assert
 	@BeforeTest
 	public void setUp()
 	{
-		tapProducer = new DefaultTapProducer( );
-		tapConsumer = new DefaultTapConsumer();
+		tapProducer = new TapProducerImpl( new Tap13YamlRepresenter() );
+		tapConsumer = new TapConsumerImpl();
+		
+		testSet = new TestSet();
 		
 		Header header = new Header( TAP_VERSION );
-		tapProducer.setHeader(header);
+		testSet.setHeader(header);
 		
 		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
 		Comment commentPlan = new Comment("Testing something with a plan that I don´t know exactly what it is about!");
 		plan.setComment(commentPlan);
-		tapProducer.setPlan(plan);
+		testSet.setPlan(plan);
 		
 		Comment singleComment = new Comment( "Starting tests" );
-		tapProducer.addComment( singleComment );
+		testSet.addComment( singleComment );
 		
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
-		tapProducer.addTestResult(tr1);
+		testSet.addTestResult(tr1);
 		
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
-		tapProducer.addTestResult(tr2);
+		testSet.addTestResult(tr2);
 		
 		TestResult tr3 = new TestResult(StatusValues.OK, 3);
 		Comment commentTr3 = new Comment("Test 3 :)");
 		tr3.setComment(commentTr3);
-		tapProducer.addTestResult(tr3);
+		testSet.addTestResult(tr3);
 		
-		tapProducer.setFooter( new Footer("End") );
+		testSet.setFooter( new Footer("End") );
 		
 		try
 		{
@@ -108,11 +114,11 @@ public class TestProduceConsume extends Assert
 	@Test
 	public void testTapProducer()
 	{
-		assertTrue ( tapProducer.getTapLines().size() > 0 );
+		assertTrue ( testSet.getTapLines().size() > 0 );
 		
 		try
 		{
-			tapProducer.printTo( tempFile );
+			tapProducer.dump( testSet, tempFile );
 		}
 		catch ( Exception e  )
 		{
@@ -126,38 +132,38 @@ public class TestProduceConsume extends Assert
 	{
 		try
 		{
-			tapConsumer.parseFile( tempFile );
+			TestSet testSet = tapConsumer.load( tempFile );
 			
-			assertNotNull( tapConsumer.getHeader() );
+			assertNotNull( testSet.getHeader() );
 			
-			assertNotNull( tapConsumer.getPlan() );
+			assertNotNull( testSet.getPlan() );
 			
-			assertTrue( tapConsumer.getNumberOfTestResults() == 3);
+			assertTrue( testSet.getNumberOfTestResults() == 3);
 			
-			assertNotNull( tapConsumer.getFooter() );
+			assertNotNull( testSet.getFooter() );
 			
-			assertTrue( tapConsumer.getTapLines().size() > 0 );
+			assertTrue( testSet.getTapLines().size() > 0 );
 			
-			assertTrue( tapConsumer.getNumberOfTapLines() > 0 );
+			assertTrue( testSet.getNumberOfTapLines() > 0 );
 			
-			assertTrue( tapConsumer.containsOk() );
+			assertTrue( testSet.containsOk() );
 			
-			assertFalse( tapConsumer.containsBailOut() );
+			assertFalse( testSet.containsBailOut() );
 			
-			assertTrue( tapConsumer.containsNotOk() );
+			assertTrue( testSet.containsNotOk() );
 			
-			assertTrue( tapConsumer.getComments().size() > 0 );
+			assertTrue( testSet.getComments().size() > 0 );
 			
-			assertTrue( tapConsumer.getNumberOfComments() > 0 );
+			assertTrue( testSet.getNumberOfComments() > 0 );
 			
-			assertTrue( tapConsumer.getComments().size() == tapConsumer.getNumberOfComments() );
+			assertTrue( testSet.getComments().size() == testSet.getNumberOfComments() );
 			
 			assertNotNull( tapConsumer.getTestSet());
 			
-			assertEquals( tapConsumer.getTestResult(1).getStatus(), StatusValues.OK );
+			assertEquals( testSet.getTestResult(1).getStatus(), StatusValues.OK );
 			
 		} 
-		catch (TapParserException e)
+		catch (TapConsumerException e)
 		{
 			fail("Failed to parse TAP file: " + e.getMessage(), e);
 		}
@@ -168,8 +174,8 @@ public class TestProduceConsume extends Assert
 	{
 		BailOut bailOut = new BailOut(null);
 		
-		tapConsumer.getBailOuts().add( bailOut );
+		tapConsumer.getTestSet().getBailOuts().add( bailOut );
 		
-		assertTrue( tapConsumer.containsBailOut() );
+		assertTrue( tapConsumer.getTestSet().containsBailOut() );
 	}
 }

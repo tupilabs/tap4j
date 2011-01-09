@@ -26,7 +26,7 @@ package br.eti.kinoshita.tap4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.consumer.TapParserException;
+import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
@@ -36,12 +36,12 @@ public class TestTapParserException
 extends Assert
 {
 	
-	private TapParserException exception;
+	private TapConsumerException exception;
 	
 	@Test
 	public void testTapParserException1()
 	{
-		exception = new TapParserException();
+		exception = new TapConsumerException();
 		
 		assertNotNull( exception );
 	}
@@ -49,7 +49,7 @@ extends Assert
 	@Test
 	public void testTapParserException2()
 	{
-		exception = new TapParserException("Error parsing document");
+		exception = new TapConsumerException("Error parsing document");
 		
 		assertNotNull( exception );
 		
@@ -59,7 +59,7 @@ extends Assert
 	@Test
 	public void testTapParserException3()
 	{
-		exception = new TapParserException(new NullPointerException("Null TAP Stream"));
+		exception = new TapConsumerException(new NullPointerException("Null TAP Stream"));
 		
 		assertNotNull( exception );
 		
@@ -69,7 +69,7 @@ extends Assert
 	@Test
 	public void testTapParserException4()
 	{
-		exception = new TapParserException("Null", new NullPointerException());
+		exception = new TapConsumerException("Null", new NullPointerException());
 		
 		assertNotNull( exception );
 		

@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,55 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.consumer;
-
+package br.eti.kinoshita.tap4j.producer;
 
 /**
- * This exception is thrown by the Tap Parser ({@link TapConsumer}).
- * 
- * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
- * @since 20/09/2010
- * @see {@link TapConsumer}
+ * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * @since 1.0
  */
-public class TapParserException extends Exception
-{
+public class TapProducerException extends RuntimeException {
 
 	/**
-	 * Default constructor.
+	 * 
 	 */
-	public TapParserException()
-	{
+	public TapProducerException() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param message Exception message.
+	 * @param message
 	 */
-	public TapParserException(String message)
-	{
+	public TapProducerException(String message) {
 		super(message);
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param cause Exception cause.
+	 * @param cause
 	 */
-	public TapParserException(Throwable cause)
-	{
+	public TapProducerException(Throwable cause) {
 		super(cause);
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Constructor with paramters.
-	 * 
-	 * @param message Exception message.
-	 * @param cause Exception cause.
+	 * @param message
+	 * @param cause
 	 */
-	public TapParserException(String message, Throwable cause)
-	{
+	public TapProducerException(String message, Throwable cause) {
 		super(message, cause);
+		// TODO Auto-generated constructor stub
 	}
 
 }

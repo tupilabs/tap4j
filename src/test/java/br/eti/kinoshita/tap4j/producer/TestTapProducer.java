@@ -37,6 +37,8 @@ import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.Header;
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TestResult;
+import br.eti.kinoshita.tap4j.model.TestSet;
+import br.eti.kinoshita.tap4j.representer.Tap13YamlRepresenter;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
@@ -49,7 +51,7 @@ extends Assert
 	
 	private static final Integer TAP_VERSION = 13;
 	private TapProducer tapProducer;
-	
+	private TestSet testSet;
 	// Temp file to where we output the generated tap stream.
 	private File tempFile;
 	
@@ -58,13 +60,14 @@ extends Assert
 	@BeforeTest
 	public void setUp()
 	{
-		tapProducer = new DefaultTapProducer( );
+		tapProducer = new TapProducerImpl( new Tap13YamlRepresenter() );
+		testSet = new TestSet();
 		Header header = new Header( TAP_VERSION );
-		tapProducer.setHeader(header);
+		testSet.setHeader(header);
 		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
-		tapProducer.setPlan(plan);
+		testSet.setPlan(plan);
 		Comment singleComment = new Comment( "Starting tests" );
-		tapProducer.addComment( singleComment );
+		testSet.addComment( singleComment );
 		
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
 		LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
@@ -77,19 +80,19 @@ extends Assert
 		diagnostic.put("Audit", map2);
 		tr1.setDiagnostic( diagnostic );
 		//tr1.setDiagnostic(diagnostic)
-		tapProducer.addTestResult(tr1);
+		testSet.addTestResult(tr1);
 		
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
 		tr2.setTestNumber(2);
-		tapProducer.addTestResult(tr2);
+		testSet.addTestResult(tr2);
 		
 		BailOut bailOut = new BailOut("Test 2 failed");
-		tapProducer.addBailOut( bailOut );
+		testSet.addBailOut( bailOut );
 		
 		Comment simpleComment = new Comment("Test bailed out.");
-		tapProducer.addComment( simpleComment );
+		testSet.addComment( simpleComment );
 		
-		tapProducer.setFooter( new Footer("End") );
+		testSet.setFooter( new Footer("End") );
 		
 		try
 		{
@@ -104,17 +107,17 @@ extends Assert
 	@Test
 	public void testTapProducer()
 	{
-		assertTrue ( tapProducer.getTapLines().size() > 0 );
+		assertTrue ( testSet.getTapLines().size() > 0 );
 		
-		assertTrue( tapProducer.getNumberOfTestResults() == 2 );
+		assertTrue( testSet.getNumberOfTestResults() == 2 );
 		
-		assertTrue( tapProducer.getNumberOfBailOuts() == 1 );
+		assertTrue( testSet.getNumberOfBailOuts() == 1 );
 		
-		assertTrue( tapProducer.getNumberOfComments() == 2 );
+		assertTrue( testSet.getNumberOfComments() == 2 );
 		
 		try
 		{
-			tapProducer.printTo( tempFile );
+			tapProducer.dump( testSet, tempFile );
 			
 			//System.out.println(tempFile);
 		}

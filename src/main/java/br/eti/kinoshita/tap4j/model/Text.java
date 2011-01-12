@@ -35,6 +35,8 @@ package br.eti.kinoshita.tap4j.model;
 public class Text 
 extends TapResult
 {
+	
+	public Long serialVersionUID = 1L;
 
 	/**
 	 * Value of Text.
@@ -48,6 +50,7 @@ extends TapResult
 	 */
 	public Text( String value )
 	{
+		super();
 		this.value = value;
 	}
 	

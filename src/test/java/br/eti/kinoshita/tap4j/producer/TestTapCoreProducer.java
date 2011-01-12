@@ -43,7 +43,6 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @since 1.0
  */
 public class TestTapCoreProducer 
-extends Assert
 {
 	
 	private static final Integer TAP_VERSION = 13;
@@ -81,14 +80,14 @@ extends Assert
 			tempFile = File.createTempFile("tap4j_", ".tap");
 		} catch (IOException e)
 		{
-			fail("Failed to create temp file: " + e.getMessage(), e);
+			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
 		}
 	}
 	
 	@Test
 	public void testTapProducer()
 	{
-		assertTrue ( testSet.getTapLines().size() > 0 );
+		Assert.assertTrue ( testSet.getTapLines().size() > 0 );
 		
 		try
 		{
@@ -96,7 +95,7 @@ extends Assert
 		}
 		catch ( Exception e  )
 		{
-			fail("Failed to print TAP Stream into file.", e);
+			Assert.fail("Failed to print TAP Stream into file.", e);
 		}
 		
 //		BufferedReader reader = null;

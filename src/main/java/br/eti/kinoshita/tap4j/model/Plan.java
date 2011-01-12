@@ -36,6 +36,8 @@ package br.eti.kinoshita.tap4j.model;
 public class Plan 
 extends AbstractTapElementDiagnostic
 {
+
+	public Long serialVersionUID = 1L;
 	
 	/**
 	 * Default initial test step.
@@ -70,6 +72,7 @@ extends AbstractTapElementDiagnostic
 	 */
 	public Plan( Integer initialTestNumber, Integer lastTestNumber )
 	{
+		super();
 		this.initialTestNumber = initialTestNumber;
 		this.lastTestNumber = lastTestNumber;
 	}
@@ -81,6 +84,7 @@ extends AbstractTapElementDiagnostic
 	 */
 	public Plan( Integer amountOfTests )
 	{
+		super();
 		this.initialTestNumber = INITIAL_TEST_STEP;
 		this.lastTestNumber = amountOfTests;
 	}
@@ -93,6 +97,7 @@ extends AbstractTapElementDiagnostic
 	 */
 	public Plan(Integer amountOfTests, SkipPlan skip )
 	{
+		super();
 		this.initialTestNumber = INITIAL_TEST_STEP;
 		this.lastTestNumber = amountOfTests;
 		this.skip = skip;
@@ -110,6 +115,7 @@ extends AbstractTapElementDiagnostic
 			Integer lastTestNumber, 
 			SkipPlan skip)
 	{
+		super();
 		this.initialTestNumber = initialTestNumber;
 		this.lastTestNumber = lastTestNumber;
 		this.skip = skip;
@@ -133,7 +139,6 @@ extends AbstractTapElementDiagnostic
 	
 	/**
 	 * @return Flag used to indicate whether skip all tests or not.
-	 * @see {@link #getSkip()}
 	 */
 	public Boolean isSkip()
 	{
@@ -142,7 +147,6 @@ extends AbstractTapElementDiagnostic
 	
 	/**
 	 * @return Plan Skip with reason.
-	 * @see {@link #isSkip()}
 	 */
 	public SkipPlan getSkip()
 	{
@@ -187,7 +191,7 @@ extends AbstractTapElementDiagnostic
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append( initialTestNumber );
 		sb.append( ".." );
 		sb.append( lastTestNumber);
@@ -199,7 +203,8 @@ extends AbstractTapElementDiagnostic
 		
 		if ( this.comment != null )
 		{
-			sb.append( " " + this.comment.toString() );
+			sb.append( ' ' );
+			sb.append( this.comment.toString() );
 		}
 		
 		return sb.toString();

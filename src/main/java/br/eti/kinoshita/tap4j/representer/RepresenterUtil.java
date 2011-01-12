@@ -34,7 +34,7 @@ import br.eti.kinoshita.tap4j.model.TapElement;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class RepresenterUtil 
+public final class RepresenterUtil 
 {
 
 	private RepresenterUtil()
@@ -52,7 +52,7 @@ public class RepresenterUtil
 	protected static void printDiagnostic( Yaml yaml, TapElement tapElement, PrintWriter pw )
 	{
 		Map<String, Object> diagnostic = tapElement.getDiagnostic();
-		if ( diagnostic != null && diagnostic.size() > 0 )
+		if ( diagnostic != null && !diagnostic.isEmpty() )
 		{
 			String diagnosticText = yaml.dump( diagnostic );
 			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");

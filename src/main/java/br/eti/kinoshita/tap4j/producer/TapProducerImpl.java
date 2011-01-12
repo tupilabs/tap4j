@@ -51,7 +51,7 @@ implements TapProducer
 	
 	public TapProducerImpl(Representer representer)
 	{
-		this.representer = new Tap13Representer();
+		this.representer = representer;
 	}
 	
 	/* (non-Javadoc)

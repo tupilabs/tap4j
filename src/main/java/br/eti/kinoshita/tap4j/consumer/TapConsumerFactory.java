@@ -21,51 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j.consumer;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import br.eti.kinoshita.tap4j.parser.Tap13YamlParser;
 
 /**
- * Tests TAP Footer.
+ * Factory class to produce TAP Consumers.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
-{
+public final class TapConsumerFactory {
 
-	protected Footer footer;
-	
-	private final static String FOOTER_TEXT = "done";
-	
-	@BeforeMethod
-	public void setUp()
+	private TapConsumerFactory()
 	{
-		footer = new Footer( FOOTER_TEXT );		
+		super();
 	}
 	
-	@Test
-	public void testFooter()
+	/**
+	 * Produces a new TAP version 13 Consumer.
+	 * 
+	 * @return TAP Consumer.
+	 */
+	public static TapConsumer makeTap13Consumer()
 	{
-		String expectedValue = FOOTER_TEXT;
-		Assert.assertNotNull( footer );
-		Assert.assertNotNull( footer.getText() );
-		Assert.assertEquals(footer.getText(), expectedValue);
-		Assert.assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
+		return new TapConsumerImpl();
 	}
 	
-	@Test
-	public void testFooterWithComment()
+	/**
+	 * Produces a new TAP version 13 Consumer with YAML diagnostics.
+	 * 
+	 * @return TAP Consumer with YAML support.
+	 */
+	public static TapConsumer makeTap13YamlConsumer()
 	{
-		footer.setComment( new Comment("Footer's comment.") );
-		
-		Assert.assertNotNull( this.footer.getComment() );
-		
-		Assert.assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		Assert.assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+		return new TapConsumerImpl( new Tap13YamlParser() );
 	}
 	
 }

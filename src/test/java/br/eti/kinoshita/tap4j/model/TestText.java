@@ -32,7 +32,6 @@ import org.testng.annotations.Test;
  * @since 1.0
  */
 public class TestText 
-extends Assert
 {
 
 	protected Text text;
@@ -46,11 +45,11 @@ extends Assert
 	@Test
 	public void testText()
 	{
-		assertNotNull( text.getValue() );
+		Assert.assertNotNull( text.getValue() );
 		
-		assertNotNull( text.getDiagnostic() );
+		Assert.assertNotNull( text.getDiagnostic() );
 		
-		assertEquals( text.getValue(), text.toString() );
+		Assert.assertEquals( text.getValue(), text.toString() );
 	}
 	
 }

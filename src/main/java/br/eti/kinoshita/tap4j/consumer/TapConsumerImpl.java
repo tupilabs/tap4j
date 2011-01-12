@@ -38,7 +38,7 @@ public class TapConsumerImpl
 implements TapConsumer
 {
 	
-	private Parser parser;
+	private final Parser parser;
 	private TestSet testSet;
 	
 	public TapConsumerImpl()

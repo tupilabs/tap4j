@@ -33,5 +33,5 @@ package br.eti.kinoshita.tap4j.model;
 public abstract class TapResult 
 extends AbstractTapElementDiagnostic
 {
-
+	
 }

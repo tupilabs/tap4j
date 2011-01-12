@@ -32,8 +32,7 @@ import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapParserException 
-extends Assert
+public class TestTapParserExceptionTest 
 {
 	
 	private TapConsumerException exception;
@@ -43,7 +42,7 @@ extends Assert
 	{
 		exception = new TapConsumerException();
 		
-		assertNotNull( exception );
+		Assert.assertNotNull( exception );
 	}
 	
 	@Test
@@ -51,31 +50,31 @@ extends Assert
 	{
 		exception = new TapConsumerException("Error parsing document");
 		
-		assertNotNull( exception );
+		Assert.assertNotNull( exception );
 		
-		assertEquals( exception.getMessage(), "Error parsing document");
+		Assert.assertEquals( exception.getMessage(), "Error parsing document");
 	}
 	
 	@Test
 	public void testTapParserException3()
 	{
-		exception = new TapConsumerException(new NullPointerException("Null TAP Stream"));
+		exception = new TapConsumerException(new NullPointerException("Null TAP Stream")); //NOPMD
 		
-		assertNotNull( exception );
+		Assert.assertNotNull( exception );
 		
-		assertTrue( exception.getCause() instanceof NullPointerException );
+		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
 	}
 	
 	@Test
 	public void testTapParserException4()
 	{
-		exception = new TapConsumerException("Null", new NullPointerException());
+		exception = new TapConsumerException("Null", new NullPointerException()); //NOPMD
 		
-		assertNotNull( exception );
+		Assert.assertNotNull( exception );
 		
-		assertEquals( exception.getMessage(), "Null");
+		Assert.assertEquals( exception.getMessage(), "Null");
 		
-		assertTrue( exception.getCause() instanceof NullPointerException );
+		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
 	}
 
 }

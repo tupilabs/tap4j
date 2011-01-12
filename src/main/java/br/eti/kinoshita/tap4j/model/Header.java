@@ -37,6 +37,8 @@ public class Header
 extends AbstractTapElementDiagnostic
 {
 	
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * TAP file version.
 	 */
@@ -54,6 +56,7 @@ extends AbstractTapElementDiagnostic
 	 */
 	public Header( Integer version )
 	{
+		super();
 		this.version = version;
 	}
 	
@@ -86,13 +89,15 @@ extends AbstractTapElementDiagnostic
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
-		sb.append( "TAP version " + this.version );
+		sb.append( "TAP version " );
+		sb.append( this.version );
 		
 		if ( this.comment != null )
 		{
-			sb.append ( " " + this.comment.toString() );
+			sb.append ( ' ' );
+			sb.append( this.comment.toString() );
 		}
 		
 		return sb.toString();

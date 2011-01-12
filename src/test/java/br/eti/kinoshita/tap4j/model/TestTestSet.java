@@ -34,7 +34,6 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @since 1.0
  */
 public class TestTestSet 
-extends Assert
 {
 	
 	protected TestSet testSet;
@@ -89,55 +88,55 @@ extends Assert
 	@Test
 	public void testTestSet()
 	{
-		assertNotNull( this.testSet );
+		Assert.assertNotNull( this.testSet );
 		
-		assertNotNull( this.testSet.getHeader() );
+		Assert.assertNotNull( this.testSet.getHeader() );
 		
-		assertNotNull( this.testSet.getPlan() );
+		Assert.assertNotNull( this.testSet.getPlan() );
 		
-		assertTrue( this.testSet.getComments().size() == 1 );
+		Assert.assertTrue( this.testSet.getComments().size() == 1 );
 		
-		assertTrue( this.testSet.getNumberOfComments() == 1 );
+		Assert.assertTrue( this.testSet.getNumberOfComments() == 1 );
 		
-		assertTrue( this.testSet.getNumberOfTapLines() == this.testSet.getTapLines().size() );
+		Assert.assertTrue( this.testSet.getNumberOfTapLines() == this.testSet.getTapLines().size() );
 		
-		assertTrue( this.testSet.getNumberOfTapLines() == 4 );
+		Assert.assertTrue( this.testSet.getNumberOfTapLines() == 4 );
 		
-		assertTrue( this.testSet.getNumberOfTestResults() == this.testSet.getTestResults().size() );
+		Assert.assertTrue( this.testSet.getNumberOfTestResults() == this.testSet.getTestResults().size() );
 		
-		assertTrue( this.testSet.getNumberOfTestResults() == 1 );
+		Assert.assertTrue( this.testSet.getNumberOfTestResults() == 1 );
 		
-		assertTrue( this.testSet.getNextTestNumber() == 2 );
+		Assert.assertTrue( this.testSet.getNextTestNumber() == 2 );
 		
-		assertTrue( this.testSet.hasBailOut() );
+		Assert.assertTrue( this.testSet.hasBailOut() );
 		
-		assertTrue (this.testSet.getBailOuts().size() == 1 );
+		Assert.assertTrue ( this.testSet.getBailOuts().size() == 1 );
 		
-		assertTrue( this.testSet.getNumberOfBailOuts() == 1 );
+		Assert.assertTrue( this.testSet.getNumberOfBailOuts() == 1 );
 		
-		assertNotNull( this.testSet.getSummary() );
+		Assert.assertNotNull( this.testSet.getSummary() );
 		
-		assertEquals( this.testSet.toString(), this.testSet.getDetails() );
+		Assert.assertEquals( this.testSet.toString(), this.testSet.getDetails() );
 		
-		assertNotNull( this.testSet.getFooter() );
+		Assert.assertNotNull( this.testSet.getFooter() );
 	}
 	
 	@Test
 	public void intrusiveTests()
 	{
 		this.testSet.removeBailOut( bailOut );
-		assertTrue( this.testSet.getNumberOfBailOuts() == 0 );
+		Assert.assertTrue( this.testSet.getNumberOfBailOuts() == 0 );
 		
 		this.testSet.removeComment( comment );
-		assertTrue( this.testSet.getNumberOfComments() == 0 );
-		assertFalse( this.testSet.removeComment( comment ) );
+		Assert.assertTrue( this.testSet.getNumberOfComments() == 0 );
+		Assert.assertFalse( this.testSet.removeComment( comment ) );
 		
 		this.testSet.removeTestResult( tr1 );
-		assertTrue( this.testSet.getTestResults().size() == 0 );
-		assertFalse( this.testSet.removeTestResult( tr1 ));
+		Assert.assertTrue( this.testSet.getTestResults().size() == 0 );
+		Assert.assertFalse( this.testSet.removeTestResult( tr1 ));
 		
 		this.testSet.removeTapLine( text );
-		assertTrue( this.testSet.getTapLines().size() == 0 );
+		Assert.assertTrue( this.testSet.getTapLines().size() == 0 );
 	}
 
 }

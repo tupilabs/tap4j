@@ -32,31 +32,30 @@ import org.testng.annotations.Test;
  * @since 1.0
  */
 public class TestTAPHeader 
-extends Assert
 {
 
 	protected Header header;
 	
-	protected final static Integer version = 13;
+	protected final static Integer TAP_VERSION = 13;
 	
 	@BeforeMethod
 	public void setUp()
 	{
-		this.header = new Header( version );
+		this.header = new Header( TAP_VERSION );
 	}
 	
 	@Test
 	public void testHeader()
 	{
-		assertNotNull( this.header );
+		Assert.assertNotNull( this.header );
 		
-		assertEquals( this.header.getVersion(), TestTAPHeader.version );
+		Assert.assertEquals( this.header.getVersion(), TestTAPHeader.TAP_VERSION );
 		
-		final String expectedOutput = "TAP version " + TestTAPHeader.version ;
+		final String expectedOutput = "TAP version " + TestTAPHeader.TAP_VERSION ;
 		
 		String toStringResult = this.header.toString();
 		
-		assertEquals( expectedOutput, toStringResult );
+		Assert.assertEquals( expectedOutput, toStringResult );
 	}
 	
 	@Test
@@ -64,11 +63,11 @@ extends Assert
 	{
 		this.header.setComment( new Comment("Header's comment.") );
 		
-		assertNotNull( this.header.getComment() );
+		Assert.assertNotNull( this.header.getComment() );
 		
-		assertEquals( this.header.getComment().getText(), "Header's comment.");
+		Assert.assertEquals( this.header.getComment().getText(), "Header's comment.");
 		
-		assertEquals( this.header.toString(), "TAP version " + version + " # Header's comment.");
+		Assert.assertEquals( this.header.toString(), "TAP version " + TAP_VERSION + " # Header's comment.");
 	}
 	
 }

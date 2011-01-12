@@ -23,6 +23,8 @@
  */
 package br.eti.kinoshita.tap4j.model;
 
+import org.apache.commons.lang.StringUtils;
+
 
 
 
@@ -37,6 +39,8 @@ public class BailOut
 extends TapResult
 {
 
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * Reason to Bail Out.
 	 */
@@ -54,6 +58,7 @@ extends TapResult
 	 */
 	public BailOut( String reason )
 	{
+		super();
 		this.reason = reason;
 	}
 	
@@ -84,11 +89,17 @@ extends TapResult
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
-		sb.append( "Bail out!" + ((this.reason != null) ? " " + this.reason : "") );
+		StringBuilder sb = new StringBuilder();
+		sb.append("Bail out!");
+		if( StringUtils.isNotEmpty(this.reason))
+		{
+			sb.append(' ');
+			sb.append( this.reason );
+		}
 		if ( this.comment != null )
 		{
-			sb.append( " " + this.comment.toString() );
+			sb.append( ' ' );
+			sb.append( this.comment.toString() );
 		}
 		return sb.toString();
 	}

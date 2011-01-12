@@ -37,7 +37,6 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @since 1.0
  */
 public class TestTAPTestResult 
-extends Assert
 {
 
 	protected TestResult okTestResult = null;
@@ -67,60 +66,60 @@ extends Assert
 	@Test
 	public void testOkTestResult()
 	{
-		assertNotNull( okTestResult );
+		Assert.assertNotNull( okTestResult );
 		
-		assertTrue( okTestResult.getTestNumber() > 0 );
+		Assert.assertTrue( okTestResult.getTestNumber() > 0 );
 		
-		assertEquals( okTestResult.getStatus(), StatusValues.OK );
+		Assert.assertEquals( okTestResult.getStatus(), StatusValues.OK );
 		
-		assertNull( okTestResult.getDirective() );
+		Assert.assertNull( okTestResult.getDirective() );
 		
 		String toStringResult = okTestResult.toString();
 		
 		final String expectedValue = "ok " +okTestResult.getTestNumber()+ " " + okTestResult.getDescription();
 		
-		assertEquals( toStringResult, expectedValue );
+		Assert.assertEquals( toStringResult, expectedValue );
 	}
 	
 	@Test
 	public void testNotOkTestResult()
 	{
-		assertNotNull ( notOkTestResult );
+		Assert.assertNotNull ( notOkTestResult );
 		
-		assertTrue ( notOkTestResult.getTestNumber() > 0 );
+		Assert.assertTrue ( notOkTestResult.getTestNumber() > 0 );
 		
-		assertEquals( notOkTestResult.getStatus(), StatusValues.NOT_OK );
+		Assert.assertEquals( notOkTestResult.getStatus(), StatusValues.NOT_OK );
 		
-		assertNull ( notOkTestResult.getDirective() );
+		Assert.assertNull ( notOkTestResult.getDirective() );
 		
 		String toStringResult = notOkTestResult.toString();
 		
 		final String expectedValue = "not ok " + notOkTestResult.getTestNumber();
 		
-		assertEquals( toStringResult, expectedValue );
+		Assert.assertEquals( toStringResult, expectedValue );
 	}
 	
 	@Test
 	public void testOkTestResultSkip()
 	{
-		assertNotNull( okTestResultSkip );
+		Assert.assertNotNull( okTestResultSkip );
 		
-		assertTrue( okTestResultSkip.getTestNumber() > 0 );
+		Assert.assertTrue( okTestResultSkip.getTestNumber() > 0 );
 		
 		okTestResultSkip.setStatus( StatusValues.OK );
 		
-		assertEquals( okTestResultSkip.getStatus(), StatusValues.OK );
+		Assert.assertEquals( okTestResultSkip.getStatus(), StatusValues.OK );
 		
-		assertNotNull( okTestResultSkip.getDirective() );
+		Assert.assertNotNull( okTestResultSkip.getDirective() );
 		
 		String toStringResult = okTestResultSkip.toString();
 		
-		assertNotNull( okTestResultSkip.getComment() );
+		Assert.assertNotNull( okTestResultSkip.getComment() );
 		
 		final String expectedValue = "ok " + okTestResultSkip.getTestNumber() 
 		+ okTestResultSkip.getDirective() + " # This status is set to true in another method.";
 		
-		assertEquals( toStringResult, expectedValue );
+		Assert.assertEquals( toStringResult, expectedValue );
 
 	}
 	

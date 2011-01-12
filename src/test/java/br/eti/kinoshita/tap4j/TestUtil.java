@@ -35,15 +35,15 @@ import br.eti.kinoshita.tap4j.util.Util;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestUtil extends Assert
+public class TestUtil 
 {
 
-	private StringBuffer sb;
+	private StringBuilder sb;
 
 	@BeforeMethod
 	public void setUp()
 	{
-		sb = new StringBuffer();
+		sb = new StringBuilder();
 		sb.append("Anything");
 	}
 
@@ -51,10 +51,10 @@ public class TestUtil extends Assert
 	public void testAppends()
 	{
 		Util.appendIfNotNull(sb, " appended text");
-		assertEquals(sb.toString(), "Anything appended text");
+		Assert.assertEquals(sb.toString(), "Anything appended text");
 
 		Util.appendIfNotNull(sb, " - ", " Tom T.", null);
-		assertEquals(sb.toString(), "Anything appended text -  Tom T.");
+		Assert.assertEquals(sb.toString(), "Anything appended text -  Tom T.");
 	}
 
 	@Test
@@ -66,11 +66,11 @@ public class TestUtil extends Assert
 			c.setAccessible(true);
 			final Object o = c.newInstance((Object[]) null);
 
-			assertNotNull(o);
+			Assert.assertNotNull(o);
 		}
 		catch (Exception e)
 		{
-			fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
+			Assert.fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
 		}
 	}
 

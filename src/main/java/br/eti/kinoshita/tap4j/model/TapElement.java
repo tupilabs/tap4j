@@ -39,11 +39,11 @@ extends Serializable
 	/**
 	 * @return yaml diagnostic information.
 	 */
-	public Map<String, Object> getDiagnostic();
+	Map<String, Object> getDiagnostic();
 	
 	/**
 	 * @param meta yaml diagnostic information.
 	 */
-	public void setDiagnostic(Map<String, Object> meta);
+	void setDiagnostic(Map<String, Object> meta);
 	
 }

@@ -37,13 +37,13 @@ import br.eti.kinoshita.tap4j.model.TestSet;
 public interface TapProducer
 {
 	
-	public String dump( TestSet testSet ) 
+	String dump( TestSet testSet ) 
 	throws TapProducerException;
 	
-	public void dump( TestSet testSet, Writer writer ) 
+	void dump( TestSet testSet, Writer writer ) 
 	throws TapProducerException;
 	
-	public void dump( TestSet testSet, File output ) 
+	void dump( TestSet testSet, File output ) 
 	throws TapProducerException;
 
 }

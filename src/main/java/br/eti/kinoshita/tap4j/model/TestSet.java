@@ -41,47 +41,42 @@ public class TestSet
 implements Serializable
 {
 
+	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * TAP Header.
-	 * @see {@link Header}
 	 */
 	private Header header;
 	
 	/**
 	 * TAP Plan.
-	 * @see {@link Plan}
 	 */
 	private Plan plan;
 	
 	/**
 	 * List of TAP Lines.
-	 * @see {@link TapLine]
-	 * @see {@link TestResult}
-	 * @see {@link BailOut}
 	 */
 	private List<TapResult> tapLines = new ArrayList<TapResult>();
 	
 	/**
 	 * List of Test Results.
-	 * @see {@link TestResult}
 	 */
 	private List<TestResult> testResults = new ArrayList<TestResult>();
 	
 	/**
 	 * List of Bail Outs.
-	 * @see {@link BailOut}
 	 */
 	private List<BailOut> bailOuts = new ArrayList<BailOut>();
 	
 	/**
 	 * List of comments.
-	 * @see {@link Comment}
 	 */
 	private List<Comment> comments = new ArrayList<Comment>();
 	
 	/**
 	 * TAP Footer.
-	 * @see {@link Footer}
 	 */
 	private Footer footer;
 	
@@ -128,9 +123,6 @@ implements Serializable
 	/**
 	 * @return List of TAP Lines. These lines may be either a TestResult 
 	 * or a BailOut.
-	 * @see {@link TestResult}
-	 * @see {@link BailOut}
-	 * @see {@link Comment}
 	 */
 	public List<TapResult> getTapLines()
 	{
@@ -218,12 +210,13 @@ implements Serializable
 	 */
 	public boolean removeTestResult( TestResult testResult )
 	{
+		boolean flag = false;
 		if ( this.tapLines.remove( testResult ) )
 		{
 			this.testResults.remove( testResult );
-			return true;
+			flag = true;
 		}
-		return false;
+		return flag;
 	}
 	
 	/**
@@ -234,12 +227,13 @@ implements Serializable
 	 */
 	public boolean removeBailOut( BailOut bailOut )
 	{
+		boolean flag = false;
 		if ( this.tapLines.remove( bailOut ) )
 		{
 			this.bailOuts.remove( bailOut );
-			return true;
+			flag = true;
 		}
-		return false;
+		return flag;
 	}
 	
 	/**
@@ -250,12 +244,13 @@ implements Serializable
 	 */
 	public boolean removeComment( Comment comment )
 	{
+		boolean flag = false;
 		if ( this.tapLines.remove( comment ) )
 		{
 			this.comments.remove( comment );
-			return true;
+			flag = true;
 		}
-		return false;
+		return flag;
 	}
 	
 	/**
@@ -404,34 +399,36 @@ implements Serializable
 	 */
 	public String getSummary()
 	{
-		final StringBuffer summary = new StringBuffer();
+		final StringBuilder summary = new StringBuilder();
 		
 		if ( this.header != null )
 		{
 			summary.append( this.header.toString() );
-			summary.append( System.getProperty("line.separator"));
+			summary.append( LINE_SEPARATOR );
 		}
 		
 		if ( this.plan != null )
 		{
 			summary.append( this.plan.toString() );
-			summary.append( System.getProperty("line.separator"));
+			summary.append( LINE_SEPARATOR );
 		}
 		
 		Integer numberOfTestResults = this.getNumberOfTestResults();
 		
-		summary.append(numberOfTestResults + " tests.");
+		summary.append(numberOfTestResults);
+		summary.append(" tests.");
 		
 		if( this.getNumberOfBailOuts() > 0 )
 		{
 			summary.append( "Contains Bail out!");
-			summary.append( System.getProperty("line.separator"));
+			summary.append( LINE_SEPARATOR );
 		}
 		
 		if ( this.footer != null )
 		{
-			summary.append( "Footer: " + footer.getText() );
-			summary.append( System.getProperty("line.separator"));
+			summary.append( "Footer: " );
+			summary.append( footer.getText() );
+			summary.append( LINE_SEPARATOR );
 		}
 		
 		return summary.toString();
@@ -439,7 +436,6 @@ implements Serializable
 	
 	/**
 	 * @return Details of the TAP Stream.
-	 * @see {@link #toString()}
 	 */
 	public String getDetails()
 	{
@@ -449,21 +445,21 @@ implements Serializable
 	@Override
 	public String toString()
 	{
-		final StringBuffer sb = new StringBuffer();
+		final StringBuilder sb = new StringBuilder();
 		
 		if ( header != null )
 		{
 			sb.append( header.toString() );
-			sb.append ( System.getProperty("line.separator") );
+			sb.append ( LINE_SEPARATOR );
 		}
 		
 		sb.append( plan.toString() );
-		sb.append ( System.getProperty("line.separator") );
+		sb.append ( LINE_SEPARATOR );
 		
 		for( TapResult tapLine : tapLines )
 		{
 			sb.append( tapLine.toString() );
-			sb.append ( System.getProperty("line.separator") );
+			sb.append ( LINE_SEPARATOR );
 		}
 		
 		if ( footer != null )

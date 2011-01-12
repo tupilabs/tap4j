@@ -23,6 +23,8 @@
  */
 package br.eti.kinoshita.tap4j.util;
 
+import org.apache.commons.lang.StringUtils;
+
 
 
 /**
@@ -31,7 +33,7 @@ package br.eti.kinoshita.tap4j.util;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Util
+public final class Util
 {
 	
 	/**
@@ -40,36 +42,40 @@ public class Util
 	private Util(){}
 	
 	/**
-	 * Appends a text to the StringBuffer with a prefix and suffix.
+	 * Appends a text to the StringBuilder with a prefix and suffix.
 	 * 
-	 * @param sb
+	 * @param stringBuffer
 	 * @param prefix
 	 * @param object
 	 * @param suffix
 	 */
-	public static void appendIfNotNull( StringBuffer sb, String prefix, Object object, String suffix )
+	public static void appendIfNotNull( StringBuilder stringBuffer, String prefix, Object object, String suffix )
 	{
 		if ( object != null )
 		{
-			appendIfNotNull( sb, prefix );
-			
-			sb.append ( object.toString() );
-			
-			appendIfNotNull( sb, suffix );
+			String value = object.toString();
+			if ( StringUtils.isNotEmpty( value ))
+			{
+				appendIfNotNull( stringBuffer, prefix );
+				
+				stringBuffer.append ( value );
+				
+				appendIfNotNull( stringBuffer, suffix );
+			}
 		}
 	}
 	
 	/**
-	 * Appends a text to a given StringBuffer if the text is not null.
+	 * Appends a text to a given StringBuilder if the text is not null.
 	 * 
-	 * @param sb StringBuffer object.
+	 * @param stringBuilder StringBuilder object.
 	 * @param text String text to be appended.
 	 */
-	public static void appendIfNotNull ( StringBuffer sb, String text )
+	public static void appendIfNotNull ( StringBuilder stringBuilder, String text )
 	{
 		if ( text != null )
 		{
-			sb.append ( text );
+			stringBuilder.append ( text );
 		}
 	}
 

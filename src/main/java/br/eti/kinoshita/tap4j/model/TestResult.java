@@ -33,6 +33,9 @@ import br.eti.kinoshita.tap4j.util.Util;
 public class TestResult 
 extends TapResult
 {
+	
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * Test Status (OK, NOT OK).
 	 */
@@ -60,6 +63,7 @@ extends TapResult
 	
 	public TestResult()
 	{
+		super();
 		this.status = StatusValues.NOT_OK;
 		this.testNumber = -1;
 	}
@@ -72,6 +76,7 @@ extends TapResult
 	 */
 	public TestResult( StatusValues testStatus, Integer testNumber )
 	{
+		super();
 		this.status = testStatus;
 		this.testNumber = testNumber;
 	}
@@ -133,7 +138,7 @@ extends TapResult
 	}
 	
 	/**
-	 * @param testDirective Optional Directive.
+	 * @param directive Optional Directive.
 	 */
 	public void setDirective( Directive directive )
 	{
@@ -159,7 +164,7 @@ extends TapResult
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append( status );
 		

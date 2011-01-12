@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
 
 import org.yaml.snakeyaml.Yaml;
 
-import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
 import br.eti.kinoshita.tap4j.model.TapElement;
 import br.eti.kinoshita.tap4j.model.Text;
 
@@ -61,9 +60,9 @@ protected TapElement lastParsedElement = null;
 	 */
 	protected Yaml yaml = new Yaml();
 	
-	protected StringBuffer diagnosticBuffer = new StringBuffer();
+	protected StringBuilder diagnosticBuffer = new StringBuilder();
 	
-	protected Pattern indentationREGEX = Pattern.compile( "((\\s|\\t)*)?.*" );
+	public static final Pattern INDENTANTION_PATTERN = Pattern.compile( "((\\s|\\t)*)?.*" );
 	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.consumer.DefaultTapConsumer#parseLine(java.lang.String)
@@ -76,11 +75,11 @@ protected TapElement lastParsedElement = null;
 		Matcher matcher = null;
 		
 		// Comment
-		matcher = commentREGEX.matcher( tapLine );
+		matcher = COMMENT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractComment( matcher );
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Last line that is not a comment.
@@ -92,7 +91,7 @@ protected TapElement lastParsedElement = null;
 		// one, than we know it is a) a META, b) 
 		if ( this.isBaseIndentationAlreadyDefined() )
 		{
-			matcher = indentationREGEX.matcher( tapLine );
+			matcher = INDENTANTION_PATTERN.matcher( tapLine );
 			if ( matcher.matches() )
 			{
 				String spaces = matcher.group ( 1 );
@@ -106,7 +105,7 @@ protected TapElement lastParsedElement = null;
 					
 					this.appendTapLineToDiagnosticBuffer( tapLine );
 					
-					return;
+					return; // NOPMD by Bruno on 12/01/11 07:47
 				}
 				
 				// indentation cannot be less then the base indentation level
@@ -118,10 +117,10 @@ protected TapElement lastParsedElement = null;
 		this.checkAndParseTapDiagnostic();
 		
 		// Header 
-		matcher = headerREGEX.matcher( tapLine );
+		matcher = HEADER_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
-			this.baseIndentationLevel = this.getIndentationLevel( tapLine );
+			this.setIndentationLevelIfNotDefined( tapLine );
 			
 			this.currentIndentationLevel = this.baseIndentationLevel;
 			
@@ -132,59 +131,66 @@ protected TapElement lastParsedElement = null;
 			
 			this.lastParsedElement = this.header;
 			
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Check if the header was set
 		// this.checkHeader();
 		
 		// Plan 
-		matcher = planREGEX.matcher( tapLine );
+		matcher = PLAN_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.checkTAPPlanDuplicity();
 			
 			this.checkIfTAPPlanIsSetBeforeTestResultsOrBailOut();
 			
+			this.setIndentationLevelIfNotDefined( tapLine );
+			
 			this.extractPlan ( matcher);
 			this.isFirstLine = false;
 			
 			this.lastParsedElement = this.plan;
 			
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Test Result
-		matcher = testResultREGEX.matcher( tapLine );
+		matcher = TEST_RESULT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
+			this.setIndentationLevelIfNotDefined( tapLine );
+			
 			this.extractTestResult ( matcher );
 			
 			this.lastParsedElement = this.tapLines.get( (tapLines.size()-1) );
 			
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Bail Out
-		matcher = bailOutREGEX.matcher( tapLine );
+		matcher = BAIL_OUT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
+			
+			this.setIndentationLevelIfNotDefined( tapLine );
+			
 			this.extractBailOut( matcher );
 			
 			this.lastParsedElement = this.tapLines.get( (tapLines.size()-1) );
 			
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Footer
-		matcher = footerREGEX.matcher( tapLine );
+		matcher = FOOTER_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractFooter( matcher );
 			
 			this.lastParsedElement = this.footer;
 			
-			return;
+			return; // NOPMD by Bruno on 12/01/11 07:47
 		}
 		
 		// Any text. It should not be parsed by the consumer.
@@ -195,11 +201,22 @@ protected TapElement lastParsedElement = null;
 	}
 
 	/**
+	 * 
+	 */
+	private void setIndentationLevelIfNotDefined(String tapLine) 
+	{
+		if ( this.isBaseIndentationAlreadyDefined() == Boolean.FALSE )
+		{
+			this.baseIndentationLevel = this.getIndentationLevel( tapLine );
+		}
+	}
+
+	/**
 	 * Checks if the indentation is greater than the 
 	 * {@link #baseIndentationLevel}
 	 * 
 	 * @param indentation indentation level
-	 * @throws TapConsumerException if indentation is less then the 
+	 * @throws br.eti.kinoshita.tap4j.consumer.TapConsumerException if indentation is less then the 
 	 *   {@link #baseIndentationLevel}.
 	 */
 	private void checkIndentationLevel( int indentation, String tapLine )
@@ -222,7 +239,7 @@ protected TapElement lastParsedElement = null;
 	{
 		int indentationLevel = 0;
 		
-		final Matcher indentMatcher = indentationREGEX.matcher( tapLine );
+		final Matcher indentMatcher = INDENTANTION_PATTERN.matcher( tapLine );
 		
 		if ( indentMatcher.matches() )
 		{
@@ -238,7 +255,7 @@ protected TapElement lastParsedElement = null;
 	 * 
 	 * <p>If so, tries to parse it using snakeyaml.</p>
 	 * 
-	 * @throws TapConsumerException
+	 * @throws br.eti.kinoshita.tap4j.consumer.TapConsumerException
 	 */
 	private void checkAndParseTapDiagnostic() 
 	throws ParserException
@@ -264,14 +281,14 @@ protected TapElement lastParsedElement = null;
 				throw new ParserException("Error parsing YAML ["+diagnosticBuffer.toString()+"]: " + ex.getMessage(), ex);
 			}
 			
-			diagnosticBuffer = new StringBuffer();
+			diagnosticBuffer = new StringBuilder();
 		}
 	}
 	
 	/*
 	 * Checks if the Header was set.
 	 * 
-	 * @throws TapConsumerException
+	 * @throws br.eti.kinoshita.tap4j.consumer.TapConsumerException
 	 * @deprecated
 	 */
 //	void checkHeader() 
@@ -297,7 +314,7 @@ protected TapElement lastParsedElement = null;
 			return;
 		}
 		diagnosticBuffer.append( diagnosticLine );
-		diagnosticBuffer.append( "\n" );
+		diagnosticBuffer.append( '\n' );
 	}
 
 	/**
@@ -314,7 +331,7 @@ protected TapElement lastParsedElement = null;
 	 */
 	@Override
 	protected void postProcess() 
-	throws TapConsumerException 
+	throws ParserException 
 	{
 		super.postProcess();
 		this.checkAndParseTapDiagnostic();

@@ -49,14 +49,14 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * Test where the producer outputs a tap file and then a consumer reads it and 
  * checks if the values are correct. For example, you create a test with a Test 
  * Result with a String there. Then you use the consumer to read the tap file 
- * created and check if the consumer can read the String. Voilà.
+ * created and check if the consumer can read the String. Voila.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @author César Fernandes de Almeida
+ * @author Cesar Fernandes de Almeida
  * 
  * @since 1.0
  */
-public class TestProduceConsume extends Assert
+public class TestProduceConsume
 {
 	private static final Integer TAP_VERSION = 13;
 	private TapProducer tapProducer;
@@ -81,7 +81,7 @@ public class TestProduceConsume extends Assert
 		testSet.setHeader(header);
 		
 		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
-		Comment commentPlan = new Comment("Testing something with a plan that I don´t know exactly what it is about!");
+		Comment commentPlan = new Comment("Testing something with a plan that I do not know exactly what it is about!");
 		plan.setComment(commentPlan);
 		testSet.setPlan(plan);
 		
@@ -109,14 +109,14 @@ public class TestProduceConsume extends Assert
 		} 
 		catch (IOException e)
 		{
-			fail("Failed to create temp file: " + e.getMessage(), e);
+			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
 		}
 	}
 	
 	@Test
 	public void testTapProducer()
 	{
-		assertTrue ( testSet.getTapLines().size() > 0 );
+		Assert.assertTrue ( testSet.getTapLines().size() > 0 );
 		
 		try
 		{
@@ -124,7 +124,7 @@ public class TestProduceConsume extends Assert
 		}
 		catch ( Exception e  )
 		{
-			fail("Failed to print TAP Stream into file.", e);
+			Assert.fail("Failed to print TAP Stream into file.", e);
 		}
 	}
 	
@@ -136,38 +136,38 @@ public class TestProduceConsume extends Assert
 		{
 			TestSet testSet = tapConsumer.load( tempFile );
 			
-			assertNotNull( testSet.getHeader() );
+			Assert.assertNotNull( testSet.getHeader() );
 			
-			assertNotNull( testSet.getPlan() );
+			Assert.assertNotNull( testSet.getPlan() );
 			
-			assertTrue( testSet.getNumberOfTestResults() == 3);
+			Assert.assertTrue( testSet.getNumberOfTestResults() == 3);
 			
-			assertNotNull( testSet.getFooter() );
+			Assert.assertNotNull( testSet.getFooter() );
 			
-			assertTrue( testSet.getTapLines().size() > 0 );
+			Assert.assertTrue( testSet.getTapLines().size() > 0 );
 			
-			assertTrue( testSet.getNumberOfTapLines() > 0 );
+			Assert.assertTrue( testSet.getNumberOfTapLines() > 0 );
 			
-			assertTrue( testSet.containsOk() );
+			Assert.assertTrue( testSet.containsOk() );
 			
-			assertFalse( testSet.containsBailOut() );
+			Assert.assertFalse( testSet.containsBailOut() );
 			
-			assertTrue( testSet.containsNotOk() );
+			Assert.assertTrue( testSet.containsNotOk() );
 			
-			assertTrue( testSet.getComments().size() > 0 );
+			Assert.assertTrue( testSet.getComments().size() > 0 );
 			
-			assertTrue( testSet.getNumberOfComments() > 0 );
+			Assert.assertTrue( testSet.getNumberOfComments() > 0 );
 			
-			assertTrue( testSet.getComments().size() == testSet.getNumberOfComments() );
+			Assert.assertTrue( testSet.getComments().size() == testSet.getNumberOfComments() );
 			
-			assertNotNull( tapConsumer.getTestSet());
+			Assert.assertNotNull( tapConsumer.getTestSet());
 			
-			assertEquals( testSet.getTestResult(1).getStatus(), StatusValues.OK );
+			Assert.assertEquals( testSet.getTestResult(1).getStatus(), StatusValues.OK );
 			
 		} 
 		catch (TapConsumerException e)
 		{
-			fail("Failed to parse TAP file: " + e.getMessage(), e);
+			Assert.fail("Failed to parse TAP file: " + e.getMessage(), e);
 		}
 	}
 	
@@ -178,6 +178,6 @@ public class TestProduceConsume extends Assert
 		
 		tapConsumer.getTestSet().getBailOuts().add( bailOut );
 		
-		assertTrue( tapConsumer.getTestSet().containsBailOut() );
+		Assert.assertTrue( tapConsumer.getTestSet().containsBailOut() );
 	}
 }

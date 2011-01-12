@@ -37,6 +37,8 @@ public class Directive
 implements Serializable
 {
 
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * Directive Value (TODO, SKIP).
 	 */
@@ -55,6 +57,7 @@ implements Serializable
 	 */
 	public Directive( DirectiveValues directiveValue, String reason )
 	{
+		super();
 		this.directiveValue = directiveValue;
 		this.reason = reason;
 	}
@@ -78,11 +81,13 @@ implements Serializable
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
-		sb.append( " # " + directiveValue );
+		StringBuilder sb = new StringBuilder();
+		sb.append( " # " );
+		sb.append( directiveValue );
 		if ( this.reason != null )
 		{
-			sb.append( " " + this.reason );
+			sb.append( ' ' );
+			sb.append( this.reason );
 		}
 		return sb.toString();
 	}

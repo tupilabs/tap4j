@@ -25,11 +25,10 @@ package br.eti.kinoshita.tap4j.consumer;
 
 
 /**
- * This exception is thrown by the Tap Parser ({@link TapConsumer}).
+ * This exception is thrown by the Tap Parser.
  * 
  * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * @since 20/09/2010
- * @see {@link TapConsumer}
  */
 public class TapConsumerException extends RuntimeException
 {
@@ -39,6 +38,7 @@ public class TapConsumerException extends RuntimeException
 	 */
 	public TapConsumerException()
 	{
+		super();
 	}
 
 	/**

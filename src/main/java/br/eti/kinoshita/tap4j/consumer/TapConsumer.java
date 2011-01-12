@@ -36,12 +36,12 @@ import br.eti.kinoshita.tap4j.model.TestSet;
 public interface TapConsumer
 {
 	
-	public TestSet load( File file ) 
+	TestSet load( File file ) 
 	throws TapConsumerException;
 	
-	public TestSet load( String tapStream ) 
+	TestSet load( String tapStream ) 
 	throws TapConsumerException;
 	
-	public TestSet getTestSet( );
+	TestSet getTestSet( );
 	
 }

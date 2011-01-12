@@ -26,8 +26,7 @@ package br.eti.kinoshita.tap4j.consumer;
 import java.io.File;
 import java.util.Map;
 
-import junit.framework.Assert;
-
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -41,7 +40,6 @@ import br.eti.kinoshita.tap4j.util.TapVersions;
  * @since 1.0
  */
 public class TestTap13YamlConsumer 
-extends Assert
 {
 
 	protected TapConsumer consumer;
@@ -59,36 +57,38 @@ extends Assert
 		{
 			TestSet testSet = consumer.load( new File(TestTap13YamlConsumer.class.getResource("/input_tap13/1.tap").getFile()) );
 			
-			assertNotNull( testSet.getHeader() );
+			Assert.assertNotNull( testSet.getHeader() );
 			
-			assertTrue ( testSet.getHeader().getVersion() == TapVersions.TAP_13.getValue() );
+			Assert.assertNotNull( testSet.getHeader().getVersion() );
 			
-			assertNotNull( testSet.getPlan() );
+			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersions.TAP_13.getValue() ) );
 			
-			assertTrue ( testSet.getPlan().getInitialTestNumber() == 1 );
+			Assert.assertNotNull( testSet.getPlan() );
 			
-			assertTrue( testSet.getPlan().getLastTestNumber() == 3 );
+			Assert.assertTrue ( testSet.getPlan().getInitialTestNumber() == 1 );
 			
-			assertTrue( testSet.getTestResults().size() == 3 );
+			Assert.assertTrue( testSet.getPlan().getLastTestNumber() == 3 );
 			
-			assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.OK );
+			Assert.assertTrue( testSet.getTestResults().size() == 3 );
 			
-			assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
+			Assert.assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.OK );
 			
-			assertTrue ( testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK );
+			Assert.assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
+			
+			Assert.assertTrue ( testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK );
 			
 			Map<String, Object> diagnostic = testSet.getTestResult(2).getDiagnostic();
 			
-			assertNotNull( diagnostic );
+			Assert.assertNotNull( diagnostic );
 			
-			assertEquals( diagnostic.get("file"), "t/something.t" );
+			Assert.assertEquals( diagnostic.get("file"), "t/something.t" );
 			
-			assertTrue ( testSet.getTestResult(3).getStatus() == StatusValues.OK );
+			Assert.assertTrue ( testSet.getTestResult(3).getStatus() == StatusValues.OK );
 			
 		} 
 		catch (TapConsumerException e) 
 		{
-			fail("" + e.getMessage());
+			Assert.fail( e.getMessage());
 		}
 	}
 	
@@ -99,32 +99,34 @@ extends Assert
 		{
 			TestSet testSet = consumer.load( new File(TestTap13YamlConsumer.class.getResource("/input_tap13/br.eti.kinoshita.testng.TestGoogleBrunoKinoshita.tap").getFile()) );
 			
-			assertNotNull( testSet.getHeader() );
+			Assert.assertNotNull( testSet.getHeader() );
 			
-			assertTrue ( testSet.getHeader().getVersion() == TapVersions.TAP_13.getValue() );
+			Assert.assertNotNull( testSet.getHeader().getVersion() );
 			
-			assertNotNull( testSet.getPlan() );
+			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersions.TAP_13.getValue() ) );
 			
-			assertTrue ( testSet.getPlan().getInitialTestNumber() == 1 );
+			Assert.assertNotNull( testSet.getPlan() );
 			
-			assertTrue( testSet.getPlan().getLastTestNumber() == 1 );
+			Assert.assertTrue ( testSet.getPlan().getInitialTestNumber() == 1 );
 			
-			assertTrue( testSet.getTestResults().size() == 1 );
+			Assert.assertTrue( testSet.getPlan().getLastTestNumber() == 1 );
 			
-			assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK );
+			Assert.assertTrue( testSet.getTestResults().size() == 1 );
 			
-			assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
+			Assert.assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK );
+			
+			Assert.assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
 			
 			Map<String, Object> diagnostic = testSet.getTestResult(1).getDiagnostic();
 			
-			assertNotNull( diagnostic );
+			Assert.assertNotNull( diagnostic );
 			
-			assertEquals( diagnostic.get("file"), "br.eti.kinoshita.testng.TestGoogleBrunoKinoshita.java" );
+			Assert.assertEquals( diagnostic.get("file"), "br.eti.kinoshita.testng.TestGoogleBrunoKinoshita.java" );
 			
 		} 
 		catch (TapConsumerException e) 
 		{
-			fail("" + e.getMessage());
+			Assert.fail( e.getMessage());
 		}
 	}
 	

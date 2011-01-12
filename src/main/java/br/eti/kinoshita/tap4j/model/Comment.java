@@ -35,6 +35,8 @@ public class Comment
 extends TapResult 
 {
 
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * Comment text.
 	 */
@@ -47,6 +49,7 @@ extends TapResult
 	 */
 	public Comment( String text )
 	{
+		super();
 		this.text = text;
 	}
 	

@@ -32,6 +32,6 @@ import br.eti.kinoshita.tap4j.model.TestSet;
 public interface Representer 
 {
 
-	public String representData(TestSet testSet);
+	String representData(TestSet testSet);
 	
 }

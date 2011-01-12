@@ -34,7 +34,6 @@ import org.testng.annotations.Test;
  * @since 1.0
  */
 public class TestTAPBailOut 
-extends Assert
 {
 	
 	protected BailOut bailOut;
@@ -52,20 +51,20 @@ extends Assert
 	@Test
 	public void testBailOut()
 	{
-		assertNotNull( bailOut );
+		Assert.assertNotNull( bailOut );
 		
-		assertEquals( bailOut.getReason(), REASON );
+		Assert.assertEquals( bailOut.getReason(), REASON );
 		
-		assertNotNull( bailOut.getComment() );
+		Assert.assertNotNull( bailOut.getComment() );
 		
-		assertNotNull( bailOut.getComment().getText() );
+		Assert.assertNotNull( bailOut.getComment().getText() );
 		
-		assertEquals( bailOut.toString(), "Bail out! " + REASON + " " +  bailOut.getComment().toString());
+		Assert.assertEquals( bailOut.toString(), "Bail out! " + REASON + " " +  bailOut.getComment().toString());
 		
 		bailOut = new BailOut(null);
-		assertNull( bailOut.getReason() );
+		Assert.assertNull( bailOut.getReason() );
 		
-		assertEquals( bailOut.toString(), "Bail out!" );
+		Assert.assertEquals( bailOut.toString(), "Bail out!" );
 	}
 
 }

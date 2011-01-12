@@ -21,51 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.model;
+package br.eti.kinoshita.tap4j.producer;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import br.eti.kinoshita.tap4j.representer.Tap13YamlRepresenter;
 
 /**
- * Tests TAP Footer.
+ * Factory class to produce TAP Producers.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
+public final class TapProducerFactory 
 {
 
-	protected Footer footer;
-	
-	private final static String FOOTER_TEXT = "done";
-	
-	@BeforeMethod
-	public void setUp()
+	private TapProducerFactory()
 	{
-		footer = new Footer( FOOTER_TEXT );		
+		super();
 	}
 	
-	@Test
-	public void testFooter()
+	/**
+	 * Produces a TAP version 13 Producer.
+	 * 
+	 * @return TAP Producer.
+	 */
+	public static TapProducer makeTap13Producer()
 	{
-		String expectedValue = FOOTER_TEXT;
-		Assert.assertNotNull( footer );
-		Assert.assertNotNull( footer.getText() );
-		Assert.assertEquals(footer.getText(), expectedValue);
-		Assert.assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
+		return new TapProducerImpl();
 	}
 	
-	@Test
-	public void testFooterWithComment()
+	/**
+	 * Produces a TAP version 13 Producer with YAML diagnostics.
+	 * 
+	 * @return TAP Producer with YAML support.
+	 */
+	public static TapProducer makeTap13YamlProducer()
 	{
-		footer.setComment( new Comment("Footer's comment.") );
-		
-		Assert.assertNotNull( this.footer.getComment() );
-		
-		Assert.assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		Assert.assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+		return new TapProducerImpl( new Tap13YamlRepresenter() );
 	}
 	
 }

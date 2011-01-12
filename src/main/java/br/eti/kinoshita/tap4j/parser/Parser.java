@@ -24,6 +24,7 @@
 package br.eti.kinoshita.tap4j.parser;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import br.eti.kinoshita.tap4j.model.TestSet;
 
@@ -34,12 +35,76 @@ import br.eti.kinoshita.tap4j.model.TestSet;
 public interface Parser 
 {
 
+	/* -- Regular expressions -- */
+	
+	/**
+	 * TAP Header Regex.
+	 */
+	String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
+	
+	/**
+	 * TAP Plan Regex.
+	 */
+	String REGEX_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
+	
+	/**
+	 * TAP Test Result Regex.
+	 */
+	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|TODO)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
+	
+	/**
+	 * TAP Bail Out! Regex.
+	 */
+	String REGEX_BAIL_OUT = "\\s*Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
+	
+	/**
+	 * TAP Comment Regex.
+	 */
+	String REGEX_COMMENT = "\\s*#\\s*(.*)";
+
+	/**
+	 * TAP Footer Regex.
+	 */
+	String REGEX_FOOTER = "\\s*TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
+	
+	/* -- Patterns -- */
+	
+	/**
+	 * TAP Header Regex Pattern.
+	 */
+	Pattern HEADER_PATTERN = Pattern.compile( REGEX_HEADER );
+	
+	/**
+	 * TAP Plan Regex Pattern.
+	 */
+	Pattern PLAN_PATTERN = Pattern.compile( REGEX_PLAN );
+	
+	/**
+	 * TAP Test Result Regex Pattern.
+	 */
+	Pattern TEST_RESULT_PATTERN = Pattern.compile( REGEX_TEST_RESULT );
+	
+	/**
+	 * TAP Bail Out! Regex Pattern.
+	 */
+	Pattern BAIL_OUT_PATTERN = Pattern.compile ( REGEX_BAIL_OUT );
+	
+	/**
+	 * TAP Comment Regex Pattern.
+	 */
+	Pattern COMMENT_PATTERN = Pattern.compile ( REGEX_COMMENT );
+	
+	/**
+	 * TAP Footer Regex Pattern.
+	 */
+	Pattern FOOTER_PATTERN = Pattern.compile ( REGEX_FOOTER );
+	
 	/**
 	 * Parses a Test Result.
 	 * 
 	 * @param tapLine TAP line
 	 */
-	public void parseLine( String tapLine ) 
+	void parseLine( String tapLine ) 
 	throws ParserException;
 	
 	/**
@@ -47,7 +112,7 @@ public interface Parser
 	 * 
 	 * @param tapStream TAP Stream
 	 */
-	public TestSet parseTapStream( String tapStream ) 
+	TestSet parseTapStream( String tapStream ) 
 	throws ParserException;
 	
 	/**
@@ -55,7 +120,7 @@ public interface Parser
 	 * 
 	 * @param tapFile TAP File
 	 */
-	public TestSet parseFile( File tapFile ) 
+	TestSet parseFile( File tapFile ) 
 	throws ParserException;
 	
 }

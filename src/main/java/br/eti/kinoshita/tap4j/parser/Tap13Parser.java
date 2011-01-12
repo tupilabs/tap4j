@@ -28,11 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.eti.kinoshita.tap4j.consumer.TapConsumerException;
 import br.eti.kinoshita.tap4j.model.BailOut;
 import br.eti.kinoshita.tap4j.model.Comment;
 import br.eti.kinoshita.tap4j.model.Directive;
@@ -55,34 +53,12 @@ public class Tap13Parser
 implements Parser 
 {
 
-	/* -- Regular expressions -- */
-	
-	public static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
-	
-	public static final String REGEX_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
-	
-	public static final String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|TODO)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
-	
-	public static final String REGEX_BAIL_OUT = "\\s*Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
-	
-	public static final String REGEX_COMMENT = "\\s*#\\s*(.*)";
-	
-	public static final String REGEX_FOOTER = "\\s*TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
-	
-	/* -- REGEX -- */
-	protected Pattern headerREGEX = Pattern.compile( REGEX_HEADER );
-	protected Pattern planREGEX = Pattern.compile( REGEX_PLAN );
-	protected Pattern testResultREGEX = Pattern.compile( REGEX_TEST_RESULT );
-	protected Pattern bailOutREGEX = Pattern.compile ( REGEX_BAIL_OUT );
-	protected Pattern commentREGEX = Pattern.compile ( REGEX_COMMENT );
-	protected Pattern footerREGEX = Pattern.compile ( REGEX_FOOTER );
-	
 	protected boolean isFirstLine = true;
 	
 	protected boolean isHeaderSet = false;
 	protected boolean isPlanSet = false;
 	
-	protected boolean isPlanBeforeTestResult = false;
+	protected boolean planBeforeTestResult = false;
 	
 	// Helper String to check the Footer
 	protected String lastLine = null;
@@ -129,7 +105,7 @@ implements Parser
 	
 	public boolean isPlanBeforeTestResult()
 	{
-		return this.isPlanBeforeTestResult;
+		return this.planBeforeTestResult;
 	}
 	
 	/* (non-Javadoc)
@@ -295,10 +271,10 @@ implements Parser
 		testSet.setHeader( this.header );
 		testSet.setPlan( this.plan );
 		
-		for ( TapResult tapLine : tapLines )
+		/*for ( TapResult tapLine : tapLines )
 		{
 			testSet.addTapLine( tapLine );
-		}
+		}*/
 		
 		for( TestResult testResult : testResults )
 		{
@@ -334,7 +310,7 @@ implements Parser
 		Matcher matcher = null;
 		
 		// Comment
-		matcher = commentREGEX.matcher( tapLine );
+		matcher = COMMENT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractComment( matcher );
@@ -345,7 +321,7 @@ implements Parser
 		lastLine = tapLine;
 		
 		// Header 
-		matcher = headerREGEX.matcher( tapLine );
+		matcher = HEADER_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			
@@ -357,7 +333,7 @@ implements Parser
 		}
 		
 		// Plan 
-		matcher = planREGEX.matcher( tapLine );
+		matcher = PLAN_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			
@@ -371,7 +347,7 @@ implements Parser
 		}
 		
 		// Test Result
-		matcher = testResultREGEX.matcher( tapLine );
+		matcher = TEST_RESULT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractTestResult ( matcher );
@@ -379,7 +355,7 @@ implements Parser
 		}
 		
 		// Bail Out
-		matcher = bailOutREGEX.matcher( tapLine );
+		matcher = BAIL_OUT_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractBailOut( matcher );
@@ -387,7 +363,7 @@ implements Parser
 		}
 		
 		// Footer
-		matcher = footerREGEX.matcher( tapLine );
+		matcher = FOOTER_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )
 		{
 			this.extractFooter( matcher );
@@ -406,7 +382,7 @@ implements Parser
 	{
 		if ( this.testResults.size() <= 0 && this.bailOuts.size() <= 0 )
 		{
-			this.isPlanBeforeTestResult = true;
+			this.planBeforeTestResult = true;
 		}
 	}
 
@@ -449,18 +425,18 @@ implements Parser
 	 * is the TAP Plan.
 	 */
 	protected void checkTAPPlanPosition() 
-	throws TapConsumerException
+	throws ParserException
 	{
-		if ( ! this.isPlanBeforeTestResult )
+		if ( ! this.planBeforeTestResult )
 		{
-			Matcher matcher = planREGEX.matcher( lastLine );
+			Matcher matcher = PLAN_PATTERN.matcher( lastLine );
 			
 			if ( matcher.matches() )
 			{
 				return; // OK
 			}
 			
-			throw new TapConsumerException("Invalid position of TAP Plan.");
+			throw new ParserException("Invalid position of TAP Plan.");
 		}
 	}
 	
@@ -535,7 +511,8 @@ implements Parser
 			status = StatusValues.NOT_OK;
 		}
 		
-		Integer testNumber = Integer.parseInt(matcher.group(2));
+		Integer testNumber = this.getTestNumber( matcher.group(2) ); 
+		
 		testResult = new TestResult( status, testNumber );			
 		
 		testResult.setDescription(matcher.group(3));
@@ -569,6 +546,28 @@ implements Parser
 		this.tapLines.add( testResult );
 	}
 	
+	/**
+	 * Returns the test number out from an input String. If the string is 
+	 * null or equals "" this method returns the next test result number. 
+	 * Otherwise it will return the input String value parsed to an Integer.
+	 * 
+	 * @param testNumber 
+	 * @return
+	 */
+	private Integer getTestNumber( String testNumber ) 
+	{
+		Integer integerTestNumber = null;
+		if ( StringUtils.isEmpty( testNumber ) )
+		{
+			integerTestNumber = ( this.getNumberOfTestResults() + 1 );
+		}
+		else 
+		{
+			integerTestNumber = Integer.parseInt( testNumber );
+		}
+		return integerTestNumber;
+	}
+
 	/**
 	 * @param matcher REGEX Matcher.
 	 */
@@ -704,11 +703,11 @@ implements Parser
 	}
 
 	/**
-	 * @throws TapConsumerException 
+	 * @throws br.eti.kinoshita.tap4j.consumer.TapConsumerException 
 	 * 
 	 */
 	protected void postProcess() 
-	throws TapConsumerException 
+	throws ParserException 
 	{
 		this.checkTAPPlanPosition();
 	}

@@ -32,12 +32,13 @@ package br.eti.kinoshita.tap4j.model;
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
- * @see {@link Comment}
  */
 public class Footer 
 extends AbstractTapElementDiagnostic
 {
 
+	public Long serialVersionUID = 1L;
+	
 	/**
 	 * Footer text.
 	 */
@@ -52,10 +53,10 @@ extends AbstractTapElementDiagnostic
 	 * Constructor that calls super class constructor.
 	 * 
 	 * @param text Footer text
-	 * @see {@link Comment#Comment(String)}
 	 */
 	public Footer(String text)
 	{
+		super();
 		this.text = text;
 	}
 	
@@ -89,13 +90,15 @@ extends AbstractTapElementDiagnostic
 	@Override
 	public String toString()
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
-		sb.append( "TAP " + this.text );
+		sb.append( "TAP " );
+		sb.append( this.text );
 		
 		if ( this.comment != null )
 		{
-			sb.append ( " " + this.comment.toString() );
+			sb.append ( ' ' );
+			sb.append( this.comment.toString() );
 		}
 		return sb.toString();
 	}

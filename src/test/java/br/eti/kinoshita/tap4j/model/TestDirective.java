@@ -36,7 +36,6 @@ import br.eti.kinoshita.tap4j.util.DirectiveValues;
  * @since 1.0
  */
 public class TestDirective 
-extends Assert
 {
 
 	private Directive directive;
@@ -50,11 +49,11 @@ extends Assert
 	@Test
 	public void testDirective()
 	{
-		assertEquals( directive.toString(), " # TODO Not implemented yet.");
+		Assert.assertEquals( directive.toString(), " # TODO Not implemented yet.");
 		
-		assertEquals( directive.getReason(), "Not implemented yet.");
+		Assert.assertEquals( directive.getReason(), "Not implemented yet.");
 		
-		assertEquals( directive.getDirectiveValue(), DirectiveValues.TODO );
+		Assert.assertEquals( directive.getDirectiveValue(), DirectiveValues.TODO );
 	}
 	
 	@Test
@@ -62,9 +61,9 @@ extends Assert
 	{
 		directive = new Directive(DirectiveValues.SKIP, null);
 		
-		assertNull( directive.getReason() );
+		Assert.assertNull( directive.getReason() );
 		
-		assertEquals( directive.toString(), " # SKIP" );
+		Assert.assertEquals( directive.toString(), " # SKIP" );
 	}
 	
 }

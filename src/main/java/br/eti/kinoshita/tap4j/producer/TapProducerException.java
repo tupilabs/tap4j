@@ -32,8 +32,9 @@ public class TapProducerException extends RuntimeException {
 	/**
 	 * 
 	 */
-	public TapProducerException() {
-		// TODO Auto-generated constructor stub
+	public TapProducerException() 
+	{
+		super();
 	}
 
 	/**
@@ -41,7 +42,6 @@ public class TapProducerException extends RuntimeException {
 	 */
 	public TapProducerException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -49,7 +49,6 @@ public class TapProducerException extends RuntimeException {
 	 */
 	public TapProducerException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,7 +57,6 @@ public class TapProducerException extends RuntimeException {
 	 */
 	public TapProducerException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }

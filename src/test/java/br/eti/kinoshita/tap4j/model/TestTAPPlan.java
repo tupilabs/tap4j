@@ -32,78 +32,76 @@ import org.testng.annotations.Test;
  * @since 1.0
  */
 public class TestTAPPlan 
-extends Assert
 {
 
 	protected Plan simplePlan;
 	protected Plan skipAllPlan;
 	
-	protected final static Integer initialTestNumber = 1;
-	protected final static Integer lastTestNumber = 3;
+	protected final static Integer INITIAL_TEST_NUMBER = 1;
+	protected final static Integer LAST_TEST_NUMBER = 3;
+	protected final static String EXPECTED_OUTPUT = "1..3 # Plan's comment.";
 	
-	protected final static String reason = "Function not yet implemented.";
+	protected final static String REASON = "Function not yet implemented.";
 	
 	@BeforeTest
 	public void setUp()
 	{
-		simplePlan = new Plan(initialTestNumber, lastTestNumber);
+		simplePlan = new Plan(INITIAL_TEST_NUMBER, LAST_TEST_NUMBER);
 		simplePlan.setComment( new Comment("Plan's comment.") );
-		SkipPlan skip = new SkipPlan( reason );
-		skipAllPlan = new Plan(lastTestNumber, skip);
+		SkipPlan skip = new SkipPlan( REASON );
+		skipAllPlan = new Plan(LAST_TEST_NUMBER, skip);
 	}
 	
 	@Test
 	public void testSimplePlan()
 	{
-		assertTrue( simplePlan != null );
+		Assert.assertTrue( simplePlan != null );
 		
-		assertEquals( simplePlan.getInitialTestNumber() , initialTestNumber );
+		Assert.assertEquals( simplePlan.getInitialTestNumber() , INITIAL_TEST_NUMBER );
 		
-		assertEquals( simplePlan.getLastTestNumber(), lastTestNumber );
+		Assert.assertEquals( simplePlan.getLastTestNumber(), LAST_TEST_NUMBER );
 		
-		assertNull ( simplePlan.getSkip() );
+		Assert.assertNull ( simplePlan.getSkip() );
 		
-		assertFalse( simplePlan.isSkip() );
+		Assert.assertFalse( simplePlan.isSkip() );
 		
-		assertNotNull( simplePlan.getComment() );
+		Assert.assertNotNull( simplePlan.getComment() );
 		
-		assertEquals( simplePlan.getComment().toString(), "# Plan's comment." );
+		Assert.assertEquals( simplePlan.getComment().toString(), "# Plan's comment." );
 		
 		String toStringResult = simplePlan.toString();
 		
-		final String expectedOutput = "1..3 # Plan's comment.";
-		
-		assertEquals( toStringResult ,expectedOutput );
+		Assert.assertEquals( toStringResult , EXPECTED_OUTPUT );
 	}
 	
 	@Test
 	public void testSkipAllPlan()
 	{
-		assertTrue( skipAllPlan != null );
+		Assert.assertTrue( skipAllPlan != null );
 		
-		assertEquals( skipAllPlan.getInitialTestNumber(), initialTestNumber );
+		Assert.assertEquals( skipAllPlan.getInitialTestNumber(), INITIAL_TEST_NUMBER );
 		
-		assertEquals( skipAllPlan.getLastTestNumber(), lastTestNumber );
+		Assert.assertEquals( skipAllPlan.getLastTestNumber(), LAST_TEST_NUMBER );
 		
-		assertTrue( skipAllPlan.isSkip() );
+		Assert.assertTrue( skipAllPlan.isSkip() );
 		
-		assertNotNull( skipAllPlan.getSkip() );
+		Assert.assertNotNull( skipAllPlan.getSkip() );
 		
-		assertEquals( skipAllPlan.getSkip().getReason(), TestTAPPlan.reason);
+		Assert.assertEquals( skipAllPlan.getSkip().getReason(), TestTAPPlan.REASON);
 		
 		String toStringResult = skipAllPlan.toString();
 		
-		final String expectedOutput = "1..3 skip " + TestTAPPlan.reason;
+		final String expectedOutput = "1..3 skip " + TestTAPPlan.REASON;
 		
-		assertEquals( toStringResult ,expectedOutput );
+		Assert.assertEquals( toStringResult ,expectedOutput );
 		
 		skipAllPlan = new Plan(skipAllPlan.getInitialTestNumber(), skipAllPlan.getLastTestNumber(), skipAllPlan.getSkip());
 		
-		assertNotNull( skipAllPlan );
+		Assert.assertNotNull( skipAllPlan );
 		
-		assertNotNull( skipAllPlan.getSkip() );
+		Assert.assertNotNull( skipAllPlan.getSkip() );
 		
-		assertEquals( skipAllPlan.getSkip().getReason(), reason );
+		Assert.assertEquals( skipAllPlan.getSkip().getReason(), REASON );
 	}
 	
 	@Test
@@ -111,9 +109,9 @@ extends Assert
 	{
 		SkipPlan skip = skipAllPlan.getSkip();
 		
-		assertEquals( skip.getReason(), reason );
+		Assert.assertEquals( skip.getReason(), REASON );
 		
-		assertEquals( skip.toString(), reason );
+		Assert.assertEquals( skip.toString(), REASON );
 	}
 	
 }

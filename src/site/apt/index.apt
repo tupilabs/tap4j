@@ -12,7 +12,7 @@ tap4j
 ok 1 - Input file opened
 not ok 2
 ok 3 - Read the rest of the file
-#TAP meta information
+# Yeah, you can comment your TAP Stream
 not ok 4 - Summarized correctly # TODO Not written yet
 +---+
 

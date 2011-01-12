@@ -6,7 +6,6 @@ Consumers
  Given the following TAP Stream:
  
 +---+
-TAP version 13
 1..0 skip Testing...
 not ok 1 Failed to execute IO operation. # Reviewing
 ok 2 Test passed OK! # SKIP Always skip
@@ -21,7 +20,6 @@ not ok 7 Failed to execute IO operation. # Reviewing
 ok 8 Test passed OK! # TODO We'll implement this in the next release.
 not ok 9 Failed to execute IO operation. # Reviewing
 ok 10 Test passed OK! # TODO We'll implement this in the next release.
-# Simple footer.
 +---+
 
  We could parse it using tap4j as follows:
@@ -31,23 +29,35 @@ ok 10 Test passed OK! # TODO We'll implement this in the next release.
 public static void main ( String[] args ) 
 throws TapParserException
 {
-    TapConsumer consumer = consumer = new DefaultTapConsumer();
+	TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+		
+	TestSet testSet = consumer.load(new File(ClassLoader.getSystemResource("input.tap").getFile()));
 	
-    consumer.parseFile( new File(Sample.class.getResource("/input/data.tap").getFile()) );
+	System.out.println( "Found " + testSet.getNumberOfTestResults() + " test results." );
 	
-    System.out.println( "Found " + consumer.getNumberOfTestResults() + " test results." );
+	System.out.println( "Found " + testSet.getNumberOfComments() + " comments." );
+	
+	System.out.println( "TAP Plan: " + testSet.getPlan() );
+	
+	System.out.println( "TAP Plan Skip reason: " + testSet.getPlan().getSkip().getReason() );
 }
 ...
 +---+
 
- Causing the output 'Found 10 test results.'.
+ Causing the following output:
+ 
++---+
+Found 10 test results.
+Found 1 comments.
+TAP Plan: 1..0 skip Testing...
+TAP Plan Skip reason: Testing...
++---+
  
 * yaml-like diagnostic 
 
- In version 1.1 tap4j supports yaml-like diagnostic lines. 
+ Starting in version 1.1, tap4j parsers yaml-like diagnostic blocks. 
 
 +---+
-TAP version 13
 1..4
 ok 1 testDirective
 ok 2 testNoReason
@@ -64,24 +74,33 @@ not ok 3
 ok 4 testTapProducer
 +---+
 
- Parsing it is now pretty easy thanks to 
+ Tap4j supports Yaml diagnostic blocks thanks to 
  {{{http://code.google.com/p/snakeyaml/}snakeyaml}} project. However you must 
- use Tap13Consumer instead of DefaultTapConsumer.
+ use a different Consumer.
  
 +---+
 ...
 public static void main ( String[] args ) 
 throws TapParserException
 {
-    TapConsumer consumer = consumer = new Tap13Consumer();
-	
-    consumer.parseFile( new File(Sample.class.getResource("/sample/yaml.tap").getFile()) );
-	
-    System.out.println( "Found " + consumer.getNumberOfTestResults() + " test results." );
+
+	TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+		
+    TestSet testSet = consumer.load( new File(LetsSee.class.getResource("/input.tap").getFile()) );
+		
+    System.out.println( "Found " + testSet.getNumberOfTestResults() + " test results." );
+	    
+    String file = testSet.getTestResult( 3 ).getDiagnostic().get("file").toString();
     
-    consumer.getTestResult( 3 ).getDiagnostics().get("file").toString();
+    System.out.println("Test result number 3 file: " + file);
 }
 ...
 +---+
 
- The diagnostics object is a LinkedHashMap<String, Object>.
+ The diagnostics object is a LinkedHashMap<String, Object>. The output of the code 
+ above is shown below. 
+ 
++---+
+Found 4 test results.
+Test result number 3 file: br.eti.kinoshita.tap4j.CarTest
++---+

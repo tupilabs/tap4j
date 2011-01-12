@@ -4,45 +4,44 @@ Producers
  following text.
  
 +---+
-TAP version 13
 1..3
 ok 1
 ok 2 # TODO review this test case
 not ok 3
-    ---
-    file: br.eti.kinoshita.tap4j.ext.TestTestNGSupport.java
-    ...
+  ---
+  file: br.eti.kinoshita.tap4j.ext.TestTestNGSupport.java
+  ...
 # a comment
-TAP done.
 +---+
 
- You would use the following code.
+ With the following code.
  
 +---+
     ...
-    TapProducer tapProducer = new DefaultTapProducer( );
-    tapProducer.setHeader ( new Header( 13 ) );
-    tapProducer.setPlan( new Plan( 3 ) );
+    TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+	    
+    TestSet testSet = new TestSet();
+    testSet.setPlan( new Plan( 3 ) );
     
     TestResult testResult = new TestResult( StatusValues.OK, 1 );
-    tapProducer.addTestResult( testResult );
+    testSet.addTestResult( testResult );
     
     testResult = new TestResult( StatusValues.OK, 2 );
     Directive todoDirective = new Directive( DirectiveValues.TODO, "review this test case" );
     testResult.setDirective( todoDirective );
-    tapProducer.addTestResult( testResult );
+    testSet.addTestResult( testResult );
     
     testResult = new TestResult( StatusValues.NOT_OK, 3 );
 	LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
 	diagnostic.put( "file", "br.eti.kinoshita.tap4j.ext.TestTestNGSupport.java" );
 	testResult.setDiagnostic( diagnostic );
-	tapProducer.addTestResult( testResult );
+	testSet.addTestResult( testResult );
     
-    tapProducer.addComment( new Comment( "a comment" ) );
+	testSet.addComment( new Comment( "a comment" ) );
     
-    tapProducer.setFooter( new Footer("done") );
-    
-    tapProducer.printTo( System.out );
+	String tapStream = tapProducer.dump( testSet );
+	
+    System.out.println(tapStream);
     ...
 +---+ 
 

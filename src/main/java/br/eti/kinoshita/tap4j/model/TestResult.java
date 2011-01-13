@@ -33,8 +33,7 @@ import br.eti.kinoshita.tap4j.util.Util;
 public class TestResult 
 extends TapResult
 {
-	
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Test Status (OK, NOT OK).

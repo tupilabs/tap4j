@@ -36,8 +36,7 @@ import br.eti.kinoshita.tap4j.util.DirectiveValues;
 public class Directive 
 implements Serializable
 {
-
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Directive Value (TO DO, SKIP).

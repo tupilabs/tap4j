@@ -40,10 +40,9 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
 public class TestSet 
 implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 
 	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-
-	public Long serialVersionUID = 1L;
 	
 	/**
 	 * TAP Header.

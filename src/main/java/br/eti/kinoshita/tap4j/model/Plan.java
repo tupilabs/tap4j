@@ -36,8 +36,7 @@ package br.eti.kinoshita.tap4j.model;
 public class Plan 
 extends AbstractTapElementDiagnostic
 {
-
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Default initial test step.

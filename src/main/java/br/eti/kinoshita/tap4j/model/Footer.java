@@ -36,8 +36,7 @@ package br.eti.kinoshita.tap4j.model;
 public class Footer 
 extends AbstractTapElementDiagnostic
 {
-
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Footer text.

@@ -38,8 +38,7 @@ import org.apache.commons.lang.StringUtils;
 public class BailOut 
 extends TapResult
 {
-
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Reason to Bail Out.

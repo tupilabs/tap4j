@@ -26,17 +26,21 @@ package br.eti.kinoshita.tap4j.ext;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.testng.IReporter;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
-import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
+import org.testng.collections.Maps;
 import org.testng.xml.XmlSuite;
 
 import br.eti.kinoshita.tap4j.model.Plan;
@@ -54,10 +58,14 @@ implements IReporter
 {
 	protected final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
 	
+	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
+	
+	protected final Map<String, Map<ITestNGMethod, List<ITestResult>>> testResultsPerGroup = new LinkedHashMap<String, Map<ITestNGMethod, List<ITestResult>>>();
+	
 	/**
 	 * TAP Producer.
 	 */
-	protected TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
+	protected TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 	
 	/**
 	 * TAP Test Set
@@ -72,24 +80,36 @@ implements IReporter
 		List<ISuite> suites, 
 		String outputDirectory )
 	{
+		this.generateTAPPerSuite(xmlSuites, suites, outputDirectory);
+		
+		this.generateTAPPerGroup(xmlSuites, suites, outputDirectory);
+	}
+	
+	
+	/**
+	 * Generate a TAP file for every suite tested
+	 * 
+	 * @param testContext
+	 */
+	protected void generateTAPPerSuite(
+			List<XmlSuite> xmlSuites, 
+			List<ISuite> suites, 
+			String outputDirectory)
+	{
 		for ( ISuite suite : suites )
 		{
-			XmlSuite xmlSuite = suite.getXmlSuite();
-			
-			// Popula o mapa testResultsPerSuite com uma classe para cada suite com seus resultados
-			this.generateClasses ( xmlSuite, suite );
-			
-			Set<Class<?>> keySet = testResultsPerSuite.keySet();
-			
 			testSet = new TestSet();
 			
-			Integer totalTestResults = this.getTotalResultsBySuite(keySet);
+			Set<Class<?>> testResultsSet = this.getTestResultsSetPerSuite(suite);
+			
+			Integer totalTestResults = this.getTotalTestResultsBySuite(testResultsSet);
 
 			testSet.setPlan( new Plan( totalTestResults ) );
 			
-			for( Class<?> clazz : keySet )
+			for( Class<?> testResultClass : testResultsSet )
 			{
-				List<ITestResult> testResults = testResultsPerSuite.get( clazz );
+				List<ITestResult> testResults = testResultsPerSuite.get( testResultClass );
+				
 				for ( ITestResult testResult : testResults )
 				{
 					TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
@@ -100,7 +120,7 @@ implements IReporter
 			File output = new File(outputDirectory, "SuiteTest-"+suite.getName()+".tap");
 			tapProducer.dump(testSet, output);
 		}
-	}
+	}	
 	
 	
 	/**
@@ -109,9 +129,71 @@ implements IReporter
 	 * @param testContext
 	 */
 	// TBD: Method to generate TAP file by test Group
-	protected void generateTAPPerGroup(ITestContext testContext)
+	// TAP structure ( group -> class -> methods )
+	protected void generateTAPPerGroup(
+			List<XmlSuite> xmlSuites, 
+			List<ISuite> suites, 
+			String outputDirectory)
 	{
-	}	
+		for ( ISuite suite : suites )
+		{
+			Map<String, Collection<ITestNGMethod>> groups = suite.getMethodsByGroups();
+			
+			if (groups.size() > 0) 
+			{
+				String[] groupNames = groups.keySet().toArray(new String[groups.size()]);
+				Arrays.sort(groupNames);
+				
+				for (String group : groupNames) 
+				{
+					if(StringUtils.isNotEmpty(group))
+					{
+						Collection<ITestNGMethod> methodsByGroup = groups.get(group);
+					    
+					    StringBuffer methodNames = new StringBuffer();
+					    Map<ITestNGMethod, ITestNGMethod> uniqueMethods = Maps.newHashMap();
+					    
+
+					    
+					    for (ITestNGMethod tm : methodsByGroup) 
+					    {
+					    	uniqueMethods.put(tm, tm);
+					    }
+					    
+					    for (ITestNGMethod method : uniqueMethods.values()) 
+					    {
+							List<ITestResult> testResultsForThisMethod = testResultsPerMethod.get( method );
+							
+							if ( testResultsForThisMethod == null )
+							{
+								testResultsForThisMethod = new ArrayList<ITestResult>();
+								testResultsPerMethod.put(method, testResultsForThisMethod);
+							}
+							//testResultsForThisMethod.add( testResult );
+					    }
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Get a Set of test Results by a given ISuite
+	 * 
+	 * @param suite
+	 * @return
+	 */
+	protected Set<Class<?>> getTestResultsSetPerSuite(ISuite suite)
+	{
+		XmlSuite xmlSuite = suite.getXmlSuite();
+		
+		// Popula o mapa testResultsPerSuite com uma classe para cada suite com seus resultados
+		this.generateClasses ( xmlSuite, suite );
+		
+		return testResultsPerSuite.keySet();
+	}
 	
 	
 	/**
@@ -120,7 +202,7 @@ implements IReporter
 	 * @param keySet
 	 * @return
 	 */
-	public Integer getTotalResultsBySuite(Set<Class<?>> keySet)
+	public Integer getTotalTestResultsBySuite(Set<Class<?>> keySet)
 	{
 		Integer totalTestResults = 0;
 		for( Class<?> clazz : keySet )
@@ -133,7 +215,7 @@ implements IReporter
 	
 	
 	/**
-	 * Populate a List of ITestResults for every class in a Suite
+	 * Populate a List of ITestResults for every test Class in a test Suite
 	 * 
 	 * @param xmlSuite
 	 * @param suite
@@ -171,7 +253,7 @@ implements Comparator<ITestResult>, Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5496973354025848177L;
+	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)

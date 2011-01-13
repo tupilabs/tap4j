@@ -32,8 +32,7 @@ import java.io.Serializable;
 public class SkipPlan 
 implements Serializable 
 {
-	
-	public Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The reason for the skip.

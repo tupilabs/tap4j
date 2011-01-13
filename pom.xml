@@ -186,7 +186,6 @@
 			<artifactId>testng</artifactId>
 			<version>5.14</version>
 			<type>jar</type>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.yaml</groupId>

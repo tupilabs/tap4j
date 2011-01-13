@@ -23,45 +23,55 @@
  */
 package br.eti.kinoshita.tap4j.util;
 
+import java.lang.reflect.Constructor;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import br.eti.kinoshita.tap4j.util.Util;
+
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public enum TapVersions 
+public class TestUtil 
 {
 
-	TAP_1(1),
-	TAP_2(2),
-	TAP_3(3),
-	TAP_4(4),
-	TAP_5(5),
-	TAP_6(6),
-	TAP_7(7),
-	TAP_8(8),
-	TAP_9(9),
-	TAP_10(10),
-	TAP_11(11),
-	TAP_12(12),
-	TAP_13(13);
-	
-	private Integer version;
-	
-	TapVersions(Integer version)
+	private StringBuilder sb;
+
+	@BeforeMethod
+	public void setUp()
 	{
-		this.version = version;
+		sb = new StringBuilder();
+		sb.append("Anything");
 	}
-	
-	public Integer getValue()
+
+	@Test
+	public void testAppends()
 	{
-		return this.version;
+		Util.appendIfNotNull(sb, " appended text");
+		Assert.assertEquals(sb.toString(), "Anything appended text");
+
+		Util.appendIfNotNull(sb, " - ", " Tom T.", null);
+		Assert.assertEquals(sb.toString(), "Anything appended text -  Tom T.");
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return this.version.toString();
+
+	@Test
+	public void testUtilConstructor()
+	{
+		try
+		{
+			final Constructor<?> c = Util.class.getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			final Object o = c.newInstance((Object[]) null);
+
+			Assert.assertNotNull(o);
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
+		}
 	}
-	
+
 }

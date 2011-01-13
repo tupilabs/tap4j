@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <Bruno P. Kinoshita>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,52 +23,59 @@
  */
 package br.eti.kinoshita.tap4j.consumer;
 
-import java.io.File;
+import java.lang.reflect.Constructor;
 
-import br.eti.kinoshita.tap4j.model.TestSet;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import br.eti.kinoshita.tap4j.parser.Parser;
+import br.eti.kinoshita.tap4j.parser.Tap13Parser;
+import br.eti.kinoshita.tap4j.parser.Tap13YamlParser;
 
 /**
- * TAP Consumer is the responsible for generating the TAP Stream.
+ * Test class for TAP Consumer Factory.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapConsumer
+public class TestTapConsumerFactory
 {
 	
-	/**
-	 * Parses a TAP File.
-	 * 
-	 * @param file TAP File.
-	 * @return TestSet
-	 * @throws TapConsumerException
-	 */
-	TestSet load( File file ) 
-	throws TapConsumerException;
+	@Test
+	public void testMakeTap13Consumer()
+	{
+		TapConsumer tapConsumer = TapConsumerFactory.makeTap13Consumer();
+		
+		Parser tap13Parser = tapConsumer.getParser();
+		
+		Assert.assertTrue( tap13Parser instanceof Tap13Parser );
+	}
 	
-	/**
-	 * Parses a TAP Stream.
-	 * 
-	 * @param tapStream TAP Stream
-	 * @return TestSet
-	 * @throws TapConsumerException
-	 */
-	TestSet load( String tapStream ) 
-	throws TapConsumerException;
+	@Test
+	public void testMakeTap13YamlConsumer()
+	{
+		TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
+		
+		Parser tap13YamlParser = tapConsumer.getParser();
+		
+		Assert.assertTrue( tap13YamlParser instanceof Tap13YamlParser );
+	}
 	
-	/**
-	 * Returns the TestSet resulted from parsing a TAP File or TAP Stream.
-	 * 
-	 * @return TestSet
-	 */
-	TestSet getTestSet( );
-	
-	/**
-	 * Returns the Parser used in the Consumer.
-	 * 
-	 * @return Parser
-	 */
-	Parser getParser( );
+	@Test
+	public void testTapConsumerFactoryConstructor()
+	{
+		try
+		{
+			final Constructor<?> c = TapConsumerFactory.class.getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			final Object o = c.newInstance((Object[]) null);
+
+			Assert.assertNotNull(o);
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Failed to instantiate TapConsumerFactory constructor: " + e.getMessage(), e);
+		}
+	}
 	
 }

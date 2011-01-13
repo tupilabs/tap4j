@@ -121,7 +121,7 @@ public class TestTestSet
 		Assert.assertNotNull( this.testSet.getFooter() );
 	}
 	
-	@Test
+	@Test(dependsOnMethods={"testTestSet"})
 	public void intrusiveTests()
 	{
 		this.testSet.removeBailOut( bailOut );
@@ -137,6 +137,82 @@ public class TestTestSet
 		
 		this.testSet.removeTapLine( text );
 		Assert.assertTrue( this.testSet.getTapLines().size() == 0 );
+	}
+	
+	@Test
+	public void testTestSetWithOnlyTestResults()
+	{
+		TestSet testSet = new TestSet();
+		
+		Assert.assertFalse( testSet.containsOk() );
+		Assert.assertFalse( testSet.containsNotOk() );
+		Assert.assertFalse( testSet.containsBailOut() );
+		
+		TestResult okTestResult = new TestResult();
+		okTestResult.setStatus(StatusValues.OK);
+		
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		Assert.assertTrue( testSet.containsOk() );
+		
+		TestResult notOkTestResult = new TestResult();
+		notOkTestResult.setStatus(StatusValues.NOT_OK);
+		
+		Assert.assertTrue( testSet.addTestResult( notOkTestResult ) );
+		Assert.assertTrue( testSet.containsNotOk() );
+		
+		String summary = testSet.getSummary();
+		Assert.assertFalse(summary.contains(".."));
+		Assert.assertFalse(summary.contains("ersion 13"));
+		
+	}
+	
+	@Test
+	public void testTestSetWithATestResultWithNullTestNumber()
+	{
+		TestSet testSet = new TestSet();
+		
+		Assert.assertFalse( testSet.containsOk() );
+		Assert.assertFalse( testSet.hasBailOut() );
+		
+		Assert.assertFalse( testSet.removeBailOut(new BailOut("False bailout")));
+		
+		TestResult okTestResult = new TestResult();
+		okTestResult.setStatus(StatusValues.OK);
+		
+		okTestResult.setTestNumber(null);
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		Assert.assertTrue( testSet.containsOk() );
+		
+		TestResult testResult = testSet.getTestResult( new Integer(1) );
+		
+		Assert.assertNull( testResult );
+		
+		okTestResult.setTestNumber( new Integer(1) );
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		testResult = testSet.getTestResult( new Integer(1) );
+		
+		Assert.assertNotNull( testResult );
+	}
+	
+	@Test
+	public void testWithOnlyNotOkTestResults()
+	{
+		TestSet testSet = new TestSet();
+		
+		TestResult notOkTestResult = new TestResult();
+		notOkTestResult.setStatus( StatusValues.NOT_OK );
+		
+		Assert.assertFalse( testSet.containsNotOk() );
+		Assert.assertFalse( testSet.containsOk() );
+		
+		Assert.assertTrue( testSet.addTestResult( notOkTestResult ) );
+		
+		Assert.assertTrue( testSet.containsNotOk() );
+		Assert.assertFalse( testSet.containsOk() );
+		
+		String summary = testSet.getSummary();
+		Assert.assertFalse( summary.contains("ersion 13") );
 	}
 
 }

@@ -4,10 +4,6 @@ Roadmap
 
  * Validation tests with Perl and tap4j using Strawberry Perl and write  
  integrated tests using the Perl script kindly wrote by Patrick LeBoutillier 
- 
- * Double the number of tests
- 
- * Increase test coverage
 
 * Wishlist
 

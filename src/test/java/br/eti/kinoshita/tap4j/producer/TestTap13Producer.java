@@ -42,7 +42,7 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapCoreProducer 
+public class TestTap13Producer 
 {
 	
 	private static final Integer TAP_VERSION = 13;
@@ -130,4 +130,5 @@ public class TestTapCoreProducer
 //			}
 //		}
 	}
+	
 }

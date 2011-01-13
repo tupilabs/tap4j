@@ -69,6 +69,7 @@ implements Representer
 	 * @see br.eti.kinoshita.tap4j.representer.Representer#representData(br.eti.kinoshita.tap4j.model.TestSet)
 	 */
 	public String representData(TestSet testSet) 
+	throws RepresenterException
 	{
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter( sw );
@@ -76,6 +77,11 @@ implements Representer
 		{
 			pw.println( testSet.getHeader().toString() );
 			RepresenterUtil.printDiagnostic( yaml, testSet.getHeader(), pw );
+		}
+		
+		if ( testSet.getPlan() == null )
+		{
+			throw new RepresenterException("Missing required TAP Plan");
 		}
 		
 		pw.println( testSet.getPlan().toString() );

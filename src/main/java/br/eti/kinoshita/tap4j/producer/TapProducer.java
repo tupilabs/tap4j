@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.Writer;
 
 import br.eti.kinoshita.tap4j.model.TestSet;
+import br.eti.kinoshita.tap4j.representer.Representer;
 
 /**
  * Produces a TAP Stream.
@@ -37,13 +38,41 @@ import br.eti.kinoshita.tap4j.model.TestSet;
 public interface TapProducer
 {
 	
+	/**
+	 * Returns a String representing the TAP Stream produced from a TestSet.
+	 * 
+	 * @param testSet TestSet
+	 * @return TAP Stream
+	 * @throws TapProducerException
+	 */
 	String dump( TestSet testSet ) 
 	throws TapProducerException;
 	
+	/**
+	 * Writes the TAP Stream produced from a TestSet into a Writer.
+	 * 
+	 * @param testSet TestSet
+	 * @param writer Writer
+	 * @throws TapProducerException
+	 */
 	void dump( TestSet testSet, Writer writer ) 
 	throws TapProducerException;
 	
+	/**
+	 * Writes the TAP Stream into an output File.
+	 * 
+	 * @param testSet TestSet
+	 * @param output Output File
+	 * @throws TapProducerException
+	 */
 	void dump( TestSet testSet, File output ) 
 	throws TapProducerException;
+	
+	/**
+	 * Returns the Representer used in the Producer.
+	 * 
+	 * @return Representer
+	 */
+	Representer getRepresenter();
 
 }

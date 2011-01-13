@@ -21,25 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.representer;
-
-import br.eti.kinoshita.tap4j.model.TestSet;
+package br.eti.kinoshita.tap4j.util;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Representer 
+public enum TapVersionValues 
 {
 
-	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
+	TAP_1(1),
+	TAP_2(2),
+	TAP_3(3),
+	TAP_4(4),
+	TAP_5(5),
+	TAP_6(6),
+	TAP_7(7),
+	TAP_8(8),
+	TAP_9(9),
+	TAP_10(10),
+	TAP_11(11),
+	TAP_12(12),
+	TAP_13(13);
+	
+	private Integer version;
+	
+	TapVersionValues(Integer version)
+	{
+		this.version = version;
+	}
+	
+	public Integer getValue()
+	{
+		return this.version;
+	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Enum#toString()
 	 */
-	String representData(TestSet testSet) 
-	throws RepresenterException;
+	@Override
+	public String toString() {
+		return this.version.toString();
+	}
 	
 }

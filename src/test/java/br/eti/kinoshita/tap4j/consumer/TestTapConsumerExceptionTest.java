@@ -21,25 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.representer;
+package br.eti.kinoshita.tap4j.consumer;
 
-import br.eti.kinoshita.tap4j.model.TestSet;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
+ * Test class for TapConsumerException.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Representer 
+public class TestTapConsumerExceptionTest 
 {
-
-	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
-	 */
-	String representData(TestSet testSet) 
-	throws RepresenterException;
 	
+	private TapConsumerException exception;
+	
+	@Test
+	public void testTapConsumerException1()
+	{
+		exception = new TapConsumerException();
+		
+		Assert.assertNotNull( exception );
+	}
+	
+	@Test
+	public void testTapConsumerException2()
+	{
+		exception = new TapConsumerException("Error parsing document");
+		
+		Assert.assertNotNull( exception );
+		
+		Assert.assertEquals( exception.getMessage(), "Error parsing document");
+	}
+	
+	@Test
+	public void testTapConsumerException3()
+	{
+		exception = new TapConsumerException(new NullPointerException("Null TAP Stream")); //NOPMD
+		
+		Assert.assertNotNull( exception );
+		
+		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	}
+	
+	@Test
+	public void testTapConsumerException4()
+	{
+		exception = new TapConsumerException("Null", new NullPointerException()); //NOPMD
+		
+		Assert.assertNotNull( exception );
+		
+		Assert.assertEquals( exception.getMessage(), "Null");
+		
+		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	}
+
 }

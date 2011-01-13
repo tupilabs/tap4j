@@ -23,23 +23,58 @@
  */
 package br.eti.kinoshita.tap4j.representer;
 
-import br.eti.kinoshita.tap4j.model.TestSet;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.util.LinkedHashMap;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.yaml.snakeyaml.Yaml;
+
+import br.eti.kinoshita.tap4j.model.TestResult;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Representer 
+public class TestRepresenterUtil
 {
 
-	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
-	 */
-	String representData(TestSet testSet) 
-	throws RepresenterException;
+	@Test
+	public void testRepresenterUtil()
+	{
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		Yaml yaml = new Yaml();
+		TestResult tr = new TestResult();
+		
+		tr.setDiagnostic( null );
+		
+		RepresenterUtil.printDiagnostic(yaml, tr, pw);
+		
+		Assert.assertNotNull( sw.toString() );
+		
+		tr.setDiagnostic(new LinkedHashMap<String, Object>());
+		
+		Assert.assertNotNull( sw.toString() );
+	}
+	
+	@Test
+	public void testRepresenterUtilConstructor()
+	{
+		try
+		{
+			final Constructor<?> c = RepresenterUtil.class.getDeclaredConstructors()[0];
+			c.setAccessible(true);
+			final Object o = c.newInstance((Object[]) null);
+
+			Assert.assertNotNull(o);
+		}
+		catch (Exception e)
+		{
+			Assert.fail("Failed to instantiate RepresenterUtil constructor: " + e.getMessage(), e);
+		}
+	}
 	
 }

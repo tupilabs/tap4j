@@ -103,164 +103,6 @@ implements Parser
 	 */
 	protected Footer footer;
 	
-	public boolean isPlanBeforeTestResult()
-	{
-		return this.planBeforeTestResult;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getHeader()
-	 */
-	public Header getHeader()
-	{
-		return this.header;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getPlan()
-	 */
-	public Plan getPlan()
-	{
-		return this.plan;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTapLines()
-	 */
-	public List<TapResult> getTapLines()
-	{
-		return this.tapLines;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfTapLines()
-	 */
-	public Integer getNumberOfTapLines()
-	{
-		return this.tapLines.size();
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestResults()
-	 */
-	public List<TestResult> getTestResults()
-	{
-		return this.testResults;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestResult(java.lang.Integer)
-	 */
-	public TestResult getTestResult( Integer testNumber )
-	{
-		TestResult foundTestResult = null;
-		
-		for( TestResult testResult : this.testResults )
-		{
-			if ( testResult.getTestNumber() != null && testResult.getTestNumber().equals(testNumber) )
-			{
-				foundTestResult = testResult;
-				break;
-			}
-		}
-		
-		return foundTestResult;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsOk()
-	 */
-	public Boolean containsOk()
-	{
-		Boolean containsOk = false;
-		
-		for( TestResult testResult : this.testResults )
-		{
-			if ( testResult.getStatus().equals( StatusValues.OK ) )
-			{
-				containsOk = true;
-				break;
-			}
-		}
-		
-		return containsOk;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsNotOk()
-	 */
-	public Boolean containsNotOk()
-	{
-		Boolean containsNotOk = false;
-		
-		for( TestResult testResult : this.testResults )
-		{
-			if ( testResult.getStatus().equals( StatusValues.NOT_OK ) )
-			{
-				containsNotOk = true;
-				break;
-			}
-		}
-		
-		return containsNotOk;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfTestResults()
-	 */
-	public Integer getNumberOfTestResults()
-	{
-		return this.testResults.size();
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#containsBailOut()
-	 */
-	public Boolean containsBailOut()
-	{
-		return this.bailOuts.size() > 0;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getBailOuts()
-	 */
-	public List<BailOut> getBailOuts()
-	{
-		return this.bailOuts;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfBailOuts()
-	 */
-	public Integer getNumberOfBailOuts()
-	{
-		return this.bailOuts.size();
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getComments()
-	 */
-	public List<Comment> getComments()
-	{
-		return this.comments;
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getNumberOfComments()
-	 */
-	public Integer getNumberOfComments()
-	{
-		return this.comments.size();
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.eti.kinoshita.tap4j.TapConsumer#getFooter()
-	 */
-	public Footer getFooter()
-	{
-		return this.footer;
-	}
-
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestSet()
 	 */
@@ -270,11 +112,6 @@ implements Parser
 		
 		testSet.setHeader( this.header );
 		testSet.setPlan( this.plan );
-		
-		/*for ( TapResult tapLine : tapLines )
-		{
-			testSet.addTapLine( tapLine );
-		}*/
 		
 		for( TestResult testResult : testResults )
 		{
@@ -559,7 +396,7 @@ implements Parser
 		Integer integerTestNumber = null;
 		if ( StringUtils.isEmpty( testNumber ) )
 		{
-			integerTestNumber = ( this.getNumberOfTestResults() + 1 );
+			integerTestNumber = ( this.testResults.size() + 1 );
 		}
 		else 
 		{
@@ -640,7 +477,7 @@ implements Parser
 			while ( scanner.hasNextLine() )
 			{
 				line = scanner.nextLine();
-				if ( StringUtils.isNotBlank(line) )
+				if ( StringUtils.isNotEmpty(line) )
 				{
 					this.parseLine( line );
 				}				

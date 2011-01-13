@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
 import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.parser.Tap13YamlParser;
 import br.eti.kinoshita.tap4j.util.StatusValues;
-import br.eti.kinoshita.tap4j.util.TapVersions;
+import br.eti.kinoshita.tap4j.util.TapVersionValues;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
@@ -61,7 +61,7 @@ public class TestTap13YamlConsumer
 			
 			Assert.assertNotNull( testSet.getHeader().getVersion() );
 			
-			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersions.TAP_13.getValue() ) );
+			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersionValues.TAP_13.getValue() ) );
 			
 			Assert.assertNotNull( testSet.getPlan() );
 			
@@ -103,7 +103,7 @@ public class TestTap13YamlConsumer
 			
 			Assert.assertNotNull( testSet.getHeader().getVersion() );
 			
-			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersions.TAP_13.getValue() ) );
+			Assert.assertTrue ( testSet.getHeader().getVersion().equals( TapVersionValues.TAP_13.getValue() ) );
 			
 			Assert.assertNotNull( testSet.getPlan() );
 			

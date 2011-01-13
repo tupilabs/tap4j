@@ -21,25 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.representer;
+package br.eti.kinoshita.tap4j.util;
 
-import br.eti.kinoshita.tap4j.model.TestSet;
+import junit.framework.Assert;
+
+import org.testng.annotations.Test;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Representer 
+public class TestTapVersion
 {
-
-	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
-	 */
-	String representData(TestSet testSet) 
-	throws RepresenterException;
 	
+	@Test
+	public void testTapVersionToString()
+	{
+		TapVersionValues version = TapVersionValues.TAP_13;
+		
+		Assert.assertTrue( version.getValue().equals(new Integer(13)) );
+		
+		Assert.assertTrue(version.toString().equals("13"));
+	}
+
 }

@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 
 import br.eti.kinoshita.tap4j.model.TestSet;
 import br.eti.kinoshita.tap4j.representer.Representer;
+import br.eti.kinoshita.tap4j.representer.RepresenterException;
 import br.eti.kinoshita.tap4j.representer.Tap13Representer;
 
 /**
@@ -60,7 +61,18 @@ implements TapProducer
 	public String dump(TestSet testSet) 
 	throws TapProducerException 
 	{
-		return this.representer.representData(testSet);		
+		String dumpData = null;
+		
+		try
+		{
+			dumpData = this.representer.representData(testSet);
+		} 
+		catch ( RepresenterException re )
+		{
+			throw new TapProducerException( "Failed to produce test set dump: " + re.getMessage(), re );
+		}
+		
+		return dumpData;
 	}
 
 	/* (non-Javadoc)
@@ -69,7 +81,17 @@ implements TapProducer
 	public void dump(TestSet testSet, Writer writer)
 	throws TapProducerException 
 	{
-		String tapStream = this.dump(testSet);
+		String tapStream = null;
+		
+		try
+		{
+			tapStream = this.dump(testSet);
+		} 
+		catch ( RepresenterException re )
+		{
+			throw new TapProducerException( "Failed to dump Test Set to writer: " + re.getMessage(), re );
+		}
+		
 		try 
 		{
 			writer.append(tapStream);
@@ -86,7 +108,16 @@ implements TapProducer
 	public void dump(TestSet testSet, File output)
 	throws TapProducerException 
 	{
-		String tapStream = this.dump(testSet);
+		String tapStream = null;
+		
+		try
+		{
+			tapStream = this.dump(testSet);
+		} 
+		catch ( RepresenterException re )
+		{
+			throw new TapProducerException( "Failed to dump Test Set to output file '"+output+"': " + re.getMessage(), re );
+		}
 		
 		try 
 		{
@@ -98,4 +129,12 @@ implements TapProducer
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.producer.TapProducer#getRepresenter()
+	 */
+	public Representer getRepresenter()
+	{
+		return this.representer;
+	}
+	
 }

@@ -38,8 +38,8 @@ public class TapConsumerImpl
 implements TapConsumer
 {
 	
-	private final Parser parser;
-	private TestSet testSet;
+	protected final Parser parser;
+	protected TestSet testSet;
 	
 	public TapConsumerImpl()
 	{
@@ -96,6 +96,14 @@ implements TapConsumer
 		}
 		
 		return this.testSet;
+	}
+	
+	/* (non-Javadoc)
+	 * @see br.eti.kinoshita.tap4j.consumer.TapConsumer#getParser()
+	 */
+	public Parser getParser()
+	{
+		return this.parser;
 	}
 	
 }

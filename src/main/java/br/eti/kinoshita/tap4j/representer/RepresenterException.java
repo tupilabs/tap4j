@@ -23,23 +23,45 @@
  */
 package br.eti.kinoshita.tap4j.representer;
 
-import br.eti.kinoshita.tap4j.model.TestSet;
-
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Representer 
+public class RepresenterException 
+extends RuntimeException
 {
 
 	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
+	 * Default constructor.
 	 */
-	String representData(TestSet testSet) 
-	throws RepresenterException;
+	public RepresenterException()
+	{
+		super();
+	}
+
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public RepresenterException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+
+	/**
+	 * @param message
+	 */
+	public RepresenterException(String message)
+	{
+		super(message);
+	}
+
+	/**
+	 * @param cause
+	 */
+	public RepresenterException(Throwable cause)
+	{
+		super(cause);
+	}
 	
 }

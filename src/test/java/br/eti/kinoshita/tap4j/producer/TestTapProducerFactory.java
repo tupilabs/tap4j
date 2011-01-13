@@ -21,48 +21,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j;
+package br.eti.kinoshita.tap4j.producer;
 
 import java.lang.reflect.Constructor;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import br.eti.kinoshita.tap4j.util.Util;
+import br.eti.kinoshita.tap4j.representer.Representer;
+import br.eti.kinoshita.tap4j.representer.Tap13Representer;
+import br.eti.kinoshita.tap4j.representer.Tap13YamlRepresenter;
 
 /**
+ * Test Class for TAP Producer Factories.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestUtil 
+public class TestTapProducerFactory
 {
 
-	private StringBuilder sb;
-
-	@BeforeMethod
-	public void setUp()
-	{
-		sb = new StringBuilder();
-		sb.append("Anything");
-	}
-
 	@Test
-	public void testAppends()
+	public void testMakeTap13Producer()
 	{
-		Util.appendIfNotNull(sb, " appended text");
-		Assert.assertEquals(sb.toString(), "Anything appended text");
-
-		Util.appendIfNotNull(sb, " - ", " Tom T.", null);
-		Assert.assertEquals(sb.toString(), "Anything appended text -  Tom T.");
+		TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
+		
+		Representer tap13Representer = tapProducer.getRepresenter();
+		
+		Assert.assertTrue( tap13Representer instanceof Tap13Representer );
 	}
-
+	
 	@Test
-	public void testUtilConstructor()
+	public void testMakeTap13YamlProducer()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		Representer tap13YamlRepresenter = tapProducer.getRepresenter();
+		
+		Assert.assertTrue( tap13YamlRepresenter instanceof Tap13YamlRepresenter );
+	}
+	
+	@Test
+	public void testTapProducerFactoryConstructor()
 	{
 		try
 		{
-			final Constructor<?> c = Util.class.getDeclaredConstructors()[0];
+			final Constructor<?> c = TapProducerFactory.class.getDeclaredConstructors()[0];
 			c.setAccessible(true);
 			final Object o = c.newInstance((Object[]) null);
 
@@ -70,8 +74,8 @@ public class TestUtil
 		}
 		catch (Exception e)
 		{
-			Assert.fail("Failed to instantiate Util constructor: " + e.getMessage(), e);
+			Assert.fail("Failed to instantiate TapProducerFactory constructor: " + e.getMessage(), e);
 		}
 	}
-
+	
 }

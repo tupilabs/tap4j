@@ -32,6 +32,7 @@ import org.testng.annotations.Test;
 import br.eti.kinoshita.tap4j.model.Footer;
 import br.eti.kinoshita.tap4j.model.SkipPlan;
 import br.eti.kinoshita.tap4j.model.TestSet;
+import br.eti.kinoshita.tap4j.parser.ParserException;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
@@ -385,6 +386,29 @@ public class TestTap13Consumer
 		{
 			Assert.fail( "Failed to parse TAP stream: " + e.getMessage(), e);
 		}
+	}
+	
+	@Test(description="Tests a TapConsumer reading an invalid TAP Stream")
+	public void testTapConsumerInvalidToken()
+	{
+		TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
+		
+		TestSet testSet = null;
+		
+		String invalidTapStream = "a..2\nok 1\n  ---\n  name:Bruno\n  ---ok2";
+		
+		try
+		{
+			testSet = tapConsumer.load(invalidTapStream);
+			
+			Assert.fail( NOT_SUPPOSED_TO_GET_HERE );
+		} 
+		catch ( TapConsumerException tapConsumerException )
+		{
+			Assert.assertTrue( tapConsumerException.getCause() instanceof ParserException );
+		}
+		
+		Assert.assertNull( testSet );
 	}
 	
 }

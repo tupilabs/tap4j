@@ -24,9 +24,12 @@
 package br.eti.kinoshita.tap4j.producer;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.LinkedHashMap;
 
+import org.apache.commons.io.FileUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -45,7 +48,7 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapProducer 
+public class TestTap13YamlProducer 
 {
 	
 	private static final Integer TAP_VERSION = 13;
@@ -157,4 +160,157 @@ public class TestTapProducer
 //			}
 //		}
 	}
+	@Test(expectedExceptions={TapProducerException.class})
+	public void testDumpFailsForMissingPlan()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		TestSet testSet = new TestSet();
+		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		try
+		{
+			File fileOutput = null;
+			tapProducer.dump(testSet, fileOutput);
+		}
+		catch ( NullPointerException npe )
+		{
+			Assert.assertNotNull( npe );
+		}
+		
+		StringWriter sw = new StringWriter();
+		
+		tapProducer.dump(testSet, sw);
+		
+		Assert.fail( "Not supposed to get here" );
+	}
+	
+	@Test
+	public void testDumpToStringWriter()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		TestSet testSet = new TestSet();
+		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		Assert.assertNull( testSet.getPlan() );
+		
+		Plan plan = new Plan(1, 1);
+		testSet.setPlan(plan);
+		
+		Assert.assertNotNull( testSet.getPlan() );
+		
+		StringWriter sw = new StringWriter();
+		
+		tapProducer.dump(testSet, sw);
+		
+	}
+	
+	@Test(expectedExceptions={NullPointerException.class})
+	public void testDumpToNullWriter()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		TestSet testSet = new TestSet();
+		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		Assert.assertNull( testSet.getPlan() );
+		
+		Plan plan = new Plan(1, 1);
+		testSet.setPlan(plan);
+		
+		Assert.assertNotNull( testSet.getPlan() );
+		
+		StringWriter writer = null;
+		
+		tapProducer.dump(testSet, writer);
+	}
+	
+	@Test(expectedExceptions=TapProducerException.class)
+	public void testDumpToInvalidFile()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		TestSet testSet = new TestSet();
+		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		Assert.assertNull( testSet.getPlan() );
+		
+		Plan plan = new Plan(1, 1);
+		testSet.setPlan(plan);
+		
+		Assert.assertNotNull( testSet.getPlan() );
+		
+		File outputFile = new File("");
+		
+		tapProducer.dump(testSet, outputFile);	
+	}
+	
+	@Test(expectedExceptions=TapProducerException.class)
+	public void testDumpToInvalidWriter()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+		
+		TestSet testSet = new TestSet();
+		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
+		
+		Assert.assertNull( testSet.getPlan() );
+		
+		Plan plan = new Plan(1, 1);
+		testSet.setPlan(plan);
+		
+		Assert.assertNotNull( testSet.getPlan() );
+		
+		File tempFile = null;
+		try
+		{
+			tempFile = File.createTempFile("delete_", ".delete");
+		} 
+		catch (IOException e)
+		{
+			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+		}
+		
+		FileWriter writer = null;
+		try
+		{
+			writer = new FileWriter(tempFile);
+			writer.close();
+		} 
+		catch (IOException e)
+		{
+			try
+			{
+				FileUtils.forceDelete(tempFile);
+			} 
+			catch (IOException ioe)
+			{
+				Assert.fail("Failed to delete temp file '"+tempFile+"': " + ioe.getMessage(), ioe);
+			}
+			
+			Assert.fail("Failed to create writer: " + e.getMessage(), e);
+		}
+		
+		try
+		{
+			tapProducer.dump(testSet, writer);
+		}
+		finally
+		{
+			try
+			{
+				FileUtils.forceDelete(tempFile);
+			} 
+			catch (IOException e)
+			{
+				Assert.fail("Failed to delete temp file '"+tempFile+"': " + e.getMessage(), e);
+			}
+		}
+	}
+	
 }

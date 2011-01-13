@@ -28,7 +28,7 @@ import java.io.Serializable;
 import br.eti.kinoshita.tap4j.util.DirectiveValues;
 
 /**
- * Represents a Test Directive. Usually it would be a TODO or SKIP directive.
+ * Represents a Test Directive. Usually it would be a TO DO or SKIP directive.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
@@ -40,7 +40,7 @@ implements Serializable
 	public Long serialVersionUID = 1L;
 	
 	/**
-	 * Directive Value (TODO, SKIP).
+	 * Directive Value (TO DO, SKIP).
 	 */
 	private final DirectiveValues directiveValue;
 	

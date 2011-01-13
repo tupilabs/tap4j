@@ -52,7 +52,7 @@ extends TapResult
 	private String description;
 	
 	/**
-	 * Directive of the test (TODO, SKIP).
+	 * Directive of the test (TO DO, SKIP).
 	 */
 	private Directive directive;
 

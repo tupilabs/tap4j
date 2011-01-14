@@ -319,7 +319,7 @@ implements IReporter
 	}
 	
 	/**
-	 * Get the group name of a ITestNGMethod 
+	 * Get all groups names that a Test Method is inclueded in
 	 * 
 	 * @param methodToFind
 	 * @param groups
@@ -334,8 +334,7 @@ implements IReporter
 		    {
 		    	if(method.equals(methodToFind) && method.getRealClass().equals(methodToFind.getRealClass()))
 		    	{
-		    		groupsFound[cont]=grupo.getKey();
-		    		cont++;
+		    		groupsFound[cont++] = grupo.getKey();
 		    	}
 		    }
 		}

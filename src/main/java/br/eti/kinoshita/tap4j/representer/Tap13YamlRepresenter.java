@@ -55,11 +55,10 @@ implements Representer
 		
 		DumperOptions options = new DumperOptions();
 		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-		options.setDefaultScalarStyle(DumperOptions.ScalarStyle.PLAIN); 
+		//options.setDefaultScalarStyle(DumperOptions.ScalarStyle.LITERAL); 
 		options.setLineBreak(LineBreak.getPlatformLineBreak());
 		options.setExplicitStart( true );
 		options.setExplicitEnd( true );
-		options.setIndent(10);
 		// TBD: set indent is not working on yaml, perhaps we should implement 
 		// a representer...
 		yaml = new Yaml( options );

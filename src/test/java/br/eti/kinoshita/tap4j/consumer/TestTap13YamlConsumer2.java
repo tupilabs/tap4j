@@ -59,7 +59,7 @@ public class TestTap13YamlConsumer2
 		
 		Assert.assertTrue( testSet.containsBailOut() );
 		
-		TestResult testNumber2WithSkipDirective = testSet.getTestResult( new Integer(2) );
+		TestResult testNumber2WithSkipDirective = testSet.getTestResult( Integer.valueOf(2) );
 		Assert.assertNotNull(testNumber2WithSkipDirective);
 		
 		Directive skipDirective = testNumber2WithSkipDirective.getDirective();

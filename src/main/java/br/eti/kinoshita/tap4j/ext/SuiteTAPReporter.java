@@ -147,7 +147,7 @@ implements IReporter
 			if (groups.size() > 0) 
 			{
 				// Populate the map with groups and test results
-				Set<String> testResultsSet = this.getTestResultsSetPerGroup(suite, groups);
+				//Set<String> testResultsSet = this.getTestResultsSetPerGroup(suite, groups);
 				
 				String[] groupNames = groups.keySet().toArray(new String[groups.size()]);
 				Arrays.sort(groupNames);
@@ -156,7 +156,7 @@ implements IReporter
 				{
 					if(StringUtils.isNotEmpty(group))
 					{
-						Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(testResultsSet, group);
+						Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(group);
 						
 						testSet = new TestSet();
 							
@@ -234,14 +234,15 @@ implements IReporter
 	/**
 	 * Get total results from a test group
 	 * 
-	 * @param keySet
+	 * @param groupName Name of the TestNG Test Group
+	 * @return Total of TestResults by TestGroup (TestNG)
 	 */
-	public Integer getTotalTestResultsByTestGroup(Set<String> gruposSet, String grupoNm)
+	public Integer getTotalTestResultsByTestGroup(String groupName)
 	{
 		Integer nrResults = 0;
-		if(testResultsPerGroup.get( grupoNm )!=null)
+		if(testResultsPerGroup.get( groupName )!=null)
 		{
-			nrResults = testResultsPerGroup.get( grupoNm ).size();
+			nrResults = testResultsPerGroup.get( groupName ).size();
 		}
 		return nrResults;
 	}

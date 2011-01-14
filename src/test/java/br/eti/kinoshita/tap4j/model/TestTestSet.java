@@ -183,14 +183,14 @@ public class TestTestSet
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		Assert.assertTrue( testSet.containsOk() );
 		
-		TestResult testResult = testSet.getTestResult( new Integer(1) );
+		TestResult testResult = testSet.getTestResult( Integer.valueOf(1) );
 		
 		Assert.assertNotNull( testResult );
 		
-		okTestResult.setTestNumber( new Integer(1) );
+		okTestResult.setTestNumber( Integer.valueOf(1) );
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
-		testResult = testSet.getTestResult( new Integer(1) );
+		testResult = testSet.getTestResult( Integer.valueOf(1) );
 		
 		Assert.assertNotNull( testResult );
 	}

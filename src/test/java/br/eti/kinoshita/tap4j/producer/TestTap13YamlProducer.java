@@ -166,7 +166,7 @@ public class TestTap13YamlProducer
 		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		
 		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		TestResult okTestResult = new TestResult(StatusValues.OK, Integer.valueOf(1));
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
 		try
@@ -192,7 +192,7 @@ public class TestTap13YamlProducer
 		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		
 		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		TestResult okTestResult = new TestResult(StatusValues.OK, Integer.valueOf(1));
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
 		Assert.assertNull( testSet.getPlan() );
@@ -214,7 +214,7 @@ public class TestTap13YamlProducer
 		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		
 		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		TestResult okTestResult = new TestResult(StatusValues.OK, Integer.valueOf(1));
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
 		Assert.assertNull( testSet.getPlan() );
@@ -235,7 +235,7 @@ public class TestTap13YamlProducer
 		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		
 		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		TestResult okTestResult = new TestResult(StatusValues.OK, Integer.valueOf(1));
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
 		Assert.assertNull( testSet.getPlan() );
@@ -256,7 +256,7 @@ public class TestTap13YamlProducer
 		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		
 		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK, new Integer(1));
+		TestResult okTestResult = new TestResult(StatusValues.OK, Integer.valueOf(1));
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );
 		
 		Assert.assertNull( testSet.getPlan() );

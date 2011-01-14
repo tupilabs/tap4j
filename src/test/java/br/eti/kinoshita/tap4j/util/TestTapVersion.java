@@ -39,7 +39,7 @@ public class TestTapVersion
 	{
 		TapVersionValues version = TapVersionValues.TAP_13;
 		
-		Assert.assertTrue( version.getValue().equals(new Integer(13)) );
+		Assert.assertTrue( version.getValue().equals(Integer.valueOf(13)) );
 		
 		Assert.assertTrue(version.toString().equals("13"));
 	}

@@ -131,4 +131,19 @@ public class TestTap13Producer
 //		}
 	}
 	
+	@Test
+	public void testSingleTestResultWithoutTestNumber()
+	{
+		TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
+		TestSet testSet = new TestSet();
+		Plan plan = new Plan(1,1);
+		testSet.setPlan(plan);
+		TestResult okTestResult = new TestResult();
+		okTestResult.setStatus(StatusValues.OK);
+		testSet.addTestResult( okTestResult );
+		String output = tapProducer.dump(testSet);
+		Assert.assertFalse( output.contains("-1") );
+		
+	}
+	
 }

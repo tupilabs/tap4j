@@ -120,7 +120,7 @@ implements IReporter
 				}
 			}
 			
-			File output = new File(outputDirectory, "SuiteTest-"+suite.getName()+".tap");
+			File output = new File(outputDirectory, suite.getName()+".tap");
 			tapProducer.dump(testSet, output);
 		}
 	}	
@@ -170,7 +170,7 @@ implements IReporter
 							testSet.addTestResult( tapTestResult );
 						}
 							
-						File output = new File(outputDirectory, "GroupTest-"+group+".tap");
+						File output = new File(outputDirectory, group+".tap");
 						tapProducer.dump(testSet, output);
 					}
 				}

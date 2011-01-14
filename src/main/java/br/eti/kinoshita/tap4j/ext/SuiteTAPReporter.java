@@ -149,22 +149,25 @@ implements IReporter
 				
 				for (String group : groupNames) 
 				{
-					Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(testResultsSet, group);
-						
-					testSet = new TestSet();
-						
-					testSet.setPlan( new Plan( totalTestResultsByGroup ) );
-					
-					List<ITestResult> testResults = testResultsPerGroup.get( group );
-						
-					for ( ITestResult testResult : testResults )
+					if(StringUtils.isNotEmpty(group))
 					{
-						TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
-						testSet.addTestResult( tapTestResult );
-					}
+						Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(testResultsSet, group);
 						
-					File output = new File(outputDirectory, "GroupTest-"+group+".tap");
-					tapProducer.dump(testSet, output);
+						testSet = new TestSet();
+							
+						testSet.setPlan( new Plan( totalTestResultsByGroup ) );
+						
+						List<ITestResult> testResults = testResultsPerGroup.get( group );
+							
+						for ( ITestResult testResult : testResults )
+						{
+							TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+							testSet.addTestResult( tapTestResult );
+						}
+							
+						File output = new File(outputDirectory, "GroupTest-"+group+".tap");
+						tapProducer.dump(testSet, output);
+					}
 				}
 			}
 		}

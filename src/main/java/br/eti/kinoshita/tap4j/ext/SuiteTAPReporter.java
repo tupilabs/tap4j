@@ -226,7 +226,7 @@ implements IReporter
 		{
 			for ( ISuiteResult suiteResult : suite.getResults().values() )
 			{
-				List<ITestResult> testResults = TAPUtils.getTestNGResults(suiteResult.getTestContext());
+				List<ITestResult> testResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
 				
 				for ( ITestResult testResult : testResults )
 				{

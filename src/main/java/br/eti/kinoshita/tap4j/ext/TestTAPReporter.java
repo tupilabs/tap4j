@@ -60,11 +60,6 @@ extends TestListenerAdapter
 	 */
 	protected TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 	
-	/**
-	 * TAP Test Set
-	 */
-	TestSet testSet;
-	
 	
 	/* (non-Javadoc)
 	 * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
@@ -85,7 +80,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerClass(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResults(testContext);
+		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{
@@ -103,7 +98,7 @@ extends TestListenerAdapter
 		
 		for( Class<?> clazz : keySet )
 		{
-			testSet = new TestSet();
+			TestSet testSet = new TestSet();
 			
 			List<ITestResult> testResults = testResultsPerClass.get( clazz );
 			
@@ -128,7 +123,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerMethod(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResults(testContext);
+		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{
@@ -149,7 +144,7 @@ extends TestListenerAdapter
 		
 		for( ITestNGMethod method : keySet )
 		{
-			testSet = new TestSet();
+			TestSet testSet = new TestSet();
 			
 			List<ITestResult> testResults = testResultsPerMethod.get( method );
 			testSet.setPlan( new Plan(testResults.size()) );

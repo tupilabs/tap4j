@@ -23,8 +23,6 @@
  */
 package br.eti.kinoshita.tap4j.ext;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,85 +41,78 @@ import br.eti.kinoshita.tap4j.util.DirectiveValues;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 
 /**
+ * Utility class with methods to support TAP generation with TestNG.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 03/01/2011
+ * @author Cesar Fernandes de Almeida
+ * @since 1.1
  */
-public class TAPUtils
+public final class TAPUtils
 {
 	
+	/**
+	 * Hidden constructor.
+	 */
+	private TAPUtils()
+	{
+		super();
+	}
+	
+	/**
+	 * A constant that defines a comparator for TestNG TestResults. This  
+	 * comparator returns the TestNG TestResults ordered by execution 
+	 * date. For example, if the test A ran at 08:00 and the test B ran at 
+	 * 07:00, it will say that the correct order for these elements 
+	 * is [B, A].
+	 */
 	public static final Comparator<ITestResult> EXECUTION_DATE_COMPARATOR =
 		new ExecutionDateCompator();
 	
 	/**
-	 * Adds Throwable diagnostic information to a TAP Test Result.
-	 * 
-	 * @param tapTestResult TAP Test Result.
-	 * @param testNgTestResult TestNG Test Result.
+	 * Generates a TAP TestResult from a given TestNG TestResult. 
+	 *  
+	 * @param testResult TestNG Test Result
+	 * @param number TAP Test Number
+	 * @return TAP TestResult
 	 */
-	public static void addTestNGThrowableDiagnostic(
-		TestResult tapTestResult, 
-		ITestResult testNgTestResult )
+	public static TestResult generateTAPTestResult( ITestResult testResult, Integer number )
 	{
-		final Throwable t = testNgTestResult.getThrowable();
-		if ( t != null )
-		{
-			final StringWriter sw = new StringWriter();
-			t.printStackTrace( new PrintWriter(sw) );
-			
-			Map<String, Object> testNGMap = getTestNGDiagnosticMap(tapTestResult);
-			testNGMap.put("Exception", sw.toString());
-		}
-	}
-	
-	/**
-	 * 
-	 * @param testResult
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static Map<String, Object> getTestNGDiagnosticMap( TestResult testResult )
-	{
-		LinkedHashMap<String, Object> testNGMap = null;		
-		if ( testResult.getDiagnostic() == null )
-		{
-			testResult.setDiagnostic(new LinkedHashMap<String, Object>());
-		} 
-		testNGMap = (LinkedHashMap<String, Object>) testResult.getDiagnostic().get("testng");
-		if ( testNGMap == null )
-		{
-			testNGMap = 
-				new LinkedHashMap<String, Object>();
-			testResult.getDiagnostic().put("Testng", testNGMap);
-		}
-		return testNGMap;
-	}
-	
-	/**
-	 * 
-	 * @param testResult
-	 * @param number
-	 * @return
-	 */
-	public static TestResult generateTAPTestResult( ITestResult testResult, int number )
-	{
-		TestResult tapTestResult = new TestResult(StatusValues.NOT_OK, number);
-		tapTestResult.setDescription( "- " + testResult.getName() );
+		final TestResult tapTestResult = new TestResult();
+		
+		String testResultDescription = generateTAPTestResultDescription( testResult );
+		tapTestResult.setDescription( testResultDescription );
 		
 		TAPUtils.setTapTestResultStatus( tapTestResult, testResult.getStatus() );
 		
-		final Map<String, Object> testNGMap = 
-			TAPUtils.getTestNGDiagnosticMap(tapTestResult);
-		testNGMap.put("Class", testResult.getTestClass().getName());
-		
-		addTestNGThrowableDiagnostic(tapTestResult, testResult);
+		TAPUtils.createTestNGYAMLishData(tapTestResult, testResult );
 		
 		return tapTestResult;
 	}
 	
 	/**
+	 * Generates a TAP TestResult description with full qualified class name 
+	 * concatenated with the character '#' and the test method.  
 	 * 
-	 * @param tapTestResult
-	 * @param status
+	 * @param testResult TestNG TestResult
+	 * @return Name of TAP Test Result
+	 */
+	public static String generateTAPTestResultDescription( ITestResult testResult ) 
+	{
+		StringBuilder description = new StringBuilder();
+		description.append( "- " ); // An extra space is added before the description by the TAP Representer
+		description.append( testResult.getInstance().getClass().getName() );
+		description.append( '#' );
+		description.append( testResult.getMethod().getMethodName() );
+		return description.toString();
+	}
+	
+	/**
+	 * Sets the StatusValue into a TAP TestResult. In cases where the StatusValue 
+	 * is equal SKIP a Directive is also created and added to the TAP Test Result.
+	 * 
+	 * @param tapTestResult TAP TestResult
+	 * @param status TestNG Test Status (Success, Skip, or any other that is 
+	 * treated as Failed in TAP)
 	 */
 	public static void setTapTestResultStatus( TestResult tapTestResult, int status )
 	{
@@ -141,29 +132,219 @@ public class TAPUtils
 		}
 	}
 	
-	
 	/**
-	 * Adds all ITestResult's inside the map object inside the total one.
+	 * <p>
+	 * Inserts TestNG YAMLish diagnostic information into a TAP TestResult.
+	 * </p>
 	 * 
-	 * @param total ResultMap that holds the total of IResultMap's.
-	 * @param map An IResultMap object.
+	 * <p>
+	 * For more about TAP YAMLish diagnostic read this   
+	 * <a href="http://testanything.org/wiki/index.php/YAMLish">Wiki</a>.
+	 * </p>
+	 * 
+	 * @param testResult TAP TestResult
+	 * @param testNgTestResult TestNG TestResult
 	 */
-	public static void addAll( ResultMap total, IResultMap map )
+	public static void createTestNGYAMLishData( TestResult testResult, ITestResult testNgTestResult )
 	{
-		for ( ITestResult testResult : map.getAllResults() )
-		{
-			total.addResult( testResult, testResult.getMethod() );
-		}
+		final Map<String, Object> yamlish = testResult.getDiagnostic();
+		
+		// Root namespace
+		
+		createYAMLishMessage( yamlish, testNgTestResult );
+		createYAMLishSeverity( yamlish, testNgTestResult ); 
+		createYAMLishSource( yamlish, testNgTestResult );
+		createYAMLishDatetime( yamlish, testNgTestResult );
+		createYAMLishFile( yamlish, testNgTestResult );
+		createYAMLishLine( yamlish, testNgTestResult );
+		createYAMLishName( yamlish, testNgTestResult );
+		createYAMLishExtensions( yamlish, testNgTestResult );
+		createYAMLishActualAndExpected( yamlish, testNgTestResult );
+		createYAMLishDisplay( yamlish, testNgTestResult );
+		createYAMLishDump( yamlish, testNgTestResult );
+		createYAMLishError( yamlish, testNgTestResult );
+		createYAMLishBacktrace( yamlish, testNgTestResult );
+	}
+
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishMessage(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String message = YAMLishUtils.getMessage(testNgTestResult);
+		yamlish.put( "message", message );
 	}
 	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishSeverity(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String severity = YAMLishUtils.getSeverity( testNgTestResult );
+		yamlish.put( "severity", severity );
+	}
+
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishSource(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String source = YAMLishUtils.getSource( testNgTestResult );			
+		yamlish.put( "source", source );
+	}
 	
 	/**
-	 * Return an ordered list of ITestResults
-	 * 
-	 * @param testContext
-	 * @return
+	 * @param yamlish
+	 * @param testNgTestResult
 	 */
-	public static List<ITestResult> getTestNGResults(ITestContext testContext)
+	public static void createYAMLishDatetime(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String datetime = YAMLishUtils.getDatetime( testNgTestResult );
+		yamlish.put( "datetime", datetime );
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishFile(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String file = YAMLishUtils.getFile( testNgTestResult );
+		yamlish.put("file", file);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishLine(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String line = YAMLishUtils.getLine( testNgTestResult );
+		yamlish.put("line", line);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishName(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String name = YAMLishUtils.getName(testNgTestResult);
+		yamlish.put( "name", name );
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishExtensions(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		Object extensions = YAMLishUtils.getExtensions( testNgTestResult );
+		yamlish.put("extensions", extensions);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishActualAndExpected(
+			Map<String, Object> yamlish, 
+			ITestResult testNgTestResult) 
+	{
+		String expected = YAMLishUtils.getExpected( testNgTestResult );
+		String actual = YAMLishUtils.getActual(testNgTestResult);
+
+		if ( expected == null )
+		{
+			expected = "~";
+		}
+		
+		if ( actual == null )
+		{
+			actual = "~";
+		}
+		
+		yamlish.put("got", actual);
+		yamlish.put("expected", expected);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishDisplay(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+
+		String display = YAMLishUtils.getDisplay( testNgTestResult );
+		yamlish.put("display", display);		
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishDump(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		Object dump = YAMLishUtils.getDump( testNgTestResult );
+		yamlish.put("dump", dump);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishError(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String error = YAMLishUtils.getError( testNgTestResult );
+		yamlish.put("error", error);
+	}
+	
+	/**
+	 * @param yamlish
+	 * @param testNgTestResult
+	 */
+	public static void createYAMLishBacktrace(
+			Map<String, Object> yamlish,
+			ITestResult testNgTestResult) 
+	{
+		String backtrace = YAMLishUtils.getBacktrace( testNgTestResult );
+		yamlish.put( "backtrace", backtrace );
+		
+	}
+	
+	/**
+	 * Return an ordered list of TestNG TestResult from a given TestNG Test 
+	 * Context.
+	 * 
+	 * @param testContext TestNG Test Context
+	 * @return Ordered list of TestNG TestResults
+	 */
+	public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(ITestContext testContext)
 	{
 		Map<String, IResultMap> results= new LinkedHashMap<String, IResultMap>();
 		results.put("passed", testContext.getPassedTests());
@@ -183,5 +364,19 @@ public class TAPUtils
 		
 		return testNGTestResults;
 	}
-
+	
+	/**
+	 * Adds all ITestResult's inside the map object inside the total one.
+	 * 
+	 * @param total ResultMap that holds the total of IResultMap's.
+	 * @param map An IResultMap object.
+	 */
+	public static void addAll( ResultMap total, IResultMap map )
+	{
+		for ( ITestResult testResult : map.getAllResults() )
+		{
+			total.addResult( testResult, testResult.getMethod() );
+		}
+	}
+	
 }

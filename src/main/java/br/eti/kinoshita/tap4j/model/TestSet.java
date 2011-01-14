@@ -164,16 +164,26 @@ implements Serializable
 	}
 	
 	/**
-	 * @param testResult Test Result.
+	 * Adds a TestResult into the list of TestResults. If the TestResult 
+	 * Test Number is null or less than or equals to zero it is changed to 
+	 * the next Test Number in the sequence.
+	 * 
+	 * @param testResult TAP TestResult.
+	 * @return Whether could add to TestResult list or not.
 	 */
 	public boolean addTestResult( TestResult testResult )
 	{
+		if ( testResult.getTestNumber() == null || testResult.getTestNumber() <= 0 )
+		{
+			testResult.setTestNumber( this.testResults.size() + 1 );
+		}
 		this.testResults.add( testResult );
 		return this.tapLines.add( testResult );
 	}
 	
 	/**
 	 * @param bailOut Bail Out.
+	 * @return Whether could add to BailOut list or not.
 	 */
 	public boolean addBailOut( BailOut bailOut )
 	{
@@ -183,6 +193,7 @@ implements Serializable
 	
 	/**
 	 * @param comment Comment.
+	 * Whether could add to Comment list or not.
 	 */
 	public boolean addComment( Comment comment )
 	{

@@ -40,7 +40,6 @@ import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
-import org.testng.collections.Maps;
 import org.testng.xml.XmlSuite;
 
 import br.eti.kinoshita.tap4j.model.Plan;
@@ -58,9 +57,10 @@ implements IReporter
 {
 	protected final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
 	
+	protected final Map<String, List<ITestResult>> testResultsPerGroup = new LinkedHashMap<String, List<ITestResult>>();
+	
 	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
 	
-	protected final Map<String, Map<ITestNGMethod, List<ITestResult>>> testResultsPerGroup = new LinkedHashMap<String, Map<ITestNGMethod, List<ITestResult>>>();
 	
 	/**
 	 * TAP Producer.
@@ -102,7 +102,7 @@ implements IReporter
 			
 			Set<Class<?>> testResultsSet = this.getTestResultsSetPerSuite(suite);
 			
-			Integer totalTestResults = this.getTotalTestResultsBySuite(testResultsSet);
+			Integer totalTestResults = this.getTotalTestResultsByTestSuite(testResultsSet);
 
 			testSet.setPlan( new Plan( totalTestResults ) );
 			
@@ -129,7 +129,7 @@ implements IReporter
 	 * @param testContext
 	 */
 	// TBD: Method to generate TAP file by test Group
-	// TAP structure ( group -> class -> methods )
+	// TAP structure ( group -> class -> method )
 	protected void generateTAPPerGroup(
 			List<XmlSuite> xmlSuites, 
 			List<ISuite> suites, 
@@ -141,37 +141,30 @@ implements IReporter
 			
 			if (groups.size() > 0) 
 			{
+				// Populate the map with groups and test results
+				Set<String> testResultsSet = this.getTestResultsSetPerGroup(suite, groups);
+				
 				String[] groupNames = groups.keySet().toArray(new String[groups.size()]);
 				Arrays.sort(groupNames);
 				
 				for (String group : groupNames) 
 				{
-					if(StringUtils.isNotEmpty(group))
+					Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(testResultsSet, group);
+						
+					testSet = new TestSet();
+						
+					testSet.setPlan( new Plan( totalTestResultsByGroup ) );
+					
+					List<ITestResult> testResults = testResultsPerGroup.get( group );
+						
+					for ( ITestResult testResult : testResults )
 					{
-						Collection<ITestNGMethod> methodsByGroup = groups.get(group);
-					    
-					    StringBuffer methodNames = new StringBuffer();
-					    Map<ITestNGMethod, ITestNGMethod> uniqueMethods = Maps.newHashMap();
-					    
-
-					    
-					    for (ITestNGMethod tm : methodsByGroup) 
-					    {
-					    	uniqueMethods.put(tm, tm);
-					    }
-					    
-					    for (ITestNGMethod method : uniqueMethods.values()) 
-					    {
-							List<ITestResult> testResultsForThisMethod = testResultsPerMethod.get( method );
-							
-							if ( testResultsForThisMethod == null )
-							{
-								testResultsForThisMethod = new ArrayList<ITestResult>();
-								testResultsPerMethod.put(method, testResultsForThisMethod);
-							}
-							//testResultsForThisMethod.add( testResult );
-					    }
+						TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+						testSet.addTestResult( tapTestResult );
 					}
+						
+					File output = new File(outputDirectory, "GroupTest-"+group+".tap");
+					tapProducer.dump(testSet, output);
 				}
 			}
 		}
@@ -180,10 +173,9 @@ implements IReporter
 	
 	
 	/**
-	 * Get a Set of test Results by a given ISuite
+	 * Get a Set of test Results for Suites by a given ISuite
 	 * 
 	 * @param suite
-	 * @return
 	 */
 	protected Set<Class<?>> getTestResultsSetPerSuite(ISuite suite)
 	{
@@ -197,12 +189,27 @@ implements IReporter
 	
 	
 	/**
+	 * Get a Set of test Results for Groups by a given ISuite
+	 * 
+	 * @param suite
+	 */
+	protected Set<String> getTestResultsSetPerGroup(ISuite suite, Map<String, Collection<ITestNGMethod>> groups)
+	{
+		XmlSuite xmlSuite = suite.getXmlSuite();
+		
+		// Popula o mapa testResultsPerGroup com uma String para cada grupo com seus resultados
+		this.generateResultsMapForGroups ( xmlSuite, suite, groups );
+		
+		return testResultsPerGroup.keySet();
+	}
+	
+	
+	/**
 	 * Get total results from a test suite
 	 * 
 	 * @param keySet
-	 * @return
 	 */
-	public Integer getTotalTestResultsBySuite(Set<Class<?>> keySet)
+	public Integer getTotalTestResultsByTestSuite(Set<Class<?>> keySet)
 	{
 		Integer totalTestResults = 0;
 		for( Class<?> clazz : keySet )
@@ -211,6 +218,22 @@ implements IReporter
 			totalTestResults += testResults.size();
 		}
 		return totalTestResults;
+	}
+	
+	
+	/**
+	 * Get total results from a test group
+	 * 
+	 * @param keySet
+	 */
+	public Integer getTotalTestResultsByTestGroup(Set<String> gruposSet, String grupoNm)
+	{
+		Integer nrResults = 0;
+		if(testResultsPerGroup.get( grupoNm )!=null)
+		{
+			nrResults = testResultsPerGroup.get( grupoNm ).size();
+		}
+		return nrResults;
 	}
 	
 	
@@ -244,7 +267,71 @@ implements IReporter
 		}
 	}
 
-}
+	
+	/**
+	 * Generate the results map for the groups
+	 * 
+	 * @param xmlSuite
+	 * @param suite
+	 * @param groups
+	 */
+	protected void generateResultsMapForGroups( XmlSuite xmlSuite, ISuite suite, Map<String, Collection<ITestNGMethod>> groups )
+	{
+		if ( suite.getResults().size() > 0 )
+		{
+			for(ISuiteResult suiteResult : suite.getResults().values())
+			{
+				List<ITestResult> testResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
+				
+				for(ITestResult testResult : testResults)
+				{
+					ITestNGMethod method = testResult.getMethod();
+					
+					String[] groupsNm = findInWhatGroupsMethodIs(method, groups);
+					
+					for(String gpNm : groupsNm)
+					{
+						if(StringUtils.isNotEmpty(gpNm))
+						{
+							List<ITestResult> testResultsForThisGroup = testResultsPerGroup.get( gpNm );
+							
+							if ( testResultsForThisGroup == null )
+							{
+								testResultsForThisGroup = new ArrayList<ITestResult>();
+								testResultsPerGroup.put(gpNm, testResultsForThisGroup);
+							}
+							testResultsForThisGroup.add( testResult );
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Get the group name of a ITestNGMethod 
+	 * 
+	 * @param methodToFind
+	 * @param groups
+	 */
+	protected String[] findInWhatGroupsMethodIs( ITestNGMethod methodToFind, Map<String, Collection<ITestNGMethod>> groups )
+	{
+		String[] groupsFound = new String[groups.keySet().size()];
+		int cont=0;
+		for(Map.Entry<String, Collection<ITestNGMethod>> grupo:groups.entrySet())
+		{
+		    for (ITestNGMethod method : grupo.getValue())
+		    {
+		    	if(method.equals(methodToFind) && method.getRealClass().equals(methodToFind.getRealClass()))
+		    	{
+		    		groupsFound[cont]=grupo.getKey();
+		    		cont++;
+		    	}
+		    }
+		}
+		return groupsFound;
+	}
+}	
 
 
 class ExecutionDateCompator 

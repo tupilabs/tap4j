@@ -185,7 +185,7 @@ public class TestTestSet
 		
 		TestResult testResult = testSet.getTestResult( new Integer(1) );
 		
-		Assert.assertNull( testResult );
+		Assert.assertNotNull( testResult );
 		
 		okTestResult.setTestNumber( new Integer(1) );
 		Assert.assertTrue( testSet.addTestResult( okTestResult ) );

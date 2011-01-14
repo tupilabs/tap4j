@@ -178,30 +178,27 @@ public final class YAMLishUtils
 	 * @param testNgTestResult
 	 * @return Extensions value
 	 */
+	@SuppressWarnings("unchecked")
 	public static Object getExtensions( ITestResult testNgTestResult )
 	{
-		StringBuilder sb = new StringBuilder();
+		Object extensions = null;
 		Set<String> attributeNames = testNgTestResult.getAttributeNames();
 		Iterator<String> iterator = attributeNames.iterator();
 		if ( iterator.hasNext() )
 		{
+			extensions = new LinkedHashMap<String, Object>();
 			for ( ; iterator.hasNext();)
 			{
 				String attributeName = iterator.next();
-				sb.append(attributeName);
-				sb.append(':');
-				sb.append(testNgTestResult.getAttribute( attributeName ) );
-				if ( iterator.hasNext() )
-				{
-					sb.append(LINE_SEPARATOR);
-				}
+				Object attributeValue = testNgTestResult.getAttribute( attributeName );
+				((Map<String, Object>)extensions).put( attributeName, attributeValue );
 			}
 		}
 		else
 		{
-			sb.append('~');
+			extensions = '~';
 		}
-		return sb.toString();
+		return extensions;
 	}
 
 	/**
@@ -383,7 +380,7 @@ public final class YAMLishUtils
 		{
 			returnObject = "~";
 		}
-		return returnObject;
+		return returnObject.toString();
 	}
 
 	/**

@@ -54,12 +54,57 @@ extends TestListenerAdapter
 	
 	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
 	
+	protected ITestContext ctx;
 	
 	/**
 	 * TAP Producer.
 	 */
 	protected TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 	
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onStart(org.testng.ITestContext)
+	 */
+	@Override
+	public void onStart( ITestContext testContext )
+	{
+		this.ctx = testContext;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onTestSuccess(org.testng.ITestResult)
+	 */
+	@Override
+	public void onTestSuccess(ITestResult tr) 
+	{
+		TAPUtils.fillAttributes( tr, ctx );
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onTestFailure(org.testng.ITestResult)
+	 */
+	@Override
+	public void onTestFailure(ITestResult tr) 
+	{
+		TAPUtils.fillAttributes( tr, ctx );
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onTestSkipped(org.testng.ITestResult)
+	 */
+	@Override
+	public void onTestSkipped(ITestResult tr) 
+	{
+		TAPUtils.fillAttributes( tr, ctx );
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.testng.TestListenerAdapter#onTestFailedButWithinSuccessPercentage(org.testng.ITestResult)
+	 */
+	@Override
+	public void onTestFailedButWithinSuccessPercentage(ITestResult tr) 
+	{
+		TAPUtils.fillAttributes( tr, ctx );
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)

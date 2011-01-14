@@ -29,6 +29,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.testng.IResultMap;
 import org.testng.ITestContext;
@@ -379,6 +380,22 @@ public final class TAPUtils
 		for ( ITestResult testResult : map.getAllResults() )
 		{
 			total.addResult( testResult, testResult.getMethod() );
+		}
+	}
+
+	/**
+	 * Fills the TestNG Attributes from the context into the TestNG Test Result.
+	 * 
+	 * @param tr
+	 * @param ctx
+	 */
+	public static void fillAttributes( ITestResult tr, ITestContext ctx )
+	{
+		final Set<String> attrsNames = ctx.getAttributeNames();
+		
+		for( String attr : attrsNames )
+		{
+			tr.setAttribute(attr, ctx.getAttribute(attr));
 		}
 	}
 	

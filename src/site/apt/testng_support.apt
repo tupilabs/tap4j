@@ -8,10 +8,15 @@ TestNG support
  TestNG that you will be using a Listener. This can be done through command line, 
  suite xml file or Test class Listeners Annotation.
  
+ The classes for TestNG are inside br.eti.kinoshita.tap4j.ext. The class 
+ TestTAPReporter extends TestListenerAdapter and generates TAP per class and 
+ per method. The class SuiteTAPReporter implements a IReporter and generates 
+ TAP per Suite and Groups. They were done based on the HTML report for TestNG.
+ 
 * Command line
  
 +---+
-java -classpath testng.jar;tap4j-1.1.jar;%CLASSPATH% org.testng.TestNG -listener br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener test\testng.xml
+java -classpath testng.jar;tap4j-1.4.jar;%CLASSPATH% org.testng.TestNG -listener br.eti.kinoshita.tap4j.ext.TestTAPReporter test\testng.xml
 +---+
 
 * TestNG suite xml
@@ -24,7 +29,7 @@ java -classpath testng.jar;tap4j-1.1.jar;%CLASSPATH% org.testng.TestNG -listener
 <suite>
  
   <listeners>
-    <listener class-name="br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener" />
+    <listener class-name="br.eti.kinoshita.tap4j.ext.SuiteTAPReporter" />
   </listeners>
  
 ...
@@ -32,11 +37,10 @@ java -classpath testng.jar;tap4j-1.1.jar;%CLASSPATH% org.testng.TestNG -listener
 
 * Listeners Annotation
  
- Add the @Listeners annotation to your Test class. See 
- br.eti.kinoshita.tap4j.ext.TestNGIntegration.java for a sample.
+ Add the @Listeners annotation to your Test class.
  
 +---+
-@Listeners(value={br.eti.kinoshita.tap4j.ext.Tap4jTestNGTestListener.class})
+@Listeners(value={br.eti.kinoshita.tap4j.ext.TestTAPReporter.class})
 public class MyTestClass {
 ...
 +---+

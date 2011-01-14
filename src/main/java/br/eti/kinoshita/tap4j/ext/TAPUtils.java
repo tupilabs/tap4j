@@ -70,7 +70,7 @@ public final class TAPUtils
 	
 	/**
 	 * Generates a TAP TestResult from a given TestNG TestResult. 
-	 *  
+	 * 
 	 * @param testResult TestNG Test Result
 	 * @param number TAP Test Number
 	 * @return TAP TestResult
@@ -84,7 +84,7 @@ public final class TAPUtils
 		
 		TAPUtils.setTapTestResultStatus( tapTestResult, testResult.getStatus() );
 		
-		TAPUtils.createTestNGYAMLishData(tapTestResult, testResult );
+		TAPUtils.createTestNGYAMLishData( tapTestResult, testResult );
 		
 		return tapTestResult;
 	}
@@ -145,7 +145,9 @@ public final class TAPUtils
 	 * @param testResult TAP TestResult
 	 * @param testNgTestResult TestNG TestResult
 	 */
-	public static void createTestNGYAMLishData( TestResult testResult, ITestResult testNgTestResult )
+	public static void createTestNGYAMLishData( 
+			TestResult testResult, 
+			ITestResult testNgTestResult )
 	{
 		final Map<String, Object> yamlish = testResult.getDiagnostic();
 		
@@ -251,8 +253,10 @@ public final class TAPUtils
 	}
 	
 	/**
-	 * @param yamlish
-	 * @param testNgTestResult
+	 * Creates YAMLish diagnostic extensions entry data.
+	 * 
+	 * @param yamlish YAMLish Map
+	 * @param testNgTestResult TestNG TestResult
 	 */
 	public static void createYAMLishExtensions(
 			Map<String, Object> yamlish,
@@ -332,9 +336,8 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String backtrace = YAMLishUtils.getBacktrace( testNgTestResult );
+		Object backtrace = YAMLishUtils.getBacktrace( testNgTestResult );
 		yamlish.put( "backtrace", backtrace );
-		
 	}
 	
 	/**

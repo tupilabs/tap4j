@@ -89,7 +89,9 @@ implements IReporter
 	/**
 	 * Generate a TAP file for every suite tested
 	 * 
-	 * @param testContext
+	 * @param xmlSuites
+	 * @param suites
+	 * @param outputDirectory
 	 */
 	protected void generateTAPPerSuite(
 			List<XmlSuite> xmlSuites, 
@@ -112,7 +114,8 @@ implements IReporter
 				
 				for ( ITestResult testResult : testResults )
 				{
-					TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+					TestResult tapTestResult = 
+						TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
 					testSet.addTestResult( tapTestResult );
 				}
 			}
@@ -126,7 +129,9 @@ implements IReporter
 	/**
 	 * Generate a TAP file for every group tested
 	 * 
-	 * @param testContext
+	 * @param xmlSuites
+	 * @param suites
+	 * @param outputDirectory
 	 */
 	// TBD: Method to generate TAP file by test Group
 	// TAP structure ( group -> class -> method )
@@ -179,6 +184,7 @@ implements IReporter
 	 * Get a Set of test Results for Suites by a given ISuite
 	 * 
 	 * @param suite
+	 * @return Set of Classes for a Suite
 	 */
 	protected Set<Class<?>> getTestResultsSetPerSuite(ISuite suite)
 	{
@@ -211,6 +217,7 @@ implements IReporter
 	 * Get total results from a test suite
 	 * 
 	 * @param keySet
+	 * @return Total Results
 	 */
 	public Integer getTotalTestResultsByTestSuite(Set<Class<?>> keySet)
 	{

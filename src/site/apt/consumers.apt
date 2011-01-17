@@ -1,9 +1,8 @@
 Consumers
 
- Consumers are basically parsers. They can load a file or a String and parse 
- its contents and build objects, letting the user or another API to use TAP.
- 
- Given the following TAP Stream:
+ The TAP Consumer is responsible for reading TAP. It can read TAP from a file 
+ or from a String. The method used to load TAP is load(). It returns a 
+ {{{TestSet}}} object. Take a look at the TAP sample below. 
  
 +---+
 1..0 skip Testing...
@@ -22,7 +21,11 @@ not ok 9 Failed to execute IO operation. # Reviewing
 ok 10 Test passed OK! # TODO We'll implement this in the next release.
 +---+
 
- We could parse it using tap4j as follows:
+ Using tap4j read the TAP above is easy as a piece of cake. 
+ First you instantiate a new TAP Consumer. It is done using 
+ {{{TapConsumerFactory}ffff}}. The method load() of the 
+ TAP Consumer returns a {{http://tap4j.sourceforge.net/apidocs/br/eti/kinoshita/tap4j/model/TestSet.html}}TestSet. The TestSet contains Header, Plan, TestResult's, 
+ Comments and Footer. 
  
 +---+
 ...

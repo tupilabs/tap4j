@@ -133,8 +133,6 @@ implements IReporter
 	 * @param suites
 	 * @param outputDirectory
 	 */
-	// TBD: Method to generate TAP file by test Group
-	// TAP structure ( group -> class -> method )
 	protected void generateTAPPerGroup(
 			List<XmlSuite> xmlSuites, 
 			List<ISuite> suites, 
@@ -146,9 +144,6 @@ implements IReporter
 			
 			if (groups.size() > 0) 
 			{
-				// Populate the map with groups and test results
-				//Set<String> testResultsSet = this.getTestResultsSetPerGroup(suite, groups);
-				
 				String[] groupNames = groups.keySet().toArray(new String[groups.size()]);
 				Arrays.sort(groupNames);
 				
@@ -201,6 +196,8 @@ implements IReporter
 	 * Get a Set of test Results for Groups by a given ISuite
 	 * 
 	 * @param suite
+	 * @param groups
+	 * @return Set of TestResults for a Group
 	 */
 	protected Set<String> getTestResultsSetPerGroup(ISuite suite, Map<String, Collection<ITestNGMethod>> groups)
 	{

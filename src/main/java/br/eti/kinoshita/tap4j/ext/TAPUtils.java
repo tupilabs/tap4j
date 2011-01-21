@@ -23,6 +23,7 @@
  */
 package br.eti.kinoshita.tap4j.ext;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,6 +34,7 @@ import java.util.Set;
 
 import org.testng.IResultMap;
 import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.internal.ResultMap;
 
@@ -392,10 +394,19 @@ public final class TAPUtils
 	public static void fillAttributes( ITestResult tr, ITestContext ctx )
 	{
 		final Set<String> attrsNames = ctx.getAttributeNames();
-		
 		for( String attr : attrsNames )
 		{
-			tr.setAttribute(attr, ctx.getAttribute(attr));
+			Object o = ctx.getAttribute(attr);
+			if ( o instanceof TapAttribute )
+			{
+				TapAttribute tapAttr = (TapAttribute)o;
+				ITestNGMethod testNGMethod = tr.getMethod();
+				Method method = testNGMethod.getMethod();
+				if ( method == tapAttr.getMethod() )
+				{
+					tr.setAttribute(attr, tapAttr.getValue());
+				}
+			}
 		}
 	}
 	

@@ -37,6 +37,7 @@ public abstract class AbstractTapElementDiagnostic
 implements TapElement
 {
 	
+	private static final long serialVersionUID = 4685273196118919946L;
 	/**
 	 * Iterable object returned by snakeyaml.
 	 */

@@ -33,6 +33,8 @@ package br.eti.kinoshita.tap4j.consumer;
 public class TapConsumerException extends RuntimeException
 {
 
+	private static final long serialVersionUID = -4463077483065538121L;
+
 	/**
 	 * Default constructor.
 	 */

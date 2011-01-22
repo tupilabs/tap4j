@@ -34,6 +34,8 @@ public class TapAttribute
 implements Serializable
 {
 
+	private static final long serialVersionUID = -6479674325095714937L;
+	
 	private Method method;
 	private String value;
 	

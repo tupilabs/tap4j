@@ -31,6 +31,8 @@ public class RepresenterException
 extends RuntimeException
 {
 
+	private static final long serialVersionUID = 5273452940014536172L;
+
 	/**
 	 * Default constructor.
 	 */

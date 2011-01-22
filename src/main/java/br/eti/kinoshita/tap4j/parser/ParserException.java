@@ -31,6 +31,8 @@ public class ParserException
 extends RuntimeException 
 {
 
+	private static final long serialVersionUID = 8375457492239728975L;
+
 	/**
 	 * 
 	 */

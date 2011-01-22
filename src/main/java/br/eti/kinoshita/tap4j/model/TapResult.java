@@ -33,5 +33,7 @@ package br.eti.kinoshita.tap4j.model;
 public abstract class TapResult 
 extends AbstractTapElementDiagnostic
 {
+
+	private static final long serialVersionUID = 4067296755403797184L;
 	
 }

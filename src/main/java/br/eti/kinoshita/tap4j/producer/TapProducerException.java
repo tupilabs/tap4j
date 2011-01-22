@@ -27,7 +27,11 @@ package br.eti.kinoshita.tap4j.producer;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TapProducerException extends RuntimeException {
+public class TapProducerException 
+extends RuntimeException 
+{
+
+	private static final long serialVersionUID = 5579591125440097408L;
 
 	/**
 	 * 

@@ -103,6 +103,35 @@ implements Parser
 	 */
 	protected Footer footer;
 	
+	/**
+	 * Default constructor. Calls the init method.
+	 */
+	public Tap13Parser()
+	{
+		super();
+		this.init();
+	}
+	
+	/**
+	 * Called from the constructor and everytime a new TAP Stream (file or string) 
+	 * is processed.
+	 */
+	public void init()
+	{
+		this.isFirstLine = true;
+		this.isHeaderSet = false;
+		this.isPlanSet = false;
+		this.planBeforeTestResult = false;
+		this.lastLine = null;
+		this.testSet = null;
+		this.header = null;
+		this.plan = null;
+		this.tapLines = new ArrayList<TapResult>();
+		this.testResults = new ArrayList<TestResult>();
+		this.bailOuts = new ArrayList<BailOut>();
+		this.comments = new ArrayList<Comment>();
+	}
+	
 	/* (non-Javadoc)
 	 * @see br.eti.kinoshita.tap4j.TapConsumer#getTestSet()
 	 */
@@ -467,6 +496,9 @@ implements Parser
 	public TestSet parseTapStream( String tapStream ) 
 	throws ParserException
 	{
+		
+		this.init();
+		
 		Scanner scanner = null;
 		
 		try
@@ -507,6 +539,9 @@ implements Parser
 	public TestSet parseFile( File tapFile ) 
 	throws ParserException
 	{
+		
+		this.init();
+		
 		Scanner scanner = null;
 		
 		try

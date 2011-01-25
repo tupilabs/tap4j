@@ -411,4 +411,26 @@ public class TestTap13Consumer
 		Assert.assertNull( testSet );
 	}
 	
+	@Test(description="Tests a TapConsumer with a single Test Result")
+	public void testWithSingleTestResult()
+	{
+		TestSet testSet = consumer.load( new File(TestTap13Consumer.class.getResource("/br/eti/kinoshita/tap4j/consumer/single_tr.tap").getFile()) );
+		
+		Assert.assertNotNull( testSet );
+		
+		Assert.assertTrue( testSet.getNumberOfTestResults() == 1 );
+	}
+	
+	@Test(description="A Tap Consumer cannot save its state")
+	public void testStateOfConsumer()
+	{
+		TestSet testSet = consumer.load( new File(TestTap13Consumer.class.getResource("/br/eti/kinoshita/tap4j/consumer/single_tr.tap").getFile()) );
+		
+		Assert.assertNotNull( testSet );
+		
+		Assert.assertTrue( testSet.getNumberOfTestResults() == 1 );
+		
+		testSet = consumer.load( new File(TestTap13Consumer.class.getResource("/br/eti/kinoshita/tap4j/consumer/two_tr.tap").getFile()) );
+	}
+	
 }

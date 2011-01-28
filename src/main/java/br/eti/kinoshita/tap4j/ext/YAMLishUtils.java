@@ -55,7 +55,6 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
  */
 public final class YAMLishUtils
 {
-
 	/**
 	 * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
 	 */
@@ -107,10 +106,9 @@ public final class YAMLishUtils
 	}
 
 	/**
-	 * @param testNgTestResult
 	 * @return Datetime value
 	 */
-	public static String getDatetime( ITestResult testNgTestResult )
+	public static String getDatetime()
 	{
 		long currentTimeMillis = System.currentTimeMillis();
 		Date date = new Date(currentTimeMillis);
@@ -138,32 +136,50 @@ public final class YAMLishUtils
 		Throwable testNGException = testNgTestResult.getThrowable();
 		if (testNGException != null)
 		{
+			StringBuilder lookFor = new StringBuilder();
+			lookFor.append(testNgTestResult.getInstance().getClass().getName());
+			lookFor.append('.');
+			lookFor.append(testNgTestResult.getMethod().getMethodName());
+			lookFor.append('(');
+			lookFor.append(testNgTestResult.getInstance().getClass().getSimpleName());
+			lookFor.append(".java:");
+			
 			StackTraceElement[] els = testNGException.getStackTrace();
+			
 			for (int i = 0; i < els.length; i++)
 			{
 				StackTraceElement el = els[i];
-				StringBuilder lookFor = new StringBuilder();
-				lookFor.append("at ");
-				lookFor.append(testNgTestResult.getInstance().getClass()
-						.getName());
-				lookFor.append('.');
-				lookFor.append(testNgTestResult.getMethod().getMethodName());
-				lookFor.append('(');
-				lookFor.append(testNgTestResult.getInstance().getClass()
-						.getSimpleName());
-				lookFor.append(".java:");
-				int index = el.toString().indexOf(lookFor.toString());
-				if (index > 0)
+				line = getLineNumberFromExceptionTraceLine(el.toString(), lookFor.toString());
+				if (line!="")
 				{
-					line = el.toString().substring(index,
-							el.toString().lastIndexOf(')'));
 					break;
 				}
 			}
 		}
 		return line;
 	}
-
+	
+	/**
+	 * Get the error line number from the exception stack trace
+	 * @param exceptionTraceLine
+	 * @param substrToSearch
+	 * @return error line number
+	 */
+	public static String getLineNumberFromExceptionTraceLine(String exceptionTraceLine, String substrToSearch)
+	{
+		String lineNumber="";
+		int index = exceptionTraceLine.indexOf(substrToSearch);
+		if (index >= 0)
+		{
+			int length = substrToSearch.length() + index;
+			if( exceptionTraceLine.lastIndexOf(')') > length )
+			{
+				lineNumber = exceptionTraceLine.substring(length, exceptionTraceLine.lastIndexOf(')'));
+			}
+		}
+		return lineNumber;
+	}
+	
 	/**
 	 * @param testNgTestResult
 	 * @return Name value
@@ -221,8 +237,8 @@ public final class YAMLishUtils
 
 			String expectedToken = "expected:";
 			String butWasToken = " but was:";
-			int index = stringException.toString().indexOf(
-					expectedToken.toString());
+			int index = stringException.toString().indexOf( expectedToken.toString() );
+			
 			if (index > 0)
 			{
 				expected = stringException.toString().substring(
@@ -254,15 +270,12 @@ public final class YAMLishUtils
 
 			String expectedToken = "expected:";
 			String butWasToken = " but was:";
-			int index = stringException.toString().indexOf(
-					expectedToken.toString());
+			int index = stringException.toString().indexOf(expectedToken.toString());
 			if (index > 0)
 			{
 				index = stringException.toString().indexOf(butWasToken);
-				int eolIndex = stringException.toString().indexOf(
-						System.getProperty("line.separator"), index);
-				actual = stringException.toString().substring(
-						index + butWasToken.length(), eolIndex);
+				int eolIndex = stringException.toString().indexOf( System.getProperty("line.separator"), index);
+				actual = stringException.toString().substring( index + butWasToken.length(), eolIndex);
 			}
 		}
 
@@ -300,26 +313,22 @@ public final class YAMLishUtils
 			// Actual length plus the two spaces and an extra for next character
 			int greaterPlus3 = greater + 3;
 
-			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-					+ fill(greaterPlus3, '-') + "+");
+			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" + fill(greaterPlus3, '-') + "+");
 			displayBuffer.append(LINE_SEPARATOR);
 			
-			displayBuffer.append("+" + fill(greater, "Got") + "|"
-					+ fill(greater, "Expected") + "+");
+			displayBuffer.append("+" + fill(greater, "Got") + "|" + fill(greater, "Expected") + "+");
 			displayBuffer.append(LINE_SEPARATOR);
 			
-			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-					+ fill(greaterPlus3, '-') + "+");
+			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" + fill(greaterPlus3, '-') + "+");
 			displayBuffer.append(LINE_SEPARATOR);
 			
-			displayBuffer.append("+" + fill(greater, actual) + "|"
-					+ fill(greater, expected) + "+");
+			displayBuffer.append("+" + fill(greater, actual) + "|" + fill(greater, expected) + "+");
 			displayBuffer.append(LINE_SEPARATOR);
 			
-			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-					+ fill(greaterPlus3, '-') + "+");
+			displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" + fill(greaterPlus3, '-') + "+");
 			
-		} else
+		} 
+		else
 		{
 			displayBuffer.append('~');
 		}
@@ -373,8 +382,7 @@ public final class YAMLishUtils
 			for (int i = 0; i < parameters.length; i++)
 			{
 				Object parameter = parameters[i];
-				((Map<String, Object>) returnObject).put("param" + (i + 1),
-						parameter);
+				((Map<String, Object>) returnObject).put("param" + (i + 1), parameter);
 			}
 		} else
 		{
@@ -419,8 +427,7 @@ public final class YAMLishUtils
 			String stackTraceString = sw.toString();
 			stackTraceString = stackTraceString.trim().replaceAll("\\r\\n", "\n");
 
-			StringTokenizer st = new StringTokenizer(stackTraceString,
-					LINE_SEPARATOR );
+			StringTokenizer st = new StringTokenizer(stackTraceString, LINE_SEPARATOR );
 			while (st.hasMoreTokens())
 			{
 				String stackTraceLine = st.nextToken();
@@ -449,10 +456,8 @@ public final class YAMLishUtils
 
 		maybeAdd(result, "name", suite.getName(), null);
 		maybeAdd(result, "junit", suite.isJUnit(), XmlSuite.DEFAULT_JUNIT);
-		maybeAdd(result, "verbose", suite.getVerbose(),
-				XmlSuite.DEFAULT_VERBOSE);
-		maybeAdd(result, "threadCount", suite.getThreadCount(),
-				XmlSuite.DEFAULT_THREAD_COUNT);
+		maybeAdd(result, "verbose", suite.getVerbose(), XmlSuite.DEFAULT_VERBOSE);
+		maybeAdd(result, "threadCount", suite.getThreadCount(), XmlSuite.DEFAULT_THREAD_COUNT);
 		maybeAdd(result, "dataProviderThreadCount",
 				suite.getDataProviderThreadCount(),
 				XmlSuite.DEFAULT_DATA_PROVIDER_THREAD_COUNT);
@@ -496,39 +501,53 @@ public final class YAMLishUtils
 		return result;
 	}
 
-	private static void maybeAdd( StringBuilder sb, String key, Object value,
-			Object def )
+	/**
+	 * 
+	 * @param sb
+	 * @param key
+	 * @param value
+	 * @param def
+	 */
+	private static void maybeAdd( StringBuilder sb, String key, Object value, Object def )
 	{
 		maybeAdd(sb, "", key, value, def);
 	}
 
+	/**
+	 * 
+	 * @param sb
+	 * @param sp
+	 * @param key
+	 * @param value
+	 * @param def
+	 */
 	private static void maybeAdd( StringBuilder sb, String sp, String key,
-			Object value, Object def )
+								  Object value, Object def )
 	{
 		if (value != null && !value.equals(def))
 		{
-			sb.append(sp).append(key).append(": ").append(value.toString())
-					.append("\n");
+			sb.append(sp).append(key).append(": ").append(value.toString()).append("\n");
 		}
 	}
 
+	/**
+	 * 
+	 * @param result
+	 * @param sp
+	 * @param t
+	 */
 	private static void toYaml( StringBuilder result, String sp, XmlTest t )
 	{
 		String sp2 = sp + "  ";
 		result.append(sp).append("- name: ").append(t.getName()).append("\n");
 
 		maybeAdd(result, sp2, "junit", t.isJUnit(), XmlSuite.DEFAULT_JUNIT);
-		maybeAdd(result, sp2, "verbose", t.getVerbose(),
-				XmlSuite.DEFAULT_VERBOSE);
+		maybeAdd(result, sp2, "verbose", t.getVerbose(), XmlSuite.DEFAULT_VERBOSE);
 		maybeAdd(result, sp2, "timeOut", t.getTimeOut(), null);
-		maybeAdd(result, sp2, "parallel", t.getParallel(),
-				XmlSuite.DEFAULT_PARALLEL);
-		maybeAdd(result, sp2, "skipFailedInvocationCounts",
-				t.skipFailedInvocationCounts(),
-				XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
+		maybeAdd(result, sp2, "parallel", t.getParallel(), XmlSuite.DEFAULT_PARALLEL);
+		maybeAdd(result, sp2, "skipFailedInvocationCounts", t.skipFailedInvocationCounts(), XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
 
-		maybeAdd(result, "preserveOrder", sp2, t.getPreserveOrder(),
-				"false"); // TBD: is it the default value?
+		maybeAdd(result, "preserveOrder", sp2, t.getPreserveOrder(), "false"); // TBD: is it the default value?
 
 		toYaml(result, "parameters", sp2, t.getParameters());
 
@@ -554,7 +573,9 @@ public final class YAMLishUtils
 			for (String group : mg.keySet())
 			{
 				if (!first)
+				{
 					result.append(", ");
+				}
 				result.append(group).append(": [ ")
 						.append(StringUtils.join(mg.get(group), ",")).append(" ] ");
 				first = false;
@@ -583,14 +604,19 @@ public final class YAMLishUtils
 		result.append("\n");
 	}
 
+	/**
+	 * 
+	 * @param result
+	 * @param sp2
+	 * @param xc
+	 */
 	private static void toYaml( StringBuilder result, String sp2, XmlClass xc )
 	{
 		List<XmlInclude> im = xc.getIncludedMethods();
 		List<String> em = xc.getExcludedMethods();
 		String name = im.size() > 0 || em.size() > 0 ? "name: " : "";
 
-		result.append(sp2).append("- " + name).append(xc.getName())
-				.append("\n");
+		result.append(sp2).append("- " + name).append(xc.getName()).append("\n");
 		if (im.size() > 0)
 		{
 			result.append(sp2 + "  includedMethods:\n");
@@ -607,11 +633,23 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param result
+	 * @param sp2
+	 * @param xi
+	 */
 	private static void toYaml( StringBuilder result, String sp2, XmlInclude xi )
 	{
 		result.append(sp2 + "- " + xi.getName()).append("\n");
 	}
 
+	/**
+	 * 
+	 * @param result
+	 * @param sp
+	 * @param strings
+	 */
 	private static void toYaml( StringBuilder result, String sp,
 			List<String> strings )
 	{
@@ -623,6 +661,10 @@ public final class YAMLishUtils
 
 	// private static final String SP = "  ";
 
+
+	/**
+	 * 
+	 */
 	private static void toYaml( StringBuilder sb, List<XmlPackage> packages )
 	{
 		if (packages.size() > 0)
@@ -639,6 +681,12 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param sb
+	 * @param sp
+	 * @param p
+	 */
 	private static void toYaml( StringBuilder sb, String sp, XmlPackage p )
 	{
 		sb.append(sp).append("name: ").append(p.getName()).append("\n");
@@ -647,8 +695,15 @@ public final class YAMLishUtils
 		generateIncludeExclude(sb, sp, "excludes", p.getExclude());
 	}
 
+	/**
+	 * 
+	 * @param sb
+	 * @param sp
+	 * @param key
+	 * @param includes
+	 */
 	private static void generateIncludeExclude( StringBuilder sb, String sp,
-			String key, List<String> includes )
+												String key, List<String> includes )
 	{
 		if (includes.size() > 0)
 		{
@@ -660,6 +715,11 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param map
+	 * @param out
+	 */
 	private static void mapToYaml( Map<String, String> map, StringBuilder out )
 	{
 		if (map.size() > 0)
@@ -677,8 +737,15 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param sb
+	 * @param key
+	 * @param sp
+	 * @param parameters
+	 */
 	private static void toYaml( StringBuilder sb, String key, String sp,
-			Map<String, String> parameters )
+								Map<String, String> parameters )
 	{
 		if (parameters.size() > 0)
 		{
@@ -687,11 +754,16 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param suite
+	 * @param name
+	 * @param target
+	 */
 	@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 	private static void addToMap( Map suite, String name, Map target )
 	{
-		List<Map<String, String>> parameters = (List<Map<String, String>>) suite
-				.get(name);
+		List<Map<String, String>> parameters = (List<Map<String, String>>) suite.get(name);
 		if (parameters != null)
 		{
 			for (Map<String, String> parameter : parameters)
@@ -704,6 +776,12 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param suite
+	 * @param name
+	 * @param target
+	 */
 	@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 	private static void addToList( Map suite, String name, List target )
 	{
@@ -721,14 +799,22 @@ public final class YAMLishUtils
 		}
 	}
 
+	/**
+	 * 
+	 * @param filePath
+	 * @param is
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public static XmlSuite parse( String filePath, InputStream is )
-			throws FileNotFoundException
+	throws FileNotFoundException
 	{
-		JavaBeanLoader<XmlSuite> loader = new JavaBeanLoader<XmlSuite>(
-				XmlSuite.class);
+		JavaBeanLoader<XmlSuite> loader = new JavaBeanLoader<XmlSuite>(XmlSuite.class);
 		if (is == null)
+		{
 			is = new FileInputStream(new File(filePath));
-		XmlSuite result = loader.load(new UnicodeReader(is));// UnicodeReader
+		}
+		XmlSuite result = loader.load(new UnicodeReader(is));	// UnicodeReader
 																// used to
 																// respect BOM
 		result.setFileName(filePath);

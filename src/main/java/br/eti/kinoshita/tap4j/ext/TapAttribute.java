@@ -37,13 +37,13 @@ implements Serializable
 	private static final long serialVersionUID = -6479674325095714937L;
 	
 	private Method method;
-	private String value;
+	private Object value;
 	
 	/**
 	 * @param method
 	 * @param value
 	 */
-	public TapAttribute(Method method, String value)
+	public TapAttribute(Method method, Object value)
 	{
 		super();
 		this.method = method;
@@ -66,14 +66,14 @@ implements Serializable
 	/**
 	 * @return the value
 	 */
-	public String getValue()
+	public Object getValue()
 	{
 		return value;
 	}
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue( String value )
+	public void setValue( Object value )
 	{
 		this.value = value;
 	}

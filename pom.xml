@@ -126,9 +126,12 @@
 				<version>2.4</version>
 				<configuration>
 					<instrumentation>
-			            <excludes>
-			              <exclude>br/eti/kinoshita/tap4j/ext/*.class</exclude>
-			            </excludes>
+						<ignores>
+							<ignore>br.eti.kinoshita.tap4j.ext.*</ignore>
+						</ignores>
+						<excludes>
+							<exclude>br/eti/kinoshita/tap4j/ext/**/*.class</exclude>
+						</excludes>
 					</instrumentation>
 				</configuration>
 			</plugin>

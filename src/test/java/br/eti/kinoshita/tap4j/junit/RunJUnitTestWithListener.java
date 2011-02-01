@@ -2,7 +2,7 @@ package br.eti.kinoshita.tap4j.junit;
 
 import org.junit.runner.JUnitCore;
 
-import br.eti.kinoshita.tap4j.ext.JUnit40TestTapReporter;
+import br.eti.kinoshita.tap4j.ext.JUnitTestTapReporter;
 
 /**
  * Test class for JUnit listener execution 
@@ -18,7 +18,7 @@ public class RunJUnitTestWithListener
 	public static void main(String[] args) 
 	{
 		 JUnitCore core= new JUnitCore();
-		 core.addListener(new JUnit40TestTapReporter());
+		 core.addListener(new JUnitTestTapReporter());
 		 core.run(TestTap13JUnit.class);
 	}
 }

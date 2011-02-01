@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package src.test.java.br.eti.kinoshita.tap4j.ext.testng.issue3167058;
+package br.eti.kinoshita.tap4j.ext.testng.issue3167058;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

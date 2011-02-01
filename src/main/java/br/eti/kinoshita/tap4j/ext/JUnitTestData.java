@@ -2,7 +2,7 @@ package br.eti.kinoshita.tap4j.ext;
 
 import org.junit.runner.Description;
 
-public class JUnit40TestData {
+public class JUnitTestData {
 	private Description description;
 	private Boolean ignored;
 	private Boolean failed;
@@ -10,7 +10,7 @@ public class JUnit40TestData {
 	private String failTrace;
 	private Throwable failException;
 
-	public JUnit40TestData(Boolean ignored, Boolean failed) {
+	public JUnitTestData(Boolean ignored, Boolean failed) {
 		this.ignored = ignored;
 		this.failed = failed;
 	}

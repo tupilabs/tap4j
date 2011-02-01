@@ -11,9 +11,9 @@ import br.eti.kinoshita.tap4j.model.TestResult;
 import br.eti.kinoshita.tap4j.util.DirectiveValues;
 import br.eti.kinoshita.tap4j.util.StatusValues;
 
-class JUnit40TAPUtils
+class JUnitTAPUtils
 {
-	private JUnit40TAPUtils()
+	private JUnitTAPUtils()
 	{
 		super();
 	}
@@ -25,7 +25,7 @@ class JUnit40TAPUtils
 	 * @param number
 	 * @return
 	 */
-	public static TestResult generateTAPTestResult( JUnit40TestData testMethod, Integer number )
+	public static TestResult generateTAPTestResult( JUnitTestData testMethod, Integer number )
 	{
 		final TestResult tapTestResult = new TestResult();
 		
@@ -45,15 +45,15 @@ class JUnit40TAPUtils
      * @param testMethod
      * @return the tap test description 
      */
-	public static String generateTAPTestResultDescription( JUnit40TestData testMethod )
+	public static String generateTAPTestResultDescription( JUnitTestData testMethod )
     {
     	StringBuilder description = new StringBuilder();
     	
     	// An extra space is added before the description by the TAP Representer
     	description.append( "- " ); 
-    	description.append( JUnit40YAMLishUtils.extractClassName( testMethod.getDescription() ) );
+    	description.append( JUnitYAMLishUtils.extractClassName( testMethod.getDescription() ) );
     	description.append( '#' );
-    	description.append( JUnit40YAMLishUtils.extractMethodName( testMethod.getDescription() ) );
+    	description.append( JUnitYAMLishUtils.extractMethodName( testMethod.getDescription() ) );
     	
     	return description.toString();
     }
@@ -64,7 +64,7 @@ class JUnit40TAPUtils
 	 * @param tapTestResult
 	 * @param testMethod
 	 */
-    public static void setTapTestStatus( TestResult tapTestResult, JUnit40TestData testMethod )
+    public static void setTapTestStatus( TestResult tapTestResult, JUnitTestData testMethod )
     {
     	if(testMethod.isIgnored())
     	{
@@ -97,7 +97,7 @@ class JUnit40TAPUtils
 	 */
 	public static void createTestNGYAMLishData( 
 			TestResult testResult, 
-			JUnit40TestData testMethod )
+			JUnitTestData testMethod )
 	{
 		final Map<String, Object> yamlish = testResult.getDiagnostic();
 		
@@ -121,9 +121,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishMessage(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String message = JUnit40YAMLishUtils.getMessage( testMethod );
+		String message = JUnitYAMLishUtils.getMessage( testMethod );
 		yamlish.put( "message", message );
 	}
 	
@@ -134,9 +134,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishSeverity(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String severity = JUnit40YAMLishUtils.getSeverity( testMethod );
+		String severity = JUnitYAMLishUtils.getSeverity( testMethod );
 		yamlish.put( "severity", severity );
 	}
 
@@ -147,12 +147,12 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishSource(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String methodName = JUnit40YAMLishUtils.extractMethodName(testMethod.getDescription());
-		String className = JUnit40YAMLishUtils.extractClassName(testMethod.getDescription());
+		String methodName = JUnitYAMLishUtils.extractMethodName(testMethod.getDescription());
+		String className = JUnitYAMLishUtils.extractClassName(testMethod.getDescription());
 		
-		String source = JUnit40YAMLishUtils.getSource(methodName, className);			
+		String source = JUnitYAMLishUtils.getSource(methodName, className);			
 		yamlish.put( "source", source );
 	}
 	
@@ -162,7 +162,7 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishDatetime(Map<String, Object> yamlish) 
 	{
-		String datetime = JUnit40YAMLishUtils.getDatetime();
+		String datetime = JUnitYAMLishUtils.getDatetime();
 		yamlish.put( "datetime", datetime );
 	}
 	
@@ -173,9 +173,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishFile(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String file = JUnit40YAMLishUtils.getFile( testMethod );
+		String file = JUnitYAMLishUtils.getFile( testMethod );
 		yamlish.put("file", file);
 	}
 	
@@ -186,9 +186,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishLine(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String line = JUnit40YAMLishUtils.getLine( testMethod );
+		String line = JUnitYAMLishUtils.getLine( testMethod );
 		yamlish.put("line", line);
 	}
 	
@@ -199,9 +199,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishName(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String name = JUnit40YAMLishUtils.getName( testMethod );
+		String name = JUnitYAMLishUtils.getName( testMethod );
 		yamlish.put( "name", name );
 	}
 
@@ -211,9 +211,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishError(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		String error = JUnit40YAMLishUtils.getError( testMethod );
+		String error = JUnitYAMLishUtils.getError( testMethod );
 		yamlish.put("error", error);
 	}
 	
@@ -223,9 +223,9 @@ class JUnit40TAPUtils
 	 */
 	public static void createYAMLishBacktrace(
 			Map<String, Object> yamlish,
-			JUnit40TestData testMethod) 
+			JUnitTestData testMethod) 
 	{
-		Object backtrace = JUnit40YAMLishUtils.getBacktrace( testMethod );
+		Object backtrace = JUnitYAMLishUtils.getBacktrace( testMethod );
 		yamlish.put( "backtrace", backtrace );
 	}
 	

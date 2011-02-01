@@ -39,7 +39,7 @@ import org.yaml.snakeyaml.DumperOptions.LineBreak;
  * @author Cesar Fernandes de Almeida
  * @since 1.0
  */
-public final class JUnit40YAMLishUtils
+public final class JUnitYAMLishUtils
 {
 	/**
 	 * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
@@ -52,7 +52,7 @@ public final class JUnit40YAMLishUtils
 	/**
 	 * Default hidden constructor.
 	 */
-	private JUnit40YAMLishUtils()
+	private JUnitYAMLishUtils()
 	{
 		super();
 	}
@@ -63,7 +63,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return test message
 	 */
-	public static String getMessage( JUnit40TestData testMethod )
+	public static String getMessage( JUnitTestData testMethod )
 	{
 		return "JUnit 4.0 Test " + testMethod.getDescription().getDisplayName();
 	}
@@ -74,7 +74,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return severity
 	 */
-	public static String getSeverity( JUnit40TestData testMethod )
+	public static String getSeverity( JUnitTestData testMethod )
 	{
 		String severity = "~";
 		if (testMethod.getFailException() != null)
@@ -114,7 +114,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return the file´s name
 	 */
-	public static String getFile( JUnit40TestData testMethod )
+	public static String getFile( JUnitTestData testMethod )
 	{
 		String file = extractClassName(testMethod.getDescription());
 		return file;
@@ -126,7 +126,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return
 	 */
-	public static String getLine( JUnit40TestData testMethod )
+	public static String getLine( JUnitTestData testMethod )
 	{
 		String line = "~";
 		Throwable testException = testMethod.getFailException();
@@ -184,7 +184,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return
 	 */
-	public static String getName( JUnit40TestData testMethod )
+	public static String getName( JUnitTestData testMethod )
 	{
 		String name = extractMethodName( testMethod.getDescription());
 		return name;
@@ -196,7 +196,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return
 	 */
-	public static String getError( JUnit40TestData testMethod )
+	public static String getError( JUnitTestData testMethod )
 	{
 		String error = "~";
 		Throwable t = testMethod.getFailException();
@@ -213,7 +213,7 @@ public final class JUnit40YAMLishUtils
 	 * @param testMethod
 	 * @return
 	 */
-	public static String getBacktrace( JUnit40TestData testMethod )
+	public static String getBacktrace( JUnitTestData testMethod )
 	{
 		StringBuilder stackTrace = new StringBuilder();
 

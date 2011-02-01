@@ -21,12 +21,12 @@ import br.eti.kinoshita.tap4j.producer.TapProducerFactory;
  * @author César Fernandes de Almeida
  *
  */
-public class JUnit40TestTapReporter 
+public class JUnitTestTapReporter 
 extends RunListener 
 {
 	Result resFinal;
 	
-	protected List<JUnit40TestData> testMethodsList = null;
+	protected List<JUnitTestData> testMethodsList = null;
 	
 	/**
 	 * TAP Producer.
@@ -43,7 +43,7 @@ extends RunListener
     {
     	this.tapProducer = TapProducerFactory.makeTap13YamlProducer();
     	
-    	this.testMethodsList = new ArrayList<JUnit40TestData>();
+    	this.testMethodsList = new ArrayList<JUnitTestData>();
     }
 
     /**
@@ -72,7 +72,7 @@ extends RunListener
     public void testIgnored( Description description )
         throws Exception
     {
-    	JUnit40TestData testMethod = new JUnit40TestData(false, false);
+    	JUnitTestData testMethod = new JUnitTestData(false, false);
     	testMethod.setDescription(description);
     	testMethod.setIgnored( true );
     	testMethodsList.add(testMethod);
@@ -95,7 +95,6 @@ extends RunListener
      *
      * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
      */
-    @SuppressWarnings( { "ThrowableResultOfMethodCallIgnored" } )
     public void testFailure( Failure failure )
         throws Exception
     {
@@ -121,11 +120,11 @@ extends RunListener
     	TestSet testSet = new TestSet();
     	testSet.setPlan( new Plan( testMethodsList.size() ) );
     	String className="";
-    	for(JUnit40TestData testMethod:testMethodsList)
+    	for(JUnitTestData testMethod:testMethodsList)
     	{
-			className = JUnit40YAMLishUtils.extractClassName( testMethod.getDescription() );
+			className = JUnitYAMLishUtils.extractClassName( testMethod.getDescription() );
 
-			TestResult tapTestResult = JUnit40TAPUtils.generateTAPTestResult(testMethod, 1);
+			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult(testMethod, 1);
 			testSet.addTestResult( tapTestResult );
     	}
 		
@@ -140,16 +139,16 @@ extends RunListener
      */
     protected void generateTapPerMethod( Result result )
     {
-    	for(JUnit40TestData testMethod:testMethodsList)
+    	for(JUnitTestData testMethod:testMethodsList)
     	{
-			TestResult tapTestResult = JUnit40TAPUtils.generateTAPTestResult(testMethod, 1);
+			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult(testMethod, 1);
 			
         	TestSet testSet = new TestSet();
         	testSet.setPlan( new Plan( 1 ) );
 			testSet.addTestResult( tapTestResult );
 	    	
-			String className  = JUnit40YAMLishUtils.extractClassName( testMethod.getDescription() );
-			String methodName = JUnit40YAMLishUtils.extractMethodName( testMethod.getDescription() );
+			String className  = JUnitYAMLishUtils.extractClassName( testMethod.getDescription() );
+			String methodName = JUnitYAMLishUtils.extractMethodName( testMethod.getDescription() );
 			
 			File output = new File( "./", className+"#"+methodName+".tap" );
 			tapProducer.dump( testSet, output );
@@ -163,7 +162,7 @@ extends RunListener
      */
     protected void setTestInfo( Description description )
     {
-    	JUnit40TestData testMethod = new JUnit40TestData(false, false);
+    	JUnitTestData testMethod = new JUnitTestData(false, false);
     	testMethod.setDescription(description);
     	testMethodsList.add(testMethod);
     }
@@ -180,7 +179,7 @@ extends RunListener
         	for(Failure f : result.getFailures())
         	{
             	// Change test status to Failed 
-            	for(JUnit40TestData testMethod:testMethodsList)
+            	for(JUnitTestData testMethod:testMethodsList)
             	{
             		if(testMethod.getDescription().getDisplayName().equals(f.getTestHeader()))
             		{

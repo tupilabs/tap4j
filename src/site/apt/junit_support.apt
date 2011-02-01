@@ -1,7 +1,7 @@
-TestNG support
+JUnit support
 
- We introduced TestNG support in tap4j 1.1. The integration between tap4j and 
- TestNG is achieved through the use of a TestNG Test Listener 
+ We introduced JUnit support in tap4j 1.4.3. The integration between tap4j and 
+ JUnit is achieved through the use of !a TestNG Test Listener 
  {{{http://testng.org/doc/documentation-main.html#testng-listeners}(TestNG Listeners)}}.
  
  In order to be able to produce tap files with TestNG you have to tell/  

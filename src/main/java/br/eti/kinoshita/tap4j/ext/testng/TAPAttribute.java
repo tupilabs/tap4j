@@ -21,27 +21,61 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext.issue3167058;
+package br.eti.kinoshita.tap4j.ext.testng;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import br.eti.kinoshita.tap4j.ext.testng.TestNGYAMLishUtils;
+import java.io.Serializable;
+import java.lang.reflect.Method;
 
 /**
- * @author Cesar Fernandes de Almeida
- * @since 1.4.3
+ * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * @since 1.0
  */
-public class TestGetLine 
+public class TAPAttribute 
+implements Serializable
 {
-	@Test
-	public void testGetYAMLExcepetionLine()
+
+	private static final long serialVersionUID = -6479674325095714937L;
+	
+	private Method method;
+	private Object value;
+	
+	/**
+	 * @param method
+	 * @param value
+	 */
+	public TAPAttribute(Method method, Object value)
 	{
-		String exceptionTrackLine = "br.eti.kinoshita.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:178)";
-		String strToFind = "br.eti.kinoshita.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:";
-				
-		String lineStr = TestNGYAMLishUtils.getLineNumberFromExceptionTraceLine(exceptionTrackLine, strToFind);
-		
-		Assert.assertTrue ( lineStr!="" );
+		super();
+		this.method = method;
+		this.value = value;
 	}
+	/**
+	 * @return the method
+	 */
+	public Method getMethod()
+	{
+		return method;
+	}
+	/**
+	 * @param method the method to set
+	 */
+	public void setMethod( Method method )
+	{
+		this.method = method;
+	}
+	/**
+	 * @return the value
+	 */
+	public Object getValue()
+	{
+		return value;
+	}
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue( Object value )
+	{
+		this.value = value;
+	}
+	
 }

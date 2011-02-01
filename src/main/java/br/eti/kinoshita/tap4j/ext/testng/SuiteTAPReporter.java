@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.testng;
 
 import java.io.File;
 import java.io.Serializable;
@@ -115,7 +115,7 @@ implements IReporter
 				for ( ITestResult testResult : testResults )
 				{
 					TestResult tapTestResult = 
-						TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+						TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
 					testSet.addTestResult( tapTestResult );
 				}
 			}
@@ -161,7 +161,7 @@ implements IReporter
 							
 						for ( ITestResult testResult : testResults )
 						{
-							TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+							TestResult tapTestResult = TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
 							testSet.addTestResult( tapTestResult );
 						}
 							
@@ -257,7 +257,7 @@ implements IReporter
 		{
 			for ( ISuiteResult suiteResult : suite.getResults().values() )
 			{
-				List<ITestResult> testResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
+				List<ITestResult> testResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
 				
 				for ( ITestResult testResult : testResults )
 				{
@@ -289,7 +289,7 @@ implements IReporter
 		{
 			for(ISuiteResult suiteResult : suite.getResults().values())
 			{
-				List<ITestResult> testResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
+				List<ITestResult> testResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(suiteResult.getTestContext());
 				
 				for(ITestResult testResult : testResults)
 				{
@@ -344,9 +344,6 @@ implements IReporter
 class ExecutionDateCompator 
 implements Comparator<ITestResult>, Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)

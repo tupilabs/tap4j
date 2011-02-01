@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.testng;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,7 +53,7 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public final class YAMLishUtils
+public final class TestNGYAMLishUtils
 {
 	/**
 	 * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
@@ -66,7 +66,7 @@ public final class YAMLishUtils
 	/**
 	 * Default hidden constructor.
 	 */
-	private YAMLishUtils()
+	private TestNGYAMLishUtils()
 	{
 		super();
 	}
@@ -106,12 +106,13 @@ public final class YAMLishUtils
 	}
 
 	/**
+	 * Retrieves the date of the TestNG Test Result start time.
 	 * @return Datetime value
 	 */
-	public static String getDatetime()
+	public static String getDatetime( ITestResult testNgTestResult )
 	{
-		long currentTimeMillis = System.currentTimeMillis();
-		Date date = new Date(currentTimeMillis);
+		long ms = testNgTestResult.getStartMillis();
+		Date date = new Date(ms);
 		String iso8061Datetime = ISO_8061_DATE_FORMAT.format(date);
 		return iso8061Datetime;
 	}
@@ -803,7 +804,7 @@ public final class YAMLishUtils
 	 * 
 	 * @param filePath
 	 * @param is
-	 * @return
+	 * @return XMLSuite
 	 * @throws FileNotFoundException
 	 */
 	public static XmlSuite parse( String filePath, InputStream is )

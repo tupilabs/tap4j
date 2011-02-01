@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.junit;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -35,9 +35,8 @@ import org.junit.runner.Description;
 import org.yaml.snakeyaml.DumperOptions.LineBreak;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @author Cesar Fernandes de Almeida
- * @since 1.0
+ * @since 1.4.3
  */
 public final class JUnitYAMLishUtils
 {
@@ -88,7 +87,7 @@ public final class JUnitYAMLishUtils
 	 * 
 	 * @param testMethod
 	 * @param testClass
-	 * @return test´s  source
+	 * @return test  source
 	 */
 	public static String getSource( String testMethod, String testClass )
 	{
@@ -98,7 +97,7 @@ public final class JUnitYAMLishUtils
 	
 	/**
 	 * Get a date time string
-	 * @return 
+	 * @return date time string
 	 */
 	public static String getDatetime()
 	{
@@ -109,10 +108,10 @@ public final class JUnitYAMLishUtils
 	}
 	
 	/**
-	 * Get the file´s name of the tested method
+	 * Get the file name of the tested method
 	 * 
 	 * @param testMethod
-	 * @return the file´s name
+	 * @return the file name
 	 */
 	public static String getFile( JUnitTestData testMethod )
 	{
@@ -124,7 +123,7 @@ public final class JUnitYAMLishUtils
 	 * Get the line of the error in the exception info
 	 * 
 	 * @param testMethod
-	 * @return
+	 * @return line of the error in the exception info
 	 */
 	public static String getLine( JUnitTestData testMethod )
 	{
@@ -182,7 +181,7 @@ public final class JUnitYAMLishUtils
 	 * Get tested method name 
 	 * 
 	 * @param testMethod
-	 * @return
+	 * @return tested method name
 	 */
 	public static String getName( JUnitTestData testMethod )
 	{
@@ -194,7 +193,7 @@ public final class JUnitYAMLishUtils
 	 * Get the error message from a given failed JUnit test result
 	 * 
 	 * @param testMethod
-	 * @return
+	 * @return error message from a given failed JUnit test result
 	 */
 	public static String getError( JUnitTestData testMethod )
 	{
@@ -211,7 +210,7 @@ public final class JUnitYAMLishUtils
 	 *  Get the backtrace from a given failed JUnit test result
 	 *  
 	 * @param testMethod
-	 * @return
+	 * @return Backtrace from a given failed JUnit test result
 	 */
 	public static String getBacktrace( JUnitTestData testMethod )
 	{

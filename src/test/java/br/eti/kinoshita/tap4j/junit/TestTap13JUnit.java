@@ -45,7 +45,6 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
 /**
  * 
  * @author cesar.almeida
- *
  */
 public class TestTap13JUnit
 {

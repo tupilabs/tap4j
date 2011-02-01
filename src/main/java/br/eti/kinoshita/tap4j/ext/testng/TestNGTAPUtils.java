@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.testng;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -50,13 +50,13 @@ import br.eti.kinoshita.tap4j.util.StatusValues;
  * @author Cesar Fernandes de Almeida
  * @since 1.1
  */
-public final class TAPUtils
+public final class TestNGTAPUtils
 {
 	
 	/**
 	 * Hidden constructor.
 	 */
-	private TAPUtils()
+	private TestNGTAPUtils()
 	{
 		super();
 	}
@@ -85,9 +85,9 @@ public final class TAPUtils
 		String testResultDescription = generateTAPTestResultDescription( testResult );
 		tapTestResult.setDescription( testResultDescription );
 		
-		TAPUtils.setTapTestResultStatus( tapTestResult, testResult.getStatus() );
+		TestNGTAPUtils.setTapTestResultStatus( tapTestResult, testResult.getStatus() );
 		
-		TAPUtils.createTestNGYAMLishData( tapTestResult, testResult );
+		TestNGTAPUtils.createTestNGYAMLishData( tapTestResult, testResult );
 		
 		return tapTestResult;
 	}
@@ -159,7 +159,7 @@ public final class TAPUtils
 		createYAMLishMessage( yamlish, testNgTestResult );
 		createYAMLishSeverity( yamlish, testNgTestResult ); 
 		createYAMLishSource( yamlish, testNgTestResult );
-		createYAMLishDatetime( yamlish );
+		createYAMLishDatetime( yamlish, testNgTestResult );
 		createYAMLishFile( yamlish, testNgTestResult );
 		createYAMLishLine( yamlish, testNgTestResult );
 		createYAMLishName( yamlish, testNgTestResult );
@@ -179,7 +179,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String message = YAMLishUtils.getMessage(testNgTestResult);
+		String message = TestNGYAMLishUtils.getMessage(testNgTestResult);
 		yamlish.put( "message", message );
 	}
 	
@@ -191,7 +191,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String severity = YAMLishUtils.getSeverity( testNgTestResult );
+		String severity = TestNGYAMLishUtils.getSeverity( testNgTestResult );
 		yamlish.put( "severity", severity );
 	}
 
@@ -203,16 +203,19 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String source = YAMLishUtils.getSource( testNgTestResult );			
+		String source = TestNGYAMLishUtils.getSource( testNgTestResult );			
 		yamlish.put( "source", source );
 	}
 	
 	/**
 	 * @param yamlish
+	 * @param testNgTestResult
 	 */
-	public static void createYAMLishDatetime(Map<String, Object> yamlish) 
+	public static void createYAMLishDatetime(
+		Map<String, Object> yamlish, 
+		ITestResult testNgTestResult) 
 	{
-		String datetime = YAMLishUtils.getDatetime();
+		String datetime = TestNGYAMLishUtils.getDatetime(testNgTestResult);
 		yamlish.put( "datetime", datetime );
 	}
 	
@@ -224,7 +227,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String file = YAMLishUtils.getFile( testNgTestResult );
+		String file = TestNGYAMLishUtils.getFile( testNgTestResult );
 		yamlish.put("file", file);
 	}
 	
@@ -236,7 +239,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String line = YAMLishUtils.getLine( testNgTestResult );
+		String line = TestNGYAMLishUtils.getLine( testNgTestResult );
 		yamlish.put("line", line);
 	}
 	
@@ -248,7 +251,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String name = YAMLishUtils.getName(testNgTestResult);
+		String name = TestNGYAMLishUtils.getName(testNgTestResult);
 		yamlish.put( "name", name );
 	}
 	
@@ -262,7 +265,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		Object extensions = YAMLishUtils.getExtensions( testNgTestResult );
+		Object extensions = TestNGYAMLishUtils.getExtensions( testNgTestResult );
 		yamlish.put("extensions", extensions);
 	}
 	
@@ -274,8 +277,8 @@ public final class TAPUtils
 			Map<String, Object> yamlish, 
 			ITestResult testNgTestResult) 
 	{
-		String expected = YAMLishUtils.getExpected( testNgTestResult );
-		String actual = YAMLishUtils.getActual(testNgTestResult);
+		String expected = TestNGYAMLishUtils.getExpected( testNgTestResult );
+		String actual = TestNGYAMLishUtils.getActual(testNgTestResult);
 
 		if ( expected == null )
 		{
@@ -300,7 +303,7 @@ public final class TAPUtils
 			ITestResult testNgTestResult) 
 	{
 
-		String display = YAMLishUtils.getDisplay( testNgTestResult );
+		String display = TestNGYAMLishUtils.getDisplay( testNgTestResult );
 		yamlish.put("display", display);		
 	}
 	
@@ -312,7 +315,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		Object dump = YAMLishUtils.getDump( testNgTestResult );
+		Object dump = TestNGYAMLishUtils.getDump( testNgTestResult );
 		yamlish.put("dump", dump);
 	}
 	
@@ -324,7 +327,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		String error = YAMLishUtils.getError( testNgTestResult );
+		String error = TestNGYAMLishUtils.getError( testNgTestResult );
 		yamlish.put("error", error);
 	}
 	
@@ -336,7 +339,7 @@ public final class TAPUtils
 			Map<String, Object> yamlish,
 			ITestResult testNgTestResult) 
 	{
-		Object backtrace = YAMLishUtils.getBacktrace( testNgTestResult );
+		Object backtrace = TestNGYAMLishUtils.getBacktrace( testNgTestResult );
 		yamlish.put( "backtrace", backtrace );
 	}
 	
@@ -394,9 +397,9 @@ public final class TAPUtils
 		for( String attr : attrsNames )
 		{
 			Object o = ctx.getAttribute(attr);
-			if ( o instanceof TapAttribute )
+			if ( o instanceof TAPAttribute )
 			{
-				TapAttribute tapAttr = (TapAttribute)o;
+				TAPAttribute tapAttr = (TAPAttribute)o;
 				ITestNGMethod testNGMethod = tr.getMethod();
 				Method method = testNGMethod.getMethod();
 				if ( method == tapAttr.getMethod() )

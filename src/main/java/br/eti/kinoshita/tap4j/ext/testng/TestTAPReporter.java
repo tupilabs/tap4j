@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.testng;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ extends TestListenerAdapter
 	@Override
 	public void onTestSuccess(ITestResult tr) 
 	{
-		TAPUtils.fillAttributes( tr, ctx );
+		TestNGTAPUtils.fillAttributes( tr, ctx );
 	}
 	
 	/* (non-Javadoc)
@@ -85,7 +85,7 @@ extends TestListenerAdapter
 	@Override
 	public void onTestFailure(ITestResult tr) 
 	{
-		TAPUtils.fillAttributes( tr, ctx );
+		TestNGTAPUtils.fillAttributes( tr, ctx );
 	}
 	
 	/* (non-Javadoc)
@@ -94,7 +94,7 @@ extends TestListenerAdapter
 	@Override
 	public void onTestSkipped(ITestResult tr) 
 	{
-		TAPUtils.fillAttributes( tr, ctx );
+		TestNGTAPUtils.fillAttributes( tr, ctx );
 	}
 	
 	/* (non-Javadoc)
@@ -103,7 +103,7 @@ extends TestListenerAdapter
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult tr) 
 	{
-		TAPUtils.fillAttributes( tr, ctx );
+		TestNGTAPUtils.fillAttributes( tr, ctx );
 	}
 	
 	/* (non-Javadoc)
@@ -125,7 +125,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerClass(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
+		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{
@@ -151,7 +151,7 @@ extends TestListenerAdapter
 			
 			for ( ITestResult testResult : testResults )
 			{
-				TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+				TestResult tapTestResult = TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
 				testSet.addTestResult( tapTestResult );
 			}
 			 
@@ -168,7 +168,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerMethod(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
+		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{
@@ -196,7 +196,7 @@ extends TestListenerAdapter
 			
 			for ( ITestResult testResult : testResults )
 			{
-				TestResult tapTestResult = TAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+				TestResult tapTestResult = TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
 				testSet.addTestResult( tapTestResult );
 			}
 

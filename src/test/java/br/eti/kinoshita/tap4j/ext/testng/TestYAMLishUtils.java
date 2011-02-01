@@ -21,61 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.eti.kinoshita.tap4j.ext;
+package br.eti.kinoshita.tap4j.ext.testng;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.internal.TestResult;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 1.0
+ * Tests YAMLishUtils class.
+ * 
+ * @author Cesar Fernandes de Almeida
+ * @since 1.4.3
  */
-public class TapAttribute 
-implements Serializable
+public class TestYAMLishUtils 
 {
-
-	private static final long serialVersionUID = -6479674325095714937L;
+	ITestResult iTestResult;
 	
-	private Method method;
-	private Object value;
-	
-	/**
-	 * @param method
-	 * @param value
-	 */
-	public TapAttribute(Method method, Object value)
+	@BeforeClass
+	public void setUp()
 	{
-		super();
-		this.method = method;
-		this.value = value;
-	}
-	/**
-	 * @return the method
-	 */
-	public Method getMethod()
-	{
-		return method;
-	}
-	/**
-	 * @param method the method to set
-	 */
-	public void setMethod( Method method )
-	{
-		this.method = method;
-	}
-	/**
-	 * @return the value
-	 */
-	public Object getValue()
-	{
-		return value;
-	}
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue( Object value )
-	{
-		this.value = value;
+		// TBD: generate an iTestResult object with all the information 
+		// necessary to test the methods from YAMLishUtils class and TAPUtils class
+		iTestResult = new TestResult();
+		iTestResult.setAttribute("", "");
 	}
 	
+	@Test
+	public void testGetMessage()
+	{
+		ITestResult iTestResult = new TestResult();
+		
+		String msg = TestNGYAMLishUtils.getMessage(iTestResult);
+		
+		Assert.assertNotNull(msg);
+	}
 }

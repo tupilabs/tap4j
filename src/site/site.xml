@@ -31,6 +31,7 @@
     
     <menu name="tap4j Extensions">
     	<item name="TestNG support" href="testng_support.html"/>
+    	<item name="JUnit support" href="junit_support.html"/>
     </menu>
 
     <menu ref="reports" />

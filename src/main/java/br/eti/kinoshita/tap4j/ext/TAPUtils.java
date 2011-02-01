@@ -159,7 +159,7 @@ public final class TAPUtils
 		createYAMLishMessage( yamlish, testNgTestResult );
 		createYAMLishSeverity( yamlish, testNgTestResult ); 
 		createYAMLishSource( yamlish, testNgTestResult );
-		createYAMLishDatetime( yamlish, testNgTestResult );
+		createYAMLishDatetime( yamlish );
 		createYAMLishFile( yamlish, testNgTestResult );
 		createYAMLishLine( yamlish, testNgTestResult );
 		createYAMLishName( yamlish, testNgTestResult );
@@ -209,13 +209,10 @@ public final class TAPUtils
 	
 	/**
 	 * @param yamlish
-	 * @param testNgTestResult
 	 */
-	public static void createYAMLishDatetime(
-			Map<String, Object> yamlish,
-			ITestResult testNgTestResult) 
+	public static void createYAMLishDatetime(Map<String, Object> yamlish) 
 	{
-		String datetime = YAMLishUtils.getDatetime( testNgTestResult );
+		String datetime = YAMLishUtils.getDatetime();
 		yamlish.put( "datetime", datetime );
 	}
 	

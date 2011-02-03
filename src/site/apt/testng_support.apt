@@ -16,8 +16,13 @@ TestNG support
 * Command line
  
 +---+
-java -classpath testng.jar;tap4j-1.4.jar;%CLASSPATH% org.testng.TestNG -listener br.eti.kinoshita.tap4j.ext.testng.TestTAPReporter test\testng.xml
+java -classpath %CLASSPATH%;testng.jar;jcommander-1.5.jar;commons-io-1.4.jar;
+guice-2.0.jar;commons-lang-2.5.jar;bsh-2.0b4.jar;snakeyaml-1.7.jar;
+aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG 
+-listener br.eti.kinoshita.tap4j.ext.testng.TestTAPReporter test\testng.xml
 +---+
+
+ Don´t forget to check all the dependencies versions and directory location
 
 * TestNG suite xml
  

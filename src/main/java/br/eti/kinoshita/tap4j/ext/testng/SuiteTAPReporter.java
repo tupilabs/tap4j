@@ -151,22 +151,25 @@ implements IReporter
 				{
 					if(StringUtils.isNotEmpty(group))
 					{
-						Integer totalTestResultsByGroup = this.getTotalTestResultsByTestGroup(group);
+						List<ITestResult> groupTestResults = testResultsPerGroup.get( group );
 						
-						testSet = new TestSet();
-							
-						testSet.setPlan( new Plan( totalTestResultsByGroup ) );
-						
-						List<ITestResult> testResults = testResultsPerGroup.get( group );
-							
-						for ( ITestResult testResult : testResults )
+						if ( groupTestResults != null )
 						{
-							TestResult tapTestResult = TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
-							testSet.addTestResult( tapTestResult );
-						}
+							final Integer totalTestResultsByGroup = groupTestResults.size();
 							
-						File output = new File(outputDirectory, group+".tap");
-						tapProducer.dump(testSet, output);
+							testSet = new TestSet();
+								
+							testSet.setPlan( new Plan( totalTestResultsByGroup ) );
+							
+							for ( ITestResult testResult : groupTestResults )
+							{
+								TestResult tapTestResult = TestNGTAPUtils.generateTAPTestResult( testResult, testSet.getNumberOfTestResults()+1 );
+								testSet.addTestResult( tapTestResult );
+							}
+								
+							File output = new File(outputDirectory, group+".tap");
+							tapProducer.dump(testSet, output);
+						}
 					}
 				}
 			}
@@ -226,24 +229,6 @@ implements IReporter
 		}
 		return totalTestResults;
 	}
-	
-	
-	/**
-	 * Get total results from a test group
-	 * 
-	 * @param groupName Name of the TestNG Test Group
-	 * @return Total of TestResults by TestGroup (TestNG)
-	 */
-	public Integer getTotalTestResultsByTestGroup(String groupName)
-	{
-		Integer nrResults = 0;
-		if(testResultsPerGroup.get( groupName )!=null)
-		{
-			nrResults = testResultsPerGroup.get( groupName ).size();
-		}
-		return nrResults;
-	}
-	
 	
 	/**
 	 * Populate a List of ITestResults for every test Class in a test Suite

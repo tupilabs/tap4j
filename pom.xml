@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.eti.kinoshita</groupId>
 	<artifactId>tap4j</artifactId>
-	<version>1.4.4</version>
+	<version>1.4.5-SNAPSHOT</version>
 	<name>tap4j - Test Anything Protocol for Java</name>
 	<description>Simple implementation of the Test Anything Protocol for Java.</description>
 
@@ -55,9 +55,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:https://tap4j.svn.sourceforge.net/svnroot/tap4j/tags/tap4j-1.4.4</connection>
-		<developerConnection>scm:svn:https://tap4j.svn.sourceforge.net/svnroot/tap4j/tags/tap4j-1.4.4</developerConnection>
-		<url>https://tap4j.svn.sourceforge.net/svnroot/tap4j/tags/tap4j-1.4.4</url>
+		<connection>scm:svn:https://tap4j.svn.sourceforge.net/svnroot/tap4j/trunk</connection>
+		<developerConnection>scm:svn:https://tap4j.svn.sourceforge.net/svnroot/tap4j/trunk</developerConnection>
+		<url>https://tap4j.svn.sourceforge.net/svnroot/tap4j/trunk</url>
 	</scm>
 
 	<build>

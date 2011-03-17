@@ -25,6 +25,7 @@ package br.eti.kinoshita.tap4j.ext.testng;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -103,7 +104,7 @@ public final class TestNGTAPUtils
 	{
 		StringBuilder description = new StringBuilder();
 		description.append( "- " ); // An extra space is added before the description by the TAP Representer
-		description.append( testResult.getInstance().getClass().getName() );
+		description.append( testResult.getTestClass().getName() );
 		description.append( '#' );
 		description.append( testResult.getMethod().getMethodName() );
 		return description.toString();
@@ -353,6 +354,7 @@ public final class TestNGTAPUtils
 	public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(ITestContext testContext)
 	{
 		Map<String, IResultMap> results= new LinkedHashMap<String, IResultMap>();
+		
 		results.put("passed", testContext.getPassedTests());
 		results.put("failed", testContext.getFailedTests());
 		results.put("failedBut", testContext.getFailedButWithinSuccessPercentageTests());
@@ -365,6 +367,47 @@ public final class TestNGTAPUtils
 		addAll( total, results.get("failedBut") );
 		addAll( total, results.get("skipped") );
 		
+		ITestNGMethod[] allMethodsInCtx = testContext.getAllTestMethods();
+		for (int i = 0; i < allMethodsInCtx.length; i++)
+		{
+			ITestNGMethod methodInCtx = allMethodsInCtx [ i ];
+			
+			Collection<ITestNGMethod> allMethodsFound = total.getAllMethods();
+			boolean exists = false;
+			for( ITestNGMethod methodFound : allMethodsFound )
+			{
+				if ( methodInCtx.getTestClass().getName().equals(methodFound.getTestClass().getName()))
+				{
+					if ( methodInCtx.getMethod().getName().equals(methodFound.getMethod().getName()))
+					{
+						exists = true;
+					}
+				}
+			}
+			if ( ! exists )
+			{
+				ITestResult skippedTestResult = 
+					new org.testng.internal.TestResult(methodInCtx.getTestClass(), methodInCtx.getInstances(), methodInCtx, null, testContext.getStartDate().getTime(), testContext.getEndDate().getTime());
+				skippedTestResult.setStatus(ITestResult.SKIP);
+				total.addResult(skippedTestResult, methodInCtx);
+			}
+		}
+		
+		List<ITestResult> testNGTestResults = new ArrayList<ITestResult>(total.getAllResults() );
+		Collections.sort(testNGTestResults, EXECUTION_DATE_COMPARATOR);
+		
+		return testNGTestResults;
+	}
+	
+	/**
+	 * Return an ordered list of TestNG TestResult from a given TestNG Test 
+	 * Context.
+	 * 
+	 * @param testContext TestNG Test Context
+	 * @return Ordered list of TestNG TestResults
+	 */
+	public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(ResultMap total)
+	{
 		List<ITestResult> testNGTestResults = new ArrayList<ITestResult>(total.getAllResults() );
 		Collections.sort(testNGTestResults, EXECUTION_DATE_COMPARATOR);
 		

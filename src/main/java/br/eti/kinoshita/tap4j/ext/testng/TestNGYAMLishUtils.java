@@ -100,7 +100,7 @@ public final class TestNGYAMLishUtils
 	 */
 	public static String getSource( ITestResult testNgTestResult )
 	{
-		String source = testNgTestResult.getInstance().getClass().getName()
+		String source = testNgTestResult.getTestClass().getName() 
 				+ "#" + testNgTestResult.getMethod().getMethodName();
 		return source;
 	}
@@ -123,7 +123,7 @@ public final class TestNGYAMLishUtils
 	 */
 	public static String getFile( ITestResult testNgTestResult )
 	{
-		String file = testNgTestResult.getInstance().getClass().getName();
+		String file = testNgTestResult.getTestClass().getName();
 		return file;
 	}
 
@@ -138,11 +138,11 @@ public final class TestNGYAMLishUtils
 		if (testNGException != null)
 		{
 			StringBuilder lookFor = new StringBuilder();
-			lookFor.append(testNgTestResult.getInstance().getClass().getName());
+			lookFor.append(testNgTestResult.getTestClass().getName());
 			lookFor.append('.');
 			lookFor.append(testNgTestResult.getMethod().getMethodName());
 			lookFor.append('(');
-			lookFor.append(testNgTestResult.getInstance().getClass().getSimpleName());
+			lookFor.append(testNgTestResult.getTestClass().getClass().getSimpleName());
 			lookFor.append(".java:");
 			
 			StackTraceElement[] els = testNGException.getStackTrace();

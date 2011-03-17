@@ -34,6 +34,7 @@ import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
+import org.testng.internal.ResultMap;
 
 import br.eti.kinoshita.tap4j.model.Plan;
 import br.eti.kinoshita.tap4j.model.TestResult;
@@ -50,6 +51,9 @@ import br.eti.kinoshita.tap4j.producer.TapProducerFactory;
 public class TestTAPReporter 
 extends TestListenerAdapter
 {
+	
+	protected final ResultMap resultMap = new ResultMap();
+	
 	protected final Map<Class<?>, List<ITestResult>> testResultsPerClass = new LinkedHashMap<Class<?>, List<ITestResult>>();
 	
 	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
@@ -77,6 +81,8 @@ extends TestListenerAdapter
 	public void onTestSuccess(ITestResult tr) 
 	{
 		TestNGTAPUtils.fillAttributes( tr, ctx );
+		
+		resultMap.addResult(tr, tr.getMethod());
 	}
 	
 	/* (non-Javadoc)
@@ -86,6 +92,8 @@ extends TestListenerAdapter
 	public void onTestFailure(ITestResult tr) 
 	{
 		TestNGTAPUtils.fillAttributes( tr, ctx );
+		
+		resultMap.addResult(tr, tr.getMethod());
 	}
 	
 	/* (non-Javadoc)
@@ -95,6 +103,8 @@ extends TestListenerAdapter
 	public void onTestSkipped(ITestResult tr) 
 	{
 		TestNGTAPUtils.fillAttributes( tr, ctx );
+		
+		resultMap.addResult(tr, tr.getMethod());
 	}
 	
 	/* (non-Javadoc)
@@ -104,6 +114,8 @@ extends TestListenerAdapter
 	public void onTestFailedButWithinSuccessPercentage(ITestResult tr) 
 	{
 		TestNGTAPUtils.fillAttributes( tr, ctx );
+		
+		resultMap.addResult(tr, tr.getMethod());
 	}
 	
 	/* (non-Javadoc)
@@ -125,7 +137,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerClass(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
+		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(this.resultMap);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{
@@ -168,7 +180,7 @@ extends TestListenerAdapter
 	 */
 	protected void generateTAPPerMethod(ITestContext testContext)
 	{
-		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(testContext);
+		List<ITestResult> testNGTestResults = TestNGTAPUtils.getTestNGResultsOrderedByExecutionDate(resultMap);
 		
 		for ( ITestResult testResult : testNGTestResults )
 		{

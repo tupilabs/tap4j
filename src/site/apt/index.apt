@@ -4,8 +4,8 @@ tap4j
  TAP is a standard way to document test execution. There are two main roles in 
  TAP, a producer and a consumer.
 
- The <<TAP Consumer>> is responsible for producing a <TAP Stream>. 
- The above is an example of a TAP Stream.
+ The <<TAP Producer>> is responsible for producing a <TAP Stream>. 
+ The following is an example of a TAP Stream.
 
 +---+
 1..4
@@ -16,10 +16,11 @@ ok 3 - Read the rest of the file
 not ok 4 - Summarized correctly # TODO Not written yet
 +---+
 
- Usually the TAP Stream is written into a file.
+ Usually the TAP Stream is written to a file.
   
- On the other hand, the <<TAP Producer>> read and parses this TAP Stream and 
- let the developer use the data about the Test Execution.
+ The <<TAP Consumer>> read and parses a TAP Stream. The user 
+ of the TAP Consumer can then utilize its data to build graphs, integrate 
+ systems, log tests executions or produce cool test reports.
  
 [./images/drawing1.jpg] tap4j producer and consumer
  

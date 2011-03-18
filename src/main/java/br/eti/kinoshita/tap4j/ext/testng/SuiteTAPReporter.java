@@ -50,6 +50,7 @@ import br.eti.kinoshita.tap4j.producer.TapProducerFactory;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * @author Cesar Fernandes de Almeida
  * @since 03/01/2011
  */
 public class SuiteTAPReporter 
@@ -142,6 +143,8 @@ implements IReporter
 		{
 			Map<String, Collection<ITestNGMethod>> groups = suite.getMethodsByGroups();
 			
+			this.populateTestResultsPerGroupMap(suite, groups);
+			
 			if (groups.size() > 0) 
 			{
 				String[] groupNames = groups.keySet().toArray(new String[groups.size()]);
@@ -196,20 +199,17 @@ implements IReporter
 	
 	
 	/**
-	 * Get a Set of test Results for Groups by a given ISuite
+	 * Populate a Map of test Results for Groups by a given ISuite
 	 * 
 	 * @param suite
 	 * @param groups
-	 * @return Set of TestResults for a Group
 	 */
-	protected Set<String> getTestResultsSetPerGroup(ISuite suite, Map<String, Collection<ITestNGMethod>> groups)
+	protected void populateTestResultsPerGroupMap(ISuite suite, Map<String, Collection<ITestNGMethod>> groups)
 	{
 		XmlSuite xmlSuite = suite.getXmlSuite();
 		
 		// Popula o mapa testResultsPerGroup com uma String para cada grupo com seus resultados
 		this.generateResultsMapForGroups ( xmlSuite, suite, groups );
-		
-		return testResultsPerGroup.keySet();
 	}
 	
 	

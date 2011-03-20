@@ -23,13 +23,13 @@ public class TestSuiteTapReporter
 	@Test(groups="GropoTeste1")
 	public void teste2() 
 	{
-		Assert.assertTrue(false);
+		Assert.assertTrue(true);
 	}
 	
 	@Test(groups="GropoTeste2")
 	public void teste3() 
 	{
-		Assert.assertFalse(true);
+		Assert.assertFalse(false);
 	}
 	
 	@Test(groups="GropoTeste2")

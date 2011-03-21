@@ -103,8 +103,8 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${basedir}/test-output</directory>
-							<directory>${basedir}/tap</directory>
+							<directory>test-output</directory>
+							<directory>tap</directory>
 						</fileset>
 					</filesets>
 				</configuration>

@@ -25,7 +25,7 @@
 			<email>brunodepaulak@yahoo.com.br</email>
 			<id>kinow</id>
 			<name>Bruno P. Kinoshita</name>
-			<timezone>-3 GMT</timezone>
+			<timezone>-3</timezone>
 			<url>http://www.kinoshita.eti.br</url>
 			<roles>
 				<role>developer</role>
@@ -37,7 +37,7 @@
 		<contributor>
 			<email>cesar.fa@gmail.com</email>
 			<name>Cesar Fernandes de Almeida</name>
-			<timezone>-3 GMT</timezone>
+			<timezone>-3</timezone>
 			<roles>
 				<role>developer</role>
 			</roles>

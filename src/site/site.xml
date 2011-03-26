@@ -33,6 +33,10 @@
     	<item name="TestNG support" href="testng_support.html"/>
     	<item name="JUnit support" href="junit_support.html"/>
     </menu>
+    
+    <menu name="Perl Compatibility">
+    	<item name="Perl Integration tests" href="perl_integration_tests.html"/>
+    </menu>
 
     <menu ref="reports" />
 

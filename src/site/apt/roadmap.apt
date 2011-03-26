@@ -1,10 +1,5 @@
 Roadmap
 
-* version 1.5
-
- * Validation tests with Perl and tap4j using Strawberry Perl and write  
- integrated tests using the Perl script kindly wrote by Patrick LeBoutillier 
-
 * Wishlist
 
  * JUnit support (Listener / TestRunner / Runner / ... ).

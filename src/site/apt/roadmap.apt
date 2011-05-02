@@ -2,10 +2,6 @@ Roadmap
 
 * Wishlist
 
- * JUnit support (Listener / TestRunner / Runner / ... ).
- 
- * Release TestNG support (we are finishing to add attachments)
- 
  * Instead of Regex-based parser, re-wrote it as a Recursive Decent Parser (LL(1))
  
  * Write ANTLR grammar and publish it in ANTLR website grammar list section

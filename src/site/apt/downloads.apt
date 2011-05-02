@@ -10,9 +10,9 @@ Download
 
 +---+
 <dependency>
-  <groupid>br.eti.kinoshita</groupid>
+  <groupid>org.tap4j</groupid>
   <artifactid>tap4j</artifactid>
-  <version>1.4.6</version>
+  <version>2.0</version>
 </dependency>
 +---+
 

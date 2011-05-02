@@ -8,7 +8,7 @@ TestNG support
  TestNG that you will be using a Listener. This can be done through command line, 
  suite xml file or Test class Listeners Annotation.
  
- The classes for TestNG are inside br.eti.kinoshita.tap4j.ext.testng package. The class 
+ The classes for TestNG are inside org.tap4j.ext.testng package. The class 
  TestTAPReporter extends TestListenerAdapter and generates TAP per class and 
  per method. The class SuiteTAPReporter implements a IReporter and generates 
  TAP per Suite and Groups. They were done based on the existing HTML report for TestNG.
@@ -19,7 +19,7 @@ TestNG support
 java -classpath %CLASSPATH%;testng.jar;jcommander-1.5.jar;commons-io-1.4.jar;
 guice-2.0.jar;commons-lang-2.5.jar;bsh-2.0b4.jar;snakeyaml-1.7.jar;
 aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG 
--listener br.eti.kinoshita.tap4j.ext.testng.TestTAPReporter test\testng.xml
+-listener org.tap4j.ext.testng.TestTAPReporter test\testng.xml
 +---+
 
  Don´t forget to check all the dependencies versions and directory location
@@ -34,7 +34,7 @@ aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG
 <suite>
  
   <listeners>
-    <listener class-name="br.eti.kinoshita.tap4j.ext.SuiteTAPReporter" />
+    <listener class-name="org.tap4j.ext.SuiteTAPReporter" />
   </listeners>
  
 ...
@@ -45,7 +45,7 @@ aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG
  Add the @Listeners annotation to your Test class.
  
 +---+
-@Listeners(value={br.eti.kinoshita.tap4j.ext.testng.TestTAPReporter.class})
+@Listeners(value={org.tap4j.ext.testng.TestTAPReporter.class})
 public class MyTestClass {
 ...
 +---+

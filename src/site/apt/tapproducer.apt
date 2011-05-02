@@ -3,7 +3,7 @@ TAP Producer
  A TAP Producer produces a TAP Stream. A TAP Stream exists as a file, data 
  stream, encoded in another medium (stored in a PDF file, for instance) or in 
  any other form which can be parsed by a TAP Consumer. In tap4j the producers 
- are created using the class {{{http://tap4j.sourceforge.net/apidocs/br/eti/kinoshita/tap4j/producer/TapProducerFactory.html}TapProducerFactory}}.
+ are created using the class {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/producer/TapProducerFactory.html}TapProducerFactory}}.
  
 +---+
 TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();

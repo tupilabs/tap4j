@@ -1,5 +1,9 @@
 Release Notes
 
+* Version 2.0
+
+ * Migration from org.tap4j to org.tap4j
+ 
 * Version 1.4.6
 
  * Added integration tests between tapj and Perl usin metatap. 100% passed :-)
@@ -54,7 +58,7 @@ Release Notes
  
  * Started to open issues on SF.net Issue Tracker to maintain project history.
  
- * Reduced Cyclomatic Complexity from {{{http://tap4j.sourceforge.net/apidocs/br/eti/kinoshita/tap4j/consumer/Tap13Consumer.html#parseLine(java.lang.String)}Tap13Consumer#parseLine}} that reached 20 back to 10.
+ * Reduced Cyclomatic Complexity from {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/consumer/Tap13Consumer.html#parseLine(java.lang.String)}Tap13Consumer#parseLine}} that reached 20 back to 10.
 
  * Added TestNG Support.
 

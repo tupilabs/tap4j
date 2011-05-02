@@ -13,16 +13,16 @@
 		<artifactId>oss-parent</artifactId>
 		<version>5</version>
 	</parent>
-	
+
 	<organization>
 		<name>tap4j</name>
 		<url>http://www.tap4j.org</url>
 	</organization>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<url>http://www.tap4j.org</url>
 
 	<licenses>
@@ -339,10 +339,22 @@
 		</profile>
 		<profile>
 			<id>site</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.maven.wagon</groupId>
+					<artifactId>wagon-ftp</artifactId>
+					<version>1.0-beta-6</version>
+				</dependency>
+				<dependency>
+					<groupId>commons-net</groupId>
+					<artifactId>commons-net</artifactId>
+					<version>2.2</version>
+				</dependency>
+			</dependencies>
 			<distributionManagement>
 				<site>
-					<id>tap4j.sf.net</id>
-					<url>scp://shell.sourceforge.net/home/project-web/tap4j/htdocs/</url>
+					<id>ftp.tap4j.org</id>
+					<url>ftp://ftp.tap4j.org/public_html</url>
 				</site>
 			</distributionManagement>
 		</profile>

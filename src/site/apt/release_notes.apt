@@ -2,11 +2,11 @@ Release Notes
 
 * Version 2.0
 
- * Migration from org.tap4j to org.tap4j
+ * Migration from br.eti.kinoshita to org.tap4j
  
 * Version 1.4.6
 
- * Added integration tests between tapj and Perl usin metatap. 100% passed :-)
+ * Added integration tests between tapj and Perl using metatap. 100% passed :-)
 
 * Version 1.4.5
 

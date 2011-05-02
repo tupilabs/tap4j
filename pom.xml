@@ -151,32 +151,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
-				<groupId>com.agilejava.docbkx</groupId>
-				<artifactId>docbkx-maven-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.docbook</groupId>
-						<artifactId>docbook-xml</artifactId>
-						<version>4.4</version>
-						<scope>runtime</scope>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate-html</goal>
-							<goal>generate-pdf</goal>
-							<goal>generate-manpages</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<includes>*-docbkx.xml</includes>
-					<xincludeSupported>true</xincludeSupported>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 

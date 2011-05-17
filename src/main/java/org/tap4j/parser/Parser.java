@@ -45,7 +45,7 @@ public interface Parser
 	/**
 	 * TAP Plan Regex.
 	 */
-	String REGEX_PLAN = "\\s*(\\d)+(\\.{2})(\\d)+\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
+	String REGEX_PLAN = "\\s*(\\d+)(\\.{2})(\\d+)\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
 	
 	/**
 	 * TAP Test Result Regex.

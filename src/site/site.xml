@@ -25,6 +25,7 @@
     </menu>
     
     <menu name="Tutorial">
+      <item name="Using TAP with Java book" href="book/"/>
       <item name="TAP Consumer" href="tapconsumer.html"/>
       <item name="TAP Producer" href="tapproducer.html"/>
     </menu>

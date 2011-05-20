@@ -40,6 +40,6 @@ public class RunJUnitTestWithListener
 	{
 		 JUnitCore core= new JUnitCore();
 		 core.addListener(new JUnitTestTapReporter());
-		 core.run(TestTap13JUnit.class);
+		 core.run(TestTap13JUnit1.class);
 	}
 }

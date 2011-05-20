@@ -27,6 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -38,7 +39,7 @@ import org.tap4j.producer.TapProducer;
 import org.tap4j.producer.TapProducerFactory;
 
 /**
- * Listener implemented to generate a tap file with the testes results for every class and every method tested
+ * Listener implemented to generate a tap file with the testes results for every class, suite and method tested
  * 
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
@@ -46,13 +47,14 @@ import org.tap4j.producer.TapProducerFactory;
 public class JUnitTestTapReporter 
 extends RunListener 
 {
-	
 	protected List<JUnitTestData> testMethodsList = null;
 	
 	/**
 	 * TAP Producer.
 	 */
 	protected TapProducer tapProducer = null;
+	
+	protected boolean isSuite = false;
 
 	 /**
      * Called right before any tests from a specific class are run.
@@ -65,6 +67,8 @@ extends RunListener
     	this.tapProducer = TapProducerFactory.makeTap13YamlProducer();
     	
     	this.testMethodsList = new ArrayList<JUnitTestData>();
+    	
+    	this.isSuite = description.isSuite();
     }
 
     /**
@@ -78,11 +82,17 @@ extends RunListener
     	// Set Failed Status on Tests List 
     	this.setFailedTestsStatus( result );
     	
+    	// Generate TAP FILE for each method
+    	this.generateTapPerMethod( result );
+    	
     	// Generate TAP FILE for each class
     	this.generateTapPerClass( result );
     	
-    	// Generate TAP FILE for each method
-    	this.generateTapPerMethod( result );
+    	// Generate TAP FILE for each suite
+    	if( this.isSuite )
+    	{
+        	this.generateTapPerSuite( result );
+    	}
     }
 
     /**
@@ -93,10 +103,10 @@ extends RunListener
     public void testIgnored( Description description )
         throws Exception
     {
-    	JUnitTestData testMethod = new JUnitTestData(false, false);
-    	testMethod.setDescription(description);
+    	JUnitTestData testMethod = new JUnitTestData( false, false );
+    	testMethod.setDescription( description );
     	testMethod.setIgnored( true );
-    	testMethodsList.add(testMethod);
+    	testMethodsList.add( testMethod );
     }
 
     /**
@@ -107,7 +117,7 @@ extends RunListener
     public void testStarted( Description description )
         throws Exception
     {
-    	this.setTestInfo(description);
+    	this.setTestInfo( description );
     }
 
     /**
@@ -131,35 +141,13 @@ extends RunListener
     }
     
     /**
-     * Generate tap file for a class
-     * 
-     * @param result
-     */
-    protected void generateTapPerClass( Result result )
-    {
-    	TestSet testSet = new TestSet();
-    	testSet.setPlan( new Plan( testMethodsList.size() ) );
-    	String className="";
-    	for(JUnitTestData testMethod:testMethodsList)
-    	{
-			className = JUnitYAMLishUtils.extractClassName( testMethod.getDescription() );
-
-			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult(testMethod, 1);
-			testSet.addTestResult( tapTestResult );
-    	}
-		
-    	File output = new File("./", className+".tap");
-		tapProducer.dump(testSet, output);
-    }
-    
-    /**
      * Generate tap file for each method
      * 
      * @param result
      */
     protected void generateTapPerMethod( Result result )
     {
-    	for(JUnitTestData testMethod:testMethodsList)
+    	for( JUnitTestData testMethod:testMethodsList )
     	{
 			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult(testMethod, 1);
 			
@@ -174,6 +162,68 @@ extends RunListener
 			tapProducer.dump( testSet, output );
     	}
     }
+    
+    /**
+     * Generate tap file for a class
+     * 
+     * @param result
+     */
+    protected void generateTapPerClass( Result result )
+    {
+    	TestSet testSet = new TestSet();
+    	File output;
+    	Integer methodsSizeList = 0;
+    	
+    	String className="";
+    	String lastClassName="";
+    	
+    	for( JUnitTestData testMethod:testMethodsList )
+    	{
+			className = JUnitYAMLishUtils.extractClassName( testMethod.getDescription() );
+			
+			if( StringUtils.isNotBlank( lastClassName ) && !lastClassName.equals( className ) )
+			{
+		    	testSet.setPlan( new Plan( methodsSizeList ) );
+		    	output = new File( "./", lastClassName+".tap" );
+				tapProducer.dump( testSet, output );
+				
+				testSet = new TestSet();
+				methodsSizeList = 0;
+			}
+			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult( testMethod, 1 );
+			testSet.addTestResult( tapTestResult );
+			methodsSizeList++;
+			
+			lastClassName = className;
+    	}
+		
+    	testSet.setPlan( new Plan( methodsSizeList ) );
+    	output = new File( "./", className+".tap" );
+		tapProducer.dump( testSet, output );
+    }
+    
+    /**
+     * Generate tap file for per suite
+     * 
+     * @param result
+     */
+    protected void generateTapPerSuite( Result result )
+    {
+    	TestSet testSet = new TestSet();
+    	testSet.setPlan( new Plan( testMethodsList.size() ) );
+    	String className="";
+    	
+    	for( JUnitTestData testMethod:testMethodsList )
+    	{
+			className = JUnitYAMLishUtils.extractClassName( testMethod.getDescription() );
+
+			TestResult tapTestResult = JUnitTAPUtils.generateTAPTestResult(testMethod, 1);
+			testSet.addTestResult( tapTestResult );
+    	}
+		
+    	File output = new File( "./", className+"-SUITE.tap" );
+		tapProducer.dump( testSet, output );
+    }
 
     /**
      * Set test info
@@ -182,9 +232,9 @@ extends RunListener
      */
     protected void setTestInfo( Description description )
     {
-    	JUnitTestData testMethod = new JUnitTestData(false, false);
-    	testMethod.setDescription(description);
-    	testMethodsList.add(testMethod);
+    	JUnitTestData testMethod = new JUnitTestData( false, false );
+    	testMethod.setDescription( description );
+    	testMethodsList.add( testMethod );
     }
     
     /**
@@ -194,14 +244,14 @@ extends RunListener
      */
     protected void setFailedTestsStatus( Result result )
     {
-    	if(result.getFailureCount()>0)
+    	if( result.getFailureCount() > 0 )
     	{
-        	for(Failure f : result.getFailures())
+        	for( Failure f : result.getFailures() )
         	{
             	// Change test status to Failed 
-            	for(JUnitTestData testMethod:testMethodsList)
+            	for( JUnitTestData testMethod:testMethodsList )
             	{
-            		if(testMethod.getDescription().getDisplayName().equals(f.getTestHeader()))
+            		if( testMethod.getDescription().getDisplayName().equals( f.getTestHeader() ) )
             		{
             			testMethod.setFailed( true );
             			testMethod.setFailMessage( f.getMessage() );

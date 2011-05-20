@@ -10,24 +10,40 @@ JUnit support
  provided by tap4j and run your tests.
  
  The classes for JUnit are inside org.tap4j.ext.junit package. The class 
- JUnitTestTapReporter extends RunListener and generates TAP per class and 
- per method. 
+ JUnitTestTapReporter extends RunListener and generates TAP per suite, class and 
+ method. 
  
 * JUnit test executor class
  
  Your initial test executor class will look like this.
 
 +---+
-public class RunJUnitTestWithListener 
+package sample;
+
+import junit.framework.TestSuite;
+
+import org.junit.runner.JUnitCore;
+import org.tap4j.ext.junit.JUnitTestTapReporter;
+
+public class RunJUnitSuiteWithListener 
 {
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) 
 	{
-		 JUnitCore core= new JUnitCore();
-		 core.addListener(new JUnitTestTapReporter());
-		 core.run(TestClass.class);
+		// Create a JUnit suite
+		TestSuite suite = new TestSuite();
+		
+		// Add every test class you want to the suite
+		suite.addTestSuite(YourJUnitTestClass1.class);
+		suite.addTestSuite(YourJUnitTestClass2.class);
+		
+		// Instantiate a JUniteCore object
+		JUnitCore core = new JUnitCore();
+		
+		// Add TAP Reporter Listener to the core object executor
+		core.addListener(new JUnitTestTapReporter());
+		
+		// Run the test suite
+		core.run(suite);
 	}
 }
 +---+

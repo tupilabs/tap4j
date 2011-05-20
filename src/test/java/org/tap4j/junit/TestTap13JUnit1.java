@@ -45,12 +45,12 @@ public class TestTap13JUnit1 extends TestCase
 	@Test
 	public void testFalse2()
 	{
-		Assert.assertFalse( true );
+		Assert.assertFalse( false );
 	}
 
 	@Test @Ignore
 	public void testIgnored()
 	{
-		Assert.assertFalse( true );
+		Assert.assertFalse( false );
 	}
 }

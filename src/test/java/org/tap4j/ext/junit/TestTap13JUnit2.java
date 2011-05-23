@@ -1,7 +1,7 @@
-/*
+/* 
  * The MIT License
- *
- * Copyright (c) <2010> <tap4j>
+ * 
+ * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,39 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.junit;
+package org.tap4j.ext.junit;
 
-import junit.framework.TestSuite;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
-import org.junit.runner.JUnitCore;
-import org.tap4j.ext.junit.JUnitTestTapReporter;
+import org.junit.Test;
 
 /**
- * JUnit suite executor with TAP JUnitTestTapReporter listener 
+ * Simple test class for testing the tap reporter listener
  * 
- * @author Cesar Fernandes de Almeida
+ * @author cesar.almeida
+ * @since 2.01
  */
-public class RunJUnitSuiteWithListener 
+public class TestTap13JUnit2 extends TestCase
 {
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) 
+	@Test
+	public void testTrue()
 	{
-		// Create a JUnit suite
-		TestSuite suite = new TestSuite();
-		
-		// Add every test class you want to the suite
-		suite.addTestSuite(TestTap13JUnit1.class);
-		suite.addTestSuite(TestTap13JUnit2.class);
-		
-		// Instantiate a JUniteCore object
-		JUnitCore core = new JUnitCore();
-		
-		// Add TAP Reporter Listener to the core object executor
-		core.addListener(new JUnitTestTapReporter());
-		
-		// Run the test suite
-		core.run(suite);
+		Assert.assertTrue ( true );
 	}
 }

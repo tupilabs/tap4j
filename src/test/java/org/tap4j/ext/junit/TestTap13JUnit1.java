@@ -21,36 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.junit;
+package org.tap4j.ext.junit;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Simple test class tap reporter listener
+ * Simple test class for testing the tap reporter listener
  * 
  * @author cesar.almeida
+ * @since 2.01
  */
 public class TestTap13JUnit1 extends TestCase
 {
 	@Test
-	public void testFalse1()
+	public void testFalse()
 	{
 		Assert.assertFalse ( false );
-	}
-	
-	@Test
-	public void testFalse2()
-	{
-		Assert.assertFalse( false );
-	}
-
-	@Test @Ignore
-	public void testIgnored()
-	{
-		Assert.assertFalse( false );
 	}
 }

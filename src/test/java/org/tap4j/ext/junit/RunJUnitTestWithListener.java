@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
+ *
+ * Copyright (c) <2010> <tap4j>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,36 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.junit;
+package org.tap4j.ext.junit;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.tap4j.ext.junit.JUnitTestTapReporter;
 
 /**
- * Simple test class tap reporter listener
+ * Class for creating a JUnit test runner and add the TAP listener
  * 
- * @author cesar.almeida
+ * @author Cesar Fernandes de Almeida
+ * @since 1.4.3
  */
-public class TestTap13JUnit2 extends TestCase
+public class RunJUnitTestWithListener 
 {
-	@Test
-	public void testTrue1()
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
 	{
-		Assert.assertTrue ( true );
-	}
-	
-	@Test
-	public void testTrue2()
-	{
-		Assert.assertTrue( true );
-	}
-
-	@Test @Ignore
-	public void testIgnored()
-	{
-		Assert.assertFalse( false );
+		 JUnitCore core= new JUnitCore();
+		 core.addListener(new JUnitTestTapReporter());
+		 core.run(TestTap13JUnit1.class);
 	}
 }

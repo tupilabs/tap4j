@@ -1,0 +1,13 @@
+1..3
+ok 1 Success
+  ---
+  extension:
+    Files:
+      1.txt:
+        File-Name: 1.txt
+        Location: /tmp/1.txt
+        File-Type: text/plain
+  message: hello
+...
+ok 2 No problem 
+not ok 3 Damn!!! # SKIP this routine wasn't implemented yet

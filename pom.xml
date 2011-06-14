@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tap4j</groupId>
@@ -40,6 +41,7 @@
 
 	<ciManagement>
 		<system>Jenkins</system>
+		<url>http://tap4j.ci.cloudbees.com/</url>
 	</ciManagement>
 	<inceptionYear>2010</inceptionYear>
 
@@ -153,7 +155,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.0-beta-2</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.doxia</groupId>
@@ -161,66 +163,92 @@
 						<version>1.1.4</version>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>2.4</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>dependencies</report>
+										<report>project-team</report>
+										<report>mailing-list</report>
+										<report>cim</report>
+										<report>issue-tracking</report>
+										<report>license</report>
+										<report>scm</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jxr-plugin</artifactId>
+							<version>2.1</version>
+							<configuration>
+								<aggregate>true</aggregate>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<version>2.7</version>
+							<configuration>
+								<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+								<docletArtifact>
+									<groupId>gr.spinellis</groupId>
+									<artifactId>UmlGraph</artifactId>
+									<version>4.4</version>
+								</docletArtifact>
+								<additionalparam>
+									-inferrel -inferdep -quiet -hide java.*
+									-collpackages java.util.* -qualify
+									-postfixpackage -nodefontsize
+									9
+									-nodefontpackagesize 7
+									-edgefontname "Trebuchet MS"
+									-nodefontabstractname "Trebuchet MS"
+									-nodefontclassabstractname
+									"Trebuchet MS"
+									-nodefontclassname "Trebuchet MS"
+									-nodefontname
+									"Trebuchet MS"
+									-nodefontpackagename "Trebuchet MS"
+									-nodefonttagname
+									"Trebuchet MS" 
+					</additionalparam>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-report-plugin</artifactId>
+							<version>2.8</version>
+							<configuration>
+								<excludes>
+									<exclude>**/TestNGIntegration.java</exclude>
+									<exclude>**/TestNGIntegration2.java</exclude>
+									<exclude>**/TestPerlIntegration.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-pmd-plugin</artifactId>
+							<configuration>
+								<targetJdk>1.5</targetJdk>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>cobertura-maven-plugin</artifactId>
+						</plugin>
+					</reportPlugins>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
-					<docletArtifact>
-						<groupId>gr.spinellis</groupId>
-						<artifactId>UmlGraph</artifactId>
-						<version>4.4</version>
-					</docletArtifact>
-					<additionalparam>
-						-inferrel -inferdep -quiet -hide java.*
-						-collpackages java.util.* -qualify
-						-postfixpackage -nodefontsize 9
-						-nodefontpackagesize 7
-						-edgefontname "Trebuchet MS"
-						-nodefontabstractname "Trebuchet MS"
-						-nodefontclassabstractname
-						"Trebuchet MS"
-						-nodefontclassname "Trebuchet MS"
-						-nodefontname
-						"Trebuchet MS"
-						-nodefontpackagename "Trebuchet MS"
-						-nodefonttagname
-						"Trebuchet MS" 
-					</additionalparam>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<excludes>
-						<exclude>**/TestNGIntegration.java</exclude>
-						<exclude>**/TestNGIntegration2.java</exclude>
-						<exclude>**/TestPerlIntegration.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<targetJdk>1.5</targetJdk>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</reporting>
 
 	<dependencies>
 		<dependency>

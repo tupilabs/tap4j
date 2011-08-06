@@ -24,8 +24,8 @@
 package org.tap4j.ext.testng;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -144,7 +144,7 @@ extends TestListenerAdapter
 			List<ITestResult> testResultsForThisClass = testResultsPerClass.get( clazz );
 			if ( testResultsForThisClass == null )
 			{
-				testResultsForThisClass = new ArrayList<ITestResult>();
+				testResultsForThisClass = new LinkedList<ITestResult>();
 				testResultsPerClass.put(clazz, testResultsForThisClass);
 			}
 			testResultsForThisClass.add( testResult );
@@ -189,7 +189,7 @@ extends TestListenerAdapter
 			
 			if ( testResultsForThisMethod == null )
 			{
-				testResultsForThisMethod = new ArrayList<ITestResult>();
+				testResultsForThisMethod = new LinkedList<ITestResult>();
 				testResultsPerMethod.put(method, testResultsForThisMethod);
 			}
 			testResultsForThisMethod.add( testResult );

@@ -25,11 +25,11 @@ package org.tap4j.ext.testng;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -250,7 +250,7 @@ implements IReporter
 					
 					if ( testResultsForThisClass == null )
 					{
-						testResultsForThisClass = new ArrayList<ITestResult>();
+						testResultsForThisClass = new LinkedList<ITestResult>();
 						testResultsPerSuite.put(clazz, testResultsForThisClass);
 					}
 					testResultsForThisClass.add( testResult );
@@ -289,7 +289,7 @@ implements IReporter
 							
 							if ( testResultsForThisGroup == null )
 							{
-								testResultsForThisGroup = new ArrayList<ITestResult>();
+								testResultsForThisGroup = new LinkedList<ITestResult>();
 								testResultsPerGroup.put(gpNm, testResultsForThisGroup);
 							}
 							testResultsForThisGroup.add( testResult );

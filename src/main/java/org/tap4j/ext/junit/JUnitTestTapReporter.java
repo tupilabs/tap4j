@@ -24,7 +24,7 @@
 package org.tap4j.ext.junit;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -66,7 +66,7 @@ extends RunListener
     {
     	this.tapProducer = TapProducerFactory.makeTap13YamlProducer();
     	
-    	this.testMethodsList = new ArrayList<JUnitTestData>();
+    	this.testMethodsList = new LinkedList<JUnitTestData>();
     	
     	this.isSuite = description.isSuite();
     }

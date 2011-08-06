@@ -24,7 +24,7 @@
 package org.tap4j.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.tap4j.util.StatusValues;
@@ -56,22 +56,22 @@ implements Serializable
 	/**
 	 * List of TAP Lines.
 	 */
-	private List<TapResult> tapLines = new ArrayList<TapResult>();
+	private List<TapResult> tapLines = new LinkedList<TapResult>();
 	
 	/**
 	 * List of Test Results.
 	 */
-	private List<TestResult> testResults = new ArrayList<TestResult>();
+	private List<TestResult> testResults = new LinkedList<TestResult>();
 	
 	/**
 	 * List of Bail Outs.
 	 */
-	private List<BailOut> bailOuts = new ArrayList<BailOut>();
+	private List<BailOut> bailOuts = new LinkedList<BailOut>();
 	
 	/**
 	 * List of comments.
 	 */
-	private List<Comment> comments = new ArrayList<Comment>();
+	private List<Comment> comments = new LinkedList<Comment>();
 	
 	/**
 	 * TAP Footer.

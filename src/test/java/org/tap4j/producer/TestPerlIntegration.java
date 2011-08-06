@@ -455,7 +455,7 @@ public class TestPerlIntegration
 		URL url = ClassLoader.getSystemClassLoader().getResource(".");
 		File classLoaderRoot = new File(url.getFile());
 		File metatap = new File(classLoaderRoot,
-				"\\..\\..\\src\\test\\perl\\metatap");
+				"/../../src/test/perl/metatap");
 		if (!metatap.exists())
 		{
 			throw new RuntimeException("Missing metatap Perl file: "

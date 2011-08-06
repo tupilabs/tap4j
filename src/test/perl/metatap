@@ -1,4 +1,4 @@
-#!C:/opt/perl/strawberry/perl/bin/perl.exe
+#!/usr/bin/perl
 
 use strict ;
 use Getopt::Long ;
@@ -11,8 +11,8 @@ sub TAP::Parser::Aggregator::ok { $_[0]->passed() - ($_[0]->skipped() + $_[0]->t
 
 my %METRICS = (
 	planned => 'Expected number of planned tests',
-	passed 	=> 'Expected number of passed tests (including skip and toto tests)',
-	ok  	=> 'Expected number of passed tests (excluding skip and toto tests)', 
+	passed 	=> 'Expected number of passed tests (including skip and todo tests)',
+	ok  	=> 'Expected number of passed tests (excluding skip and todo tests)', 
 	failed	=> 'Expected number of failed tests',
 	skipped	=> 'Expected number of skipped tests',
 	todo	=> 'Expected number of todo tests',

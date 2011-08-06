@@ -24,7 +24,7 @@
 package org.tap4j.parser;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -80,22 +80,22 @@ implements Parser
 	/**
 	 * List of TAP Lines (test results, bail outs and comments).
 	 */
-	protected List<TapResult> tapLines = new ArrayList<TapResult>();
+	protected List<TapResult> tapLines = new LinkedList<TapResult>();
 	
 	/**
 	 * List of Test Results.
 	 */
-	protected List<TestResult> testResults = new ArrayList<TestResult>();
+	protected List<TestResult> testResults = new LinkedList<TestResult>();
 	
 	/**
 	 * List of Bail Outs.
 	 */
-	protected List<BailOut> bailOuts = new ArrayList<BailOut>();
+	protected List<BailOut> bailOuts = new LinkedList<BailOut>();
 	
 	/**
 	 * List of Comments.
 	 */
-	protected List<Comment> comments = new ArrayList<Comment>();
+	protected List<Comment> comments = new LinkedList<Comment>();
 	
 	/**
 	 * Footer.
@@ -125,10 +125,10 @@ implements Parser
 		this.testSet = null;
 		this.header = null;
 		this.plan = null;
-		this.tapLines = new ArrayList<TapResult>();
-		this.testResults = new ArrayList<TestResult>();
-		this.bailOuts = new ArrayList<BailOut>();
-		this.comments = new ArrayList<Comment>();
+		this.tapLines = new LinkedList<TapResult>();
+		this.testResults = new LinkedList<TestResult>();
+		this.bailOuts = new LinkedList<BailOut>();
+		this.comments = new LinkedList<Comment>();
 	}
 	
 	/* (non-Javadoc)

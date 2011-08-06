@@ -141,19 +141,20 @@ implements Parser
 		testSet.setHeader( this.header );
 		testSet.setPlan( this.plan );
 		
-		for( TestResult testResult : testResults )
+		for ( TapResult tapResult : tapLines )
 		{
-			testSet.addTestResult( testResult );
-		}
-		
-		for ( BailOut bailOut : bailOuts )
-		{
-			this.testSet.addBailOut(bailOut);
-		}
-		
-		for ( Comment comment : comments )
-		{
-			this.testSet.addComment( comment );
+			if ( tapResult instanceof TestResult )
+			{
+				testSet.addTestResult( (TestResult) tapResult );
+			}
+			else if ( tapResult instanceof BailOut )
+			{
+				this.testSet.addBailOut( (BailOut) tapResult );
+			}
+			else if ( tapResult instanceof Comment )
+			{
+				this.testSet.addComment( (Comment) tapResult );
+			}
 		}
 		
 		testSet.setFooter( this.footer );

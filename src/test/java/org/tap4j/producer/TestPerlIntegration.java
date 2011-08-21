@@ -26,9 +26,9 @@ package org.tap4j.producer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
 import org.tap4j.ext.testng.TestTAPReporter;
 import org.tap4j.model.Directive;
 import org.tap4j.model.Plan;
@@ -104,7 +104,7 @@ public class TestPerlIntegration
 		try
 		{
 			exitCode = this.executePerlCommand(
-					new String[] { "--planned", "2" }, tempFile);
+					new String[] { "--planned=2" }, tempFile);
 		} catch (Throwable t)
 		{
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
@@ -401,40 +401,41 @@ public class TestPerlIntegration
 
 		try
 		{
-			CommandLine cmdLine = null;
+			List<String> commands = new LinkedList<String>();
 			
 			if ( TestPerlIntegration.isWindows )
 			{
-				cmdLine = new CommandLine("cmd");
-				cmdLine.addArgument("/c");
-				cmdLine.addArgument("perl");
+				commands.add( "cmd" );
+				commands.add( "/c" );
 			}
 			else
 			{
-				cmdLine = new CommandLine("perl");
+				commands.add("/bin/bash");
+				commands.add("-c");
 			}
 			
-			cmdLine.addArgument(metatap.getCanonicalPath().toString());
+			StringBuilder perlcommand = new StringBuilder();
+			perlcommand.append("perl ");
+			perlcommand.append(metatap.getCanonicalPath().toString());
 			for ( int i = 0 ; args != null && i < args.length ; ++i )
 			{
-				cmdLine.addArgument(args[i]);
+				perlcommand.append(" " + args[i]);
 			}
 			
-			cmdLine.addArgument("<");
+			perlcommand.append(" < ");
 			
-			cmdLine.addArgument(tapFile.getCanonicalPath().toString());
+			perlcommand.append(tapFile.getCanonicalPath().toString());
 			
 			if ( TestPerlIntegration.isWindows )
 			{
-				cmdLine.addArgument("&&");
-				cmdLine.addArgument("exit");
-				cmdLine.addArgument("%%ERRORLEVEL%%");
+				perlcommand.append(" && exit %%ERRORLEVEL%%");
 			}
 			
-			DefaultExecutor executor = new DefaultExecutor();
-			executor.setExitValue(SUCCESS_EXIT_CODE);
+			commands.add( perlcommand.toString() );
+			
+			Process p = Runtime.getRuntime().exec(commands.toArray(new String[0]));
 
-			errorLevel = executor.execute(cmdLine);
+			errorLevel = p.waitFor();
 		} 
 		catch (Throwable e)
 		{
@@ -478,11 +479,6 @@ public class TestPerlIntegration
 				tempFile.deleteOnExit();
 			}
 		}
-	}
-
-	public static void main( String[] args ) throws IOException
-	{
-
 	}
 
 }

@@ -50,7 +50,7 @@ public interface Parser
 	/**
 	 * TAP Test Result Regex.
 	 */
-	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|TODO)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
+	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
 	
 	/**
 	 * TAP Bail Out! Regex.

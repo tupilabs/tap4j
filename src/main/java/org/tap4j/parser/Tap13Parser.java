@@ -388,7 +388,7 @@ implements Parser
 		{
 			String directiveText = matcher.group(5);
 			DirectiveValues directiveValue = null;
-			if ( directiveText.trim().equals("TODO"))
+			if ( directiveText.trim().equalsIgnoreCase("todo"))
 			{
 				directiveValue = DirectiveValues.TODO;
 			} else

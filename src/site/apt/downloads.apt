@@ -12,7 +12,7 @@ Download
 <dependency>
   <groupid>org.tap4j</groupid>
   <artifactid>tap4j</artifactid>
-  <version>2.0.3</version>
+  <version>2.0.5</version>
 </dependency>
 +---+
 

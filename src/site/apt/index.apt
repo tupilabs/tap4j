@@ -36,6 +36,14 @@ not ok 4 - Summarized correctly # TODO Not written yet
  
  {{{http://www.cloudbees.com}CloudBees}} 
  
+ YourKit is kindly supporting open source projects with its full-featured Java Profiler.
+ 
+ YourKit, LLC is the creator of innovative and intelligent tools for profiling
+ Java and .NET applications. Take a look at YourKit's leading software products:
+ 
+ {{{http://www.yourkit.com/java/profiler/index.jsp}YourKit Java Profiler}} and {{{http://www.yourkit.com/.net/profiler/index.jsp}YourKit .NET Profiler}}.
+ 
+ 
 * Presentations
 
 [./images/JCertif_Conf2011_2.png]

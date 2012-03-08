@@ -1,0 +1,32 @@
+not ok 1
+  ---
+      file: org.tap4j.testng.konobi.java
+      description: null
+      wanted: 'true'
+      found: 'false'
+      extensions:
+        Start: 1291572796343
+        End: 1291572797031
+        Took: 688
+        Parameters: ''
+        Attributes: {}
+        Files:
+          File:
+            File-Size: 104192
+            File-Type: image/jpeg
+            File-Description: Selenium Test testBuscaBrunoKinoshita
+            File-Name: testBuscaBrunoKinoshita.jpg
+            File-Title: testBuscaBrunoKinoshita.jpg
+            File-Location: C:\dev\java\hudson_workspace\SampleTestNGSelenium\tap\testBuscaBrunoKinoshita.jpg
+      stack:
+        - Hello
+        - "Is there anyone out there?"
+        - |
+          Is this what I'm looking for?
+      test: good
+  ...
+this: { thing: 'here',
+  breaks: '=0(',
+
+1..1
+# lets see...

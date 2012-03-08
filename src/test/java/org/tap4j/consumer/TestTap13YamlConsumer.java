@@ -128,5 +128,39 @@ public class TestTap13YamlConsumer
 			Assert.fail( e.getMessage());
 		}
 	}
+
+	@Test
+	public void test3()
+	{
+		try 
+		{
+			TestSet testSet = consumer.load( new File(TestTap13YamlConsumer.class.getResource("/input_tap13/org.tap4j.testng.konobi.tap").getFile()) );
+			
+			Assert.assertNotNull( testSet.getPlan() );
+			
+			Assert.assertTrue ( testSet.getPlan().getInitialTestNumber() == 1 );
+			
+			Assert.assertTrue( testSet.getPlan().getLastTestNumber() == 1 );
+			
+			Assert.assertTrue( testSet.getTestResults().size() == 1 );
+			
+			Assert.assertTrue ( testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK );
+			
+			Assert.assertNotNull ( testSet.getTestResult(1).getDiagnostic() );
+			
+			Map<String, Object> diagnostic = testSet.getTestResult(1).getDiagnostic();
+			
+			Assert.assertNotNull( diagnostic );
+			
+			Assert.assertEquals( diagnostic.get("file"), "org.tap4j.testng.konobi.java" );
+			
+			Assert.assertNotNull( diagnostic.get("stack") );
+			
+		} 
+		catch (TapConsumerException e) 
+		{
+			Assert.fail( e.getMessage());
+		}
+	}
 	
 }

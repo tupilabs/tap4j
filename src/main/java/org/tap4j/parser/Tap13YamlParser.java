@@ -53,7 +53,8 @@ protected TapElement lastParsedElement = null;
 	 * element with some multiline text.
 	 */
 	protected int currentIndentationLevel = -1;
-	
+
+	protected boolean currentlyInYAML = false;
 	/**
 	 * YAML parser and emitter.
 	 */
@@ -101,9 +102,15 @@ protected TapElement lastParsedElement = null;
 					// we are at the start of the meta tags, but we should ignore 
 					// the --- or ...
 					// TBD: check how snakeyaml can handle these tokens.
+					//
+					if ( tapLine.trim().equals("---") ){
+						this.currentlyInYAML = true;
+					}
+					if ( tapLine.trim().equals("...") ){
+						this.currentlyInYAML = false;
+					}
 					
 					this.appendTapLineToDiagnosticBuffer( tapLine );
-					
 					return; // NOPMD by Bruno on 12/01/11 07:47
 				}
 				
@@ -308,12 +315,14 @@ protected TapElement lastParsedElement = null;
 	 */
 	private void appendTapLineToDiagnosticBuffer( String diagnosticLine )
 	{
-		if ( diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...") )
-		{
+		if ( diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...")  ){
 			return;
 		}
-		diagnosticBuffer.append( diagnosticLine );
-		diagnosticBuffer.append( '\n' );
+		
+		if ( this.currentlyInYAML ) {
+			diagnosticBuffer.append( diagnosticLine );
+			diagnosticBuffer.append( '\n' );
+		}
 	}
 
 	/**

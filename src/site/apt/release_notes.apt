@@ -1,5 +1,9 @@
 Release Notes
 
+* Version 2.0.6
+
+ * Support JSON within YAMLish
+
 * Version 2.0
 
  * Migration from br.eti.kinoshita to org.tap4j

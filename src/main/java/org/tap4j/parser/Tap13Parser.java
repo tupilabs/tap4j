@@ -309,6 +309,18 @@ implements Parser
 	}
 	
 	/**
+	 * Checks if TAP Plan has been set.
+	 * 
+	 * @throws ParserException if TAP Plan has not been set.
+	 */
+	protected void checkTAPPlanIsSet() {
+		if(!this.isPlanSet)
+		{
+			throw new ParserException("Missing TAP Plan.");
+		}
+	}
+	
+	/**
 	 * Extracts the Header from a TAP Line.
 	 * 
 	 * @param matcher REGEX Matcher.
@@ -584,6 +596,7 @@ implements Parser
 	{
 		// deprecated for better interoperability with Perl done_testing()
 		//this.checkTAPPlanPosition();
+		this.checkTAPPlanIsSet();
 	}
-	
+
 }

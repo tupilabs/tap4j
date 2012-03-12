@@ -4,6 +4,7 @@
     <name>tap4j</name>
     <src>images/tap4j-project.png</src>
     <href>http://sourceforge.net/projects/tap4j/</href>
+    <alt>tap4j</alt>
   </bannerLeft>
   <body>
   
@@ -45,9 +46,9 @@
   </body>
   
   <skin>
-    <groupId>org.apache.maven.skins</groupId>
-    <artifactId>maven-stylus-skin</artifactId>
-    <version>1.2</version>
+      <groupId>org.apache.maven.skins</groupId>
+      <artifactId>maven-fluido-skin</artifactId>
+      <version>1.1</version>
   </skin>
   
 </project>

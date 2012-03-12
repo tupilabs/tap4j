@@ -1,5 +1,9 @@
 Release Notes
 
+* Version 2.0.7
+
+ * Removed the requirement to have TAP Plan as last element of a TAP Stream
+
 * Version 2.0.6
 
  * Support JSON within YAMLish

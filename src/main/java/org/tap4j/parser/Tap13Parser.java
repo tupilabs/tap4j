@@ -289,6 +289,8 @@ implements Parser
 	 * So we just check if the plan was found before test result or bail outs. 
 	 * If so, skip this check. Otherwise, we shall check if the last line 
 	 * is the TAP Plan.
+	 * 
+	 * @deprecated 
 	 */
 	protected void checkTAPPlanPosition() 
 	throws ParserException
@@ -514,8 +516,7 @@ implements Parser
 					this.parseLine( line );
 				}				
 			}
-			
-			this.checkTAPPlanPosition();
+			this.postProcess();
 		} 
 		catch ( Exception e )
 		{
@@ -581,7 +582,8 @@ implements Parser
 	protected void postProcess() 
 	throws ParserException 
 	{
-		this.checkTAPPlanPosition();
+		// deprecated for better interoperability with Perl done_testing()
+		//this.checkTAPPlanPosition();
 	}
 	
 }

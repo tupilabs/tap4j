@@ -184,8 +184,18 @@ implements Parser
 		}
 		
 		// Last line that is not a comment.
-		lastLine = tapLine;
-		
+                // However we also need to ensure we don't don't capture random test either
+                if(
+                        COMMENT_PATTERN.matcher( tapLine ).matches()
+                        || HEADER_PATTERN.matcher( tapLine ).matches()
+                        || PLAN_PATTERN.matcher( tapLine ).matches()
+                        || TEST_RESULT_PATTERN.matcher( tapLine ).matches()
+                        || BAIL_OUT_PATTERN.matcher( tapLine ).matches()
+                        || FOOTER_PATTERN.matcher( tapLine ).matches()
+                ){
+		    lastLine = tapLine;
+                }
+
 		// Header 
 		matcher = HEADER_PATTERN.matcher( tapLine );
 		if ( matcher.matches() )

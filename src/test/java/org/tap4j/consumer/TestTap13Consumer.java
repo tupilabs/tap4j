@@ -432,4 +432,25 @@ public class TestTap13Consumer
 		testSet = consumer.load( new File(TestTap13Consumer.class.getResource("/org/tap4j/consumer/two_tr.tap").getFile()) );
 	}
 	
+        @Test(description="Tests a TapConsumer reading a plan at end with random output afterwards")
+	public void testTapConsumerStdoutAfterPlan()
+	{
+		TapConsumer tapConsumer = TapConsumerFactory.makeTap13Consumer();
+		
+		TestSet testSet = null;
+		
+		String validTapStream = "ok 1\n1..1\nJust some random stuff here";
+		
+		try
+		{
+			testSet = tapConsumer.load(validTapStream);
+		} 
+		catch ( TapConsumerException tapConsumerException )
+		{
+			Assert.fail( NOT_SUPPOSED_TO_GET_HERE );
+		}
+		
+		Assert.assertNotNull( testSet );
+	}
+	
 }

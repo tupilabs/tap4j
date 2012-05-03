@@ -33,38 +33,31 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPBailOut 
-{
-	
+public class TestTAPBailOut {
+
 	protected BailOut bailOut;
-	
+
 	private final static String REASON = "It is monday.";
-	
+
 	@BeforeTest
-	public void setUp()
-	{
-		bailOut = new BailOut( REASON );
-		
-		bailOut.setComment( new Comment("Bail out comment") );
+	public void setUp() {
+		bailOut = new BailOut(REASON);
+
+		bailOut.setComment(new Comment("Bail out comment"));
 	}
-	
+
 	@Test
-	public void testBailOut()
-	{
-		Assert.assertNotNull( bailOut );
-		
-		Assert.assertEquals( bailOut.getReason(), REASON );
-		
-		Assert.assertNotNull( bailOut.getComment() );
-		
-		Assert.assertNotNull( bailOut.getComment().getText() );
-		
-		Assert.assertEquals( bailOut.toString(), "Bail out! " + REASON + " " +  bailOut.getComment().toString());
-		
+	public void testBailOut() {
+		Assert.assertNotNull(bailOut);
+
+		Assert.assertEquals(bailOut.getReason(), REASON);
+
+		Assert.assertNotNull(bailOut.getComment());
+
+		Assert.assertNotNull(bailOut.getComment().getText());
+
 		bailOut = new BailOut(null);
-		Assert.assertNull( bailOut.getReason() );
-		
-		Assert.assertEquals( bailOut.toString(), "Bail out!" );
+		Assert.assertNull(bailOut.getReason());
 	}
 
 }

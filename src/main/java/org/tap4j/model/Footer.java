@@ -24,80 +24,57 @@
 package org.tap4j.model;
 
 /**
- * This class represents a Footer in the TAP Stream. A Footer, or tail is a mere 
- * line with some text. In the very beginning there is a 'TAP' token and then 
+ * This class represents a Footer in the TAP Stream. A Footer, or tail is a mere
+ * line with some text. In the very beginning there is a 'TAP' token and then
  * the text. For instance, 'TAP done' is a valid Footer.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Footer 
-extends AbstractTapElementDiagnostic
-{
-	private static final long serialVersionUID = 1L;
-	
+public class Footer extends AbstractTapElementDiagnostic {
+	private static final long serialVersionUID = 6941329821890027928L;
+
 	/**
 	 * Footer text.
 	 */
 	private String text;
-	
+
 	/**
 	 * Comment.
 	 */
 	private Comment comment;
-	
+
 	/**
 	 * Constructor that calls super class constructor.
 	 * 
-	 * @param text Footer text
+	 * @param text
+	 *            Footer text
 	 */
-	public Footer(String text)
-	{
+	public Footer(String text) {
 		super();
 		this.text = text;
 	}
-	
+
 	/**
 	 * @return Footer's text.
 	 */
-	public String getText()
-	{
+	public String getText() {
 		return this.text;
 	}
-	
+
 	/**
-	 * @param comment Comment.
+	 * @param comment
+	 *            Comment.
 	 */
-	public void setComment( Comment comment )
-	{
+	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-	
+
 	/**
 	 * @return Comment.
 	 */
-	public Comment getComment()
-	{
+	public Comment getComment() {
 		return this.comment;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append( "TAP " );
-		sb.append( this.text );
-		
-		if ( this.comment != null )
-		{
-			sb.append ( ' ' );
-			sb.append( this.comment.toString() );
-		}
-		return sb.toString();
 	}
 
 }

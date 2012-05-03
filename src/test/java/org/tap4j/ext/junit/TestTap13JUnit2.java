@@ -34,11 +34,9 @@ import org.junit.Test;
  * @author cesar.almeida
  * @since 2.01
  */
-public class TestTap13JUnit2 extends TestCase
-{
+public class TestTap13JUnit2 extends TestCase {
 	@Test
-	public void testTrue()
-	{
-		Assert.assertTrue ( true );
+	public void testTrue() {
+		Assert.assertTrue(true);
 	}
 }

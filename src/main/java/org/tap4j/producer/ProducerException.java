@@ -21,59 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.representer;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Constructor;
-import java.util.LinkedHashMap;
-
-import org.tap4j.model.TestResult;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.yaml.snakeyaml.Yaml;
+package org.tap4j.producer;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestRepresenterUtil
-{
+public class ProducerException extends RuntimeException {
 
-	@Test
-	public void testRepresenterUtil()
-	{
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		Yaml yaml = new Yaml();
-		TestResult tr = new TestResult();
-		
-		tr.setDiagnostic( null );
-		
-		RepresenterUtil.printDiagnostic(yaml, tr, pw);
-		
-		Assert.assertNotNull( sw.toString() );
-		
-		tr.setDiagnostic(new LinkedHashMap<String, Object>());
-		
-		Assert.assertNotNull( sw.toString() );
-	}
-	
-	@Test
-	public void testRepresenterUtilConstructor()
-	{
-		try
-		{
-			final Constructor<?> c = RepresenterUtil.class.getDeclaredConstructors()[0];
-			c.setAccessible(true);
-			final Object o = c.newInstance((Object[]) null);
+	private static final long serialVersionUID = 5579591125440097408L;
 
-			Assert.assertNotNull(o);
-		}
-		catch (Exception e)
-		{
-			Assert.fail("Failed to instantiate RepresenterUtil constructor: " + e.getMessage(), e);
-		}
+	/**
+	 * 
+	 */
+	public ProducerException() {
+		super();
 	}
-	
+
+	/**
+	 * @param message
+	 */
+	public ProducerException(String message) {
+		super(message);
+	}
+
+	/**
+	 * @param cause
+	 */
+	public ProducerException(Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public ProducerException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }

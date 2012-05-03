@@ -24,80 +24,59 @@
 package org.tap4j.model;
 
 /**
- * TAP Header. Each TAP File has at most one header in the beginning of it. The 
- * only thing that can precede the Header are comments. However a Header is not 
+ * TAP Header. Each TAP File has at most one header in the beginning of it. The
+ * only thing that can precede the Header are comments. However a Header is not
  * required in a TAP File (i.e. the Header is optional).
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Header 
-extends AbstractTapElementDiagnostic
-{
-	private static final long serialVersionUID = 1L;
-	
+public class Header extends AbstractTapElementDiagnostic {
+	private static final long serialVersionUID = -3823455733333632836L;
+
 	/**
 	 * TAP file version.
 	 */
 	private Integer version;
-	
+
 	/**
 	 * Header optional comment.
 	 */
 	private Comment comment;
-	
+
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param version TAP file version.
+	 * @param version
+	 *            TAP file version.
 	 */
-	public Header( Integer version )
-	{
+	public Header(Integer version) {
 		super();
 		this.version = version;
 	}
-	
+
 	/**
 	 * @return The TAP file version.
 	 */
-	public Integer getVersion()
-	{
+	public Integer getVersion() {
 		return this.version;
 	}
-	
+
 	/**
 	 * @return Header comment.
 	 */
-	public Comment getComment()
-	{
+	public Comment getComment() {
 		return this.comment;
 	}
-	
+
 	/**
 	 * Sets a comment into the Header.
 	 * 
-	 * @param comment Header comment.
+	 * @param comment
+	 *            Header comment.
 	 */
-	public void setComment( Comment comment )
-	{
+	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-	
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append( "TAP version " );
-		sb.append( this.version );
-		
-		if ( this.comment != null )
-		{
-			sb.append ( ' ' );
-			sb.append( this.comment.toString() );
-		}
-		
-		return sb.toString();
-	}
-	
+
 }

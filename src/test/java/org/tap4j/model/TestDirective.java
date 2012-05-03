@@ -34,35 +34,27 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestDirective 
-{
+public class TestDirective {
 
 	private Directive directive;
-	
+
 	@BeforeMethod
-	public void setUp()
-	{
+	public void setUp() {
 		directive = new Directive(DirectiveValues.TODO, "Not implemented yet.");
 	}
-	
+
 	@Test
-	public void testDirective()
-	{
-		Assert.assertEquals( directive.toString(), " # TODO Not implemented yet.");
-		
-		Assert.assertEquals( directive.getReason(), "Not implemented yet.");
-		
-		Assert.assertEquals( directive.getDirectiveValue(), DirectiveValues.TODO );
+	public void testDirective() {
+		Assert.assertEquals(directive.getReason(), "Not implemented yet.");
+
+		Assert.assertEquals(directive.getDirectiveValue(), DirectiveValues.TODO);
 	}
-	
+
 	@Test
-	public void testNoReason()
-	{
+	public void testNoReason() {
 		directive = new Directive(DirectiveValues.SKIP, null);
-		
-		Assert.assertNull( directive.getReason() );
-		
-		Assert.assertEquals( directive.toString(), " # SKIP" );
+
+		Assert.assertNull(directive.getReason());
 	}
-	
+
 }

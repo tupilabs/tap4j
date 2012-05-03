@@ -38,20 +38,20 @@ import org.testng.annotations.Test;
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 2.0.6
- * @see {@link TestDoneTesting}}
+ * @see {@link TestDoneTesting}
  */
 public class TestRandomStdoutAfterTestPlanAtEnd {
 
-	@Test(description="Tests a TapConsumer reading a plan at end with random output afterwards")
+	@Test(description = "Tests a TapConsumer reading a plan at end with random output afterwards")
 	public void testRandomStoutAfterTestPlanAtEnd() {
 		TapConsumer tapConsumer = TapConsumerFactory.makeTap13Consumer();
 		TestSet testSet = null;
-		
+
 		String validTapStream = "ok 1\n1..1\nJust some random stuff here";
-		
+
 		testSet = tapConsumer.load(validTapStream);
-		
-		Assert.assertNotNull( testSet );
+
+		Assert.assertNotNull(testSet);
 	}
-	
+
 }

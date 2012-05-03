@@ -32,18 +32,17 @@ import java.util.Map;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface TapElement 
-extends Serializable 
-{
-	
+public interface TapElement extends Serializable {
+
 	/**
 	 * @return yaml diagnostic information.
 	 */
 	Map<String, Object> getDiagnostic();
-	
+
 	/**
-	 * @param meta yaml diagnostic information.
+	 * @param meta
+	 *            yaml diagnostic information.
 	 */
 	void setDiagnostic(Map<String, Object> meta);
-	
+
 }

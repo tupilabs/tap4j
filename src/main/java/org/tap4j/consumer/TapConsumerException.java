@@ -23,54 +23,52 @@
  */
 package org.tap4j.consumer;
 
-
 /**
  * This exception is thrown by the Tap Parser.
  * 
  * @author Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * @since 20/09/2010
  */
-public class TapConsumerException extends RuntimeException
-{
+public class TapConsumerException extends RuntimeException {
 
 	private static final long serialVersionUID = -4463077483065538121L;
 
 	/**
 	 * Default constructor.
 	 */
-	public TapConsumerException()
-	{
+	public TapConsumerException() {
 		super();
 	}
 
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param message Exception message.
+	 * @param message
+	 *            Exception message.
 	 */
-	public TapConsumerException(String message)
-	{
+	public TapConsumerException(String message) {
 		super(message);
 	}
 
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param cause Exception cause.
+	 * @param cause
+	 *            Exception cause.
 	 */
-	public TapConsumerException(Throwable cause)
-	{
+	public TapConsumerException(Throwable cause) {
 		super(cause);
 	}
 
 	/**
 	 * Constructor with paramters.
 	 * 
-	 * @param message Exception message.
-	 * @param cause Exception cause.
+	 * @param message
+	 *            Exception message.
+	 * @param cause
+	 *            Exception cause.
 	 */
-	public TapConsumerException(String message, Throwable cause)
-	{
+	public TapConsumerException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

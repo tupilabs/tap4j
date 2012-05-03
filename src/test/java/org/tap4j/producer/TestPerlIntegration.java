@@ -54,19 +54,18 @@ import com.google.inject.Inject;
  */
 @Listeners(TestTAPReporter.class)
 @Guice(modules = { TapPerlIntegrationModule.class })
-public class TestPerlIntegration
-{
+public class TestPerlIntegration {
 
 	private static final Integer SUCCESS_EXIT_CODE = Integer.valueOf(0);
 
-	private static boolean isWindows = System.getProperty("os.name").contains("Windows");
-	
+	private static boolean isWindows = System.getProperty("os.name").contains(
+	        "Windows");
+
 	@Inject
-	protected TapProducer tapProducer;
+	protected Producer tapProducer;
 
 	@Test(description = "Tests planned tests in TAP.")
-	public void testPlannedTests()
-	{
+	public void testPlannedTests() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(2);
@@ -82,42 +81,35 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(2));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
-			exitCode = this.executePerlCommand(
-					new String[] { "--planned=2" }, tempFile);
-		} catch (Throwable t)
-		{
+		try {
+			exitCode = this.executePerlCommand(new String[] { "--planned=2" },
+			        tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
 	@Test(description = "Tests passed tests in TAP.")
-	public void testPassedTests()
-	{
+	public void testPassedTests() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(2);
@@ -133,42 +125,35 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(2));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
+		try {
 			exitCode = this.executePerlCommand(
-					new String[] { "--passed", "2" }, tempFile);
-		} catch (Throwable t)
-		{
+			        new String[] { "--passed", "2" }, tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
 	@Test(description = "Tests failed tests in TAP.")
-	public void testFailedTests()
-	{
+	public void testFailedTests() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(2);
@@ -184,42 +169,35 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(2));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
+		try {
 			exitCode = this.executePerlCommand(
-					new String[] { "--failed", "1" }, tempFile);
-		} catch (Throwable t)
-		{
+			        new String[] { "--failed", "1" }, tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
 	@Test(description = "Tests TODO'ed tests in TAP.")
-	public void testTodoedTests()
-	{
+	public void testTodoedTests() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(2);
@@ -236,42 +214,35 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(2));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
-			exitCode = this.executePerlCommand(
-					new String[] { "--todo", "1" }, tempFile);
-		} catch (Throwable t)
-		{
+		try {
+			exitCode = this.executePerlCommand(new String[] { "--todo", "1" },
+			        tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
 	@Test(description = "Tests skipped tests in TAP.")
-	public void testSkippedTestes()
-	{
+	public void testSkippedTestes() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(2);
@@ -288,42 +259,35 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(2));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
+		try {
 			exitCode = this.executePerlCommand(
-					new String[] { "--skipped", "1" }, tempFile);
-		} catch (Throwable t)
-		{
+			        new String[] { "--skipped", "1" }, tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
 	@Test(description = "Tests planned, passed, failed, TODO'ed and skipped tests in TAP.")
-	public void testPannedPassedFailedTodoedSkipped()
-	{
+	public void testPannedPassedFailedTodoedSkipped() {
 		TestSet testSet = new TestSet();
 
 		final Plan tapPlan = new Plan(6);
@@ -335,18 +299,19 @@ public class TestPerlIntegration
 
 		TestResult result2 = new TestResult(StatusValues.OK, 2);
 		testSet.addTestResult(result2);
-		
+
 		TestResult result3 = new TestResult(StatusValues.OK, 3);
 		testSet.addTestResult(result3);
-		
+
 		TestResult result4 = new TestResult(StatusValues.NOT_OK, 4);
-		result4.setDirective(new Directive(DirectiveValues.SKIP, "Skip" ));
+		result4.setDirective(new Directive(DirectiveValues.SKIP, "Skip"));
 		testSet.addTestResult(result4);
-		
+
 		TestResult result5 = new TestResult(StatusValues.OK, 5);
-		result5.setDirective(new Directive(DirectiveValues.TODO, "someday who knows" ));
+		result5.setDirective(new Directive(DirectiveValues.TODO,
+		        "someday who knows"));
 		testSet.addTestResult(result5);
-		
+
 		TestResult result6 = new TestResult(StatusValues.NOT_OK, 6);
 		testSet.addTestResult(result6);
 
@@ -354,91 +319,73 @@ public class TestPerlIntegration
 		Assert.assertEquals(tapPlan.getLastTestNumber(), Integer.valueOf(6));
 
 		File tempFile = null;
-		try
-		{
+		try {
 			tempFile = File.createTempFile("tap4j", ".tap");
-		} catch (IOException ioe)
-		{
+		} catch (IOException ioe) {
 			Assert.fail("Failed to create temp file: " + ioe.getMessage(), ioe);
 		}
 
-		try
-		{
+		try {
 			tapProducer.dump(testSet, tempFile);
-		} catch (TapProducerException tpe)
-		{
+		} catch (ProducerException tpe) {
 			Assert.fail("Failed to dump Test Set to file [" + tempFile + "]: "
-					+ tpe.getMessage(), tpe);
+			        + tpe.getMessage(), tpe);
 		}
 
 		Integer exitCode = 1;
 
-		try
-		{
-			exitCode = this.executePerlCommand(
-					new String[] {
-							"--planned", "6", 
-							"--passed", "4", // TODO in not_ok => ok 
-							"--failed", "2",
-							"--todo", "2", 
-							"--skipped", "1"
-					}, tempFile);
-		} catch (Throwable t)
-		{
+		try {
+			exitCode = this.executePerlCommand(new String[] { "--planned", "6",
+			        "--passed", "4", // TODO in not_ok => ok
+			        "--failed", "2", "--todo", "2", "--skipped", "1" },
+			        tempFile);
+		} catch (Throwable t) {
 			Assert.fail("Failed to execute Perl command: " + t.getMessage());
 		}
 
 		Assert.assertEquals(exitCode, SUCCESS_EXIT_CODE);
-		
-		this.deleteTempFile ( tempFile );
+
+		this.deleteTempFile(tempFile);
 	}
 
-	private Integer executePerlCommand( String[] args, File tapFile )
-	{
+	private Integer executePerlCommand(String[] args, File tapFile) {
 		final File metatap = this.getMetatap();
 
 		Integer errorLevel = Integer.valueOf(1);
 
-		try
-		{
+		try {
 			List<String> commands = new LinkedList<String>();
-			
-			if ( TestPerlIntegration.isWindows )
-			{
-				commands.add( "cmd" );
-				commands.add( "/c" );
-			}
-			else
-			{
+
+			if (TestPerlIntegration.isWindows) {
+				commands.add("cmd");
+				commands.add("/c");
+			} else {
 				commands.add("/bin/bash");
 				commands.add("-c");
 			}
-			
+
 			StringBuilder perlcommand = new StringBuilder();
 			perlcommand.append("perl ");
 			perlcommand.append(metatap.getCanonicalPath().toString());
-			for ( int i = 0 ; args != null && i < args.length ; ++i )
-			{
+			for (int i = 0; args != null && i < args.length; ++i) {
 				perlcommand.append(" " + args[i]);
 			}
-			
+
 			perlcommand.append(" < ");
-			
+
 			perlcommand.append(tapFile.getCanonicalPath().toString());
-			
-			if ( TestPerlIntegration.isWindows )
-			{
+
+			if (TestPerlIntegration.isWindows) {
 				perlcommand.append(" && exit %%ERRORLEVEL%%");
 			}
-			
-			commands.add( perlcommand.toString() );
-			
-			Process p = Runtime.getRuntime().exec(commands.toArray(new String[0]));
+
+			commands.add(perlcommand.toString());
+
+			Process p = Runtime.getRuntime().exec(
+			        commands.toArray(new String[0]));
 
 			errorLevel = p.waitFor();
-		} 
-		catch (Throwable e)
-		{
+		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
 
@@ -451,31 +398,26 @@ public class TestPerlIntegration
 	 * @return Perl metatap script.
 	 * @throws RuntimeException
 	 */
-	private File getMetatap()
-	{
+	private File getMetatap() {
 		URL url = ClassLoader.getSystemClassLoader().getResource(".");
 		File classLoaderRoot = new File(url.getFile());
-		File metatap = new File(classLoaderRoot,
-				"/../../src/test/perl/metatap");
-		if (!metatap.exists())
-		{
+		File metatap = new File(classLoaderRoot, "/../../src/test/perl/metatap");
+		if (!metatap.exists()) {
 			throw new RuntimeException("Missing metatap Perl file: "
-					+ metatap.toString());
+			        + metatap.toString());
 		}
 		return metatap;
 	}
-	
+
 	/**
 	 * Tries to delete a temporary file.
 	 * 
-	 * @param tempFile temporary file.
+	 * @param tempFile
+	 *            temporary file.
 	 */
-	private void deleteTempFile( File tempFile )
-	{
-		if ( tempFile != null && tempFile.exists() )
-		{
-			if ( ! tempFile.delete() )
-			{
+	private void deleteTempFile(File tempFile) {
+		if (tempFile != null && tempFile.exists()) {
+			if (!tempFile.delete()) {
 				tempFile.deleteOnExit();
 			}
 		}

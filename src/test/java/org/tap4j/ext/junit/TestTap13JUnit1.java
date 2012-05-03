@@ -34,11 +34,9 @@ import org.junit.Test;
  * @author cesar.almeida
  * @since 2.01
  */
-public class TestTap13JUnit1 extends TestCase
-{
+public class TestTap13JUnit1 extends TestCase {
 	@Test
-	public void testFalse()
-	{
-		Assert.assertFalse ( false );
+	public void testFalse() {
+		Assert.assertFalse(false);
 	}
 }

@@ -30,52 +30,51 @@ import java.lang.reflect.Method;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TAPAttribute 
-implements Serializable
-{
+public class TAPAttribute implements Serializable {
 
 	private static final long serialVersionUID = -6479674325095714937L;
-	
+
 	private Method method;
 	private Object value;
-	
+
 	/**
 	 * @param method
 	 * @param value
 	 */
-	public TAPAttribute(Method method, Object value)
-	{
+	public TAPAttribute(Method method, Object value) {
 		super();
 		this.method = method;
 		this.value = value;
 	}
+
 	/**
 	 * @return the method
 	 */
-	public Method getMethod()
-	{
+	public Method getMethod() {
 		return method;
 	}
+
 	/**
-	 * @param method the method to set
+	 * @param method
+	 *            the method to set
 	 */
-	public void setMethod( Method method )
-	{
+	public void setMethod(Method method) {
 		this.method = method;
 	}
+
 	/**
 	 * @return the value
 	 */
-	public Object getValue()
-	{
+	public Object getValue() {
 		return value;
 	}
+
 	/**
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
-	public void setValue( Object value )
-	{
+	public void setValue(Object value) {
 		this.value = value;
 	}
-	
+
 }

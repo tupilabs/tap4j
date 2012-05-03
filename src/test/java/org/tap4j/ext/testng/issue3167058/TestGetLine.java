@@ -27,21 +27,20 @@ import org.tap4j.ext.testng.TestNGYAMLishUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
 /**
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-public class TestGetLine 
-{
+public class TestGetLine {
 	@Test
-	public void testGetYAMLExcepetionLine()
-	{
+	public void testGetYAMLExcepetionLine() {
 		String exceptionTrackLine = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:178)";
 		String strToFind = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:";
-				
-		String lineStr = TestNGYAMLishUtils.getLineNumberFromExceptionTraceLine(exceptionTrackLine, strToFind);
-		
-		Assert.assertTrue ( lineStr!="" );
+
+		String lineStr = TestNGYAMLishUtils
+		        .getLineNumberFromExceptionTraceLine(exceptionTrackLine,
+		                strToFind);
+
+		Assert.assertTrue(lineStr != "");
 	}
 }

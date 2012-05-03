@@ -32,49 +32,45 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapProducerExceptionTest
-{
+public class TestTapProducerExceptionTest {
 
-	private TapProducerException exception;
-	
+	private ProducerException exception;
+
 	@Test
-	public void testTapProducerException1()
-	{
-		exception = new TapProducerException();
-		
-		Assert.assertNotNull( exception );
+	public void testTapProducerException1() {
+		exception = new ProducerException();
+
+		Assert.assertNotNull(exception);
 	}
-	
+
 	@Test
-	public void testTapProducerException2()
-	{
-		exception = new TapProducerException("Error parsing document");
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Error parsing document");
+	public void testTapProducerException2() {
+		exception = new ProducerException("Error parsing document");
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Error parsing document");
 	}
-	
+
 	@Test
-	public void testTapProducerException3()
-	{
-		exception = new TapProducerException(new NullPointerException("Null TAP Stream")); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapProducerException3() {
+		exception = new ProducerException(new NullPointerException(
+		        "Null TAP Stream")); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
-	
+
 	@Test
-	public void testTapProducerException4()
-	{
-		exception = new TapProducerException("Null", new NullPointerException()); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Null");
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapProducerException4() {
+		exception = new ProducerException("Null", new NullPointerException()); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Null");
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
-	
+
 }

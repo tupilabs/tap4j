@@ -41,108 +41,99 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTap13Producer 
-{
-	
+public class TestTap13Producer {
+
 	private static final Integer TAP_VERSION = 13;
-	private TapProducer tapProducer;
+	private Producer tapProducer;
 	private TestSet testSet;
-	
+
 	// Temp file to where we output the generated tap stream.
 	private File tempFile;
-	
+
 	private static final Integer INITIAL_TEST_STEP = 1;
-	
+
 	@BeforeTest
-	public void setUp()
-	{
-		tapProducer = new TapProducerImpl();
+	public void setUp() {
+		tapProducer = new TapProducer();
 		testSet = new TestSet();
-		Header header = new Header( TAP_VERSION );
+		Header header = new Header(TAP_VERSION);
 		testSet.setHeader(header);
 		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
 		testSet.setPlan(plan);
-		Comment singleComment = new Comment( "Starting tests" );
-		testSet.addComment( singleComment );
-		
+		Comment singleComment = new Comment("Starting tests");
+		testSet.addComment(singleComment);
+
 		TestResult tr1 = new TestResult(StatusValues.OK, 1);
 		testSet.addTestResult(tr1);
-		
+
 		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
 		tr2.setTestNumber(2);
 		testSet.addTestResult(tr2);
-		
-		testSet.setFooter( new Footer("End") );
-		
-		try
-		{
+
+		testSet.setFooter(new Footer("End"));
+
+		try {
 			tempFile = File.createTempFile("tap4j_", ".tap");
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
 		}
 	}
-	
+
 	@Test
-	public void testTapProducer()
-	{
-		Assert.assertTrue ( testSet.getTapLines().size() > 0 );
-		
-		try
-		{
-			tapProducer.dump( testSet, tempFile );
-		}
-		catch ( Exception e  )
-		{
+	public void testTapProducer() {
+		Assert.assertTrue(testSet.getTapLines().size() > 0);
+
+		try {
+			tapProducer.dump(testSet, tempFile);
+		} catch (Exception e) {
 			Assert.fail("Failed to print TAP Stream into file.", e);
 		}
-		
-//		BufferedReader reader = null;
-//		
-//		try
-//		{
-//			reader = new BufferedReader( new FileReader( tempFile ) );
-//			
-//			String line = null;
-//			
-//			while ( (line = reader.readLine()) != null )
-//			{
-//				System.out.println(line);
-//			}
-//		}
-//		catch (Exception e)
-//		{
-//			fail("Failed to read temp file.", e);
-//		} 
-//		finally 
-//		{
-//			if ( reader != null )
-//			{
-//				try
-//				{
-//					reader.close();
-//				} catch (Exception e2)
-//				{
-//					e2.printStackTrace(System.err);
-//				}
-//				reader = null;
-//			}
-//		}
+
+		// BufferedReader reader = null;
+		//
+		// try
+		// {
+		// reader = new BufferedReader( new FileReader( tempFile ) );
+		//
+		// String line = null;
+		//
+		// while ( (line = reader.readLine()) != null )
+		// {
+		// System.out.println(line);
+		// }
+		// }
+		// catch (Exception e)
+		// {
+		// fail("Failed to read temp file.", e);
+		// }
+		// finally
+		// {
+		// if ( reader != null )
+		// {
+		// try
+		// {
+		// reader.close();
+		// } catch (Exception e2)
+		// {
+		// e2.printStackTrace(System.err);
+		// }
+		// reader = null;
+		// }
+		// }
 	}
-	
+
 	@Test
-	public void testSingleTestResultWithoutTestNumber()
-	{
-		TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
+	public void testSingleTestResultWithoutTestNumber() {
+		Producer tapProducer = new TapProducer();
 		TestSet testSet = new TestSet();
-		Plan plan = new Plan(1,1);
+		Plan plan = new Plan(1, 1);
 		testSet.setPlan(plan);
 		TestResult okTestResult = new TestResult();
 		okTestResult.setStatus(StatusValues.OK);
-		testSet.addTestResult( okTestResult );
+		testSet.addTestResult(okTestResult);
 		String output = tapProducer.dump(testSet);
-		Assert.assertFalse( output.contains("-1") );
-		
+		Assert.assertFalse(output.contains("-1"));
+
 	}
-	
+
 }

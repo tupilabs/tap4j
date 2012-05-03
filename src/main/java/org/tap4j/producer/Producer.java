@@ -1,7 +1,7 @@
-/*
+/* 
  * The MIT License
- *
- * Copyright (c) <2010> <tap4j>
+ * 
+ * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,42 +21,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.representer;
+package org.tap4j.producer;
 
-import java.io.PrintWriter;
-import java.util.Map;
+import java.io.File;
+import java.io.Writer;
 
-import org.tap4j.model.TapElement;
-import org.yaml.snakeyaml.Yaml;
+import org.tap4j.model.TestSet;
+import org.tap4j.representer.Representer;
 
 /**
+ * Produces a TAP Stream.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public final class RepresenterUtil 
-{
+public interface Producer {
 
-	private RepresenterUtil()
-	{
-		super();
-	}
-	
 	/**
-	 * Prints diagnostic of the TAP Element into the Print Writer.
+	 * Returns a String representing the TAP Stream produced from a TestSet.
 	 * 
-	 * @param yaml YAML instance to dump YAML documents
-	 * @param tapElement TAP element
-	 * @param pw PrintWriter
+	 * @param testSet
+	 *            TestSet
+	 * @return TAP Stream
+	 * @throws ProducerException
 	 */
-	protected static void printDiagnostic( Yaml yaml, TapElement tapElement, PrintWriter pw )
-	{
-		Map<String, Object> diagnostic = tapElement.getDiagnostic();
-		if ( diagnostic != null && !diagnostic.isEmpty() )
-		{
-			String diagnosticText = yaml.dump( diagnostic );
-			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
-			pw.print( diagnosticText );
-		}
-	}
-	
+	String dump(TestSet testSet) throws ProducerException;
+
+	/**
+	 * Writes the TAP Stream produced from a TestSet into a Writer.
+	 * 
+	 * @param testSet
+	 *            TestSet
+	 * @param writer
+	 *            Writer
+	 * @throws ProducerException
+	 */
+	void dump(TestSet testSet, Writer writer) throws ProducerException;
+
+	/**
+	 * Writes the TAP Stream into an output File.
+	 * 
+	 * @param testSet
+	 *            TestSet
+	 * @param output
+	 *            Output File
+	 * @throws ProducerException
+	 */
+	void dump(TestSet testSet, File output) throws ProducerException;
+
+	/**
+	 * Returns the Representer used in the Producer.
+	 * 
+	 * @return Representer
+	 */
+	Representer getRepresenter();
+
 }

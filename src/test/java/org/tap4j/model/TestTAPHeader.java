@@ -31,43 +31,33 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPHeader 
-{
+public class TestTAPHeader {
 
 	protected Header header;
-	
+
 	protected final static Integer TAP_VERSION = 13;
-	
+
 	@BeforeMethod
-	public void setUp()
-	{
-		this.header = new Header( TAP_VERSION );
+	public void setUp() {
+		this.header = new Header(TAP_VERSION);
 	}
-	
+
 	@Test
-	public void testHeader()
-	{
-		Assert.assertNotNull( this.header );
-		
-		Assert.assertEquals( this.header.getVersion(), TestTAPHeader.TAP_VERSION );
-		
-		final String expectedOutput = "TAP version " + TestTAPHeader.TAP_VERSION ;
-		
-		String toStringResult = this.header.toString();
-		
-		Assert.assertEquals( expectedOutput, toStringResult );
+	public void testHeader() {
+		Assert.assertNotNull(this.header);
+
+		Assert.assertEquals(this.header.getVersion(), TestTAPHeader.TAP_VERSION);
 	}
-	
+
 	@Test
-	public void testComment()
-	{
-		this.header.setComment( new Comment("Header's comment.") );
-		
-		Assert.assertNotNull( this.header.getComment() );
-		
-		Assert.assertEquals( this.header.getComment().getText(), "Header's comment.");
-		
-		Assert.assertEquals( this.header.toString(), "TAP version " + TAP_VERSION + " # Header's comment.");
+	public void testComment() {
+		this.header.setComment(new Comment("Header's comment."));
+
+		Assert.assertNotNull(this.header.getComment());
+
+		Assert.assertEquals(this.header.getComment().getText(),
+		        "Header's comment.");
+
 	}
-	
+
 }

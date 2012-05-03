@@ -21,48 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.parser.issue3409478;
+package org.tap4j.consumer.issue3504508;
 
-import org.junit.Test;
+import java.io.File;
+
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
-import org.testng.Assert;
+import org.tap4j.producer.Producer;
+import org.tap4j.producer.TapProducer;
+import org.testng.annotations.Test;
 
 /**
- * <p>
- * Test class for issue 3409478.</p
- * 
- * <p>
- * Perl's Test::More supports a 'done_testing()', so you do not need to
- * predeclare how many tests you are running, this produces:
- * </p>
- * 
- * <p>
- * <ul>
- * <li>ok 1 - Test1;</li>
- * <li>ok 2 - got document root</li>
- * <li>ok 3 - document root ok</li>
- * <li>1..3</li>
- * <li>ok</li>
- * </ul>
- * </p>
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 2.0.6
+ * @since 0.1
  */
-public class TestDoneTesting {
-
-	TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+public class TestIssue3504508 {
 
 	@Test
-	public void testDoneTesting() {
-		String tapStream = "ok 1 - Test1;\n" + "ok 2 - got document root\n"
-		        + "ok 3 - document root ok" + "1..3" + "ok";
+	public void testTapConsumer() {
+		TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+		TestSet testSet = consumer.load(new File(TestIssue3504508.class
+		        .getResource("/subtests/sample.tap").getFile()));
 
-		TestSet testSet = consumer.load(tapStream);
-
-		Assert.assertEquals(testSet.getTestResults().size(), 3);
+		Producer producer = new TapProducer();
+		System.out.println(producer.dump(testSet));
 	}
 
 }

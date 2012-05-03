@@ -37,44 +37,40 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapConsumerFactory
-{
-	
+public class TestTapConsumerFactory {
+
 	@Test
-	public void testMakeTap13Consumer()
-	{
+	public void testMakeTap13Consumer() {
 		TapConsumer tapConsumer = TapConsumerFactory.makeTap13Consumer();
-		
+
 		Parser tap13Parser = tapConsumer.getParser();
-		
-		Assert.assertTrue( tap13Parser instanceof Tap13Parser );
+
+		Assert.assertTrue(tap13Parser instanceof Tap13Parser);
 	}
-	
+
 	@Test
-	public void testMakeTap13YamlConsumer()
-	{
+	public void testMakeTap13YamlConsumer() {
 		TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-		
+
 		Parser tap13YamlParser = tapConsumer.getParser();
-		
-		Assert.assertTrue( tap13YamlParser instanceof Tap13YamlParser );
+
+		Assert.assertTrue(tap13YamlParser instanceof Tap13YamlParser);
 	}
-	
+
 	@Test
-	public void testTapConsumerFactoryConstructor()
-	{
-		try
-		{
-			final Constructor<?> c = TapConsumerFactory.class.getDeclaredConstructors()[0];
+	public void testTapConsumerFactoryConstructor() {
+		try {
+			final Constructor<?> c = TapConsumerFactory.class
+			        .getDeclaredConstructors()[0];
 			c.setAccessible(true);
 			final Object o = c.newInstance((Object[]) null);
 
 			Assert.assertNotNull(o);
-		}
-		catch (Exception e)
-		{
-			Assert.fail("Failed to instantiate TapConsumerFactory constructor: " + e.getMessage(), e);
+		} catch (Exception e) {
+			Assert.fail(
+			        "Failed to instantiate TapConsumerFactory constructor: "
+			                + e.getMessage(), e);
 		}
 	}
-	
+
 }

@@ -32,30 +32,29 @@ import java.util.Map;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public abstract class AbstractTapElementDiagnostic 
-implements TapElement
-{
-	
-	private static final long serialVersionUID = 4685273196118919946L;
+public abstract class AbstractTapElementDiagnostic implements TapElement {
+	private static final long serialVersionUID = 8568950679698773071L;
 	/**
 	 * Iterable object returned by snakeyaml.
 	 */
 	protected Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.tap4j.model.TapElement#getDiagnostic()
 	 */
-	public Map<String, Object> getDiagnostic() 
-	{
+	public Map<String, Object> getDiagnostic() {
 		return this.diagnostic;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.tap4j.model.TapElement#setDiagnostic(java.lang.Iterable)
 	 */
-	public void setDiagnostic(Map<String, Object> diagnostic) 
-	{
+	public void setDiagnostic(Map<String, Object> diagnostic) {
 		this.diagnostic = diagnostic;
 	}
-		
+
 }

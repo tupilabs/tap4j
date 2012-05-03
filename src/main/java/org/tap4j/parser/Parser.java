@@ -32,31 +32,30 @@ import org.tap4j.model.TestSet;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public interface Parser 
-{
+public interface Parser {
 
 	/* -- Regular expressions -- */
-	
+
 	/**
 	 * TAP Header Regex.
 	 */
 	String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
-	
+
 	/**
 	 * TAP Plan Regex.
 	 */
 	String REGEX_PLAN = "\\s*(\\d+)(\\.{2})(\\d+)\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
-	
+
 	/**
 	 * TAP Test Result Regex.
 	 */
-	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?"; 
-	
+	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?";
+
 	/**
 	 * TAP Bail Out! Regex.
 	 */
 	String REGEX_BAIL_OUT = "\\s*Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
-	
+
 	/**
 	 * TAP Comment Regex.
 	 */
@@ -66,61 +65,61 @@ public interface Parser
 	 * TAP Footer Regex.
 	 */
 	String REGEX_FOOTER = "\\s*TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
-	
+
 	/* -- Patterns -- */
-	
+
 	/**
 	 * TAP Header Regex Pattern.
 	 */
-	Pattern HEADER_PATTERN = Pattern.compile( REGEX_HEADER );
-	
+	Pattern HEADER_PATTERN = Pattern.compile(REGEX_HEADER);
+
 	/**
 	 * TAP Plan Regex Pattern.
 	 */
-	Pattern PLAN_PATTERN = Pattern.compile( REGEX_PLAN );
-	
+	Pattern PLAN_PATTERN = Pattern.compile(REGEX_PLAN);
+
 	/**
 	 * TAP Test Result Regex Pattern.
 	 */
-	Pattern TEST_RESULT_PATTERN = Pattern.compile( REGEX_TEST_RESULT );
-	
+	Pattern TEST_RESULT_PATTERN = Pattern.compile(REGEX_TEST_RESULT);
+
 	/**
 	 * TAP Bail Out! Regex Pattern.
 	 */
-	Pattern BAIL_OUT_PATTERN = Pattern.compile ( REGEX_BAIL_OUT );
-	
+	Pattern BAIL_OUT_PATTERN = Pattern.compile(REGEX_BAIL_OUT);
+
 	/**
 	 * TAP Comment Regex Pattern.
 	 */
-	Pattern COMMENT_PATTERN = Pattern.compile ( REGEX_COMMENT );
-	
+	Pattern COMMENT_PATTERN = Pattern.compile(REGEX_COMMENT);
+
 	/**
 	 * TAP Footer Regex Pattern.
 	 */
-	Pattern FOOTER_PATTERN = Pattern.compile ( REGEX_FOOTER );
-	
+	Pattern FOOTER_PATTERN = Pattern.compile(REGEX_FOOTER);
+
 	/**
 	 * Parses a Test Result.
 	 * 
-	 * @param tapLine TAP line
+	 * @param tapLine
+	 *            TAP line
 	 */
-	void parseLine( String tapLine ) 
-	throws ParserException;
-	
+	void parseLine(String tapLine) throws ParserException;
+
 	/**
 	 * Parses a TAP Stream.
 	 * 
-	 * @param tapStream TAP Stream
+	 * @param tapStream
+	 *            TAP Stream
 	 */
-	TestSet parseTapStream( String tapStream ) 
-	throws ParserException;
-	
+	TestSet parseTapStream(String tapStream) throws ParserException;
+
 	/**
 	 * Parses a TAP File.
 	 * 
-	 * @param tapFile TAP File
+	 * @param tapFile
+	 *            TAP File
 	 */
-	TestSet parseFile( File tapFile ) 
-	throws ParserException;
-	
+	TestSet parseFile(File tapFile) throws ParserException;
+
 }

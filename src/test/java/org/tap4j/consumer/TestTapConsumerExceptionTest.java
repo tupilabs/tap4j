@@ -32,49 +32,45 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapConsumerExceptionTest 
-{
-	
+public class TestTapConsumerExceptionTest {
+
 	private TapConsumerException exception;
-	
+
 	@Test
-	public void testTapConsumerException1()
-	{
+	public void testTapConsumerException1() {
 		exception = new TapConsumerException();
-		
-		Assert.assertNotNull( exception );
+
+		Assert.assertNotNull(exception);
 	}
-	
+
 	@Test
-	public void testTapConsumerException2()
-	{
+	public void testTapConsumerException2() {
 		exception = new TapConsumerException("Error parsing document");
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Error parsing document");
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Error parsing document");
 	}
-	
+
 	@Test
-	public void testTapConsumerException3()
-	{
-		exception = new TapConsumerException(new NullPointerException("Null TAP Stream")); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapConsumerException3() {
+		exception = new TapConsumerException(new NullPointerException(
+		        "Null TAP Stream")); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
-	
+
 	@Test
-	public void testTapConsumerException4()
-	{
-		exception = new TapConsumerException("Null", new NullPointerException()); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Null");
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapConsumerException4() {
+		exception = new TapConsumerException("Null", new NullPointerException()); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Null");
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
 
 }

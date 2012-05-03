@@ -32,15 +32,13 @@ import org.tap4j.ext.junit.JUnitTestTapReporter;
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-public class RunJUnitTestWithListener 
-{
+public class RunJUnitTestWithListener {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) 
-	{
-		 JUnitCore core= new JUnitCore();
-		 core.addListener(new JUnitTestTapReporter());
-		 core.run(TestTap13JUnit1.class);
+	public static void main(String[] args) {
+		JUnitCore core = new JUnitCore();
+		core.addListener(new JUnitTestTapReporter());
+		core.run(TestTap13JUnit1.class);
 	}
 }

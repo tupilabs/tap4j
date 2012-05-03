@@ -35,91 +35,66 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPTestResult 
-{
+public class TestTAPTestResult {
 
 	protected TestResult okTestResult = null;
 	protected TestResult notOkTestResult = null;
 	protected TestResult okTestResultSkip = null;
-	
+
 	@BeforeTest
-	public void setUp()
-	{
-		okTestResult = new TestResult( StatusValues.OK, 1 );
+	public void setUp() {
+		okTestResult = new TestResult(StatusValues.OK, 1);
 		okTestResult.setDescription("- First test");
-		
-		notOkTestResult = new TestResult( );
+
+		notOkTestResult = new TestResult();
 		notOkTestResult.setStatus(StatusValues.NOT_OK);
 		notOkTestResult.setTestNumber(2);
-		
-		okTestResultSkip = new TestResult( StatusValues.NOT_OK, 3 );
 
-		Directive skipDirective = new Directive( DirectiveValues.SKIP, "Skip it until next release of the produce." );
-		okTestResultSkip.setDirective( skipDirective );
+		okTestResultSkip = new TestResult(StatusValues.NOT_OK, 3);
 
-		Comment comment = new Comment( "This status is set to true in another method." );
-		okTestResultSkip.setComment( comment );
-		
-	}
-	
-	@Test
-	public void testOkTestResult()
-	{
-		Assert.assertNotNull( okTestResult );
-		
-		Assert.assertTrue( okTestResult.getTestNumber() > 0 );
-		
-		Assert.assertEquals( okTestResult.getStatus(), StatusValues.OK );
-		
-		Assert.assertNull( okTestResult.getDirective() );
-		
-		String toStringResult = okTestResult.toString();
-		
-		final String expectedValue = "ok " +okTestResult.getTestNumber()+ " " + okTestResult.getDescription();
-		
-		Assert.assertEquals( toStringResult, expectedValue );
-	}
-	
-	@Test
-	public void testNotOkTestResult()
-	{
-		Assert.assertNotNull ( notOkTestResult );
-		
-		Assert.assertTrue ( notOkTestResult.getTestNumber() > 0 );
-		
-		Assert.assertEquals( notOkTestResult.getStatus(), StatusValues.NOT_OK );
-		
-		Assert.assertNull ( notOkTestResult.getDirective() );
-		
-		String toStringResult = notOkTestResult.toString();
-		
-		final String expectedValue = "not ok " + notOkTestResult.getTestNumber();
-		
-		Assert.assertEquals( toStringResult, expectedValue );
-	}
-	
-	@Test
-	public void testOkTestResultSkip()
-	{
-		Assert.assertNotNull( okTestResultSkip );
-		
-		Assert.assertTrue( okTestResultSkip.getTestNumber() > 0 );
-		
-		okTestResultSkip.setStatus( StatusValues.OK );
-		
-		Assert.assertEquals( okTestResultSkip.getStatus(), StatusValues.OK );
-		
-		Assert.assertNotNull( okTestResultSkip.getDirective() );
-		
-		String toStringResult = okTestResultSkip.toString();
-		
-		Assert.assertNotNull( okTestResultSkip.getComment() );
-		
-		final String expectedValue = "ok " + okTestResultSkip.getTestNumber() 
-		+ okTestResultSkip.getDirective() + " # This status is set to true in another method.";
-		
-		Assert.assertEquals( toStringResult, expectedValue );
+		Directive skipDirective = new Directive(DirectiveValues.SKIP,
+		        "Skip it until next release of the produce.");
+		okTestResultSkip.setDirective(skipDirective);
+
+		Comment comment = new Comment(
+		        "This status is set to true in another method.");
+		okTestResultSkip.setComment(comment);
 
 	}
-	
+
+	@Test
+	public void testOkTestResult() {
+		Assert.assertNotNull(okTestResult);
+
+		Assert.assertTrue(okTestResult.getTestNumber() > 0);
+
+		Assert.assertEquals(okTestResult.getStatus(), StatusValues.OK);
+
+		Assert.assertNull(okTestResult.getDirective());
+	}
+
+	@Test
+	public void testNotOkTestResult() {
+		Assert.assertNotNull(notOkTestResult);
+
+		Assert.assertTrue(notOkTestResult.getTestNumber() > 0);
+
+		Assert.assertEquals(notOkTestResult.getStatus(), StatusValues.NOT_OK);
+
+		Assert.assertNull(notOkTestResult.getDirective());
+	}
+
+	@Test
+	public void testOkTestResultSkip() {
+		Assert.assertNotNull(okTestResultSkip);
+
+		Assert.assertTrue(okTestResultSkip.getTestNumber() > 0);
+
+		okTestResultSkip.setStatus(StatusValues.OK);
+
+		Assert.assertEquals(okTestResultSkip.getStatus(), StatusValues.OK);
+
+		Assert.assertNotNull(okTestResultSkip.getDirective());
+	}
+
 }

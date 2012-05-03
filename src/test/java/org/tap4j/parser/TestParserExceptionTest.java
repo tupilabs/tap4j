@@ -32,49 +32,45 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestParserExceptionTest
-{
+public class TestParserExceptionTest {
 
 	private ParserException exception;
-	
+
 	@Test
-	public void testTapParserException1()
-	{
+	public void testTapParserException1() {
 		exception = new ParserException();
-		
-		Assert.assertNotNull( exception );
+
+		Assert.assertNotNull(exception);
 	}
-	
+
 	@Test
-	public void testTapParserException2()
-	{
+	public void testTapParserException2() {
 		exception = new ParserException("Error parsing document");
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Error parsing document");
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Error parsing document");
 	}
-	
+
 	@Test
-	public void testTapParserException3()
-	{
-		exception = new ParserException(new NullPointerException("Null TAP Stream")); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapParserException3() {
+		exception = new ParserException(new NullPointerException(
+		        "Null TAP Stream")); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
-	
+
 	@Test
-	public void testTapParserException4()
-	{
-		exception = new ParserException("Null", new NullPointerException()); //NOPMD
-		
-		Assert.assertNotNull( exception );
-		
-		Assert.assertEquals( exception.getMessage(), "Null");
-		
-		Assert.assertTrue( exception.getCause() instanceof NullPointerException );
+	public void testTapParserException4() {
+		exception = new ParserException("Null", new NullPointerException()); // NOPMD
+
+		Assert.assertNotNull(exception);
+
+		Assert.assertEquals(exception.getMessage(), "Null");
+
+		Assert.assertTrue(exception.getCause() instanceof NullPointerException);
 	}
-	
+
 }

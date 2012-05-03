@@ -24,46 +24,36 @@
 package org.tap4j.model;
 
 /**
- * An ordinary text. It can be added to the TestSet, however it isn't parsed 
- * by the TAP Consumer. Used only for debugging, customization or back 
+ * An ordinary text. It can be added to the TestSet, however it isn't parsed by
+ * the TAP Consumer. Used only for debugging, customization or back
  * compatibility.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Text 
-extends TapResult
-{
-	private static final long serialVersionUID = 1L;
-
+public class Text extends TapResult {
+	private static final long serialVersionUID = 5408008204269040841L;
 	/**
 	 * Value of Text.
 	 */
 	private final String value;
-	
+
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param value String value.
+	 * @param value
+	 *            String value.
 	 */
-	public Text( String value )
-	{
+	public Text(String value) {
 		super();
 		this.value = value;
 	}
-	
+
 	/**
 	 * @return Value of the String.
 	 */
-	public String getValue()
-	{
+	public String getValue() {
 		return this.value;
 	}
-	
-	@Override
-	public String toString()
-	{
-		return this.value;
-	}
-	
+
 }

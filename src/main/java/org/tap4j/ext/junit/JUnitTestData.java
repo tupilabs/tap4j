@@ -29,9 +29,8 @@ import org.junit.runner.Description;
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-public class JUnitTestData 
-{
-	
+public class JUnitTestData {
+
 	private Description description;
 	private Boolean ignored;
 	private Boolean failed;

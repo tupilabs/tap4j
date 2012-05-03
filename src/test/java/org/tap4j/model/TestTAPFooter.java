@@ -33,39 +33,33 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTAPFooter 
-{
+public class TestTAPFooter {
 
 	protected Footer footer;
-	
+
 	private final static String FOOTER_TEXT = "done";
-	
+
 	@BeforeMethod
-	public void setUp()
-	{
-		footer = new Footer( FOOTER_TEXT );		
+	public void setUp() {
+		footer = new Footer(FOOTER_TEXT);
 	}
-	
+
 	@Test
-	public void testFooter()
-	{
+	public void testFooter() {
 		String expectedValue = FOOTER_TEXT;
-		Assert.assertNotNull( footer );
-		Assert.assertNotNull( footer.getText() );
+		Assert.assertNotNull(footer);
+		Assert.assertNotNull(footer.getText());
 		Assert.assertEquals(footer.getText(), expectedValue);
-		Assert.assertEquals(footer.toString(), "TAP " + FOOTER_TEXT);
 	}
-	
+
 	@Test
-	public void testFooterWithComment()
-	{
-		footer.setComment( new Comment("Footer's comment.") );
-		
-		Assert.assertNotNull( this.footer.getComment() );
-		
-		Assert.assertEquals( this.footer.getComment().getText(), "Footer's comment.");
-		
-		Assert.assertEquals( this.footer.toString(), "TAP " + FOOTER_TEXT + " # Footer's comment.");
+	public void testFooterWithComment() {
+		footer.setComment(new Comment("Footer's comment."));
+
+		Assert.assertNotNull(this.footer.getComment());
+
+		Assert.assertEquals(this.footer.getComment().getText(),
+		        "Footer's comment.");
 	}
-	
+
 }

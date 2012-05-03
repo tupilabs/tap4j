@@ -31,25 +31,20 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestText 
-{
+public class TestText {
 
 	protected Text text;
-	
+
 	@BeforeMethod
-	public void setUp()
-	{
-		text = new Text( "Invalid token" );
+	public void setUp() {
+		text = new Text("Invalid token");
 	}
-	
+
 	@Test
-	public void testText()
-	{
-		Assert.assertNotNull( text.getValue() );
-		
-		Assert.assertNotNull( text.getDiagnostic() );
-		
-		Assert.assertEquals( text.getValue(), text.toString() );
+	public void testText() {
+		Assert.assertNotNull(text.getValue());
+
+		Assert.assertNotNull(text.getDiagnostic());
 	}
-	
+
 }

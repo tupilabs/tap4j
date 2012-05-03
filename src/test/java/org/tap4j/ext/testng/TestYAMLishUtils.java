@@ -35,26 +35,24 @@ import org.testng.internal.TestResult;
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-public class TestYAMLishUtils 
-{
+public class TestYAMLishUtils {
 	ITestResult iTestResult;
-	
+
 	@BeforeClass
-	public void setUp()
-	{
-		// TBD: generate an iTestResult object with all the information 
-		// necessary to test the methods from YAMLishUtils class and TAPUtils class
+	public void setUp() {
+		// TBD: generate an iTestResult object with all the information
+		// necessary to test the methods from YAMLishUtils class and TAPUtils
+		// class
 		iTestResult = new TestResult();
 		iTestResult.setAttribute("", "");
 	}
-	
+
 	@Test
-	public void testGetMessage()
-	{
+	public void testGetMessage() {
 		ITestResult iTestResult = new TestResult();
-		
+
 		String msg = TestNGYAMLishUtils.getMessage(iTestResult);
-		
+
 		Assert.assertNotNull(msg);
 	}
 }

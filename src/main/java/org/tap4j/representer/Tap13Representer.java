@@ -25,48 +25,237 @@ package org.tap4j.representer;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.tap4j.model.BailOut;
+import org.tap4j.model.Comment;
+import org.tap4j.model.Footer;
+import org.tap4j.model.Header;
+import org.tap4j.model.Plan;
+import org.tap4j.model.TapElement;
 import org.tap4j.model.TapResult;
+import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.DumperOptions.LineBreak;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Tap13Representer 
-implements Representer
-{
+public class Tap13Representer implements Representer {
 
-	/* (non-Javadoc)
-	 * @see org.tap4j.representer.Representer#representData(org.tap4j.model.TestSet)
+	private static final CharSequence LINE_SEPARATOR = "\n";
+	private org.tap4j.representer.DumperOptions options;
+	/**
+	 * YAML parser and emitter.
 	 */
-	public String representData(TestSet testSet) 
-	throws RepresenterException
-	{
+	protected Yaml yaml;
+
+	public Tap13Representer() {
+		this(new org.tap4j.representer.DumperOptions());
+	}
+
+	public Tap13Representer(org.tap4j.representer.DumperOptions options) {
+		super();
+		this.options = options;
+
+		final DumperOptions yamlDumperOptions = new DumperOptions();
+		yamlDumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		// options.setDefaultScalarStyle(DumperOptions.ScalarStyle.LITERAL);
+		yamlDumperOptions.setLineBreak(LineBreak.getPlatformLineBreak());
+		yamlDumperOptions.setExplicitStart(true);
+		yamlDumperOptions.setExplicitEnd(true);
+		// TBD: set indent is not working on yaml, perhaps we should implement
+		// a representer...
+		yaml = new Yaml(yamlDumperOptions);
+	}
+
+	/**
+	 * @return the options
+	 */
+	public org.tap4j.representer.DumperOptions getOptions() {
+		return options;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.tap4j.representer.Representer#representData(org.tap4j.model.TestSet)
+	 */
+	public String representData(TestSet testSet) throws RepresenterException {
 		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter( sw );
-		if ( testSet.getHeader() != null )
-		{
-			pw.println( testSet.getHeader().toString() );
+		PrintWriter pw = new PrintWriter(sw);
+		printHeader(pw, testSet.getHeader());
+		printPlan(pw, testSet.getPlan());
+		for (TapResult tapLine : testSet.getTapLines()) {
+			printTapLine(pw, tapLine);
 		}
-		
-		if ( testSet.getPlan() == null )
-		{
-			throw new RepresenterException("Missing required TAP Plan");
-		}
-		
-		pw.println( testSet.getPlan().toString() );
-		
-		for( TapResult tapLine : testSet.getTapLines() )
-		{
-			pw.println( tapLine.toString() );
-		}
-		
-		if ( testSet.getFooter() != null )
-		{
-			pw.println( testSet.getFooter().toString() );
-		}
+		printFooter(pw, testSet.getFooter());
 		return sw.toString();
+	}
+
+	/**
+	 * @param pw
+	 * @param tapLine
+	 */
+	protected void printTapLine(PrintWriter pw, TapResult tapLine) {
+		if (tapLine instanceof BailOut) {
+			printBailOut(pw, (BailOut) tapLine);
+		} else if (tapLine instanceof Comment) {
+			printComment(pw, (Comment) tapLine);
+			pw.append(LINE_SEPARATOR);
+		} else if (tapLine instanceof TestResult) {
+			printTestResult(pw, (TestResult) tapLine);
+		}
+	}
+
+	/**
+	 * @param pw
+	 * @param testResult
+	 */
+	protected void printTestResult(PrintWriter pw, TestResult testResult) {
+		printFillter(pw);
+		pw.append(testResult.getStatus().toString());
+		if (testResult.getTestNumber() != null) {
+			pw.append(' ' + Integer.toString(testResult.getTestNumber()));
+		}
+		if (StringUtils.isNotBlank(testResult.getDescription())) {
+			pw.append(' ' + testResult.getDescription());
+		}
+		if (testResult.getDirective() != null) {
+			pw.append(" # "
+			        + testResult.getDirective().getDirectiveValue().toString());
+			if (StringUtils.isNotBlank(testResult.getDirective().getReason())) {
+				pw.append(' ' + testResult.getDirective().getReason());
+			}
+		}
+		if (testResult.getComment() != null) {
+			pw.append(' ');
+			printComment(pw, testResult.getComment());
+		}
+		printDiagnostic(pw, testResult);
+		pw.append(LINE_SEPARATOR);
+		if (testResult.getSubtest() != null) {
+			int indent = this.options.getIndent();
+			this.options.setIndent(indent + 4);
+			pw.append(this.representData(testResult.getSubtest()));
+			this.options.setIndent(indent);
+		}
+	}
+
+	/**
+	 * @param pw
+	 * @param bailOut
+	 */
+	protected void printBailOut(PrintWriter pw, BailOut bailOut) {
+		printFillter(pw);
+		pw.append("Bail out!");
+		if (bailOut.getReason() != null) {
+			pw.append(' ' + bailOut.getReason());
+		}
+		if (bailOut.getComment() != null) {
+			pw.append(' ');
+			printComment(pw, bailOut.getComment());
+		}
+		printDiagnostic(pw, bailOut);
+		pw.append(LINE_SEPARATOR);
+	}
+
+	/**
+	 * @param pw
+	 * @param footer
+	 */
+	protected void printFooter(PrintWriter pw, Footer footer) {
+		if (footer != null) {
+			printFillter(pw);
+			pw.append("TAP " + footer.getText());
+			if (footer.getComment() != null) {
+				pw.append(' ');
+				printComment(pw, footer.getComment());
+			}
+			printDiagnostic(pw, footer);
+			pw.append(LINE_SEPARATOR);
+		}
+	}
+
+	/**
+	 * @param pw
+	 * @param plan
+	 */
+	protected void printPlan(PrintWriter pw, Plan plan) {
+		if (plan != null) {
+			printFillter(pw);
+			pw.append(plan.getInitialTestNumber() + ".."
+			        + plan.getLastTestNumber());
+			if (plan.getSkip() != null) {
+				pw.append(" skip ");
+				pw.append(plan.getSkip().getReason());
+			}
+			if (plan.getComment() != null) {
+				pw.append(' ');
+				this.printComment(pw, plan.getComment());
+			}
+			printDiagnostic(pw, plan);
+			pw.append(LINE_SEPARATOR);
+		} else {
+			if(options.isAllowEmptyTestPlan() == Boolean.FALSE) {
+				throw new RepresenterException("Missing required TAP Plan");
+			}
+		}
+	}
+
+	/**
+	 * @param pw
+	 * @param header
+	 */
+	protected void printHeader(PrintWriter pw, Header header) {
+		if (header != null) {
+			printFillter(pw);
+			pw.append("TAP version " + header.getVersion());
+			if (header.getComment() != null) {
+				pw.append(' ');
+				this.printComment(pw, header.getComment());
+			}
+			printDiagnostic(pw, header);
+			pw.append(LINE_SEPARATOR);
+		}
+	}
+
+	/**
+	 * @param pw
+	 * @param comment
+	 */
+	protected void printComment(PrintWriter pw, Comment comment) {
+		pw.append("# " + comment.getText());
+	}
+
+	/**
+	 * Prints diagnostic of the TAP Element into the Print Writer.
+	 * 
+	 * @param pw
+	 *            PrintWriter
+	 * @param tapElement
+	 *            TAP element
+	 */
+	protected void printDiagnostic(PrintWriter pw, TapElement tapElement) {
+		Map<String, Object> diagnostic = tapElement.getDiagnostic();
+		if (diagnostic != null && !diagnostic.isEmpty()) {
+			String diagnosticText = yaml.dump(diagnostic);
+			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
+			pw.append(LINE_SEPARATOR);
+			printFillter(pw);
+			pw.append(diagnosticText);
+		}
+	}
+
+	protected void printFillter(PrintWriter pw) {
+		if (this.options.getIndent() > 0) {
+			pw.append(StringUtils.repeat(" ", this.options.getIndent()));
+		}
 	}
 
 }

@@ -38,115 +38,105 @@ import org.yaml.snakeyaml.DumperOptions.LineBreak;
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-public final class JUnitYAMLishUtils
-{
+public final class JUnitYAMLishUtils {
 	/**
 	 * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
 	 */
 	public static final SimpleDateFormat ISO_8061_DATE_FORMAT = new SimpleDateFormat(
-			"yyyy-MM-dd'T'HH:mm:ss");
+	        "yyyy-MM-dd'T'HH:mm:ss");
 
 	public static final String LINE_SEPARATOR = LineBreak.UNIX.getString();
-	
+
 	/**
 	 * Default hidden constructor.
 	 */
-	private JUnitYAMLishUtils()
-	{
+	private JUnitYAMLishUtils() {
 		super();
 	}
-	
+
 	/**
 	 * Generate a message with the name of the tested method
 	 * 
 	 * @param testMethod
 	 * @return test message
 	 */
-	public static String getMessage( JUnitTestData testMethod )
-	{
+	public static String getMessage(JUnitTestData testMethod) {
 		return "JUnit 4.0 Test " + testMethod.getDescription().getDisplayName();
 	}
-	
+
 	/**
 	 * Get the severity of the test
 	 * 
 	 * @param testMethod
 	 * @return severity
 	 */
-	public static String getSeverity( JUnitTestData testMethod )
-	{
+	public static String getSeverity(JUnitTestData testMethod) {
 		String severity = "~";
-		if (testMethod.getFailException() != null)
-		{
+		if (testMethod.getFailException() != null) {
 			severity = "High";
 		}
 		return severity;
 	}
-	
+
 	/**
 	 * 
 	 * @param testMethod
 	 * @param testClass
-	 * @return test  source
+	 * @return test source
 	 */
-	public static String getSource( String testMethod, String testClass )
-	{
+	public static String getSource(String testMethod, String testClass) {
 		String source = testClass + "#" + testMethod;
 		return source;
 	}
-	
+
 	/**
 	 * Get a date time string
+	 * 
 	 * @return date time string
 	 */
-	public static String getDatetime()
-	{
+	public static String getDatetime() {
 		long currentTimeMillis = System.currentTimeMillis();
 		Date date = new Date(currentTimeMillis);
 		String iso8061Datetime = ISO_8061_DATE_FORMAT.format(date);
 		return iso8061Datetime;
 	}
-	
+
 	/**
 	 * Get the file name of the tested method
 	 * 
 	 * @param testMethod
 	 * @return the file name
 	 */
-	public static String getFile( JUnitTestData testMethod )
-	{
+	public static String getFile(JUnitTestData testMethod) {
 		String file = extractClassName(testMethod.getDescription());
 		return file;
 	}
-	
+
 	/**
 	 * Get the line of the error in the exception info
 	 * 
 	 * @param testMethod
 	 * @return line of the error in the exception info
 	 */
-	public static String getLine( JUnitTestData testMethod )
-	{
+	public static String getLine(JUnitTestData testMethod) {
 		String line = "~";
 		Throwable testException = testMethod.getFailException();
-		if (testException != null)
-		{
+		if (testException != null) {
 			StringBuilder lookFor = new StringBuilder();
-			lookFor.append( extractClassName( testMethod.getDescription()) );
+			lookFor.append(extractClassName(testMethod.getDescription()));
 			lookFor.append('.');
-			lookFor.append( extractMethodName( testMethod.getDescription()) );
+			lookFor.append(extractMethodName(testMethod.getDescription()));
 			lookFor.append('(');
-			lookFor.append( extractSimpleClassName( testMethod.getDescription()) );
+			lookFor.append(extractSimpleClassName(testMethod.getDescription()));
 			lookFor.append(".java:");
-			
+
 			StackTraceElement[] els = testException.getStackTrace();
-			
-			for (int i = 0; i < els.length; i++)
-			{
+
+			for (int i = 0; i < els.length; i++) {
 				StackTraceElement el = els[i];
-				line = getLineNumberFromExceptionTraceLine(el.toString(), lookFor.toString());
-				if (line!="")
-				{
+				line = getLineNumberFromExceptionTraceLine(el.toString(),
+				        lookFor.toString());
+				if (line != "") {
 					break;
 				}
 			}
@@ -161,31 +151,28 @@ public final class JUnitYAMLishUtils
 	 * @param substrToSearch
 	 * @return error line number
 	 */
-	public static String getLineNumberFromExceptionTraceLine(String exceptionTraceLine, String substrToSearch)
-	{
-		String lineNumber="";
+	public static String getLineNumberFromExceptionTraceLine(
+	        String exceptionTraceLine, String substrToSearch) {
+		String lineNumber = "";
 		int index = exceptionTraceLine.indexOf(substrToSearch);
-		if (index >= 0)
-		{
+		if (index >= 0) {
 			int length = substrToSearch.length() + index;
-			if( exceptionTraceLine.lastIndexOf(')') > length )
-			{
-				lineNumber = exceptionTraceLine.substring(length, exceptionTraceLine.lastIndexOf(')'));
+			if (exceptionTraceLine.lastIndexOf(')') > length) {
+				lineNumber = exceptionTraceLine.substring(length,
+				        exceptionTraceLine.lastIndexOf(')'));
 			}
 		}
 		return lineNumber;
 	}
-	
-	
+
 	/**
-	 * Get tested method name 
+	 * Get tested method name
 	 * 
 	 * @param testMethod
 	 * @return tested method name
 	 */
-	public static String getName( JUnitTestData testMethod )
-	{
-		String name = extractMethodName( testMethod.getDescription());
+	public static String getName(JUnitTestData testMethod) {
+		String name = extractMethodName(testMethod.getDescription());
 		return name;
 	}
 
@@ -195,116 +182,105 @@ public final class JUnitYAMLishUtils
 	 * @param testMethod
 	 * @return error message from a given failed JUnit test result
 	 */
-	public static String getError( JUnitTestData testMethod )
-	{
+	public static String getError(JUnitTestData testMethod) {
 		String error = "~";
 		Throwable t = testMethod.getFailException();
-		if (t != null)
-		{
+		if (t != null) {
 			error = t.getMessage();
 		}
 		return error;
 	}
-	
+
 	/**
-	 *  Get the backtrace from a given failed JUnit test result
-	 *  
+	 * Get the backtrace from a given failed JUnit test result
+	 * 
 	 * @param testMethod
 	 * @return Backtrace from a given failed JUnit test result
 	 */
-	public static String getBacktrace( JUnitTestData testMethod )
-	{
+	public static String getBacktrace(JUnitTestData testMethod) {
 		StringBuilder stackTrace = new StringBuilder();
 
 		Throwable throwable = testMethod.getFailException();
 
-		if (throwable != null)
-		{
+		if (throwable != null) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			throwable.printStackTrace(pw);
 			String stackTraceString = sw.toString();
-			stackTraceString = stackTraceString.trim().replaceAll("\\r\\n", "\n");
+			stackTraceString = stackTraceString.trim().replaceAll("\\r\\n",
+			        "\n");
 
-			StringTokenizer st = new StringTokenizer( stackTraceString, LINE_SEPARATOR );
-			
-			while ( st.hasMoreTokens() )
-			{
+			StringTokenizer st = new StringTokenizer(stackTraceString,
+			        LINE_SEPARATOR);
+
+			while (st.hasMoreTokens()) {
 				String stackTraceLine = st.nextToken();
 				stackTrace.append(stackTraceLine);
-				stackTrace.append( LINE_SEPARATOR );
+				stackTrace.append(LINE_SEPARATOR);
 			}
-			
-		} 
-		else
-		{
+
+		} else {
 			stackTrace.append('~');
 		}
 
 		return stackTrace.toString();
 	}
-	
-	
+
 	/**
-     * Extract the class name from a given junit test description
-     * 
-     * @param description
-     * @return a class name
-     */
-	public static String extractClassName( Description description )
-    {
-        String displayName = description.getDisplayName();
-        
-        String regex = "^" + "[^\\(\\)]+" 	  // non-parens
-				           + "\\((" 		  // then an open-paren (start matching a group)
-				           + "[^\\\\(\\\\)]+" // non-parens
-				           + ")\\)" + "$";
-        //System.out.println(regex);
-        final Pattern PARENS = Pattern.compile( regex ); // then a close-paren (end group match)
-        Matcher m = PARENS.matcher( displayName );
-        if ( !m.find() )
-        {
-            return displayName;
-        }
-        return m.group( 1 );
-    }    
-	
+	 * Extract the class name from a given junit test description
+	 * 
+	 * @param description
+	 * @return a class name
+	 */
+	public static String extractClassName(Description description) {
+		String displayName = description.getDisplayName();
+
+		String regex = "^" + "[^\\(\\)]+" // non-parens
+		        + "\\((" // then an open-paren (start matching a group)
+		        + "[^\\\\(\\\\)]+" // non-parens
+		        + ")\\)" + "$";
+		// System.out.println(regex);
+		final Pattern PARENS = Pattern.compile(regex); // then a close-paren
+													   // (end group match)
+		Matcher m = PARENS.matcher(displayName);
+		if (!m.find()) {
+			return displayName;
+		}
+		return m.group(1);
+	}
+
 	/**
-     * Extract the simple class name from a given junit test description
+	 * Extract the simple class name from a given junit test description
 	 * 
 	 * @param description
 	 * @return a simple class name
 	 */
-	public static String extractSimpleClassName(Description description)
-	{
+	public static String extractSimpleClassName(Description description) {
 		String simpleClassName = null;
-		String className = extractClassName( description );
-    	String[] splitClassName = className.split("\\.");
-    	
-    	if(splitClassName.length>0)
-    	{
-    		simpleClassName = splitClassName[splitClassName.length-1];
-    	}
-    	
-    	return simpleClassName;
+		String className = extractClassName(description);
+		String[] splitClassName = className.split("\\.");
+
+		if (splitClassName.length > 0) {
+			simpleClassName = splitClassName[splitClassName.length - 1];
+		}
+
+		return simpleClassName;
 	}
-    
-    /**
-     * Get the tested method name
-     * 
-     * @param description
-     * @return tested methode name
-     */
-    public static String extractMethodName( Description description )
-    {
-    	String methodName = null;
-    	String[] splitDisplayName = description.getDisplayName().split("\\(");
-    	
-    	if(splitDisplayName.length>0)
-    	{
-    		methodName = splitDisplayName[0];
-    	}
-    	
-    	return methodName;
-    }	
+
+	/**
+	 * Get the tested method name
+	 * 
+	 * @param description
+	 * @return tested methode name
+	 */
+	public static String extractMethodName(Description description) {
+		String methodName = null;
+		String[] splitDisplayName = description.getDisplayName().split("\\(");
+
+		if (splitDisplayName.length > 0) {
+			methodName = splitDisplayName[0];
+		}
+
+		return methodName;
+	}
 }

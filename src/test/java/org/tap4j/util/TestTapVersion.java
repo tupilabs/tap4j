@@ -31,16 +31,14 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapVersion
-{
-	
+public class TestTapVersion {
+
 	@Test
-	public void testTapVersionToString()
-	{
+	public void testTapVersionToString() {
 		TapVersionValues version = TapVersionValues.TAP_13;
-		
-		Assert.assertTrue( version.getValue().equals(Integer.valueOf(13)) );
-		
+
+		Assert.assertTrue(version.getValue().equals(Integer.valueOf(13)));
+
 		Assert.assertTrue(version.toString().equals("13"));
 	}
 

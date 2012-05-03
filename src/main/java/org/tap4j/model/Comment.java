@@ -29,39 +29,29 @@ package org.tap4j.model;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class Comment 
-extends TapResult 
-{
-	private static final long serialVersionUID = 1L;
-	
+public class Comment extends TapResult {
+	private static final long serialVersionUID = 8695332750831651555L;
 	/**
 	 * Comment text.
 	 */
 	private final String text;
-	
+
 	/**
-	 * Constructor with text. A comment must always have a text. 
+	 * Constructor with text. A comment must always have a text.
 	 * 
-	 * @param text Text of the comment.
+	 * @param text
+	 *            Text of the comment.
 	 */
-	public Comment( String text )
-	{
+	public Comment(String text) {
 		super();
 		this.text = text;
 	}
-	
+
 	/**
 	 * @return Comment text.
 	 */
-	public String getText()
-	{
+	public String getText() {
 		return this.text;
 	}
-	
-	@Override
-	public String toString()
-	{
-		return "# " + this.text;
-	}
-	
+
 }

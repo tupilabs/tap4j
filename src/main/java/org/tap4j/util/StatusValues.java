@@ -30,23 +30,22 @@ package org.tap4j.util;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public enum StatusValues
-{
+public enum StatusValues {
 	OK("ok"), NOT_OK("not ok");
-	
+
 	private String textValue;
-	
-	StatusValues(String textValue)
-	{
+
+	StatusValues(String textValue) {
 		this.textValue = textValue;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Enum#toString()
 	 */
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return this.textValue;
 	}
 }

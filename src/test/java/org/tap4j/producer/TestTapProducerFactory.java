@@ -27,7 +27,6 @@ import java.lang.reflect.Constructor;
 
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;
-import org.tap4j.representer.Tap13YamlRepresenter;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,44 +36,40 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTapProducerFactory
-{
+public class TestTapProducerFactory {
 
 	@Test
-	public void testMakeTap13Producer()
-	{
-		TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
-		
+	public void testMakeTap13Producer() {
+		Producer tapProducer = new TapProducer();
+
 		Representer tap13Representer = tapProducer.getRepresenter();
-		
-		Assert.assertTrue( tap13Representer instanceof Tap13Representer );
+
+		Assert.assertTrue(tap13Representer instanceof Tap13Representer);
 	}
-	
+
 	@Test
-	public void testMakeTap13YamlProducer()
-	{
-		TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
-		
+	public void testMakeTap13YamlProducer() {
+		Producer tapProducer = new TapProducer();
+
 		Representer tap13YamlRepresenter = tapProducer.getRepresenter();
-		
-		Assert.assertTrue( tap13YamlRepresenter instanceof Tap13YamlRepresenter );
+
+		Assert.assertTrue(tap13YamlRepresenter instanceof Tap13Representer);
 	}
-	
+
 	@Test
-	public void testTapProducerFactoryConstructor()
-	{
-		try
-		{
-			final Constructor<?> c = TapProducerFactory.class.getDeclaredConstructors()[0];
+	public void testTapProducerFactoryConstructor() {
+		try {
+			final Constructor<?> c = TapProducer.class
+			        .getDeclaredConstructors()[0];
 			c.setAccessible(true);
 			final Object o = c.newInstance((Object[]) null);
 
 			Assert.assertNotNull(o);
-		}
-		catch (Exception e)
-		{
-			Assert.fail("Failed to instantiate TapProducerFactory constructor: " + e.getMessage(), e);
+		} catch (Exception e) {
+			Assert.fail(
+			        "Failed to instantiate TapProducerFactory constructor: "
+			                + e.getMessage(), e);
 		}
 	}
-	
+
 }

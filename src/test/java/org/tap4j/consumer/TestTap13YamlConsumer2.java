@@ -38,51 +38,60 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class TestTap13YamlConsumer2
-{
+public class TestTap13YamlConsumer2 {
 
 	@Test
-	public void testTapConsumerYaml()
-	{
-		
+	public void testTapConsumerYaml() {
+
 		TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
-		
-		TestSet testSet = consumer.load( new File(TestTap13YamlConsumer2.class.getResource("/input_tap13/tap_with_yaml_comments_bailout_directives.tap").getFile()) );
-		
-		Assert.assertNotNull( testSet );
-		
+
+		TestSet testSet = consumer
+		        .load(new File(
+		                TestTap13YamlConsumer2.class
+		                        .getResource(
+		                                "/input_tap13/tap_with_yaml_comments_bailout_directives.tap")
+		                        .getFile()));
+
+		Assert.assertNotNull(testSet);
+
 		Plan plan = testSet.getPlan();
-		Assert.assertTrue( plan.getInitialTestNumber() == 1 );
-		Assert.assertTrue( plan.getLastTestNumber() == 3 );
-		Assert.assertTrue( testSet.getNumberOfTestResults() == 3 );
-		
-		Assert.assertTrue( testSet.containsBailOut() );
-		
-		TestResult testNumber2WithSkipDirective = testSet.getTestResult( Integer.valueOf(2) );
+		Assert.assertTrue(plan.getInitialTestNumber() == 1);
+		Assert.assertTrue(plan.getLastTestNumber() == 3);
+		Assert.assertTrue(testSet.getNumberOfTestResults() == 3);
+
+		Assert.assertTrue(testSet.containsBailOut());
+
+		TestResult testNumber2WithSkipDirective = testSet.getTestResult(Integer
+		        .valueOf(2));
 		Assert.assertNotNull(testNumber2WithSkipDirective);
-		
+
 		Directive skipDirective = testNumber2WithSkipDirective.getDirective();
-		Assert.assertTrue( skipDirective.getDirectiveValue() == DirectiveValues.SKIP );
-		Assert.assertTrue( skipDirective.getReason().equals("not implemented yet") );
-		
-		Assert.assertNotNull( testSet.getFooter() );
-		
+		Assert.assertTrue(skipDirective.getDirectiveValue() == DirectiveValues.SKIP);
+		Assert.assertTrue(skipDirective.getReason().equals(
+		        "not implemented yet"));
+
+		Assert.assertNotNull(testSet.getFooter());
+
 	}
-	
-	@Test(expectedExceptions={TapConsumerException.class})
-	public void testDiagnosticWithoutLastParsedElement()
-	{
+
+	@Test(expectedExceptions = { TapConsumerException.class })
+	public void testDiagnosticWithoutLastParsedElement() {
 		TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
-		
-		consumer.load( new File(TestTap13YamlConsumer2.class.getResource("/input_tap13/tap_with_diagnostic_and_without_lastparsedtestresult.tap").getFile()) );
+
+		consumer.load(new File(
+		        TestTap13YamlConsumer2.class
+		                .getResource(
+		                        "/input_tap13/tap_with_diagnostic_and_without_lastparsedtestresult.tap")
+		                .getFile()));
 	}
-	
-	@Test(expectedExceptions={TapConsumerException.class})
-	public void testDiagnosticWithWrongIndentation()
-	{
+
+	@Test(expectedExceptions = { TapConsumerException.class })
+	public void testDiagnosticWithWrongIndentation() {
 		TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
-		
-		consumer.load( new File(TestTap13YamlConsumer2.class.getResource("/input_tap13/tap_with_diagnostic_and_wrong_indentation.tap").getFile()) );
+
+		consumer.load(new File(TestTap13YamlConsumer2.class.getResource(
+		        "/input_tap13/tap_with_diagnostic_and_wrong_indentation.tap")
+		        .getFile()));
 	}
-	
+
 }

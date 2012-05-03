@@ -33,29 +33,26 @@ import org.tap4j.parser.Tap13YamlParser;
  */
 public final class TapConsumerFactory {
 
-	private TapConsumerFactory()
-	{
+	private TapConsumerFactory() {
 		super();
 	}
-	
+
 	/**
 	 * Produces a new TAP version 13 Consumer.
 	 * 
 	 * @return TAP Consumer.
 	 */
-	public static TapConsumer makeTap13Consumer()
-	{
+	public static TapConsumer makeTap13Consumer() {
 		return new TapConsumerImpl();
 	}
-	
+
 	/**
 	 * Produces a new TAP version 13 Consumer with YAML diagnostics.
 	 * 
 	 * @return TAP Consumer with YAML support.
 	 */
-	public static TapConsumer makeTap13YamlConsumer()
-	{
-		return new TapConsumerImpl( new Tap13YamlParser() );
+	public static TapConsumer makeTap13YamlConsumer() {
+		return new TapConsumerImpl(new Tap13YamlParser());
 	}
-	
+
 }

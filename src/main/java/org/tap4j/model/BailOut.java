@@ -23,81 +23,57 @@
  */
 package org.tap4j.model;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
- * Represents a Bail Out TAP Line. The test execution should be suspended if 
- * there is a Bail Out. 
+ * Represents a Bail Out TAP Line. The test execution should be suspended if
+ * there is a Bail Out.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-public class BailOut 
-extends TapResult
-{
-	private static final long serialVersionUID = 1L;
-	
+public class BailOut extends TapResult {
+	private static final long serialVersionUID = -354950715195034445L;
+
 	/**
 	 * Reason to Bail Out.
 	 */
 	private String reason;
-	
+
 	/**
 	 * Optional comment.
 	 */
 	private Comment comment;
-	
+
 	/**
 	 * Constructor with parameter.
 	 * 
-	 * @param reason Reason to Bail Out.
+	 * @param reason
+	 *            Reason to Bail Out.
 	 */
-	public BailOut( String reason )
-	{
+	public BailOut(String reason) {
 		super();
 		this.reason = reason;
 	}
-	
+
 	/**
 	 * @return Reason to Bail Out.
 	 */
-	public String getReason()
-	{
+	public String getReason() {
 		return this.reason;
 	}
-	
+
 	/**
 	 * @return Bail Out comment.
 	 */
-	public Comment getComment()
-	{
+	public Comment getComment() {
 		return this.comment;
 	}
-	
+
 	/**
-	 * @param comment Bail Out comment.
+	 * @param comment
+	 *            Bail Out comment.
 	 */
-	public void setComment( Comment comment )
-	{
+	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-	
-	@Override
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("Bail out!");
-		if( StringUtils.isNotEmpty(this.reason))
-		{
-			sb.append(' ');
-			sb.append( this.reason );
-		}
-		if ( this.comment != null )
-		{
-			sb.append( ' ' );
-			sb.append( this.comment.toString() );
-		}
-		return sb.toString();
-	}
-	
+
 }

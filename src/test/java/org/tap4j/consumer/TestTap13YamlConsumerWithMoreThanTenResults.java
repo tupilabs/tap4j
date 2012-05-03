@@ -32,17 +32,16 @@ import org.testng.annotations.Test;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 2.0
  */
-public class TestTap13YamlConsumerWithMoreThanTenResults
-{
-	
+public class TestTap13YamlConsumerWithMoreThanTenResults {
+
 	@Test
-	public void testManyTestResults()
-	{
+	public void testManyTestResults() {
 		TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
-		
+
 		TestSet testSet = consumer.load("1..20");
-		
-		Assert.assertEquals( testSet.getPlan().getLastTestNumber(), new Integer(20)  );
+
+		Assert.assertEquals(testSet.getPlan().getLastTestNumber(), new Integer(
+		        20));
 	}
 
 }

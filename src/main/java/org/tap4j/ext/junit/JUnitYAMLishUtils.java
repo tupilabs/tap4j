@@ -85,8 +85,7 @@ public final class JUnitYAMLishUtils {
 	 * @return test source
 	 */
 	public static String getSource(String testMethod, String testClass) {
-		String source = testClass + "#" + testMethod;
-		return source;
+		return testClass + "#" + testMethod;
 	}
 
 	/**
@@ -97,8 +96,7 @@ public final class JUnitYAMLishUtils {
 	public static String getDatetime() {
 		long currentTimeMillis = System.currentTimeMillis();
 		Date date = new Date(currentTimeMillis);
-		String iso8061Datetime = ISO_8061_DATE_FORMAT.format(date);
-		return iso8061Datetime;
+		return ISO_8061_DATE_FORMAT.format(date);
 	}
 
 	/**
@@ -108,8 +106,7 @@ public final class JUnitYAMLishUtils {
 	 * @return the file name
 	 */
 	public static String getFile(JUnitTestData testMethod) {
-		String file = extractClassName(testMethod.getDescription());
-		return file;
+		return extractClassName(testMethod.getDescription());
 	}
 
 	/**
@@ -136,7 +133,7 @@ public final class JUnitYAMLishUtils {
 				StackTraceElement el = els[i];
 				line = getLineNumberFromExceptionTraceLine(el.toString(),
 				        lookFor.toString());
-				if (line != "") {
+				if (line.equals("") == Boolean.FALSE) {
 					break;
 				}
 			}
@@ -172,8 +169,7 @@ public final class JUnitYAMLishUtils {
 	 * @return tested method name
 	 */
 	public static String getName(JUnitTestData testMethod) {
-		String name = extractMethodName(testMethod.getDescription());
-		return name;
+		return extractMethodName(testMethod.getDescription());
 	}
 
 	/**
@@ -240,9 +236,9 @@ public final class JUnitYAMLishUtils {
 		        + "[^\\\\(\\\\)]+" // non-parens
 		        + ")\\)" + "$";
 		// System.out.println(regex);
-		final Pattern PARENS = Pattern.compile(regex); // then a close-paren
+		final Pattern parens = Pattern.compile(regex); // then a close-paren
 													   // (end group match)
-		Matcher m = PARENS.matcher(displayName);
+		Matcher m = parens.matcher(displayName);
 		if (!m.find()) {
 			return displayName;
 		}

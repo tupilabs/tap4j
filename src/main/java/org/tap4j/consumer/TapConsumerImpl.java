@@ -36,8 +36,8 @@ import org.tap4j.parser.Tap13Parser;
  */
 public class TapConsumerImpl implements TapConsumer {
 
-	protected final Parser parser;
-	protected TestSet testSet;
+    private final Parser parser;
+    private TestSet testSet;
 
 	public TapConsumerImpl() {
 		parser = new Tap13Parser();
@@ -62,7 +62,7 @@ public class TapConsumerImpl implements TapConsumer {
 	 * 
 	 * @see org.tap4j.consumer.TapConsumer#load(java.io.File)
 	 */
-	public TestSet load(File file) throws TapConsumerException {
+	public TestSet load(File file) {
 		try {
 			this.testSet = this.parser.parseFile(file);
 		} catch (ParserException e) {
@@ -78,7 +78,7 @@ public class TapConsumerImpl implements TapConsumer {
 	 * 
 	 * @see org.tap4j.consumer.TapConsumer#load(java.lang.String)
 	 */
-	public TestSet load(String tapStream) throws TapConsumerException {
+	public TestSet load(String tapStream) {
 		try {
 			this.testSet = this.parser.parseTapStream(tapStream);
 		} catch (ParserException e) {

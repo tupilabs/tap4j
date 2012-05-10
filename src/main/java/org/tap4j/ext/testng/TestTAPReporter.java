@@ -49,176 +49,176 @@ import org.testng.internal.ResultMap;
  */
 public class TestTAPReporter extends TestListenerAdapter {
 
-	protected final ResultMap resultMap = new ResultMap();
+    private final ResultMap resultMap = new ResultMap();
 
-	protected final Map<Class<?>, List<ITestResult>> testResultsPerClass = new LinkedHashMap<Class<?>, List<ITestResult>>();
+    private final Map<Class<?>, List<ITestResult>> testResultsPerClass = new LinkedHashMap<Class<?>, List<ITestResult>>();
 
-	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
+    private final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
 
-	protected ITestContext ctx;
+    private ITestContext ctx;
 
-	/**
-	 * TAP Producer.
-	 */
-	protected Producer tapProducer = new TapProducer();
+    /**
+     * TAP Producer.
+     */
+    private Producer tapProducer = new TapProducer();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.TestListenerAdapter#onStart(org.testng.ITestContext)
-	 */
-	@Override
-	public void onStart(ITestContext testContext) {
-		this.ctx = testContext;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.TestListenerAdapter#onStart(org.testng.ITestContext)
+     */
+    @Override
+    public void onStart(ITestContext testContext) {
+        this.ctx = testContext;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.TestListenerAdapter#onTestSuccess(org.testng.ITestResult)
-	 */
-	@Override
-	public void onTestSuccess(ITestResult tr) {
-		TestNGTAPUtils.fillAttributes(tr, ctx);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.TestListenerAdapter#onTestSuccess(org.testng.ITestResult)
+     */
+    @Override
+    public void onTestSuccess(ITestResult tr) {
+        TestNGTAPUtils.fillAttributes(tr, ctx);
 
-		resultMap.addResult(tr, tr.getMethod());
-	}
+        resultMap.addResult(tr, tr.getMethod());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.TestListenerAdapter#onTestFailure(org.testng.ITestResult)
-	 */
-	@Override
-	public void onTestFailure(ITestResult tr) {
-		TestNGTAPUtils.fillAttributes(tr, ctx);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.TestListenerAdapter#onTestFailure(org.testng.ITestResult)
+     */
+    @Override
+    public void onTestFailure(ITestResult tr) {
+        TestNGTAPUtils.fillAttributes(tr, ctx);
 
-		resultMap.addResult(tr, tr.getMethod());
-	}
+        resultMap.addResult(tr, tr.getMethod());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.TestListenerAdapter#onTestSkipped(org.testng.ITestResult)
-	 */
-	@Override
-	public void onTestSkipped(ITestResult tr) {
-		TestNGTAPUtils.fillAttributes(tr, ctx);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.TestListenerAdapter#onTestSkipped(org.testng.ITestResult)
+     */
+    @Override
+    public void onTestSkipped(ITestResult tr) {
+        TestNGTAPUtils.fillAttributes(tr, ctx);
 
-		resultMap.addResult(tr, tr.getMethod());
-	}
+        resultMap.addResult(tr, tr.getMethod());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.testng.TestListenerAdapter#onTestFailedButWithinSuccessPercentage
-	 * (org.testng.ITestResult)
-	 */
-	@Override
-	public void onTestFailedButWithinSuccessPercentage(ITestResult tr) {
-		TestNGTAPUtils.fillAttributes(tr, ctx);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.testng.TestListenerAdapter#onTestFailedButWithinSuccessPercentage
+     * (org.testng.ITestResult)
+     */
+    @Override
+    public void onTestFailedButWithinSuccessPercentage(ITestResult tr) {
+        TestNGTAPUtils.fillAttributes(tr, ctx);
 
-		resultMap.addResult(tr, tr.getMethod());
-	}
+        resultMap.addResult(tr, tr.getMethod());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
-	 */
-	@Override
-	public void onFinish(ITestContext testContext) {
-		this.generateTAPPerClass(testContext);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
+     */
+    @Override
+    public void onFinish(ITestContext testContext) {
+        this.generateTAPPerClass(testContext);
 
-		this.generateTAPPerMethod(testContext);
-	}
+        this.generateTAPPerMethod(testContext);
+    }
 
-	/**
-	 * Generate TAP file for tests
-	 * 
-	 * @param testContext
-	 */
-	protected void generateTAPPerClass(ITestContext testContext) {
-		List<ITestResult> testNGTestResults = TestNGTAPUtils
-		        .getTestNGResultsOrderedByExecutionDate(this.resultMap);
+    /**
+     * Generate TAP file for tests
+     * 
+     * @param testContext
+     */
+    protected void generateTAPPerClass(ITestContext testContext) {
+        List<ITestResult> testNGTestResults = TestNGTAPUtils
+                .getTestNGResultsOrderedByExecutionDate(this.resultMap);
 
-		for (ITestResult testResult : testNGTestResults) {
-			Class<?> clazz = testResult.getMethod().getRealClass();
-			List<ITestResult> testResultsForThisClass = testResultsPerClass
-			        .get(clazz);
-			if (testResultsForThisClass == null) {
-				testResultsForThisClass = new LinkedList<ITestResult>();
-				testResultsPerClass.put(clazz, testResultsForThisClass);
-			}
-			testResultsForThisClass.add(testResult);
-		}
+        for (ITestResult testResult : testNGTestResults) {
+            Class<?> clazz = testResult.getMethod().getRealClass();
+            List<ITestResult> testResultsForThisClass = testResultsPerClass
+                    .get(clazz);
+            if (testResultsForThisClass == null) {
+                testResultsForThisClass = new LinkedList<ITestResult>();
+                testResultsPerClass.put(clazz, testResultsForThisClass);
+            }
+            testResultsForThisClass.add(testResult);
+        }
 
-		Set<Class<?>> keySet = testResultsPerClass.keySet();
+        Set<Class<?>> keySet = testResultsPerClass.keySet();
 
-		for (Class<?> clazz : keySet) {
-			TestSet testSet = new TestSet();
+        for (Class<?> clazz : keySet) {
+            TestSet testSet = new TestSet();
 
-			List<ITestResult> testResults = testResultsPerClass.get(clazz);
+            List<ITestResult> testResults = testResultsPerClass.get(clazz);
 
-			testSet.setPlan(new Plan(testResults.size()));
+            testSet.setPlan(new Plan(testResults.size()));
 
-			for (ITestResult testResult : testResults) {
-				TestResult tapTestResult = TestNGTAPUtils
-				        .generateTAPTestResult(testResult,
-				                testSet.getNumberOfTestResults() + 1);
-				testSet.addTestResult(tapTestResult);
-			}
+            for (ITestResult testResult : testResults) {
+                TestResult tapTestResult = TestNGTAPUtils
+                        .generateTAPTestResult(testResult,
+                                testSet.getNumberOfTestResults() + 1);
+                testSet.addTestResult(tapTestResult);
+            }
 
-			File output = new File(testContext.getOutputDirectory(),
-			        clazz.getName() + ".tap");
-			tapProducer.dump(testSet, output);
-		}
-	}
+            File output = new File(testContext.getOutputDirectory(),
+                    clazz.getName() + ".tap");
+            tapProducer.dump(testSet, output);
+        }
+    }
 
-	/**
-	 * Generate a TAP file for every method tested
-	 * 
-	 * @param testContext
-	 */
-	protected void generateTAPPerMethod(ITestContext testContext) {
-		List<ITestResult> testNGTestResults = TestNGTAPUtils
-		        .getTestNGResultsOrderedByExecutionDate(resultMap);
+    /**
+     * Generate a TAP file for every method tested
+     * 
+     * @param testContext
+     */
+    protected void generateTAPPerMethod(ITestContext testContext) {
+        List<ITestResult> testNGTestResults = TestNGTAPUtils
+                .getTestNGResultsOrderedByExecutionDate(resultMap);
 
-		for (ITestResult testResult : testNGTestResults) {
-			ITestNGMethod method = testResult.getMethod();
+        for (ITestResult testResult : testNGTestResults) {
+            ITestNGMethod method = testResult.getMethod();
 
-			List<ITestResult> testResultsForThisMethod = testResultsPerMethod
-			        .get(method);
+            List<ITestResult> testResultsForThisMethod = testResultsPerMethod
+                    .get(method);
 
-			if (testResultsForThisMethod == null) {
-				testResultsForThisMethod = new LinkedList<ITestResult>();
-				testResultsPerMethod.put(method, testResultsForThisMethod);
-			}
-			testResultsForThisMethod.add(testResult);
-		}
+            if (testResultsForThisMethod == null) {
+                testResultsForThisMethod = new LinkedList<ITestResult>();
+                testResultsPerMethod.put(method, testResultsForThisMethod);
+            }
+            testResultsForThisMethod.add(testResult);
+        }
 
-		Set<ITestNGMethod> keySet = testResultsPerMethod.keySet();
+        Set<ITestNGMethod> keySet = testResultsPerMethod.keySet();
 
-		for (ITestNGMethod method : keySet) {
-			TestSet testSet = new TestSet();
+        for (ITestNGMethod method : keySet) {
+            TestSet testSet = new TestSet();
 
-			List<ITestResult> testResults = testResultsPerMethod.get(method);
-			testSet.setPlan(new Plan(testResults.size()));
+            List<ITestResult> testResults = testResultsPerMethod.get(method);
+            testSet.setPlan(new Plan(testResults.size()));
 
-			for (ITestResult testResult : testResults) {
-				TestResult tapTestResult = TestNGTAPUtils
-				        .generateTAPTestResult(testResult,
-				                testSet.getNumberOfTestResults() + 1);
-				testSet.addTestResult(tapTestResult);
-			}
+            for (ITestResult testResult : testResults) {
+                TestResult tapTestResult = TestNGTAPUtils
+                        .generateTAPTestResult(testResult,
+                                testSet.getNumberOfTestResults() + 1);
+                testSet.addTestResult(tapTestResult);
+            }
 
-			File output = new File(testContext.getOutputDirectory(), method
-			        .getTestClass().getName()
-			        + "#"
-			        + method.getMethodName()
-			        + ".tap");
-			tapProducer.dump(testSet, output);
-		}
-	}
+            File output = new File(testContext.getOutputDirectory(), method
+                    .getTestClass().getName()
+                    + "#"
+                    + method.getMethodName()
+                    + ".tap");
+            tapProducer.dump(testSet, output);
+        }
+    }
 }

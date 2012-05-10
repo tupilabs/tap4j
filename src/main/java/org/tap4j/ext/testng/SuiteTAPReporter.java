@@ -53,271 +53,272 @@ import org.testng.xml.XmlSuite;
  * @since 03/01/2011
  */
 public class SuiteTAPReporter implements IReporter {
-	protected final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
+    private final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
 
-	protected final Map<String, List<ITestResult>> testResultsPerGroup = new LinkedHashMap<String, List<ITestResult>>();
+    private final Map<String, List<ITestResult>> testResultsPerGroup = new LinkedHashMap<String, List<ITestResult>>();
 
-	protected final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
+    // private final Map<ITestNGMethod, List<ITestResult>> testResultsPerMethod
+    // = new LinkedHashMap<ITestNGMethod, List<ITestResult>>();
 
-	/**
-	 * TAP Producer.
-	 */
-	protected Producer tapProducer = new TapProducer();
+    /**
+     * TAP Producer.
+     */
+    private Producer tapProducer = new TapProducer();
 
-	/**
-	 * TAP Test Set
-	 */
-	TestSet testSet;
+    /**
+     * TAP Test Set
+     */
+    private TestSet testSet;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.testng.IReporter#generateReport(java.util.List, java.util.List,
-	 * java.lang.String)
-	 */
-	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
-	        String outputDirectory) {
-		this.generateTAPPerSuite(xmlSuites, suites, outputDirectory);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.testng.IReporter#generateReport(java.util.List, java.util.List,
+     * java.lang.String)
+     */
+    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
+            String outputDirectory) {
+        this.generateTAPPerSuite(xmlSuites, suites, outputDirectory);
 
-		this.generateTAPPerGroup(xmlSuites, suites, outputDirectory);
-	}
+        this.generateTAPPerGroup(xmlSuites, suites, outputDirectory);
+    }
 
-	/**
-	 * Generate a TAP file for every suite tested
-	 * 
-	 * @param xmlSuites
-	 * @param suites
-	 * @param outputDirectory
-	 */
-	protected void generateTAPPerSuite(List<XmlSuite> xmlSuites,
-	        List<ISuite> suites, String outputDirectory) {
-		for (ISuite suite : suites) {
-			testSet = new TestSet();
+    /**
+     * Generate a TAP file for every suite tested
+     * 
+     * @param xmlSuites
+     * @param suites
+     * @param outputDirectory
+     */
+    protected void generateTAPPerSuite(List<XmlSuite> xmlSuites,
+            List<ISuite> suites, String outputDirectory) {
+        for (ISuite suite : suites) {
+            testSet = new TestSet();
 
-			Set<Class<?>> testResultsSet = this
-			        .getTestResultsSetPerSuite(suite);
+            Set<Class<?>> testResultsSet = this
+                    .getTestResultsSetPerSuite(suite);
 
-			Integer totalTestResults = this
-			        .getTotalTestResultsByTestSuite(testResultsSet);
+            Integer totalTestResults = this
+                    .getTotalTestResultsByTestSuite(testResultsSet);
 
-			testSet.setPlan(new Plan(totalTestResults));
+            testSet.setPlan(new Plan(totalTestResults));
 
-			for (Class<?> testResultClass : testResultsSet) {
-				List<ITestResult> testResults = testResultsPerSuite
-				        .get(testResultClass);
+            for (Class<?> testResultClass : testResultsSet) {
+                List<ITestResult> testResults = testResultsPerSuite
+                        .get(testResultClass);
 
-				for (ITestResult testResult : testResults) {
-					TestResult tapTestResult = TestNGTAPUtils
-					        .generateTAPTestResult(testResult,
-					                testSet.getNumberOfTestResults() + 1);
-					testSet.addTestResult(tapTestResult);
-				}
-			}
+                for (ITestResult testResult : testResults) {
+                    TestResult tapTestResult = TestNGTAPUtils
+                            .generateTAPTestResult(testResult,
+                                    testSet.getNumberOfTestResults() + 1);
+                    testSet.addTestResult(tapTestResult);
+                }
+            }
 
-			File output = new File(outputDirectory, suite.getName() + ".tap");
-			tapProducer.dump(testSet, output);
-		}
-	}
+            File output = new File(outputDirectory, suite.getName() + ".tap");
+            tapProducer.dump(testSet, output);
+        }
+    }
 
-	/**
-	 * Generate a TAP file for every group tested
-	 * 
-	 * @param xmlSuites
-	 * @param suites
-	 * @param outputDirectory
-	 */
-	protected void generateTAPPerGroup(List<XmlSuite> xmlSuites,
-	        List<ISuite> suites, String outputDirectory) {
-		for (ISuite suite : suites) {
-			Map<String, Collection<ITestNGMethod>> groups = suite
-			        .getMethodsByGroups();
+    /**
+     * Generate a TAP file for every group tested
+     * 
+     * @param xmlSuites
+     * @param suites
+     * @param outputDirectory
+     */
+    protected void generateTAPPerGroup(List<XmlSuite> xmlSuites,
+            List<ISuite> suites, String outputDirectory) {
+        for (ISuite suite : suites) {
+            Map<String, Collection<ITestNGMethod>> groups = suite
+                    .getMethodsByGroups();
 
-			this.populateTestResultsPerGroupMap(suite, groups);
+            this.populateTestResultsPerGroupMap(suite, groups);
 
-			if (groups.size() > 0) {
-				String[] groupNames = groups.keySet().toArray(
-				        new String[groups.size()]);
-				Arrays.sort(groupNames);
+            if (groups.size() > 0) {
+                String[] groupNames = groups.keySet().toArray(
+                        new String[groups.size()]);
+                Arrays.sort(groupNames);
 
-				for (String group : groupNames) {
-					if (StringUtils.isNotEmpty(group)) {
-						List<ITestResult> groupTestResults = testResultsPerGroup
-						        .get(group);
+                for (String group : groupNames) {
+                    if (StringUtils.isNotEmpty(group)) {
+                        List<ITestResult> groupTestResults = testResultsPerGroup
+                                .get(group);
 
-						if (groupTestResults != null) {
-							final Integer totalTestResultsByGroup = groupTestResults
-							        .size();
+                        if (groupTestResults != null) {
+                            final Integer totalTestResultsByGroup = groupTestResults
+                                    .size();
 
-							testSet = new TestSet();
+                            testSet = new TestSet();
 
-							testSet.setPlan(new Plan(totalTestResultsByGroup));
+                            testSet.setPlan(new Plan(totalTestResultsByGroup));
 
-							for (ITestResult testResult : groupTestResults) {
-								TestResult tapTestResult = TestNGTAPUtils
-								        .generateTAPTestResult(
-								                testResult,
-								                testSet.getNumberOfTestResults() + 1);
-								testSet.addTestResult(tapTestResult);
-							}
+                            for (ITestResult testResult : groupTestResults) {
+                                TestResult tapTestResult = TestNGTAPUtils
+                                        .generateTAPTestResult(
+                                                testResult,
+                                                testSet.getNumberOfTestResults() + 1);
+                                testSet.addTestResult(tapTestResult);
+                            }
 
-							File output = new File(outputDirectory, group
-							        + ".tap");
-							tapProducer.dump(testSet, output);
-						}
-					}
-				}
-			}
-		}
-	}
+                            File output = new File(outputDirectory, group
+                                    + ".tap");
+                            tapProducer.dump(testSet, output);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * Get a Set of test Results for Suites by a given ISuite
-	 * 
-	 * @param suite
-	 * @return Set of Classes for a Suite
-	 */
-	protected Set<Class<?>> getTestResultsSetPerSuite(ISuite suite) {
-		XmlSuite xmlSuite = suite.getXmlSuite();
+    /**
+     * Get a Set of test Results for Suites by a given ISuite
+     * 
+     * @param suite
+     * @return Set of Classes for a Suite
+     */
+    protected Set<Class<?>> getTestResultsSetPerSuite(ISuite suite) {
+        XmlSuite xmlSuite = suite.getXmlSuite();
 
-		// Popula o mapa testResultsPerSuite com uma classe para cada suite com
-		// seus resultados
-		this.generateClasses(xmlSuite, suite);
+        // Popula o mapa testResultsPerSuite com uma classe para cada suite com
+        // seus resultados
+        this.generateClasses(xmlSuite, suite);
 
-		return testResultsPerSuite.keySet();
-	}
+        return testResultsPerSuite.keySet();
+    }
 
-	/**
-	 * Populate a Map of test Results for Groups by a given ISuite
-	 * 
-	 * @param suite
-	 * @param groups
-	 */
-	protected void populateTestResultsPerGroupMap(ISuite suite,
-	        Map<String, Collection<ITestNGMethod>> groups) {
-		XmlSuite xmlSuite = suite.getXmlSuite();
+    /**
+     * Populate a Map of test Results for Groups by a given ISuite
+     * 
+     * @param suite
+     * @param groups
+     */
+    protected void populateTestResultsPerGroupMap(ISuite suite,
+            Map<String, Collection<ITestNGMethod>> groups) {
+        XmlSuite xmlSuite = suite.getXmlSuite();
 
-		// Popula o mapa testResultsPerGroup com uma String para cada grupo com
-		// seus resultados
-		this.generateResultsMapForGroups(xmlSuite, suite, groups);
-	}
+        // Popula o mapa testResultsPerGroup com uma String para cada grupo com
+        // seus resultados
+        this.generateResultsMapForGroups(xmlSuite, suite, groups);
+    }
 
-	/**
-	 * Get total results from a test suite
-	 * 
-	 * @param keySet
-	 * @return Total Results
-	 */
-	public Integer getTotalTestResultsByTestSuite(Set<Class<?>> keySet) {
-		Integer totalTestResults = 0;
-		for (Class<?> clazz : keySet) {
-			List<ITestResult> testResults = testResultsPerSuite.get(clazz);
-			totalTestResults += testResults.size();
-		}
-		return totalTestResults;
-	}
+    /**
+     * Get total results from a test suite
+     * 
+     * @param keySet
+     * @return Total Results
+     */
+    public Integer getTotalTestResultsByTestSuite(Set<Class<?>> keySet) {
+        Integer totalTestResults = 0;
+        for (Class<?> clazz : keySet) {
+            List<ITestResult> testResults = testResultsPerSuite.get(clazz);
+            totalTestResults += testResults.size();
+        }
+        return totalTestResults;
+    }
 
-	/**
-	 * Populate a List of ITestResults for every test Class in a test Suite
-	 * 
-	 * @param xmlSuite
-	 * @param suite
-	 */
-	public void generateClasses(XmlSuite xmlSuite, ISuite suite) {
-		if (suite.getResults().size() > 0) {
-			for (ISuiteResult suiteResult : suite.getResults().values()) {
-				List<ITestResult> testResults = TestNGTAPUtils
-				        .getTestNGResultsOrderedByExecutionDate(suiteResult
-				                .getTestContext());
+    /**
+     * Populate a List of ITestResults for every test Class in a test Suite
+     * 
+     * @param xmlSuite
+     * @param suite
+     */
+    public void generateClasses(XmlSuite xmlSuite, ISuite suite) {
+        if (suite.getResults().size() > 0) {
+            for (ISuiteResult suiteResult : suite.getResults().values()) {
+                List<ITestResult> testResults = TestNGTAPUtils
+                        .getTestNGResultsOrderedByExecutionDate(suiteResult
+                                .getTestContext());
 
-				for (ITestResult testResult : testResults) {
-					Class<?> clazz = testResult.getMethod().getRealClass();
-					List<ITestResult> testResultsForThisClass = testResultsPerSuite
-					        .get(clazz);
+                for (ITestResult testResult : testResults) {
+                    Class<?> clazz = testResult.getMethod().getRealClass();
+                    List<ITestResult> testResultsForThisClass = testResultsPerSuite
+                            .get(clazz);
 
-					if (testResultsForThisClass == null) {
-						testResultsForThisClass = new LinkedList<ITestResult>();
-						testResultsPerSuite.put(clazz, testResultsForThisClass);
-					}
-					testResultsForThisClass.add(testResult);
-				}
-			}
-		}
-	}
+                    if (testResultsForThisClass == null) {
+                        testResultsForThisClass = new LinkedList<ITestResult>();
+                        testResultsPerSuite.put(clazz, testResultsForThisClass);
+                    }
+                    testResultsForThisClass.add(testResult);
+                }
+            }
+        }
+    }
 
-	/**
-	 * Generate the results map for the groups
-	 * 
-	 * @param xmlSuite
-	 * @param suite
-	 * @param groups
-	 */
-	protected void generateResultsMapForGroups(XmlSuite xmlSuite, ISuite suite,
-	        Map<String, Collection<ITestNGMethod>> groups) {
-		if (suite.getResults().size() > 0) {
-			for (ISuiteResult suiteResult : suite.getResults().values()) {
-				List<ITestResult> testResults = TestNGTAPUtils
-				        .getTestNGResultsOrderedByExecutionDate(suiteResult
-				                .getTestContext());
+    /**
+     * Generate the results map for the groups
+     * 
+     * @param xmlSuite
+     * @param suite
+     * @param groups
+     */
+    protected void generateResultsMapForGroups(XmlSuite xmlSuite, ISuite suite,
+            Map<String, Collection<ITestNGMethod>> groups) {
+        if (suite.getResults().size() > 0) {
+            for (ISuiteResult suiteResult : suite.getResults().values()) {
+                List<ITestResult> testResults = TestNGTAPUtils
+                        .getTestNGResultsOrderedByExecutionDate(suiteResult
+                                .getTestContext());
 
-				for (ITestResult testResult : testResults) {
-					ITestNGMethod method = testResult.getMethod();
+                for (ITestResult testResult : testResults) {
+                    ITestNGMethod method = testResult.getMethod();
 
-					String[] groupsNm = findInWhatGroupsMethodIs(method, groups);
+                    String[] groupsNm = findInWhatGroupsMethodIs(method, groups);
 
-					for (String gpNm : groupsNm) {
-						if (StringUtils.isNotEmpty(gpNm)) {
-							List<ITestResult> testResultsForThisGroup = testResultsPerGroup
-							        .get(gpNm);
+                    for (String gpNm : groupsNm) {
+                        if (StringUtils.isNotEmpty(gpNm)) {
+                            List<ITestResult> testResultsForThisGroup = testResultsPerGroup
+                                    .get(gpNm);
 
-							if (testResultsForThisGroup == null) {
-								testResultsForThisGroup = new LinkedList<ITestResult>();
-								testResultsPerGroup.put(gpNm,
-								        testResultsForThisGroup);
-							}
-							testResultsForThisGroup.add(testResult);
-						}
-					}
-				}
-			}
-		}
-	}
+                            if (testResultsForThisGroup == null) {
+                                testResultsForThisGroup = new LinkedList<ITestResult>();
+                                testResultsPerGroup.put(gpNm,
+                                        testResultsForThisGroup);
+                            }
+                            testResultsForThisGroup.add(testResult);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	/**
-	 * Get all groups names that a Test Method is inclueded in
-	 * 
-	 * @param methodToFind
-	 * @param groups
-	 */
-	protected String[] findInWhatGroupsMethodIs(ITestNGMethod methodToFind,
-	        Map<String, Collection<ITestNGMethod>> groups) {
-		String[] groupsFound = new String[groups.keySet().size()];
-		int cont = 0;
-		for (Map.Entry<String, Collection<ITestNGMethod>> grupo : groups
-		        .entrySet()) {
-			for (ITestNGMethod method : grupo.getValue()) {
-				if (method.equals(methodToFind)
-				        && method.getRealClass().equals(
-				                methodToFind.getRealClass())) {
-					groupsFound[cont++] = grupo.getKey();
-				}
-			}
-		}
-		return groupsFound;
-	}
+    /**
+     * Get all groups names that a Test Method is inclueded in
+     * 
+     * @param methodToFind
+     * @param groups
+     */
+    protected String[] findInWhatGroupsMethodIs(ITestNGMethod methodToFind,
+            Map<String, Collection<ITestNGMethod>> groups) {
+        String[] groupsFound = new String[groups.keySet().size()];
+        int cont = 0;
+        for (Map.Entry<String, Collection<ITestNGMethod>> grupo : groups
+                .entrySet()) {
+            for (ITestNGMethod method : grupo.getValue()) {
+                if (method.equals(methodToFind)
+                        && method.getRealClass().equals(
+                                methodToFind.getRealClass())) {
+                    groupsFound[cont++] = grupo.getKey();
+                }
+            }
+        }
+        return groupsFound;
+    }
 }
 
 class ExecutionDateCompator implements Comparator<ITestResult>, Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */
-	public int compare(ITestResult o1, ITestResult o2) {
-		if (o1.getStartMillis() > o2.getStartMillis()) {
-			return 1;
-		}
-		return -1;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
+    public int compare(ITestResult o1, ITestResult o2) {
+        if (o1.getStartMillis() > o2.getStartMillis()) {
+            return 1;
+        }
+        return -1;
+    }
 }

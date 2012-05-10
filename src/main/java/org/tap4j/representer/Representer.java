@@ -39,6 +39,6 @@ public interface Representer {
 	 * @return TestSet represented as String
 	 * @throws RepresenterException
 	 */
-	String representData(TestSet testSet) throws RepresenterException;
+	String representData(TestSet testSet);
 
 }

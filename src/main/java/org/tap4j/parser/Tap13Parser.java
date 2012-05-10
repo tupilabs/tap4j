@@ -47,17 +47,17 @@ import org.tap4j.util.StatusValues;
  */
 public class Tap13Parser implements Parser {
 
-	protected boolean isFirstLine = true;
+    private boolean isFirstLine = true;
 
-	protected boolean planBeforeTestResult = false;
+    private boolean planBeforeTestResult = false;
 
 	// Helper String to check the Footer
-	protected String lastLine = null;
+    private String lastLine = null;
 
 	/**
 	 * Test Set.
 	 */
-	protected TestSet testSet;
+    private TestSet testSet;
 
 	/**
 	 * Default constructor. Calls the init method.
@@ -71,7 +71,7 @@ public class Tap13Parser implements Parser {
 	 * Called from the constructor and everytime a new TAP Stream (file or
 	 * string) is processed.
 	 */
-	public void init() {
+	public final void init() {
 		this.isFirstLine = true;
 		this.planBeforeTestResult = false;
 		this.lastLine = null;
@@ -92,7 +92,7 @@ public class Tap13Parser implements Parser {
 	 * 
 	 * @see org.tap4j.TapConsumer#parseLine(java.lang.String)
 	 */
-	public void parseLine(String tapLine) throws ParserException {
+	public void parseLine(String tapLine) {
 		if (StringUtils.isEmpty(tapLine)) {
 			return;
 		}
@@ -175,7 +175,7 @@ public class Tap13Parser implements Parser {
 	 * optional.
 	 */
 	protected void checkTAPHeaderParsingLocationAndDuplicity()
-	        throws ParserException {
+	        {
 		if (this.testSet.getHeader() != null) {
 			throw new ParserException("Duplicated TAP Header found.");
 		}
@@ -188,7 +188,7 @@ public class Tap13Parser implements Parser {
 	/**
 	 * Checks if there are more than one TAP Plan in the TAP Stream.
 	 */
-	protected void checkTAPPlanDuplicity() throws ParserException {
+	protected void checkTAPPlanDuplicity() {
 		if (this.testSet.getPlan() != null) {
 			throw new ParserException("Duplicated TAP Plan found.");
 		}
@@ -202,7 +202,7 @@ public class Tap13Parser implements Parser {
 	 * 
 	 * @deprecated
 	 */
-	protected void checkTAPPlanPosition() throws ParserException {
+	protected void checkTAPPlanPosition() {
 		if (!this.planBeforeTestResult) {
 			Matcher matcher = PLAN_PATTERN.matcher(lastLine);
 
@@ -400,7 +400,7 @@ public class Tap13Parser implements Parser {
 	 * 
 	 * @see org.tap4j.TapConsumer#parseTapStream(java.lang.String)
 	 */
-	public TestSet parseTapStream(String tapStream) throws ParserException {
+	public TestSet parseTapStream(String tapStream) {
 
 		this.init();
 
@@ -435,7 +435,7 @@ public class Tap13Parser implements Parser {
 	 * 
 	 * @see org.tap4j.TapConsumer#parseFile(java.io.File)
 	 */
-	public TestSet parseFile(File tapFile) throws ParserException {
+	public TestSet parseFile(File tapFile) {
 
 		this.init();
 
@@ -468,7 +468,7 @@ public class Tap13Parser implements Parser {
 	 * @throws org.tap4j.consumer.TapConsumerException
 	 * 
 	 */
-	protected void postProcess() throws ParserException {
+	protected void postProcess() {
 		// deprecated for better interoperability with Perl done_testing()
 		// this.checkTAPPlanPosition();
 		this.checkTAPPlanIsSet();

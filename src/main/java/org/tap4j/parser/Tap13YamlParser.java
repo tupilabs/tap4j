@@ -55,31 +55,31 @@ public class Tap13YamlParser implements Parser {
 	protected static final Pattern INDENTANTION_PATTERN = Pattern
 	        .compile("((\\s|\\t)*)?.*");
 
-	protected TestSet testSet;
-	protected Stack<Memento> mementos = new Stack<Memento>();
+	private TestSet testSet;
+	private Stack<Memento> mementos = new Stack<Memento>();
 
-	protected boolean firstLine;
-	protected boolean planBeforeTestResult;
-	protected boolean currentlyInYAML;
+	private boolean firstLine;
+	private boolean planBeforeTestResult;
+	private boolean currentlyInYAML;
 	// Helper String to check the Footer
-	protected String lastLine = null;
-	protected TapElement lastParsedElement;
+	private String lastLine = null;
+	private TapElement lastParsedElement;
 	/**
 	 * Indicator of the base indentation level. Usually defined by the TAP
 	 * Header.
 	 */
-	protected int baseIndentationLevel;
+	private int baseIndentationLevel;
 	/**
 	 * Helper indicator of in what indentantion level we are working at moment.
 	 * It is helpful specially when you have many nested elements, like a META
 	 * element with some multiline text.
 	 */
-	protected int currentIndentationLevel;
+	private int currentIndentationLevel;
 	/**
 	 * YAML parser and emitter.
 	 */
-	protected Yaml yaml;
-	protected StringBuilder diagnosticBuffer;
+	private Yaml yaml;
+	private StringBuilder diagnosticBuffer;
 
 	public Tap13YamlParser() {
 		super();
@@ -90,7 +90,7 @@ public class Tap13YamlParser implements Parser {
 	 * Called from the constructor and everytime a new TAP Stream (file or
 	 * string) is processed.
 	 */
-	public void init() {
+	public final void init() {
 		this.baseIndentationLevel = -1;
 		this.currentIndentationLevel = -1;
 		this.currentlyInYAML = Boolean.FALSE;
@@ -147,7 +147,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @see org.tap4j.consumer.DefaultTapConsumer#parseLine(java.lang.String)
 	 */
-	public void parseLine(String tapLine) throws ParserException {
+	public void parseLine(String tapLine) {
 		Matcher matcher = null;
 
 		// Comment
@@ -190,11 +190,11 @@ public class Tap13YamlParser implements Parser {
 						if (this.lastParsedElement instanceof TestResult) {
 							indentation = baseIndentationLevel;
 							TestResult lastTestResult = (TestResult) this.lastParsedElement;
-							TestSet testSet = new TestSet();
-							lastTestResult.setSubtest(testSet);
+							TestSet newTestSet = new TestSet();
+							lastTestResult.setSubtest(newTestSet);
 							this.saveMemento();
 							this.init();
-							this.testSet = testSet;
+							this.testSet = newTestSet;
 						}
 					}
 				}
@@ -303,8 +303,7 @@ public class Tap13YamlParser implements Parser {
 	 * element and cannot occurs more than on time. However the Header is
 	 * optional.
 	 */
-	protected void checkTAPHeaderParsingLocationAndDuplicity()
-	        throws ParserException {
+	protected void checkTAPHeaderParsingLocationAndDuplicity() {
 		if (this.testSet.getHeader() != null) {
 			throw new ParserException("Duplicated TAP Header found.");
 		}
@@ -317,7 +316,7 @@ public class Tap13YamlParser implements Parser {
 	/**
 	 * Checks if there are more than one TAP Plan in the TAP Stream.
 	 */
-	protected void checkTAPPlanDuplicity() throws ParserException {
+	protected void checkTAPPlanDuplicity() {
 		if (this.testSet.getPlan() != null) {
 			throw new ParserException("Duplicated TAP Plan found.");
 		}
@@ -331,7 +330,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @deprecated
 	 */
-	protected void checkTAPPlanPosition() throws ParserException {
+	protected void checkTAPPlanPosition() {
 		if (!this.planBeforeTestResult) {
 			Matcher matcher = PLAN_PATTERN.matcher(lastLine);
 
@@ -526,7 +525,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @see org.tap4j.TapConsumer#parseTapStream(java.lang.String)
 	 */
-	public TestSet parseTapStream(String tapStream) throws ParserException {
+	public TestSet parseTapStream(String tapStream) {
 
 		this.init();
 
@@ -561,7 +560,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @see org.tap4j.TapConsumer#parseFile(java.io.File)
 	 */
-	public TestSet parseFile(File tapFile) throws ParserException {
+	public TestSet parseFile(File tapFile) {
 
 		this.init();
 
@@ -609,8 +608,7 @@ public class Tap13YamlParser implements Parser {
 	 *             if indentation is less then the {@link #baseIndentationLevel}
 	 *             .
 	 */
-	private void checkIndentationLevel(int indentation, String tapLine)
-	        throws ParserException {
+	private void checkIndentationLevel(int indentation, String tapLine) {
 		if (indentation < this.baseIndentationLevel) {
 			if (!this.currentlyInYAML && this.mementos.isEmpty() == Boolean.FALSE) {
 				while (!this.mementos.isEmpty()
@@ -654,7 +652,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @throws org.tap4j.consumer.TapConsumerException
 	 */
-	private void checkAndParseTapDiagnostic() throws ParserException {
+	private void checkAndParseTapDiagnostic() {
 		// If we found any meta, then process it with SnakeYAML
 		if (diagnosticBuffer.length() > 0) {
 
@@ -728,7 +726,7 @@ public class Tap13YamlParser implements Parser {
 	 * 
 	 * @see org.tap4j.consumer.DefaultTapConsumer#postProcess()
 	 */
-	protected void postProcess() throws ParserException {
+	protected void postProcess() {
 		this.checkTAPPlanIsSet();
 		this.checkAndParseTapDiagnostic();
 	}

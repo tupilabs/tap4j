@@ -52,7 +52,7 @@ public class Tap13Representer implements Representer {
 	/**
 	 * YAML parser and emitter.
 	 */
-	protected Yaml yaml;
+	private Yaml yaml;
 
 	public Tap13Representer() {
 		this(new org.tap4j.representer.DumperOptions());
@@ -86,7 +86,7 @@ public class Tap13Representer implements Representer {
 	 * @see
 	 * org.tap4j.representer.Representer#representData(org.tap4j.model.TestSet)
 	 */
-	public String representData(TestSet testSet) throws RepresenterException {
+	public String representData(TestSet testSet) {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		printHeader(pw, testSet.getHeader());
@@ -141,7 +141,7 @@ public class Tap13Representer implements Representer {
 		pw.append(LINE_SEPARATOR);
 		if (testResult.getSubtest() != null) {
 			int indent = this.options.getIndent();
-			this.options.setIndent(indent + 4);
+			this.options.setIndent(indent + indent);
 			pw.append(this.representData(testResult.getSubtest()));
 			this.options.setIndent(indent);
 		}

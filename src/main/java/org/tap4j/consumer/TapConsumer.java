@@ -44,7 +44,7 @@ public interface TapConsumer {
 	 * @return TestSet
 	 * @throws TapConsumerException
 	 */
-	TestSet load(File file) throws TapConsumerException;
+	TestSet load(File file);
 
 	/**
 	 * Parses a TAP Stream.
@@ -54,7 +54,7 @@ public interface TapConsumer {
 	 * @return TestSet
 	 * @throws TapConsumerException
 	 */
-	TestSet load(String tapStream) throws TapConsumerException;
+	TestSet load(String tapStream);
 
 	/**
 	 * Returns the TestSet resulted from parsing a TAP File or TAP Stream.

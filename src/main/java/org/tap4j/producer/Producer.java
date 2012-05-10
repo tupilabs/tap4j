@@ -45,7 +45,7 @@ public interface Producer {
 	 * @return TAP Stream
 	 * @throws ProducerException
 	 */
-	String dump(TestSet testSet) throws ProducerException;
+	String dump(TestSet testSet);
 
 	/**
 	 * Writes the TAP Stream produced from a TestSet into a Writer.
@@ -56,7 +56,7 @@ public interface Producer {
 	 *            Writer
 	 * @throws ProducerException
 	 */
-	void dump(TestSet testSet, Writer writer) throws ProducerException;
+	void dump(TestSet testSet, Writer writer);
 
 	/**
 	 * Writes the TAP Stream into an output File.
@@ -67,7 +67,7 @@ public interface Producer {
 	 *            Output File
 	 * @throws ProducerException
 	 */
-	void dump(TestSet testSet, File output) throws ProducerException;
+	void dump(TestSet testSet, File output);
 
 	/**
 	 * Returns the Representer used in the Producer.

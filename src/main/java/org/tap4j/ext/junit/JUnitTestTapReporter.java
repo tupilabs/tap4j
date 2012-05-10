@@ -46,14 +46,14 @@ import org.tap4j.producer.TapProducer;
  * @since 1.4.3
  */
 public class JUnitTestTapReporter extends RunListener {
-	protected List<JUnitTestData> testMethodsList = null;
+    private List<JUnitTestData> testMethodsList = null;
 
 	/**
 	 * TAP Producer.
 	 */
-	protected Producer tapProducer = null;
+	private Producer tapProducer = null;
 
-	protected boolean isSuite = false;
+	private boolean isSuite = false;
 
 	/**
 	 * Called right before any tests from a specific class are run.

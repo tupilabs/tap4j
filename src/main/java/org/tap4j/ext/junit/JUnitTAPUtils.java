@@ -37,7 +37,7 @@ import org.testng.internal.ResultMap;
  * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
-class JUnitTAPUtils {
+final class JUnitTAPUtils {
 	private JUnitTAPUtils() {
 		super();
 	}

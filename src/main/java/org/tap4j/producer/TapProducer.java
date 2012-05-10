@@ -39,7 +39,7 @@ import org.tap4j.representer.Tap13Representer;
  */
 public class TapProducer implements Producer {
 
-	protected Representer representer;
+	private Representer representer;
 
 	public TapProducer() {
 		super();
@@ -55,7 +55,7 @@ public class TapProducer implements Producer {
 	 * 
 	 * @see org.tap4j.producer.TapProducer#dump(org.tap4j.model.TestSet)
 	 */
-	public String dump(TestSet testSet) throws ProducerException {
+	public String dump(TestSet testSet) {
 		String dumpData = null;
 
 		try {
@@ -75,7 +75,7 @@ public class TapProducer implements Producer {
 	 * java.io.Writer)
 	 */
 	public void dump(TestSet testSet, Writer writer)
-	        throws ProducerException {
+	        {
 		String tapStream = null;
 
 		try {
@@ -99,7 +99,7 @@ public class TapProducer implements Producer {
 	 * @see org.tap4j.producer.TapProducer#dump(org.tap4j.model.TestSet,
 	 * java.io.File)
 	 */
-	public void dump(TestSet testSet, File output) throws ProducerException {
+	public void dump(TestSet testSet, File output) {
 		String tapStream = null;
 
 		try {

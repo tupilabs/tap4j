@@ -37,7 +37,7 @@ public abstract class AbstractTapElementDiagnostic implements TapElement {
 	/**
 	 * Iterable object returned by snakeyaml.
 	 */
-	protected Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+	private Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
 
 	/*
 	 * (non-Javadoc)

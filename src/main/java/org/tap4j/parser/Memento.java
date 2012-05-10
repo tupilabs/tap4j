@@ -51,7 +51,7 @@ public class Memento {
 	private int currentIndentationLevel;
 	private boolean currentlyInYaml;
 	private boolean currentlyInSubtest;
-	protected StringBuilder diagnosticBuffer = new StringBuilder();
+	private StringBuilder diagnosticBuffer = new StringBuilder();
 	private TestSet testSet;
 
 	public Memento() {

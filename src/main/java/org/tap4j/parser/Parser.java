@@ -49,7 +49,7 @@ public interface Parser {
 	/**
 	 * TAP Test Result Regex.
 	 */
-	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)?\\s*([^#]*)?\\s*(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?";
+	String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d+)\\s*([^#]*)?\\s*(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?";
 
 	/**
 	 * TAP Bail Out! Regex.
@@ -104,7 +104,7 @@ public interface Parser {
 	 * @param tapLine
 	 *            TAP line
 	 */
-	void parseLine(String tapLine) throws ParserException;
+	void parseLine(String tapLine);
 
 	/**
 	 * Parses a TAP Stream.
@@ -112,7 +112,7 @@ public interface Parser {
 	 * @param tapStream
 	 *            TAP Stream
 	 */
-	TestSet parseTapStream(String tapStream) throws ParserException;
+	TestSet parseTapStream(String tapStream);
 
 	/**
 	 * Parses a TAP File.
@@ -120,6 +120,6 @@ public interface Parser {
 	 * @param tapFile
 	 *            TAP File
 	 */
-	TestSet parseFile(File tapFile) throws ParserException;
+	TestSet parseFile(File tapFile);
 
 }

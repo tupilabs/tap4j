@@ -23,9 +23,14 @@
  */
 package org.tap4j.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.tap4j.util.StatusValues;
 
 /**
+ * A simple test result. Valid values are OK and NOT OK.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
@@ -60,13 +65,14 @@ public class TestResult extends TapResult {
 	/**
 	 * Comment.
 	 */
-	private Comment comment;
+	private List<Comment> comments;
 
 	public TestResult() {
 		super();
 		this.status = StatusValues.NOT_OK;
 		this.testNumber = -1;
 		this.subtest = null;
+		this.comments = new LinkedList<Comment>();
 	}
 
 	/**
@@ -81,6 +87,7 @@ public class TestResult extends TapResult {
 		super();
 		this.status = testStatus;
 		this.testNumber = testNumber;
+		this.comments = new LinkedList<Comment>();
 	}
 
 	/**
@@ -159,18 +166,27 @@ public class TestResult extends TapResult {
 	}
 
 	/**
-	 * @return The comment set for this Test Result.
+	 * @return The comments for this Test Result.
 	 */
-	public Comment getComment() {
-		return this.comment;
+	public List<Comment> getComments() {
+		return this.comments;
 	}
 
 	/**
-	 * @param comment
-	 *            Comment.
+	 * @param comments
+	 *            list of comments for this Test Result.
 	 */
-	public void setComment(Comment comment) {
-		this.comment = comment;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	/**
+	 * Adds a new comment to this Test Result.
+	 * 
+	 * @param comment comment for this Test Result.
+	 */
+	public void addComment(Comment comment) {
+	    this.comments.add(comment);
 	}
 
 }

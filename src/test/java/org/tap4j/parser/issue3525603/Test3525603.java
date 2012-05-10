@@ -21,55 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.consumer.issue3504508;
-
-import java.io.File;
+package org.tap4j.parser.issue3525603;
 
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
-import org.tap4j.producer.Producer;
-import org.tap4j.producer.TapProducer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
+ * Tests for issue 3525603.
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 0.1
+ * @since 3.0
  */
-public class TestIssue3504508 {
+public class Test3525603 {
 
-	@Test
-	public void testTapConsumer() {
-		TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
-		TestSet testSet = consumer.load(new File(TestIssue3504508.class
-		        .getResource("/subtests/sample.tap").getFile()));
-		Assert.assertTrue(testSet.getTestResult(1).getSubtest() != null);
-		
-		Assert.assertTrue(testSet.getTestResult(1).getSubtest().getTestResult(2).getSubtest() != null);
-		
-		Assert.assertTrue(testSet.getTestResults().size() == 3);
-	}
-	
-	@Test
-	public void testProducingSubtests() {
-	    final String expected = "1..3\n" + 
-	    		"ok 1 - First test\n" + 
-	    		"    1..2\n" + 
-	    		"    ok 1 - This is a subtest\n" + 
-	    		"    ok 2 - So is this\n" + 
-	    		"        1..2\n" + 
-	    		"        ok 1 - This is a subtest\n" + 
-	    		"        ok 2 - So is this\n" + 
-	    		"ok 2 - An example subtest\n" + 
-	    		"ok 3 - Third test\n";
-	    final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
-	    final TestSet testSet = consumer.load(new File(TestIssue3504508.class
-                .getResource("/subtests/sample.tap").getFile()));
-
-	    final  Producer producer = new TapProducer();
-	    Assert.assertEquals(producer.dump(testSet), expected);
-	}
-
+    @Test
+    public void testDoneTestingMark() {
+        final String tap = "1..1\n" +
+        		"ok 1\n" +
+        		"ok";
+        
+        final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+        final TestSet testSet = consumer.load(tap);
+        Assert.assertEquals(1, testSet.getTestResults().size());
+    }
+    
 }

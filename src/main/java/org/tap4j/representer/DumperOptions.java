@@ -34,6 +34,7 @@ public class DumperOptions {
 	private boolean printSubtests = Boolean.TRUE;
 	private boolean allowEmptyTestPlan = Boolean.TRUE;
 	private int indent = 0;
+	private int spaces = 4;
 
 	public DumperOptions() {
 	}
@@ -82,6 +83,20 @@ public class DumperOptions {
 	public int getIndent() {
 		return indent;
 	}
+	
+	/**
+     * @param spaces the spaces to set
+     */
+    public void setSpaces(int spaces) {
+        this.spaces = spaces;
+    }
+    
+    /**
+     * @return the spaces
+     */
+    public int getSpaces() {
+        return spaces;
+    }
 
 	/**
 	 * @param allowEmptyTestPlan

@@ -58,7 +58,8 @@ public class TestTAPTestResult {
 
 		Comment comment = new Comment(
 		        "This status is set to true in another method.");
-		okTestResultSkip.setComment(comment);
+		comment.setInline(Boolean.TRUE);
+		okTestResultSkip.addComment(comment);
 
 	}
 
@@ -95,6 +96,16 @@ public class TestTAPTestResult {
 		Assert.assertEquals(okTestResultSkip.getStatus(), StatusValues.OK);
 
 		Assert.assertNotNull(okTestResultSkip.getDirective());
+	}
+	
+	@Test
+	public void testInlineComment() {
+	    Assert.assertTrue(okTestResultSkip.getComments().get(0).isInline());
+	}
+	
+	@Test
+	public void testCommentText() {
+	    Assert.assertEquals(okTestResultSkip.getComments().get(0).getText(), "This status is set to true in another method.");
 	}
 
 }

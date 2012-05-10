@@ -96,7 +96,7 @@ public class TestProduceConsume {
 
 		TestResult tr3 = new TestResult(StatusValues.OK, 3);
 		Comment commentTr3 = new Comment("Test 3 :)");
-		tr3.setComment(commentTr3);
+		tr3.addComment(commentTr3);
 		testSet.addTestResult(tr3);
 
 		testSet.setFooter(new Footer("End"));

@@ -25,6 +25,7 @@ package org.tap4j.representer;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -133,15 +134,24 @@ public class Tap13Representer implements Representer {
 				pw.append(' ' + testResult.getDirective().getReason());
 			}
 		}
-		if (testResult.getComment() != null) {
-			pw.append(' ');
-			printComment(pw, testResult.getComment());
+		List<Comment> comments = testResult.getComments();
+		if (comments.size() > 0) {
+		    for(Comment comment : comments) {
+		        if(comment.isInline()) {
+		            pw.append(' ');
+		            printComment(pw, comment);
+		        } else {
+		            pw.append(LINE_SEPARATOR);
+		            printComment(pw, comment);
+		        }
+		    }
 		}
 		printDiagnostic(pw, testResult);
 		pw.append(LINE_SEPARATOR);
 		if (testResult.getSubtest() != null) {
 			int indent = this.options.getIndent();
-			this.options.setIndent(indent + indent);
+			int spaces = this.options.getSpaces();
+			this.options.setIndent(indent + spaces);
 			pw.append(this.representData(testResult.getSubtest()));
 			this.options.setIndent(indent);
 		}

@@ -444,7 +444,8 @@ public class Tap13YamlParser implements Parser {
 		if (commentToken != null) {
 			String text = matcher.group(8);
 			final Comment comment = new Comment(text);
-			testResult.setComment(comment);
+			comment.setInline(Boolean.TRUE);
+			testResult.addComment(comment);
 		}
 
 		this.testSet.addTestResult(testResult);
@@ -497,6 +498,11 @@ public class Tap13YamlParser implements Parser {
 		Comment comment = new Comment(text);
 
 		this.testSet.addComment(comment);
+		
+		if(lastParsedElement instanceof TestResult) {
+		    TestResult lastTestResult = (TestResult)lastParsedElement;
+		    lastTestResult.addComment(comment);
+		}
 	}
 
 	/**

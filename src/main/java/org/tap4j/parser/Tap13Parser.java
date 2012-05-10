@@ -316,7 +316,8 @@ public class Tap13Parser implements Parser {
 		if (commentToken != null) {
 			String text = matcher.group(8);
 			final Comment comment = new Comment(text);
-			testResult.setComment(comment);
+			comment.setInline(Boolean.TRUE);
+			testResult.addComment(comment);
 		}
 
 		this.testSet.addTestResult(testResult);

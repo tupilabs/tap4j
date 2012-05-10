@@ -30,6 +30,7 @@
       <item name="TAP Consumer" href="tapconsumer.html"/>
       <item name="TAP Producer" href="tapproducer.html"/>
       <item name="TAP Directives" href="tapdirectives.html"/>
+      <item name="Subtests" href="subtests.html"/>
     </menu>
     
     <menu name="tap4j Extensions">

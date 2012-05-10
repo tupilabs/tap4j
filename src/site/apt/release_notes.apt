@@ -1,5 +1,15 @@
 Release Notes
 
+* Version 3.0
+ 
+ * 3525607 - Added support to comment diagnostics
+ 
+ * 3525603 - Bug fix. Whenever the parser found a simple 'ok', like the one added by done_testing, it would increase the test number by 1
+ 
+ * 3504508 - Added support to subtests
+ 
+ * Code clean up, increasing the quality index measured by Sonar (from 91, to 98.5, FWIW) 
+
 * Version 2.0.7
 
  * Removed the requirement to have TAP Plan as last element of a TAP Stream

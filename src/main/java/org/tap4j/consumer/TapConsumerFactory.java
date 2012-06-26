@@ -27,7 +27,6 @@ import org.tap4j.parser.Tap13YamlParser;
 
 /**
  * Factory class to produce TAP Consumers.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */

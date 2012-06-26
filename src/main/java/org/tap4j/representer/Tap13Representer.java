@@ -119,7 +119,7 @@ public class Tap13Representer implements Representer {
 	 * @param testResult
 	 */
 	protected void printTestResult(PrintWriter pw, TestResult testResult) {
-		printFillter(pw);
+		printFiller(pw);
 		pw.append(testResult.getStatus().toString());
 		if (testResult.getTestNumber() != null) {
 			pw.append(' ' + Integer.toString(testResult.getTestNumber()));
@@ -162,7 +162,7 @@ public class Tap13Representer implements Representer {
 	 * @param bailOut
 	 */
 	protected void printBailOut(PrintWriter pw, BailOut bailOut) {
-		printFillter(pw);
+		printFiller(pw);
 		pw.append("Bail out!");
 		if (bailOut.getReason() != null) {
 			pw.append(' ' + bailOut.getReason());
@@ -181,7 +181,7 @@ public class Tap13Representer implements Representer {
 	 */
 	protected void printFooter(PrintWriter pw, Footer footer) {
 		if (footer != null) {
-			printFillter(pw);
+			printFiller(pw);
 			pw.append("TAP " + footer.getText());
 			if (footer.getComment() != null) {
 				pw.append(' ');
@@ -198,7 +198,7 @@ public class Tap13Representer implements Representer {
 	 */
 	protected void printPlan(PrintWriter pw, Plan plan) {
 		if (plan != null) {
-			printFillter(pw);
+			printFiller(pw);
 			pw.append(plan.getInitialTestNumber() + ".."
 			        + plan.getLastTestNumber());
 			if (plan.getSkip() != null) {
@@ -224,7 +224,7 @@ public class Tap13Representer implements Representer {
 	 */
 	protected void printHeader(PrintWriter pw, Header header) {
 		if (header != null) {
-			printFillter(pw);
+			printFiller(pw);
 			pw.append("TAP version " + header.getVersion());
 			if (header.getComment() != null) {
 				pw.append(' ');
@@ -257,12 +257,12 @@ public class Tap13Representer implements Representer {
 			String diagnosticText = yaml.dump(diagnostic);
 			diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
 			pw.append(LINE_SEPARATOR);
-			printFillter(pw);
+			printFiller(pw);
 			pw.append(diagnosticText);
 		}
 	}
 
-	protected void printFillter(PrintWriter pw) {
+	protected void printFiller(PrintWriter pw) {
 		if (this.options.getIndent() > 0) {
 			pw.append(StringUtils.repeat(" ", this.options.getIndent()));
 		}

@@ -6,6 +6,11 @@
     <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
   </properties>
   <body>
+    <release version="3.1" date="2012-06-26" description="3.1 release">
+      <action dev="kinow" type="add">
+        Added a JUnit TAP Representer and a factory for TAP Producers.          
+      </action>
+    </release>
     <release version="3.0" date="2012-05-10" description="3.0 release">
       <action dev="kinow" type="fix" issue="3525607">
         Added support to comment diagnostics

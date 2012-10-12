@@ -28,11 +28,11 @@ extra information about your tests, such as attachments.
 
 ## Projects using tap4j
 
-* Jenkins TAP Plug-in
+* [Jenkins TAP Plug-in](https://wiki.jenkins-ci.org/display/JENKINS/TAP+Plugin)
 
-* Jenkins TestLink Plug-in
+* [Jenkins TestLink Plug-in](https://wiki.jenkins-ci.org/display/JENKINS/TestLink+Plugin)
 
-* JinFeng
+* [JinFeng](http://www.sqaopen.net/blog/en/?p=63)
 
 ## Build status
 

@@ -24,73 +24,73 @@
 package org.tap4j.representer;
 
 /**
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 0.1
  */
 public class DumperOptions {
 
-	private boolean printDiagnostics = Boolean.TRUE;
-	private boolean printSubtests = Boolean.TRUE;
-	private boolean allowEmptyTestPlan = Boolean.TRUE;
-	private int indent = 0;
-	private int spaces = 4;
+    private boolean printDiagnostics = Boolean.TRUE;
 
-	public DumperOptions() {
-	}
+    private boolean printSubtests = Boolean.TRUE;
 
-	/**
-	 * @return the printDiagnostics
-	 */
-	public boolean isPrintDiagnostics() {
-		return printDiagnostics;
-	}
+    private boolean allowEmptyTestPlan = Boolean.TRUE;
 
-	/**
-	 * @param printDiagnostics
-	 *            the printDiagnostics to set
-	 */
-	public void setPrintDiagnostics(boolean printDiagnostics) {
-		this.printDiagnostics = printDiagnostics;
-	}
+    private int indent = 0;
 
-	/**
-	 * @return the printSubtests
-	 */
-	public boolean isPrintSubtests() {
-		return printSubtests;
-	}
+    private int spaces = 4;
 
-	/**
-	 * @param printSubtests
-	 *            the printSubtests to set
-	 */
-	public void setPrintSubtests(boolean printSubtests) {
-		this.printSubtests = printSubtests;
-	}
+    public DumperOptions() {
+    }
 
-	/**
-	 * @param indent
-	 *            the indent to set
-	 */
-	public void setIndent(int indent) {
-		this.indent = indent;
-	}
+    /**
+     * @return the printDiagnostics
+     */
+    public boolean isPrintDiagnostics() {
+        return printDiagnostics;
+    }
 
-	/**
-	 * @return the indent
-	 */
-	public int getIndent() {
-		return indent;
-	}
-	
-	/**
+    /**
+     * @param printDiagnostics the printDiagnostics to set
+     */
+    public void setPrintDiagnostics(boolean printDiagnostics) {
+        this.printDiagnostics = printDiagnostics;
+    }
+
+    /**
+     * @return the printSubtests
+     */
+    public boolean isPrintSubtests() {
+        return printSubtests;
+    }
+
+    /**
+     * @param printSubtests the printSubtests to set
+     */
+    public void setPrintSubtests(boolean printSubtests) {
+        this.printSubtests = printSubtests;
+    }
+
+    /**
+     * @param indent the indent to set
+     */
+    public void setIndent(int indent) {
+        this.indent = indent;
+    }
+
+    /**
+     * @return the indent
+     */
+    public int getIndent() {
+        return indent;
+    }
+
+    /**
      * @param spaces the spaces to set
      */
     public void setSpaces(int spaces) {
         this.spaces = spaces;
     }
-    
+
     /**
      * @return the spaces
      */
@@ -98,19 +98,18 @@ public class DumperOptions {
         return spaces;
     }
 
-	/**
-	 * @param allowEmptyTestPlan
-	 *            the allowEmptyTestPlan to set
-	 */
-	public void setAllowEmptyTestPlan(boolean allowEmptyTestPlan) {
-		this.allowEmptyTestPlan = allowEmptyTestPlan;
-	}
+    /**
+     * @param allowEmptyTestPlan the allowEmptyTestPlan to set
+     */
+    public void setAllowEmptyTestPlan(boolean allowEmptyTestPlan) {
+        this.allowEmptyTestPlan = allowEmptyTestPlan;
+    }
 
-	/**
-	 * @return the allowEmptyTestPlan
-	 */
-	public boolean isAllowEmptyTestPlan() {
-		return allowEmptyTestPlan;
-	}
+    /**
+     * @return the allowEmptyTestPlan
+     */
+    public boolean isAllowEmptyTestPlan() {
+        return allowEmptyTestPlan;
+    }
 
 }

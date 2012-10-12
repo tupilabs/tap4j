@@ -32,144 +32,135 @@ package org.tap4j.model;
  * @since 1.0
  */
 public class Plan extends AbstractTapElementDiagnostic {
-	private static final long serialVersionUID = 8517740981464132024L;
 
-	/**
-	 * Default initial test step.
-	 */
-	private static final Integer INITIAL_TEST_STEP = 1;
+    private static final long serialVersionUID = 8517740981464132024L;
 
-	/**
-	 * TAP Plan initial test number.
-	 */
-	private Integer initialTestNumber;
+    /**
+     * Default initial test step.
+     */
+    private static final Integer INITIAL_TEST_STEP = 1;
 
-	/**
-	 * TAP Plan last test number.
-	 */
-	private Integer lastTestNumber;
+    /**
+     * TAP Plan initial test number.
+     */
+    private Integer initialTestNumber;
 
-	/**
-	 * TAP Plan skip. If present the tests should not be executed.
-	 */
-	private SkipPlan skip;
+    /**
+     * TAP Plan last test number.
+     */
+    private Integer lastTestNumber;
 
-	/**
-	 * A comment.
-	 */
-	private Comment comment;
+    /**
+     * TAP Plan skip. If present the tests should not be executed.
+     */
+    private SkipPlan skip;
 
-	/**
-	 * Constructor with parameters.
-	 * 
-	 * @param initialTestNumber
-	 *            Initial test number (usually is 1).
-	 * @param lastTestNumber
-	 *            Last test number (may be 0 if to skip all tests).
-	 */
-	public Plan(Integer initialTestNumber, Integer lastTestNumber) {
-		super();
-		this.initialTestNumber = initialTestNumber;
-		this.lastTestNumber = lastTestNumber;
-	}
+    /**
+     * A comment.
+     */
+    private Comment comment;
 
-	/**
-	 * Constructor with parameters.
-	 * 
-	 * @param amountOfTests
-	 *            How many tests we have in the plan.
-	 */
-	public Plan(Integer amountOfTests) {
-		super();
-		this.initialTestNumber = INITIAL_TEST_STEP;
-		this.lastTestNumber = amountOfTests;
-	}
+    /**
+     * Constructor with parameters.
+     * 
+     * @param initialTestNumber Initial test number (usually is 1).
+     * @param lastTestNumber Last test number (may be 0 if to skip all tests).
+     */
+    public Plan(Integer initialTestNumber, Integer lastTestNumber) {
+        super();
+        this.initialTestNumber = initialTestNumber;
+        this.lastTestNumber = lastTestNumber;
+    }
 
-	/**
-	 * Constructor with parameters
-	 * 
-	 * @param amountOfTests
-	 *            How many tests we have in the plan.
-	 * @param skip
-	 *            Plan skip with a reason.
-	 */
-	public Plan(Integer amountOfTests, SkipPlan skip) {
-		super();
-		this.initialTestNumber = INITIAL_TEST_STEP;
-		this.lastTestNumber = amountOfTests;
-		this.skip = skip;
-	}
+    /**
+     * Constructor with parameters.
+     * 
+     * @param amountOfTests How many tests we have in the plan.
+     */
+    public Plan(Integer amountOfTests) {
+        super();
+        this.initialTestNumber = INITIAL_TEST_STEP;
+        this.lastTestNumber = amountOfTests;
+    }
 
-	/**
-	 * Constructor with parameters
-	 * 
-	 * @param initialTestNumber
-	 *            Initial test number (usually is 1).
-	 * @param lastTestNumber
-	 *            Last test number (may be 0 if to skip all tests).
-	 * @param skip
-	 *            Plan skip with a reason.
-	 */
-	public Plan(Integer initialTestNumber, Integer lastTestNumber, SkipPlan skip) {
-		super();
-		this.initialTestNumber = initialTestNumber;
-		this.lastTestNumber = lastTestNumber;
-		this.skip = skip;
-	}
+    /**
+     * Constructor with parameters
+     * 
+     * @param amountOfTests How many tests we have in the plan.
+     * @param skip Plan skip with a reason.
+     */
+    public Plan(Integer amountOfTests, SkipPlan skip) {
+        super();
+        this.initialTestNumber = INITIAL_TEST_STEP;
+        this.lastTestNumber = amountOfTests;
+        this.skip = skip;
+    }
 
-	/**
-	 * @return Initial test number.
-	 */
-	public Integer getInitialTestNumber() {
-		return this.initialTestNumber;
-	}
+    /**
+     * Constructor with parameters
+     * 
+     * @param initialTestNumber Initial test number (usually is 1).
+     * @param lastTestNumber Last test number (may be 0 if to skip all tests).
+     * @param skip Plan skip with a reason.
+     */
+    public Plan(Integer initialTestNumber, Integer lastTestNumber, SkipPlan skip) {
+        super();
+        this.initialTestNumber = initialTestNumber;
+        this.lastTestNumber = lastTestNumber;
+        this.skip = skip;
+    }
 
-	/**
-	 * @return Last test number.
-	 */
-	public Integer getLastTestNumber() {
-		return this.lastTestNumber;
-	}
+    /**
+     * @return Initial test number.
+     */
+    public Integer getInitialTestNumber() {
+        return this.initialTestNumber;
+    }
 
-	/**
-	 * @return Flag used to indicate whether skip all tests or not.
-	 */
-	public Boolean isSkip() {
-		return this.skip != null;
-	}
+    /**
+     * @return Last test number.
+     */
+    public Integer getLastTestNumber() {
+        return this.lastTestNumber;
+    }
 
-	/**
-	 * @return Plan Skip with reason.
-	 */
-	public SkipPlan getSkip() {
-		return this.skip;
-	}
+    /**
+     * @return Flag used to indicate whether skip all tests or not.
+     */
+    public Boolean isSkip() {
+        return this.skip != null;
+    }
 
-	/**
-	 * Defines whether we should skip all tests or not.
-	 * 
-	 * @param skip
-	 *            Plan Skip.
-	 */
-	public void setSkip(SkipPlan skip) {
-		this.skip = skip;
-	}
+    /**
+     * @return Plan Skip with reason.
+     */
+    public SkipPlan getSkip() {
+        return this.skip;
+    }
 
-	/**
-	 * @return Optional Plan comment.
-	 */
-	public Comment getComment() {
-		return this.comment;
-	}
+    /**
+     * Defines whether we should skip all tests or not.
+     * 
+     * @param skip Plan Skip.
+     */
+    public void setSkip(SkipPlan skip) {
+        this.skip = skip;
+    }
 
-	/**
-	 * Sets a comment into the Plan.
-	 * 
-	 * @param comment
-	 *            Plan comment.
-	 */
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
+    /**
+     * @return Optional Plan comment.
+     */
+    public Comment getComment() {
+        return this.comment;
+    }
+
+    /**
+     * Sets a comment into the Plan.
+     * 
+     * @param comment Plan comment.
+     */
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
 }

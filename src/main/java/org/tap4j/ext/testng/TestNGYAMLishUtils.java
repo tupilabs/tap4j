@@ -53,8 +53,9 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unchecked") // TODO: explain why this can be unchecked
 public final class TestNGYAMLishUtils {
+    //TODO: add javadoc
     /**
      * 
      */
@@ -64,7 +65,7 @@ public final class TestNGYAMLishUtils {
      * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
      */
     public static final SimpleDateFormat ISO_8061_DATE_FORMAT = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss");
+                                                                                     "yyyy-MM-dd'T'HH:mm:ss");
 
     public static final String LINE_SEPARATOR = LineBreak.UNIX.getString();
 
@@ -100,8 +101,8 @@ public final class TestNGYAMLishUtils {
      * @return Source value
      */
     public static String getSource(ITestResult testNgTestResult) {
-        String source = testNgTestResult.getTestClass().getName() + "#"
-                + testNgTestResult.getMethod().getMethodName();
+        String source = testNgTestResult.getTestClass().getName() + "#" +
+                        testNgTestResult.getMethod().getMethodName();
         return source;
     }
 
@@ -138,7 +139,7 @@ public final class TestNGYAMLishUtils {
             lookFor.append(testNgTestResult.getMethod().getMethodName());
             lookFor.append('(');
             lookFor.append(testNgTestResult.getTestClass().getClass()
-                    .getSimpleName());
+                .getSimpleName());
             lookFor.append(".java:");
 
             StackTraceElement[] els = testNGException.getStackTrace();
@@ -146,7 +147,7 @@ public final class TestNGYAMLishUtils {
             for (int i = 0; i < els.length; i++) {
                 StackTraceElement el = els[i];
                 line = getLineNumberFromExceptionTraceLine(el.toString(),
-                        lookFor.toString());
+                                                           lookFor.toString());
                 if (line.equals("") == Boolean.FALSE) {
                     break;
                 }
@@ -162,15 +163,15 @@ public final class TestNGYAMLishUtils {
      * @param substrToSearch
      * @return error line number
      */
-    public static String getLineNumberFromExceptionTraceLine(
-            String exceptionTraceLine, String substrToSearch) {
+    public static String getLineNumberFromExceptionTraceLine(String exceptionTraceLine,
+                                                             String substrToSearch) {
         String lineNumber = "";
         int index = exceptionTraceLine.indexOf(substrToSearch);
         if (index >= 0) {
             int length = substrToSearch.length() + index;
             if (exceptionTraceLine.lastIndexOf(')') > length) {
-                lineNumber = exceptionTraceLine.substring(length,
-                        exceptionTraceLine.lastIndexOf(')'));
+                lineNumber = exceptionTraceLine
+                    .substring(length, exceptionTraceLine.lastIndexOf(')'));
             }
         }
         return lineNumber;
@@ -197,9 +198,9 @@ public final class TestNGYAMLishUtils {
             for (; iterator.hasNext();) {
                 String attributeName = iterator.next();
                 Object attributeValue = testNgTestResult
-                        .getAttribute(attributeName);
+                    .getAttribute(attributeName);
                 ((Map<String, Object>) extensions).put(attributeName,
-                        attributeValue);
+                                                       attributeValue);
             }
         } else {
             extensions = '~';
@@ -228,9 +229,9 @@ public final class TestNGYAMLishUtils {
             int index = stringException.indexOf(expectedToken);
 
             if (index > 0) {
-                expected = stringException.substring(
-                        index + expectedToken.length(),
-                        stringException.lastIndexOf(butWasToken));
+                expected = stringException
+                    .substring(index + expectedToken.length(),
+                               stringException.lastIndexOf(butWasToken));
                 index = stringException.indexOf(butWasToken);
             }
         }
@@ -258,10 +259,10 @@ public final class TestNGYAMLishUtils {
             int index = stringException.indexOf(expectedToken);
             if (index > 0) {
                 index = stringException.indexOf(butWasToken);
-                int eolIndex = stringException.indexOf(
-                        System.getProperty("line.separator"), index);
-                actual = stringException.substring(
-                        index + butWasToken.length(), eolIndex);
+                int eolIndex = stringException.indexOf(System
+                    .getProperty("line.separator"), index);
+                actual = stringException
+                    .substring(index + butWasToken.length(), eolIndex);
             }
         }
 
@@ -271,8 +272,7 @@ public final class TestNGYAMLishUtils {
     /**
      * Returns YAMLish multi-line display entry.
      * 
-     * @param testNgTestResult
-     *            TestNG TestResult
+     * @param testNgTestResult TestNG TestResult
      * @return YAMLish multi-line
      */
     public static String getDisplay(ITestResult testNgTestResult) {
@@ -296,24 +296,24 @@ public final class TestNGYAMLishUtils {
             // Actual length plus the two spaces and an extra for next character
             int greaterPlus3 = greater + EXTRA_SPACE;
 
-            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-                    + fill(greaterPlus3, '-') + "+");
+            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" +
+                                 fill(greaterPlus3, '-') + "+");
             displayBuffer.append(LINE_SEPARATOR);
 
-            displayBuffer.append("+" + fill(greater, "Got") + "|"
-                    + fill(greater, "Expected") + "+");
+            displayBuffer.append("+" + fill(greater, "Got") + "|" +
+                                 fill(greater, "Expected") + "+");
             displayBuffer.append(LINE_SEPARATOR);
 
-            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-                    + fill(greaterPlus3, '-') + "+");
+            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" +
+                                 fill(greaterPlus3, '-') + "+");
             displayBuffer.append(LINE_SEPARATOR);
 
-            displayBuffer.append("+" + fill(greater, actual) + "|"
-                    + fill(greater, expected) + "+");
+            displayBuffer.append("+" + fill(greater, actual) + "|" +
+                                 fill(greater, expected) + "+");
             displayBuffer.append(LINE_SEPARATOR);
 
-            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+"
-                    + fill(greaterPlus3, '-') + "+");
+            displayBuffer.append("+" + fill(greaterPlus3, '-') + "+" +
+                                 fill(greaterPlus3, '-') + "+");
 
         } else {
             displayBuffer.append('~');
@@ -362,7 +362,7 @@ public final class TestNGYAMLishUtils {
             for (int i = 0; i < parameters.length; i++) {
                 Object parameter = parameters[i];
                 ((Map<String, Object>) returnObject).put("param" + (i + 1),
-                        parameter);
+                                                         parameter);
             }
         } else {
             returnObject = "~";
@@ -401,10 +401,10 @@ public final class TestNGYAMLishUtils {
             throwable.printStackTrace(pw);
             String stackTraceString = sw.toString();
             stackTraceString = stackTraceString.trim().replaceAll("\\r\\n",
-                    "\n");
+                                                                  "\n");
 
             StringTokenizer st = new StringTokenizer(stackTraceString,
-                    LINE_SEPARATOR);
+                                                     LINE_SEPARATOR);
             while (st.hasMoreTokens()) {
                 String stackTraceLine = st.nextToken();
                 stackTrace.append(stackTraceLine);
@@ -419,9 +419,8 @@ public final class TestNGYAMLishUtils {
     }
 
     /*
-     * Methods from SnakeYAML project.
-     * 
-     * See http://code.google.com/p/snakeyaml/wiki/TestingNG_YAML for more.
+     * Methods from SnakeYAML project. See
+     * http://code.google.com/p/snakeyaml/wiki/TestingNG_YAML for more.
      */
 
     public static StringBuilder toYaml(XmlSuite suite) {
@@ -430,18 +429,18 @@ public final class TestNGYAMLishUtils {
         maybeAdd(result, "name", suite.getName(), null);
         maybeAdd(result, "junit", suite.isJUnit(), XmlSuite.DEFAULT_JUNIT);
         maybeAdd(result, "verbose", suite.getVerbose(),
-                XmlSuite.DEFAULT_VERBOSE);
+                 XmlSuite.DEFAULT_VERBOSE);
         maybeAdd(result, "threadCount", suite.getThreadCount(),
-                XmlSuite.DEFAULT_THREAD_COUNT);
+                 XmlSuite.DEFAULT_THREAD_COUNT);
         maybeAdd(result, "dataProviderThreadCount",
-                suite.getDataProviderThreadCount(),
-                XmlSuite.DEFAULT_DATA_PROVIDER_THREAD_COUNT);
+                 suite.getDataProviderThreadCount(),
+                 XmlSuite.DEFAULT_DATA_PROVIDER_THREAD_COUNT);
         maybeAdd(result, "timeOut", suite.getTimeOut(), null);
         maybeAdd(result, "parallel", suite.getParallel(),
-                XmlSuite.DEFAULT_PARALLEL);
+                 XmlSuite.DEFAULT_PARALLEL);
         maybeAdd(result, "skipFailedInvocationCounts",
-                suite.skipFailedInvocationCounts(),
-                XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
+                 suite.skipFailedInvocationCounts(),
+                 XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
 
         toYaml(result, "parameters", "", suite.getParameters());
         toYaml(result, suite.getPackages());
@@ -472,19 +471,17 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param sb
      * @param key
      * @param value
      * @param def
      */
     private static void maybeAdd(StringBuilder sb, String key, Object value,
-            Object def) {
+                                 Object def) {
         maybeAdd(sb, "", key, value, def);
     }
 
     /**
-     * 
      * @param sb
      * @param sp
      * @param key
@@ -492,15 +489,14 @@ public final class TestNGYAMLishUtils {
      * @param def
      */
     private static void maybeAdd(StringBuilder sb, String sp, String key,
-            Object value, Object def) {
+                                 Object value, Object def) {
         if (value != null && !value.equals(def)) {
             sb.append(sp).append(key).append(": ").append(value.toString())
-                    .append("\n");
+                .append("\n");
         }
     }
 
     /**
-     * 
      * @param result
      * @param sp
      * @param t
@@ -511,13 +507,13 @@ public final class TestNGYAMLishUtils {
 
         maybeAdd(result, sp2, "junit", t.isJUnit(), XmlSuite.DEFAULT_JUNIT);
         maybeAdd(result, sp2, "verbose", t.getVerbose(),
-                XmlSuite.DEFAULT_VERBOSE);
+                 XmlSuite.DEFAULT_VERBOSE);
         maybeAdd(result, sp2, "timeOut", t.getTimeOut(), null);
         maybeAdd(result, sp2, "parallel", t.getParallel(),
-                XmlSuite.DEFAULT_PARALLEL);
+                 XmlSuite.DEFAULT_PARALLEL);
         maybeAdd(result, sp2, "skipFailedInvocationCounts",
-                t.skipFailedInvocationCounts(),
-                XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
+                 t.skipFailedInvocationCounts(),
+                 XmlSuite.DEFAULT_SKIP_FAILED_INVOCATION_COUNTS);
 
         maybeAdd(result, "preserveOrder", sp2, t.getPreserveOrder(), "false"); // TBD:
                                                                                // is
@@ -530,14 +526,14 @@ public final class TestNGYAMLishUtils {
 
         if (t.getIncludedGroups().size() > 0) {
             result.append(sp2).append("includedGroups: [ ")
-                    .append(StringUtils.join(t.getIncludedGroups(), ","))
-                    .append(" ]\n");
+                .append(StringUtils.join(t.getIncludedGroups(), ","))
+                .append(" ]\n");
         }
 
         if (t.getExcludedGroups().size() > 0) {
             result.append(sp2).append("excludedGroups: [ ")
-                    .append(StringUtils.join(t.getExcludedGroups(), ","))
-                    .append(" ]\n");
+                .append(StringUtils.join(t.getExcludedGroups(), ","))
+                .append(" ]\n");
         }
 
         Map<String, List<String>> mg = t.getMetaGroups();
@@ -549,8 +545,7 @@ public final class TestNGYAMLishUtils {
                     result.append(", ");
                 }
                 result.append(group).append(": [ ")
-                        .append(StringUtils.join(mg.get(group), ","))
-                        .append(" ] ");
+                    .append(StringUtils.join(mg.get(group), ",")).append(" ] ");
                 first = false;
             }
             result.append(" }\n");
@@ -574,7 +569,6 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param result
      * @param sp2
      * @param xc
@@ -585,7 +579,7 @@ public final class TestNGYAMLishUtils {
         String name = im.size() > 0 || em.size() > 0 ? "name: " : "";
 
         result.append(sp2).append("- " + name).append(xc.getName())
-                .append("\n");
+            .append("\n");
         if (im.size() > 0) {
             result.append(sp2 + "  includedMethods:\n");
             for (XmlInclude xi : im) {
@@ -600,7 +594,6 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param result
      * @param sp2
      * @param xi
@@ -610,13 +603,12 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param result
      * @param sp
      * @param strings
      */
     private static void toYaml(StringBuilder result, String sp,
-            List<String> strings) {
+                               List<String> strings) {
         for (String l : strings) {
             result.append(sp).append("- ").append(l).append("\n");
         }
@@ -640,7 +632,6 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param sb
      * @param sp
      * @param p
@@ -653,14 +644,13 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param sb
      * @param sp
      * @param key
      * @param includes
      */
     private static void generateIncludeExclude(StringBuilder sb, String sp,
-            String key, List<String> includes) {
+                                               String key, List<String> includes) {
         if (includes.size() > 0) {
             sb.append(sp).append("  ").append(key).append("\n");
             for (String inc : includes) {
@@ -670,7 +660,6 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param map
      * @param out
      */
@@ -690,14 +679,13 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param sb
      * @param key
      * @param sp
      * @param parameters
      */
     private static void toYaml(StringBuilder sb, String key, String sp,
-            Map<String, String> parameters) {
+                               Map<String, String> parameters) {
         if (parameters.size() > 0) {
             sb.append(sp).append(key).append(": ");
             mapToYaml(parameters, sb);
@@ -705,15 +693,16 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param suite
      * @param name
      * @param target
      */
-    @SuppressWarnings({ "unused", "rawtypes" })
+    @SuppressWarnings({
+        "unused", "rawtypes"
+    })
     private static void addToMap(Map suite, String name, Map target) {
         List<Map<String, String>> parameters = (List<Map<String, String>>) suite
-                .get(name);
+            .get(name);
         if (parameters != null) {
             for (Map<String, String> parameter : parameters) {
                 for (Map.Entry p : parameter.entrySet()) {
@@ -724,15 +713,16 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param suite
      * @param name
      * @param target
      */
-    @SuppressWarnings({ "unused", "rawtypes" })
+    @SuppressWarnings({
+        "unused", "rawtypes"
+    })
     private static void addToList(Map suite, String name, List target) {
         List<Map<String, String>> parameters = (List<Map<String, String>>) suite
-                .get(name);
+            .get(name);
         if (parameters != null) {
             for (Map<String, String> parameter : parameters) {
                 for (Map.Entry p : parameter.entrySet()) {
@@ -743,16 +733,15 @@ public final class TestNGYAMLishUtils {
     }
 
     /**
-     * 
      * @param filePath
      * @param is
      * @return XMLSuite
      * @throws FileNotFoundException
      */
     public static XmlSuite parse(String filePath, InputStream is)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         JavaBeanLoader<XmlSuite> loader = new JavaBeanLoader<XmlSuite>(
-                XmlSuite.class);
+                                                                       XmlSuite.class);
         if (is == null) {
             is = new FileInputStream(new File(filePath));
         }

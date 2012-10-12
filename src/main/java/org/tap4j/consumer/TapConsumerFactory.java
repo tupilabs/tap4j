@@ -27,31 +27,32 @@ import org.tap4j.parser.Tap13YamlParser;
 
 /**
  * Factory class to produce TAP Consumers.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public final class TapConsumerFactory {
 
-	private TapConsumerFactory() {
-		super();
-	}
+    private TapConsumerFactory() {
+        super();
+    }
 
-	/**
-	 * Produces a new TAP version 13 Consumer.
-	 * 
-	 * @return TAP Consumer.
-	 */
-	public static TapConsumer makeTap13Consumer() {
-		return new TapConsumerImpl();
-	}
+    /**
+     * Produces a new TAP version 13 Consumer.
+     * 
+     * @return TAP Consumer.
+     */
+    public static TapConsumer makeTap13Consumer() {
+        return new TapConsumerImpl();
+    }
 
-	/**
-	 * Produces a new TAP version 13 Consumer with YAML diagnostics.
-	 * 
-	 * @return TAP Consumer with YAML support.
-	 */
-	public static TapConsumer makeTap13YamlConsumer() {
-		return new TapConsumerImpl(new Tap13YamlParser());
-	}
+    /**
+     * Produces a new TAP version 13 Consumer with YAML diagnostics.
+     * 
+     * @return TAP Consumer with YAML support.
+     */
+    public static TapConsumer makeTap13YamlConsumer() {
+        return new TapConsumerImpl(new Tap13YamlParser());
+    }
 
 }

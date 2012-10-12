@@ -29,27 +29,26 @@ package org.tap4j.util;
  */
 public enum TapVersionValues {
 
-	TAP_1(1), TAP_2(2), TAP_3(3), TAP_4(4), TAP_5(5), TAP_6(6), TAP_7(7), TAP_8(
-	        8), TAP_9(9), TAP_10(10), TAP_11(11), TAP_12(12), TAP_13(13);
+    TAP_1(1), TAP_2(2), TAP_3(3), TAP_4(4), TAP_5(5), TAP_6(6), TAP_7(7),
+    TAP_8(8), TAP_9(9), TAP_10(10), TAP_11(11), TAP_12(12), TAP_13(13);
 
-	private Integer version;
+    private Integer version;
 
-	TapVersionValues(Integer version) {
-		this.version = version;
-	}
+    TapVersionValues(Integer version) {
+        this.version = version;
+    }
 
-	public Integer getValue() {
-		return this.version;
-	}
+    public Integer getValue() {
+        return this.version;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return this.version.toString();
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return this.version.toString();
+    }
 
 }

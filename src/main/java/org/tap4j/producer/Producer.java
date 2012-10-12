@@ -37,43 +37,38 @@ import org.tap4j.representer.Representer;
  */
 public interface Producer {
 
-	/**
-	 * Returns a String representing the TAP Stream produced from a TestSet.
-	 * 
-	 * @param testSet
-	 *            TestSet
-	 * @return TAP Stream
-	 * @throws ProducerException
-	 */
-	String dump(TestSet testSet);
+    /**
+     * Returns a String representing the TAP Stream produced from a TestSet.
+     * 
+     * @param testSet TestSet
+     * @return TAP Stream
+     * @throws ProducerException
+     */
+    String dump(TestSet testSet);
 
-	/**
-	 * Writes the TAP Stream produced from a TestSet into a Writer.
-	 * 
-	 * @param testSet
-	 *            TestSet
-	 * @param writer
-	 *            Writer
-	 * @throws ProducerException
-	 */
-	void dump(TestSet testSet, Writer writer);
+    /**
+     * Writes the TAP Stream produced from a TestSet into a Writer.
+     * 
+     * @param testSet TestSet
+     * @param writer Writer
+     * @throws ProducerException
+     */
+    void dump(TestSet testSet, Writer writer);
 
-	/**
-	 * Writes the TAP Stream into an output File.
-	 * 
-	 * @param testSet
-	 *            TestSet
-	 * @param output
-	 *            Output File
-	 * @throws ProducerException
-	 */
-	void dump(TestSet testSet, File output);
+    /**
+     * Writes the TAP Stream into an output File.
+     * 
+     * @param testSet TestSet
+     * @param output Output File
+     * @throws ProducerException
+     */
+    void dump(TestSet testSet, File output);
 
-	/**
-	 * Returns the Representer used in the Producer.
-	 * 
-	 * @return Representer
-	 */
-	Representer getRepresenter();
+    /**
+     * Returns the Representer used in the Producer.
+     * 
+     * @return Representer
+     */
+    Representer getRepresenter();
 
 }

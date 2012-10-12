@@ -28,25 +28,31 @@ import org.tap4j.representer.TapJunitRepresenter;
 
 /**
  * Factory class to produce TAP Producers.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.1
  */
 public class TapProducerFactory {
+
     /**
      * Private constructor.
      */
     private TapProducerFactory() {
         throw new AssertionError("Private constructor called!");
     }
+
     /**
      * Create a TAP 13 producer.
+     * 
      * @return TapProducer
      */
     public static TapProducer makeTap13Producer() {
         return new TapProducer();
     }
+
     /**
      * Create a TAP JUnit producer.
+     * 
      * @param name JUnit file name
      * @return TapProducer
      */

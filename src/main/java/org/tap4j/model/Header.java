@@ -32,51 +32,50 @@ package org.tap4j.model;
  * @since 1.0
  */
 public class Header extends AbstractTapElementDiagnostic {
-	private static final long serialVersionUID = -3823455733333632836L;
 
-	/**
-	 * TAP file version.
-	 */
-	private Integer version;
+    private static final long serialVersionUID = -3823455733333632836L;
 
-	/**
-	 * Header optional comment.
-	 */
-	private Comment comment;
+    /**
+     * TAP file version.
+     */
+    private Integer version;
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param version
-	 *            TAP file version.
-	 */
-	public Header(Integer version) {
-		super();
-		this.version = version;
-	}
+    /**
+     * Header optional comment.
+     */
+    private Comment comment;
 
-	/**
-	 * @return The TAP file version.
-	 */
-	public Integer getVersion() {
-		return this.version;
-	}
+    /**
+     * Constructor with parameter.
+     * 
+     * @param version TAP file version.
+     */
+    public Header(Integer version) {
+        super();
+        this.version = version;
+    }
 
-	/**
-	 * @return Header comment.
-	 */
-	public Comment getComment() {
-		return this.comment;
-	}
+    /**
+     * @return The TAP file version.
+     */
+    public Integer getVersion() {
+        return this.version;
+    }
 
-	/**
-	 * Sets a comment into the Header.
-	 * 
-	 * @param comment
-	 *            Header comment.
-	 */
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
+    /**
+     * @return Header comment.
+     */
+    public Comment getComment() {
+        return this.comment;
+    }
+
+    /**
+     * Sets a comment into the Header.
+     * 
+     * @param comment Header comment.
+     */
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
 }

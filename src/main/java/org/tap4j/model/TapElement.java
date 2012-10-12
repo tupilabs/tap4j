@@ -34,15 +34,14 @@ import java.util.Map;
  */
 public interface TapElement extends Serializable {
 
-	/**
-	 * @return yaml diagnostic information.
-	 */
-	Map<String, Object> getDiagnostic();
+    /**
+     * @return yaml diagnostic information.
+     */
+    Map<String, Object> getDiagnostic();
 
-	/**
-	 * @param meta
-	 *            yaml diagnostic information.
-	 */
-	void setDiagnostic(Map<String, Object> meta);
+    /**
+     * @param meta yaml diagnostic information.
+     */
+    void setDiagnostic(Map<String, Object> meta);
 
 }

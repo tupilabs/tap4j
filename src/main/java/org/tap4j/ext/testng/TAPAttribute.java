@@ -32,49 +32,48 @@ import java.lang.reflect.Method;
  */
 public class TAPAttribute implements Serializable {
 
-	private static final long serialVersionUID = -6479674325095714937L;
+    private static final long serialVersionUID = -6479674325095714937L;
 
-	private Method method;
-	private Object value;
+    private Method method;
 
-	/**
-	 * @param method
-	 * @param value
-	 */
-	public TAPAttribute(Method method, Object value) {
-		super();
-		this.method = method;
-		this.value = value;
-	}
+    private Object value;
 
-	/**
-	 * @return the method
-	 */
-	public Method getMethod() {
-		return method;
-	}
+    /**
+     * @param method
+     * @param value
+     */
+    public TAPAttribute(Method method, Object value) {
+        super();
+        this.method = method;
+        this.value = value;
+    }
 
-	/**
-	 * @param method
-	 *            the method to set
-	 */
-	public void setMethod(Method method) {
-		this.method = method;
-	}
+    /**
+     * @return the method
+     */
+    public Method getMethod() {
+        return method;
+    }
 
-	/**
-	 * @return the value
-	 */
-	public Object getValue() {
-		return value;
-	}
+    /**
+     * @param method the method to set
+     */
+    public void setMethod(Method method) {
+        this.method = method;
+    }
 
-	/**
-	 * @param value
-	 *            the value to set
-	 */
-	public void setValue(Object value) {
-		this.value = value;
-	}
+    /**
+     * @return the value
+     */
+    public Object getValue() {
+        return value;
+    }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(Object value) {
+        this.value = value;
+    }
 
 }

@@ -34,178 +34,177 @@ import org.tap4j.model.TestSet;
  */
 public class Memento {
 
-	private boolean firstLine;
-	private boolean planBeforeTestResult;
-	private String lastLine;
-	private TapElement lastParsedElement;
-	/**
-	 * Indicator of the base indentation level. Usually defined by the TAP
-	 * Header.
-	 */
-	private int baseIndentationLevel;
-	/**
-	 * Helper indicator of in what indentantion level we are working at moment.
-	 * It is helpful specially when you have many nested elements, like a META
-	 * element with some multiline text.
-	 */
-	private int currentIndentationLevel;
-	private boolean currentlyInYaml;
-	private boolean currentlyInSubtest;
-	private StringBuilder diagnosticBuffer = new StringBuilder();
-	private TestSet testSet;
+    private boolean firstLine;
 
-	public Memento() {
-		super();
-	}
+    private boolean planBeforeTestResult;
 
-	/**
-	 * @return if is first line
-	 */
-	public boolean isFirstLine() {
-		return firstLine;
-	}
+    private String lastLine;
 
-	/**
-	 * @param is
-	 *            first line value
-	 */
-	public void setFirstLine(boolean firstLine) {
-		this.firstLine = firstLine;
-	}
+    private TapElement lastParsedElement;
 
-	/**
-	 * @return the planBeforeTestResult
-	 */
-	public boolean isPlanBeforeTestResult() {
-		return planBeforeTestResult;
-	}
+    /**
+     * Indicator of the base indentation level. Usually defined by the TAP
+     * Header.
+     */
+    private int baseIndentationLevel;
 
-	/**
-	 * @param planBeforeTestResult
-	 *            the planBeforeTestResult to set
-	 */
-	public void setPlanBeforeTestResult(boolean planBeforeTestResult) {
-		this.planBeforeTestResult = planBeforeTestResult;
-	}
+    /**
+     * Helper indicator of in what indentantion level we are working at moment.
+     * It is helpful specially when you have many nested elements, like a META
+     * element with some multiline text.
+     */
+    private int currentIndentationLevel;
 
-	/**
-	 * @return the lastLine
-	 */
-	public String getLastLine() {
-		return lastLine;
-	}
+    private boolean currentlyInYaml;
 
-	/**
-	 * @param lastLine
-	 *            the lastLine to set
-	 */
-	public void setLastLine(String lastLine) {
-		this.lastLine = lastLine;
-	}
+    private boolean currentlyInSubtest;
 
-	/**
-	 * @return the lastParsedElement
-	 */
-	public TapElement getLastParsedElement() {
-		return lastParsedElement;
-	}
+    private StringBuilder diagnosticBuffer = new StringBuilder();
 
-	/**
-	 * @param lastParsedElement
-	 *            the lastParsedElement to set
-	 */
-	public void setLastParsedElement(TapElement lastParsedElement) {
-		this.lastParsedElement = lastParsedElement;
-	}
+    private TestSet testSet;
 
-	/**
-	 * @return the baseIndentationLevel
-	 */
-	public int getBaseIndentationLevel() {
-		return baseIndentationLevel;
-	}
+    public Memento() {
+        super();
+    }
 
-	/**
-	 * @param baseIndentationLevel
-	 *            the baseIndentationLevel to set
-	 */
-	public void setBaseIndentationLevel(int baseIndentationLevel) {
-		this.baseIndentationLevel = baseIndentationLevel;
-	}
+    /**
+     * @return if is first line
+     */
+    public boolean isFirstLine() {
+        return firstLine;
+    }
 
-	/**
-	 * @return the currentIndentationLevel
-	 */
-	public int getCurrentIndentationLevel() {
-		return currentIndentationLevel;
-	}
+    /**
+     * @param is first line value
+     */
+    public void setFirstLine(boolean firstLine) {
+        this.firstLine = firstLine;
+    }
 
-	/**
-	 * @param currentIndentationLevel
-	 *            the currentIndentationLevel to set
-	 */
-	public void setCurrentIndentationLevel(int currentIndentationLevel) {
-		this.currentIndentationLevel = currentIndentationLevel;
-	}
+    /**
+     * @return the planBeforeTestResult
+     */
+    public boolean isPlanBeforeTestResult() {
+        return planBeforeTestResult;
+    }
 
-	/**
-	 * @return the currentlyInYaml
-	 */
-	public boolean isCurrentlyInYaml() {
-		return currentlyInYaml;
-	}
+    /**
+     * @param planBeforeTestResult the planBeforeTestResult to set
+     */
+    public void setPlanBeforeTestResult(boolean planBeforeTestResult) {
+        this.planBeforeTestResult = planBeforeTestResult;
+    }
 
-	/**
-	 * @param currentlyInYaml
-	 *            the currentlyInYaml to set
-	 */
-	public void setCurrentlyInYaml(boolean currentlyInYaml) {
-		this.currentlyInYaml = currentlyInYaml;
-	}
+    /**
+     * @return the lastLine
+     */
+    public String getLastLine() {
+        return lastLine;
+    }
 
-	/**
-	 * @return the currentlyInSubtest
-	 */
-	public boolean isCurrentlyInSubtest() {
-		return currentlyInSubtest;
-	}
+    /**
+     * @param lastLine the lastLine to set
+     */
+    public void setLastLine(String lastLine) {
+        this.lastLine = lastLine;
+    }
 
-	/**
-	 * @param currentlyInSubtest
-	 *            the currentlyInSubtest to set
-	 */
-	public void setCurrentlyInSubtest(boolean currentlyInSubtest) {
-		this.currentlyInSubtest = currentlyInSubtest;
-	}
+    /**
+     * @return the lastParsedElement
+     */
+    public TapElement getLastParsedElement() {
+        return lastParsedElement;
+    }
 
-	/**
-	 * @return the diagnosticBuffer
-	 */
-	public StringBuilder getDiagnosticBuffer() {
-		return diagnosticBuffer;
-	}
+    /**
+     * @param lastParsedElement the lastParsedElement to set
+     */
+    public void setLastParsedElement(TapElement lastParsedElement) {
+        this.lastParsedElement = lastParsedElement;
+    }
 
-	/**
-	 * @param diagnosticBuffer
-	 *            the diagnosticBuffer to set
-	 */
-	public void setDiagnosticBuffer(StringBuilder diagnosticBuffer) {
-		this.diagnosticBuffer = diagnosticBuffer;
-	}
+    /**
+     * @return the baseIndentationLevel
+     */
+    public int getBaseIndentationLevel() {
+        return baseIndentationLevel;
+    }
 
-	/**
-	 * @return the testSet
-	 */
-	public TestSet getTestSet() {
-		return testSet;
-	}
+    /**
+     * @param baseIndentationLevel the baseIndentationLevel to set
+     */
+    public void setBaseIndentationLevel(int baseIndentationLevel) {
+        this.baseIndentationLevel = baseIndentationLevel;
+    }
 
-	/**
-	 * @param testSet
-	 *            the testSet to set
-	 */
-	public void setTestSet(TestSet testSet) {
-		this.testSet = testSet;
-	}
+    /**
+     * @return the currentIndentationLevel
+     */
+    public int getCurrentIndentationLevel() {
+        return currentIndentationLevel;
+    }
+
+    /**
+     * @param currentIndentationLevel the currentIndentationLevel to set
+     */
+    public void setCurrentIndentationLevel(int currentIndentationLevel) {
+        this.currentIndentationLevel = currentIndentationLevel;
+    }
+
+    /**
+     * @return the currentlyInYaml
+     */
+    public boolean isCurrentlyInYaml() {
+        return currentlyInYaml;
+    }
+
+    /**
+     * @param currentlyInYaml the currentlyInYaml to set
+     */
+    public void setCurrentlyInYaml(boolean currentlyInYaml) {
+        this.currentlyInYaml = currentlyInYaml;
+    }
+
+    /**
+     * @return the currentlyInSubtest
+     */
+    public boolean isCurrentlyInSubtest() {
+        return currentlyInSubtest;
+    }
+
+    /**
+     * @param currentlyInSubtest the currentlyInSubtest to set
+     */
+    public void setCurrentlyInSubtest(boolean currentlyInSubtest) {
+        this.currentlyInSubtest = currentlyInSubtest;
+    }
+
+    /**
+     * @return the diagnosticBuffer
+     */
+    public StringBuilder getDiagnosticBuffer() {
+        return diagnosticBuffer;
+    }
+
+    /**
+     * @param diagnosticBuffer the diagnosticBuffer to set
+     */
+    public void setDiagnosticBuffer(StringBuilder diagnosticBuffer) {
+        this.diagnosticBuffer = diagnosticBuffer;
+    }
+
+    /**
+     * @return the testSet
+     */
+    public TestSet getTestSet() {
+        return testSet;
+    }
+
+    /**
+     * @param testSet the testSet to set
+     */
+    public void setTestSet(TestSet testSet) {
+        this.testSet = testSet;
+    }
 
 }

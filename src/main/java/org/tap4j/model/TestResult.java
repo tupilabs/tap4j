@@ -35,158 +35,151 @@ import org.tap4j.util.StatusValues;
  * @since 1.0
  */
 public class TestResult extends TapResult {
-	private static final long serialVersionUID = -2735372334488828166L;
 
-	/**
-	 * Test Status (OK, NOT OK).
-	 */
-	private StatusValues status;
+    private static final long serialVersionUID = -2735372334488828166L;
 
-	/**
-	 * Test Number.
-	 */
-	private Integer testNumber;
+    /**
+     * Test Status (OK, NOT OK).
+     */
+    private StatusValues status;
 
-	/**
-	 * Description of the test.
-	 */
-	private String description;
+    /**
+     * Test Number.
+     */
+    private Integer testNumber;
 
-	/**
-	 * Directive of the test (TO DO, SKIP).
-	 */
-	private Directive directive;
+    /**
+     * Description of the test.
+     */
+    private String description;
 
-	/**
-	 * Child subtest.
-	 */
-	private TestSet subtest;
+    /**
+     * Directive of the test (TO DO, SKIP).
+     */
+    private Directive directive;
 
-	/**
-	 * Comment.
-	 */
-	private List<Comment> comments;
+    /**
+     * Child subtest.
+     */
+    private TestSet subtest;
 
-	public TestResult() {
-		super();
-		this.status = StatusValues.NOT_OK;
-		this.testNumber = -1;
-		this.subtest = null;
-		this.comments = new LinkedList<Comment>();
-	}
+    /**
+     * Comment.
+     */
+    private List<Comment> comments;
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param testStatus
-	 *            Status of the test.
-	 * @param testNumber
-	 *            Number of the test.
-	 */
-	public TestResult(StatusValues testStatus, Integer testNumber) {
-		super();
-		this.status = testStatus;
-		this.testNumber = testNumber;
-		this.comments = new LinkedList<Comment>();
-	}
+    public TestResult() {
+        super();
+        this.status = StatusValues.NOT_OK;
+        this.testNumber = -1;
+        this.subtest = null;
+        this.comments = new LinkedList<Comment>();
+    }
 
-	/**
-	 * @return Status of the test.
-	 */
-	public StatusValues getStatus() {
-		return this.status;
-	}
+    /**
+     * Constructor with parameter.
+     * 
+     * @param testStatus Status of the test.
+     * @param testNumber Number of the test.
+     */
+    public TestResult(StatusValues testStatus, Integer testNumber) {
+        super();
+        this.status = testStatus;
+        this.testNumber = testNumber;
+        this.comments = new LinkedList<Comment>();
+    }
 
-	/**
-	 * @param status
-	 *            Status of the test.
-	 */
-	public void setStatus(StatusValues status) {
-		this.status = status;
-	}
+    /**
+     * @return Status of the test.
+     */
+    public StatusValues getStatus() {
+        return this.status;
+    }
 
-	/**
-	 * @return Test Number.
-	 */
-	public Integer getTestNumber() {
-		return this.testNumber;
-	}
+    /**
+     * @param status Status of the test.
+     */
+    public void setStatus(StatusValues status) {
+        this.status = status;
+    }
 
-	/**
-	 * @param testNumber
-	 *            Test Number.
-	 */
-	public void setTestNumber(Integer testNumber) {
-		this.testNumber = testNumber;
-	}
+    /**
+     * @return Test Number.
+     */
+    public Integer getTestNumber() {
+        return this.testNumber;
+    }
 
-	/**
-	 * @return Test description.
-	 */
-	public String getDescription() {
-		return this.description;
-	}
+    /**
+     * @param testNumber Test Number.
+     */
+    public void setTestNumber(Integer testNumber) {
+        this.testNumber = testNumber;
+    }
 
-	/**
-	 * @param description
-	 *            Test description.
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * @return Test description.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 
-	/**
-	 * @return Optional Directive.
-	 */
-	public Directive getDirective() {
-		return this.directive;
-	}
+    /**
+     * @param description Test description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/**
-	 * @param directive
-	 *            Optional Directive.
-	 */
-	public void setDirective(Directive directive) {
-		this.directive = directive;
-	}
+    /**
+     * @return Optional Directive.
+     */
+    public Directive getDirective() {
+        return this.directive;
+    }
 
-	/**
-	 * @return the subtest
-	 */
-	public TestSet getSubtest() {
-		return subtest;
-	}
+    /**
+     * @param directive Optional Directive.
+     */
+    public void setDirective(Directive directive) {
+        this.directive = directive;
+    }
 
-	/**
-	 * @param subtest
-	 *            the subtest to set
-	 */
-	public void setSubtest(TestSet subtest) {
-		this.subtest = subtest;
-	}
+    /**
+     * @return the subtest
+     */
+    public TestSet getSubtest() {
+        return subtest;
+    }
 
-	/**
-	 * @return The comments for this Test Result.
-	 */
-	public List<Comment> getComments() {
-		return this.comments;
-	}
+    /**
+     * @param subtest the subtest to set
+     */
+    public void setSubtest(TestSet subtest) {
+        this.subtest = subtest;
+    }
 
-	/**
-	 * @param comments
-	 *            list of comments for this Test Result.
-	 */
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-	
-	/**
-	 * Adds a new comment to this Test Result.
-	 * 
-	 * @param comment comment for this Test Result.
-	 */
-	public void addComment(Comment comment) {
-	    this.comments.add(comment);
-	}
+    /**
+     * @return The comments for this Test Result.
+     */
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+
+    /**
+     * @param comments list of comments for this Test Result.
+     */
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /**
+     * Adds a new comment to this Test Result.
+     * 
+     * @param comment comment for this Test Result.
+     */
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 
 }

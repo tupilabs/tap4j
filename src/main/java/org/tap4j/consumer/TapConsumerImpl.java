@@ -37,65 +37,62 @@ import org.tap4j.parser.Tap13Parser;
 public class TapConsumerImpl implements TapConsumer {
 
     private final Parser parser;
+
     private TestSet testSet;
 
-	public TapConsumerImpl() {
-		parser = new Tap13Parser();
-		testSet = new TestSet();
-	}
+    public TapConsumerImpl() {
+        parser = new Tap13Parser();
+        testSet = new TestSet();
+    }
 
-	public TapConsumerImpl(Parser parser) {
-		this.parser = parser;
-	}
+    public TapConsumerImpl(Parser parser) {
+        this.parser = parser;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.consumer.TapConsumer#getTestSet()
-	 */
-	public TestSet getTestSet() {
-		return this.testSet;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.consumer.TapConsumer#getTestSet()
+     */
+    public TestSet getTestSet() {
+        return this.testSet;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.consumer.TapConsumer#load(java.io.File)
-	 */
-	public TestSet load(File file) {
-		try {
-			this.testSet = this.parser.parseFile(file);
-		} catch (ParserException e) {
-			throw new TapConsumerException("Failed to parse file " + file
-			        + ": " + e.getMessage(), e);
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.consumer.TapConsumer#load(java.io.File)
+     */
+    public TestSet load(File file) {
+        try {
+            this.testSet = this.parser.parseFile(file);
+        } catch (ParserException e) {
+            throw new TapConsumerException("Failed to parse file " + file +
+                                           ": " + e.getMessage(), e);
+        }
 
-		return this.testSet;
-	}
+        return this.testSet;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.consumer.TapConsumer#load(java.lang.String)
-	 */
-	public TestSet load(String tapStream) {
-		try {
-			this.testSet = this.parser.parseTapStream(tapStream);
-		} catch (ParserException e) {
-			throw new TapConsumerException("Failed to parse TAP Stream "
-			        + tapStream + ": " + e.getMessage(), e);
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.consumer.TapConsumer#load(java.lang.String)
+     */
+    public TestSet load(String tapStream) {
+        try {
+            this.testSet = this.parser.parseTapStream(tapStream);
+        } catch (ParserException e) {
+            throw new TapConsumerException("Failed to parse TAP Stream " +
+                                           tapStream + ": " + e.getMessage(), e);
+        }
 
-		return this.testSet;
-	}
+        return this.testSet;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.consumer.TapConsumer#getParser()
-	 */
-	public Parser getParser() {
-		return this.parser;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.consumer.TapConsumer#getParser()
+     */
+    public Parser getParser() {
+        return this.parser;
+    }
 
 }

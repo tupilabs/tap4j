@@ -31,21 +31,20 @@ package org.tap4j.util;
  * @since 1.0
  */
 public enum StatusValues {
-	OK("ok"), NOT_OK("not ok");
+    OK("ok"), NOT_OK("not ok");
 
-	private String textValue;
+    private String textValue;
 
-	StatusValues(String textValue) {
-		this.textValue = textValue;
-	}
+    StatusValues(String textValue) {
+        this.textValue = textValue;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return this.textValue;
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return this.textValue;
+    }
 }

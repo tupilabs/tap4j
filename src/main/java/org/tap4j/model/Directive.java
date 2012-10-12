@@ -34,44 +34,43 @@ import org.tap4j.util.DirectiveValues;
  * @since 1.0
  */
 public class Directive implements Serializable {
-	private static final long serialVersionUID = 8183935213177175225L;
 
-	/**
-	 * Directive Value (TO DO, SKIP).
-	 */
-	private final DirectiveValues directiveValue;
+    private static final long serialVersionUID = 8183935213177175225L;
 
-	/**
-	 * Reason for the directive.
-	 */
-	private final String reason;
+    /**
+     * Directive Value (TO DO, SKIP).
+     */
+    private final DirectiveValues directiveValue;
 
-	/**
-	 * Constructor with parameters.
-	 * 
-	 * @param directiveValue
-	 *            Directive Value.
-	 * @param reason
-	 *            Reason for the directive.
-	 */
-	public Directive(DirectiveValues directiveValue, String reason) {
-		super();
-		this.directiveValue = directiveValue;
-		this.reason = reason;
-	}
+    /**
+     * Reason for the directive.
+     */
+    private final String reason;
 
-	/**
-	 * @return Directive Value.
-	 */
-	public DirectiveValues getDirectiveValue() {
-		return this.directiveValue;
-	}
+    /**
+     * Constructor with parameters.
+     * 
+     * @param directiveValue Directive Value.
+     * @param reason Reason for the directive.
+     */
+    public Directive(DirectiveValues directiveValue, String reason) {
+        super();
+        this.directiveValue = directiveValue;
+        this.reason = reason;
+    }
 
-	/**
-	 * @return Reason for the directive.
-	 */
-	public String getReason() {
-		return this.reason;
-	}
+    /**
+     * @return Directive Value.
+     */
+    public DirectiveValues getDirectiveValue() {
+        return this.directiveValue;
+    }
+
+    /**
+     * @return Reason for the directive.
+     */
+    public String getReason() {
+        return this.reason;
+    }
 
 }

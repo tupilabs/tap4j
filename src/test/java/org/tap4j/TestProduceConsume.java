@@ -1,25 +1,19 @@
 /*
- * The MIT License
- *
- * Copyright (c) <2010> <tap4j>
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * The MIT License Copyright (c) <2010> <tap4j> Permission is hereby granted,
+ * free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software
+ * without restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the
+ * Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions: The above copyright notice and this
+ * permission notice shall be included in all copies or substantial portions of
+ * the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
 package org.tap4j;
 
@@ -52,119 +46,123 @@ import org.testng.annotations.Test;
  * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @author Cesar Fernandes de Almeida
- * 
  * @since 1.0
  */
 public class TestProduceConsume {
-	private static final Integer TAP_VERSION = 13;
-	private Producer tapProducer;
-	private TapConsumer tapConsumer;
 
-	private TestSet testSet;
+    private static final Integer TAP_VERSION = 13;
 
-	// Temp file to where we output the generated tap stream.
-	private File tempFile;
+    private Producer tapProducer;
 
-	private static final Integer INITIAL_TEST_STEP = 1;
+    private TapConsumer tapConsumer;
 
-	@BeforeTest
-	public void setUp() {
-		tapProducer = new TapProducer(new Tap13Representer());
-		tapConsumer = new TapConsumerImpl();
+    private TestSet testSet;
 
-		testSet = new TestSet();
+    // Temp file to where we output the generated tap stream.
+    private File tempFile;
 
-		Header header = new Header(TAP_VERSION);
-		testSet.setHeader(header);
+    private static final Integer INITIAL_TEST_STEP = 1;
 
-		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
-		Comment commentPlan = new Comment(
-		        "Testing something with a plan that I do not know exactly what it is about!");
-		plan.setComment(commentPlan);
-		testSet.setPlan(plan);
+    @BeforeTest
+    public void setUp() {
+        tapProducer = new TapProducer(new Tap13Representer());
+        tapConsumer = new TapConsumerImpl();
 
-		Comment singleComment = new Comment("Starting tests");
-		testSet.addComment(singleComment);
+        testSet = new TestSet();
 
-		TestResult tr1 = new TestResult(StatusValues.OK, 1);
-		testSet.addTestResult(tr1);
+        Header header = new Header(TAP_VERSION);
+        testSet.setHeader(header);
 
-		TestResult tr2 = new TestResult();
-		tr2.setStatus(StatusValues.NOT_OK);
-		tr2.setTestNumber(testSet.getNextTestNumber());
-		testSet.addTestResult(tr2);
+        Plan plan = new Plan(INITIAL_TEST_STEP, 3);
+        Comment commentPlan = new Comment(
+                                          "Testing something with a plan that I do not know exactly what it is about!");
+        plan.setComment(commentPlan);
+        testSet.setPlan(plan);
 
-		TestResult tr3 = new TestResult(StatusValues.OK, 3);
-		Comment commentTr3 = new Comment("Test 3 :)");
-		tr3.addComment(commentTr3);
-		testSet.addTestResult(tr3);
+        Comment singleComment = new Comment("Starting tests");
+        testSet.addComment(singleComment);
 
-		testSet.setFooter(new Footer("End"));
+        TestResult tr1 = new TestResult(StatusValues.OK, 1);
+        testSet.addTestResult(tr1);
 
-		try {
-			tempFile = File.createTempFile("tap4j_", ".tap");
-		} catch (IOException e) {
-			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
-		}
-	}
+        TestResult tr2 = new TestResult();
+        tr2.setStatus(StatusValues.NOT_OK);
+        tr2.setTestNumber(testSet.getNextTestNumber());
+        testSet.addTestResult(tr2);
 
-	@Test
-	public void testTapProducer() {
-		Assert.assertTrue(testSet.getTapLines().size() > 0);
+        TestResult tr3 = new TestResult(StatusValues.OK, 3);
+        Comment commentTr3 = new Comment("Test 3 :)");
+        tr3.addComment(commentTr3);
+        testSet.addTestResult(tr3);
 
-		try {
-			tapProducer.dump(testSet, tempFile);
-		} catch (Exception e) {
-			Assert.fail("Failed to print TAP Stream into file.", e);
-		}
-	}
+        testSet.setFooter(new Footer("End"));
 
-	@Test(dependsOnMethods = { "testTapProducer" })
-	public void testConsumer() {
-		try {
-			TestSet testSet = tapConsumer.load(tempFile);
+        try {
+            tempFile = File.createTempFile("tap4j_", ".tap");
+        } catch (IOException e) {
+            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+        }
+    }
 
-			Assert.assertNotNull(testSet.getHeader());
+    @Test
+    public void testTapProducer() {
+        Assert.assertTrue(testSet.getTapLines().size() > 0);
 
-			Assert.assertNotNull(testSet.getPlan());
+        try {
+            tapProducer.dump(testSet, tempFile);
+        } catch (Exception e) {
+            Assert.fail("Failed to print TAP Stream into file.", e);
+        }
+    }
 
-			Assert.assertTrue(testSet.getNumberOfTestResults() == 3);
+    @Test(dependsOnMethods = {
+        "testTapProducer"
+    })
+    public void testConsumer() {
+        try {
+            TestSet testSet = tapConsumer.load(tempFile);
 
-			Assert.assertNotNull(testSet.getFooter());
+            Assert.assertNotNull(testSet.getHeader());
 
-			Assert.assertTrue(testSet.getTapLines().size() > 0);
+            Assert.assertNotNull(testSet.getPlan());
 
-			Assert.assertTrue(testSet.getNumberOfTapLines() > 0);
+            Assert.assertTrue(testSet.getNumberOfTestResults() == 3);
 
-			Assert.assertTrue(testSet.containsOk());
+            Assert.assertNotNull(testSet.getFooter());
 
-			Assert.assertFalse(testSet.containsBailOut());
+            Assert.assertTrue(testSet.getTapLines().size() > 0);
 
-			Assert.assertTrue(testSet.containsNotOk());
+            Assert.assertTrue(testSet.getNumberOfTapLines() > 0);
 
-			Assert.assertTrue(testSet.getComments().size() > 0);
+            Assert.assertTrue(testSet.containsOk());
 
-			Assert.assertTrue(testSet.getNumberOfComments() > 0);
+            Assert.assertFalse(testSet.containsBailOut());
 
-			Assert.assertTrue(testSet.getComments().size() == testSet
-			        .getNumberOfComments());
+            Assert.assertTrue(testSet.containsNotOk());
 
-			Assert.assertNotNull(tapConsumer.getTestSet());
+            Assert.assertTrue(testSet.getComments().size() > 0);
 
-			Assert.assertEquals(testSet.getTestResult(1).getStatus(),
-			        StatusValues.OK);
+            Assert.assertTrue(testSet.getNumberOfComments() > 0);
 
-		} catch (TapConsumerException e) {
-			Assert.fail("Failed to parse TAP file: " + e.getMessage(), e);
-		}
-	}
+            Assert.assertTrue(testSet.getComments().size() == testSet
+                .getNumberOfComments());
 
-	@Test
-	public void testWithBailOut() {
-		BailOut bailOut = new BailOut(null);
+            Assert.assertNotNull(tapConsumer.getTestSet());
 
-		tapConsumer.getTestSet().getBailOuts().add(bailOut);
+            Assert.assertEquals(testSet.getTestResult(1).getStatus(),
+                                StatusValues.OK);
 
-		Assert.assertTrue(tapConsumer.getTestSet().containsBailOut());
-	}
+        } catch (TapConsumerException e) {
+            Assert.fail("Failed to parse TAP file: " + e.getMessage(), e);
+        }
+    }
+
+    @Test
+    public void testWithBailOut() {
+        BailOut bailOut = new BailOut(null);
+
+        tapConsumer.getTestSet().getBailOuts().add(bailOut);
+
+        Assert.assertTrue(tapConsumer.getTestSet().containsBailOut());
+    }
 }

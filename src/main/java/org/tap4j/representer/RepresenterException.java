@@ -29,35 +29,35 @@ package org.tap4j.representer;
  */
 public class RepresenterException extends RuntimeException {
 
-	private static final long serialVersionUID = 5273452940014536172L;
+    private static final long serialVersionUID = 5273452940014536172L;
 
-	/**
-	 * Default constructor.
-	 */
-	public RepresenterException() {
-		super();
-	}
+    /**
+     * Default constructor.
+     */
+    public RepresenterException() {
+        super();
+    }
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
-	public RepresenterException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @param message
+     * @param cause
+     */
+    public RepresenterException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * @param message
-	 */
-	public RepresenterException(String message) {
-		super(message);
-	}
+    /**
+     * @param message
+     */
+    public RepresenterException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @param cause
-	 */
-	public RepresenterException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * @param cause
+     */
+    public RepresenterException(Throwable cause) {
+        super(cause);
+    }
 
 }

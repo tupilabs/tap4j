@@ -64,7 +64,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.testng.TestListenerAdapter#onStart(org.testng.ITestContext)
      */
     @Override
@@ -74,7 +73,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.testng.TestListenerAdapter#onTestSuccess(org.testng.ITestResult)
      */
     @Override
@@ -86,7 +84,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.testng.TestListenerAdapter#onTestFailure(org.testng.ITestResult)
      */
     @Override
@@ -98,7 +95,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.testng.TestListenerAdapter#onTestSkipped(org.testng.ITestResult)
      */
     @Override
@@ -110,7 +106,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see
      * org.testng.TestListenerAdapter#onTestFailedButWithinSuccessPercentage
      * (org.testng.ITestResult)
@@ -124,7 +119,6 @@ public class TestTAPReporter extends TestListenerAdapter {
 
     /*
      * (non-Javadoc)
-     * 
      * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
      */
     @Override
@@ -141,12 +135,12 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     protected void generateTAPPerClass(ITestContext testContext) {
         List<ITestResult> testNGTestResults = TestNGTAPUtils
-                .getTestNGResultsOrderedByExecutionDate(this.resultMap);
+            .getTestNGResultsOrderedByExecutionDate(this.resultMap);
 
         for (ITestResult testResult : testNGTestResults) {
             Class<?> clazz = testResult.getMethod().getRealClass();
             List<ITestResult> testResultsForThisClass = testResultsPerClass
-                    .get(clazz);
+                .get(clazz);
             if (testResultsForThisClass == null) {
                 testResultsForThisClass = new LinkedList<ITestResult>();
                 testResultsPerClass.put(clazz, testResultsForThisClass);
@@ -165,13 +159,13 @@ public class TestTAPReporter extends TestListenerAdapter {
 
             for (ITestResult testResult : testResults) {
                 TestResult tapTestResult = TestNGTAPUtils
-                        .generateTAPTestResult(testResult,
-                                testSet.getNumberOfTestResults() + 1);
+                    .generateTAPTestResult(testResult,
+                                           testSet.getNumberOfTestResults() + 1);
                 testSet.addTestResult(tapTestResult);
             }
 
             File output = new File(testContext.getOutputDirectory(),
-                    clazz.getName() + ".tap");
+                                   clazz.getName() + ".tap");
             tapProducer.dump(testSet, output);
         }
     }
@@ -183,13 +177,13 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     protected void generateTAPPerMethod(ITestContext testContext) {
         List<ITestResult> testNGTestResults = TestNGTAPUtils
-                .getTestNGResultsOrderedByExecutionDate(resultMap);
+            .getTestNGResultsOrderedByExecutionDate(resultMap);
 
         for (ITestResult testResult : testNGTestResults) {
             ITestNGMethod method = testResult.getMethod();
 
             List<ITestResult> testResultsForThisMethod = testResultsPerMethod
-                    .get(method);
+                .get(method);
 
             if (testResultsForThisMethod == null) {
                 testResultsForThisMethod = new LinkedList<ITestResult>();
@@ -208,16 +202,14 @@ public class TestTAPReporter extends TestListenerAdapter {
 
             for (ITestResult testResult : testResults) {
                 TestResult tapTestResult = TestNGTAPUtils
-                        .generateTAPTestResult(testResult,
-                                testSet.getNumberOfTestResults() + 1);
+                    .generateTAPTestResult(testResult,
+                                           testSet.getNumberOfTestResults() + 1);
                 testSet.addTestResult(tapTestResult);
             }
 
-            File output = new File(testContext.getOutputDirectory(), method
-                    .getTestClass().getName()
-                    + "#"
-                    + method.getMethodName()
-                    + ".tap");
+            File output = new File(testContext.getOutputDirectory(),
+                                   method.getTestClass().getName() + "#" +
+                                           method.getMethodName() + ".tap");
             tapProducer.dump(testSet, output);
         }
     }

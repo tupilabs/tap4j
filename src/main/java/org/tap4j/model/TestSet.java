@@ -37,345 +37,331 @@ import org.tap4j.util.StatusValues;
  * @since 1.0
  */
 public class TestSet implements Serializable {
-	private static final long serialVersionUID = 114777557084672201L;
 
-	/**
-	 * TAP Header.
-	 */
-	private Header header;
+    private static final long serialVersionUID = 114777557084672201L;
 
-	/**
-	 * TAP Plan.
-	 */
-	private Plan plan;
+    /**
+     * TAP Header.
+     */
+    private Header header;
 
-	/**
-	 * List of TAP Lines.
-	 */
-	private List<TapResult> tapLines = new LinkedList<TapResult>();
+    /**
+     * TAP Plan.
+     */
+    private Plan plan;
 
-	/**
-	 * List of Test Results.
-	 */
-	private List<TestResult> testResults = new LinkedList<TestResult>();
+    /**
+     * List of TAP Lines.
+     */
+    private List<TapResult> tapLines = new LinkedList<TapResult>();
 
-	/**
-	 * List of Bail Outs.
-	 */
-	private List<BailOut> bailOuts = new LinkedList<BailOut>();
+    /**
+     * List of Test Results.
+     */
+    private List<TestResult> testResults = new LinkedList<TestResult>();
 
-	/**
-	 * List of comments.
-	 */
-	private List<Comment> comments = new LinkedList<Comment>();
+    /**
+     * List of Bail Outs.
+     */
+    private List<BailOut> bailOuts = new LinkedList<BailOut>();
 
-	/**
-	 * TAP Footer.
-	 */
-	private Footer footer;
+    /**
+     * List of comments.
+     */
+    private List<Comment> comments = new LinkedList<Comment>();
 
-	/**
-	 * Default constructor.
-	 */
-	public TestSet() {
-		super();
-	}
+    /**
+     * TAP Footer.
+     */
+    private Footer footer;
 
-	/**
-	 * @return TAP Header.
-	 */
-	public Header getHeader() {
-		return this.header;
-	}
+    /**
+     * Default constructor.
+     */
+    public TestSet() {
+        super();
+    }
 
-	/**
-	 * @param header
-	 *            TAP Header.
-	 */
-	public void setHeader(Header header) {
-		this.header = header;
-	}
+    /**
+     * @return TAP Header.
+     */
+    public Header getHeader() {
+        return this.header;
+    }
 
-	/**
-	 * @return TAP Plan.
-	 */
-	public Plan getPlan() {
-		return this.plan;
-	}
+    /**
+     * @param header TAP Header.
+     */
+    public void setHeader(Header header) {
+        this.header = header;
+    }
 
-	/**
-	 * @param plan
-	 *            TAP Plan.
-	 */
-	public void setPlan(Plan plan) {
-		this.plan = plan;
-	}
+    /**
+     * @return TAP Plan.
+     */
+    public Plan getPlan() {
+        return this.plan;
+    }
 
-	/**
-	 * @return List of TAP Lines. These lines may be either a TestResult or a
-	 *         BailOut.
-	 */
-	public List<TapResult> getTapLines() {
-		return this.tapLines;
-	}
+    /**
+     * @param plan TAP Plan.
+     */
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 
-	/**
-	 * @return List of Test Results.
-	 */
-	public List<TestResult> getTestResults() {
-		return this.testResults;
-	}
+    /**
+     * @return List of TAP Lines. These lines may be either a TestResult or a
+     *         BailOut.
+     */
+    public List<TapResult> getTapLines() {
+        return this.tapLines;
+    }
 
-	/**
-	 * @return List of Bail Outs.
-	 */
-	public List<BailOut> getBailOuts() {
-		return this.bailOuts;
-	}
+    /**
+     * @return List of Test Results.
+     */
+    public List<TestResult> getTestResults() {
+        return this.testResults;
+    }
 
-	/**
-	 * @return List of Comments.
-	 */
-	public List<Comment> getComments() {
-		return this.comments;
-	}
+    /**
+     * @return List of Bail Outs.
+     */
+    public List<BailOut> getBailOuts() {
+        return this.bailOuts;
+    }
 
-	/**
-	 * Adds a new TAP Line.
-	 * 
-	 * @param tapLine
-	 *            TAP Line.
-	 * @return True if the TAP Line could be added into the list successfully.
-	 */
-	public boolean addTapLine(TapResult tapLine) {
-		return this.tapLines.add(tapLine);
-	}
+    /**
+     * @return List of Comments.
+     */
+    public List<Comment> getComments() {
+        return this.comments;
+    }
 
-	/**
-	 * Adds a TestResult into the list of TestResults. If the TestResult Test
-	 * Number is null or less than or equals to zero it is changed to the next
-	 * Test Number in the sequence.
-	 * 
-	 * @param testResult
-	 *            TAP TestResult.
-	 * @return Whether could add to TestResult list or not.
-	 */
-	public boolean addTestResult(TestResult testResult) {
-		if (testResult.getTestNumber() == null
-		        || testResult.getTestNumber() <= 0) {
-			testResult.setTestNumber(this.testResults.size() + 1);
-		}
-		this.testResults.add(testResult);
-		return this.tapLines.add(testResult);
-	}
+    /**
+     * Adds a new TAP Line.
+     * 
+     * @param tapLine TAP Line.
+     * @return True if the TAP Line could be added into the list successfully.
+     */
+    public boolean addTapLine(TapResult tapLine) {
+        return this.tapLines.add(tapLine);
+    }
 
-	/**
-	 * @param bailOut
-	 *            Bail Out.
-	 * @return Whether could add to BailOut list or not.
-	 */
-	public boolean addBailOut(BailOut bailOut) {
-		this.bailOuts.add(bailOut);
-		return this.tapLines.add(bailOut);
-	}
+    /**
+     * Adds a TestResult into the list of TestResults. If the TestResult Test
+     * Number is null or less than or equals to zero it is changed to the next
+     * Test Number in the sequence.
+     * 
+     * @param testResult TAP TestResult.
+     * @return Whether could add to TestResult list or not.
+     */
+    public boolean addTestResult(TestResult testResult) {
+        if (testResult.getTestNumber() == null ||
+            testResult.getTestNumber() <= 0) {
+            testResult.setTestNumber(this.testResults.size() + 1);
+        }
+        this.testResults.add(testResult);
+        return this.tapLines.add(testResult);
+    }
 
-	/**
-	 * @param comment
-	 *            Comment. Whether could add to Comment list or not.
-	 */
-	public boolean addComment(Comment comment) {
-		this.comments.add(comment);
-		return this.tapLines.add(comment);
-	}
+    /**
+     * @param bailOut Bail Out.
+     * @return Whether could add to BailOut list or not.
+     */
+    public boolean addBailOut(BailOut bailOut) {
+        this.bailOuts.add(bailOut);
+        return this.tapLines.add(bailOut);
+    }
 
-	/**
-	 * Removes a TAP Line from the list.
-	 * 
-	 * @param tapLine
-	 *            TAP Line object.
-	 * @return True if could successfully remove the TAP Line from the list.
-	 */
-	protected boolean removeTapLine(TapResult tapLine) {
-		return this.tapLines.remove(tapLine);
-	}
+    /**
+     * @param comment Comment. Whether could add to Comment list or not.
+     */
+    public boolean addComment(Comment comment) {
+        this.comments.add(comment);
+        return this.tapLines.add(comment);
+    }
 
-	/**
-	 * Removes a Test Result from the list.
-	 * 
-	 * @param testResult
-	 *            Test Result.
-	 * @return True if could successfully remove the Test Result from the list.
-	 */
-	public boolean removeTestResult(TestResult testResult) {
-		boolean flag = false;
-		if (this.tapLines.remove(testResult)) {
-			this.testResults.remove(testResult);
-			flag = true;
-		}
-		return flag;
-	}
+    /**
+     * Removes a TAP Line from the list.
+     * 
+     * @param tapLine TAP Line object.
+     * @return True if could successfully remove the TAP Line from the list.
+     */
+    protected boolean removeTapLine(TapResult tapLine) {
+        return this.tapLines.remove(tapLine);
+    }
 
-	/**
-	 * Removes a Bail Out from the list.
-	 * 
-	 * @param bailOut
-	 *            Bail Out object.
-	 * @return True if could successfully remove the Bail Out from the list.
-	 */
-	public boolean removeBailOut(BailOut bailOut) {
-		boolean flag = false;
-		if (this.tapLines.remove(bailOut)) {
-			this.bailOuts.remove(bailOut);
-			flag = true;
-		}
-		return flag;
-	}
+    /**
+     * Removes a Test Result from the list.
+     * 
+     * @param testResult Test Result.
+     * @return True if could successfully remove the Test Result from the list.
+     */
+    public boolean removeTestResult(TestResult testResult) {
+        boolean flag = false;
+        if (this.tapLines.remove(testResult)) {
+            this.testResults.remove(testResult);
+            flag = true;
+        }
+        return flag;
+    }
 
-	/**
-	 * Removes a Comment from the list.
-	 * 
-	 * @param comment
-	 *            Comment.
-	 * @return True if could successfully remove the Comment from the list.
-	 */
-	public boolean removeComment(Comment comment) {
-		boolean flag = false;
-		if (this.tapLines.remove(comment)) {
-			this.comments.remove(comment);
-			flag = true;
-		}
-		return flag;
-	}
+    /**
+     * Removes a Bail Out from the list.
+     * 
+     * @param bailOut Bail Out object.
+     * @return True if could successfully remove the Bail Out from the list.
+     */
+    public boolean removeBailOut(BailOut bailOut) {
+        boolean flag = false;
+        if (this.tapLines.remove(bailOut)) {
+            this.bailOuts.remove(bailOut);
+            flag = true;
+        }
+        return flag;
+    }
 
-	/**
-	 * @return Number of TAP Lines. It includes Test Results, Bail Outs and
-	 *         Comments (the footer is not included).
-	 */
-	public int getNumberOfTapLines() {
-		return this.tapLines.size();
-	}
+    /**
+     * Removes a Comment from the list.
+     * 
+     * @param comment Comment.
+     * @return True if could successfully remove the Comment from the list.
+     */
+    public boolean removeComment(Comment comment) {
+        boolean flag = false;
+        if (this.tapLines.remove(comment)) {
+            this.comments.remove(comment);
+            flag = true;
+        }
+        return flag;
+    }
 
-	/**
-	 * @return Number of Test Results.
-	 */
-	public int getNumberOfTestResults() {
-		return this.testResults.size();
-	}
+    /**
+     * @return Number of TAP Lines. It includes Test Results, Bail Outs and
+     *         Comments (the footer is not included).
+     */
+    public int getNumberOfTapLines() {
+        return this.tapLines.size();
+    }
 
-	/**
-	 * @return Number of Bail Outs.
-	 */
-	public int getNumberOfBailOuts() {
-		return this.bailOuts.size();
-	}
+    /**
+     * @return Number of Test Results.
+     */
+    public int getNumberOfTestResults() {
+        return this.testResults.size();
+    }
 
-	/**
-	 * @return Number of Comments.
-	 */
-	public int getNumberOfComments() {
-		return this.comments.size();
-	}
+    /**
+     * @return Number of Bail Outs.
+     */
+    public int getNumberOfBailOuts() {
+        return this.bailOuts.size();
+    }
 
-	/**
-	 * @return Footer
-	 */
-	public Footer getFooter() {
-		return this.footer;
-	}
+    /**
+     * @return Number of Comments.
+     */
+    public int getNumberOfComments() {
+        return this.comments.size();
+    }
 
-	/**
-	 * @param footer
-	 *            Footer
-	 */
-	public void setFooter(Footer footer) {
-		this.footer = footer;
-	}
+    /**
+     * @return Footer
+     */
+    public Footer getFooter() {
+        return this.footer;
+    }
 
-	/**
-	 * @return True if it has any Bail Out statement, false otherwise.
-	 */
-	public boolean hasBailOut() {
-		boolean isBailOut = false;
+    /**
+     * @param footer Footer
+     */
+    public void setFooter(Footer footer) {
+        this.footer = footer;
+    }
 
-		for (TapResult tapLine : tapLines) {
-			if (tapLine instanceof BailOut) {
-				isBailOut = true;
-				break;
-			}
-		}
+    /**
+     * @return True if it has any Bail Out statement, false otherwise.
+     */
+    public boolean hasBailOut() {
+        boolean isBailOut = false;
 
-		return isBailOut;
-	}
+        for (TapResult tapLine : tapLines) {
+            if (tapLine instanceof BailOut) {
+                isBailOut = true;
+                break;
+            }
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.TapConsumer#containsOk()
-	 */
-	public Boolean containsOk() {
-		Boolean containsOk = false;
+        return isBailOut;
+    }
 
-		for (TestResult testResult : this.testResults) {
-			if (testResult.getStatus().equals(StatusValues.OK)) {
-				containsOk = true;
-				break;
-			}
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.TapConsumer#containsOk()
+     */
+    public Boolean containsOk() {
+        Boolean containsOk = false;
 
-		return containsOk;
-	}
+        for (TestResult testResult : this.testResults) {
+            if (testResult.getStatus().equals(StatusValues.OK)) {
+                containsOk = true;
+                break;
+            }
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.TapConsumer#containsNotOk()
-	 */
-	public Boolean containsNotOk() {
-		Boolean containsNotOk = false;
+        return containsOk;
+    }
 
-		for (TestResult testResult : this.testResults) {
-			if (testResult.getStatus().equals(StatusValues.NOT_OK)) {
-				containsNotOk = true;
-				break;
-			}
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.TapConsumer#containsNotOk()
+     */
+    public Boolean containsNotOk() {
+        Boolean containsNotOk = false;
 
-		return containsNotOk;
-	}
+        for (TestResult testResult : this.testResults) {
+            if (testResult.getStatus().equals(StatusValues.NOT_OK)) {
+                containsNotOk = true;
+                break;
+            }
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.TapConsumer#containsBailOut()
-	 */
-	public Boolean containsBailOut() {
-		return this.bailOuts.size() > 0;
-	}
+        return containsNotOk;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.tap4j.TapConsumer#getTestResult(java.lang.Integer)
-	 */
-	public TestResult getTestResult(Integer testNumber) {
-		TestResult foundTestResult = null;
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.TapConsumer#containsBailOut()
+     */
+    public Boolean containsBailOut() {
+        return this.bailOuts.size() > 0;
+    }
 
-		for (TestResult testResult : this.testResults) {
-			if (testResult.getTestNumber() != null
-			        && testResult.getTestNumber().equals(testNumber)) {
-				foundTestResult = testResult;
-				break;
-			}
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.tap4j.TapConsumer#getTestResult(java.lang.Integer)
+     */
+    public TestResult getTestResult(Integer testNumber) {
+        TestResult foundTestResult = null;
 
-		return foundTestResult;
-	}
+        for (TestResult testResult : this.testResults) {
+            if (testResult.getTestNumber() != null &&
+                testResult.getTestNumber().equals(testNumber)) {
+                foundTestResult = testResult;
+                break;
+            }
+        }
 
-	/**
-	 * @return Next test number.
-	 */
-	public int getNextTestNumber() {
-		return (this.testResults.size() + 1);
-	}
+        return foundTestResult;
+    }
+
+    /**
+     * @return Next test number.
+     */
+    public int getNextTestNumber() {
+        return (this.testResults.size() + 1);
+    }
 
 }

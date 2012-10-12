@@ -29,35 +29,35 @@ package org.tap4j.producer;
  */
 public class ProducerException extends RuntimeException {
 
-	private static final long serialVersionUID = 5579591125440097408L;
+    private static final long serialVersionUID = 5579591125440097408L;
 
-	/**
+    /**
 	 * 
 	 */
-	public ProducerException() {
-		super();
-	}
+    public ProducerException() {
+        super();
+    }
 
-	/**
-	 * @param message
-	 */
-	public ProducerException(String message) {
-		super(message);
-	}
+    /**
+     * @param message
+     */
+    public ProducerException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @param cause
-	 */
-	public ProducerException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * @param cause
+     */
+    public ProducerException(Throwable cause) {
+        super(cause);
+    }
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
-	public ProducerException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @param message
+     * @param cause
+     */
+    public ProducerException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

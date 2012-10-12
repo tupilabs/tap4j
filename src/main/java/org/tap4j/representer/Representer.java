@@ -31,14 +31,13 @@ import org.tap4j.model.TestSet;
  */
 public interface Representer {
 
-	/**
-	 * Class responsible for knowing how to represent a TestSet as String.
-	 * 
-	 * @param testSet
-	 *            TestSet
-	 * @return TestSet represented as String
-	 * @throws RepresenterException
-	 */
-	String representData(TestSet testSet);
+    /**
+     * Class responsible for knowing how to represent a TestSet as String.
+     * 
+     * @param testSet TestSet
+     * @return TestSet represented as String
+     * @throws RepresenterException
+     */
+    String representData(TestSet testSet);
 
 }

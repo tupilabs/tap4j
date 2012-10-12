@@ -30,28 +30,29 @@ import java.io.Serializable;
  * @since 1.0
  */
 public class SkipPlan implements Serializable {
-	private static final long serialVersionUID = 9108007596777603763L;
-	/**
-	 * The reason for the skip.
-	 */
-	private String reason;
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param reason
-	 *            Skip reason.
-	 */
-	public SkipPlan(String reason) {
-		super();
-		this.reason = reason;
-	}
+    private static final long serialVersionUID = 9108007596777603763L;
 
-	/**
-	 * @return Skip reason.
-	 */
-	public String getReason() {
-		return this.reason;
-	}
+    /**
+     * The reason for the skip.
+     */
+    private String reason;
+
+    /**
+     * Constructor with parameter.
+     * 
+     * @param reason Skip reason.
+     */
+    public SkipPlan(String reason) {
+        super();
+        this.reason = reason;
+    }
+
+    /**
+     * @return Skip reason.
+     */
+    public String getReason() {
+        return this.reason;
+    }
 
 }

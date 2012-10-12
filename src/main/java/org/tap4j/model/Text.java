@@ -32,28 +32,29 @@ package org.tap4j.model;
  * @since 1.0
  */
 public class Text extends TapResult {
-	private static final long serialVersionUID = 5408008204269040841L;
-	/**
-	 * Value of Text.
-	 */
-	private final String value;
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param value
-	 *            String value.
-	 */
-	public Text(String value) {
-		super();
-		this.value = value;
-	}
+    private static final long serialVersionUID = 5408008204269040841L;
 
-	/**
-	 * @return Value of the String.
-	 */
-	public String getValue() {
-		return this.value;
-	}
+    /**
+     * Value of Text.
+     */
+    private final String value;
+
+    /**
+     * Constructor with parameter.
+     * 
+     * @param value String value.
+     */
+    public Text(String value) {
+        super();
+        this.value = value;
+    }
+
+    /**
+     * @return Value of the String.
+     */
+    public String getValue() {
+        return this.value;
+    }
 
 }

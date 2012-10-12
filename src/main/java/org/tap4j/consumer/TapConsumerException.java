@@ -31,45 +31,41 @@ package org.tap4j.consumer;
  */
 public class TapConsumerException extends RuntimeException {
 
-	private static final long serialVersionUID = -4463077483065538121L;
+    private static final long serialVersionUID = -4463077483065538121L;
 
-	/**
-	 * Default constructor.
-	 */
-	public TapConsumerException() {
-		super();
-	}
+    /**
+     * Default constructor.
+     */
+    public TapConsumerException() {
+        super();
+    }
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param message
-	 *            Exception message.
-	 */
-	public TapConsumerException(String message) {
-		super(message);
-	}
+    /**
+     * Constructor with parameter.
+     * 
+     * @param message Exception message.
+     */
+    public TapConsumerException(String message) {
+        super(message);
+    }
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param cause
-	 *            Exception cause.
-	 */
-	public TapConsumerException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Constructor with parameter.
+     * 
+     * @param cause Exception cause.
+     */
+    public TapConsumerException(Throwable cause) {
+        super(cause);
+    }
 
-	/**
-	 * Constructor with paramters.
-	 * 
-	 * @param message
-	 *            Exception message.
-	 * @param cause
-	 *            Exception cause.
-	 */
-	public TapConsumerException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Constructor with paramters.
+     * 
+     * @param message Exception message.
+     * @param cause Exception cause.
+     */
+    public TapConsumerException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

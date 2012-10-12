@@ -70,21 +70,19 @@ public final class TestNGTAPUtils {
     /**
      * Generates a TAP TestResult from a given TestNG TestResult.
      * 
-     * @param testResult
-     *            TestNG Test Result
-     * @param number
-     *            TAP Test Number
+     * @param testResult TestNG Test Result
+     * @param number TAP Test Number
      * @return TAP TestResult
      */
     public static TestResult generateTAPTestResult(ITestResult testResult,
-            Integer number) {
+                                                   Integer number) {
         final TestResult tapTestResult = new TestResult();
 
         String testResultDescription = generateTAPTestResultDescription(testResult);
         tapTestResult.setDescription(testResultDescription);
 
         TestNGTAPUtils.setTapTestResultStatus(tapTestResult,
-                testResult.getStatus());
+                                              testResult.getStatus());
 
         TestNGTAPUtils.createTestNGYAMLishData(tapTestResult, testResult);
 
@@ -95,8 +93,7 @@ public final class TestNGTAPUtils {
      * Generates a TAP TestResult description with full qualified class name
      * concatenated with the character '#' and the test method.
      * 
-     * @param testResult
-     *            TestNG TestResult
+     * @param testResult TestNG TestResult
      * @return Name of TAP Test Result
      */
     public static String generateTAPTestResultDescription(ITestResult testResult) {
@@ -114,27 +111,25 @@ public final class TestNGTAPUtils {
      * StatusValue is equal SKIP a Directive is also created and added to the
      * TAP Test Result.
      * 
-     * @param tapTestResult
-     *            TAP TestResult
-     * @param status
-     *            TestNG Test Status (Success, Skip, or any other that is
-     *            treated as Failed in TAP)
+     * @param tapTestResult TAP TestResult
+     * @param status TestNG Test Status (Success, Skip, or any other that is
+     *        treated as Failed in TAP)
      */
     public static void setTapTestResultStatus(TestResult tapTestResult,
-            int status) {
+                                              int status) {
         switch (status) {
-        case ITestResult.SUCCESS:
-            tapTestResult.setStatus(StatusValues.OK);
-            break;
-        case ITestResult.SKIP:
-            tapTestResult.setStatus(StatusValues.NOT_OK);
-            Directive skip = new Directive(DirectiveValues.SKIP,
-                    "TestNG test was skipped");
-            tapTestResult.setDirective(skip);
-            break;
-        default:
-            tapTestResult.setStatus(StatusValues.NOT_OK);
-            break;
+            case ITestResult.SUCCESS:
+                tapTestResult.setStatus(StatusValues.OK);
+                break;
+            case ITestResult.SKIP:
+                tapTestResult.setStatus(StatusValues.NOT_OK);
+                Directive skip = new Directive(DirectiveValues.SKIP,
+                                               "TestNG test was skipped");
+                tapTestResult.setDirective(skip);
+                break;
+            default:
+                tapTestResult.setStatus(StatusValues.NOT_OK);
+                break;
         }
     }
 
@@ -142,19 +137,16 @@ public final class TestNGTAPUtils {
      * <p>
      * Inserts TestNG YAMLish diagnostic information into a TAP TestResult.
      * </p>
-     * 
      * <p>
      * For more about TAP YAMLish diagnostic read this <a
      * href="http://testanything.org/wiki/index.php/YAMLish">Wiki</a>.
      * </p>
      * 
-     * @param testResult
-     *            TAP TestResult
-     * @param testNgTestResult
-     *            TestNG TestResult
+     * @param testResult TAP TestResult
+     * @param testNgTestResult TestNG TestResult
      */
     public static void createTestNGYAMLishData(TestResult testResult,
-            ITestResult testNgTestResult) {
+                                               ITestResult testNgTestResult) {
         final Map<String, Object> yamlish = testResult.getDiagnostic();
 
         // Root namespace
@@ -179,7 +171,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishMessage(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                            ITestResult testNgTestResult) {
         String message = TestNGYAMLishUtils.getMessage(testNgTestResult);
         yamlish.put("message", message);
     }
@@ -189,7 +181,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishSeverity(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                             ITestResult testNgTestResult) {
         String severity = TestNGYAMLishUtils.getSeverity(testNgTestResult);
         yamlish.put("severity", severity);
     }
@@ -199,7 +191,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishSource(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                           ITestResult testNgTestResult) {
         String source = TestNGYAMLishUtils.getSource(testNgTestResult);
         yamlish.put("source", source);
     }
@@ -209,7 +201,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishDatetime(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                             ITestResult testNgTestResult) {
         String datetime = TestNGYAMLishUtils.getDatetime(testNgTestResult);
         yamlish.put("datetime", datetime);
     }
@@ -219,7 +211,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishFile(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                         ITestResult testNgTestResult) {
         String file = TestNGYAMLishUtils.getFile(testNgTestResult);
         yamlish.put("file", file);
     }
@@ -229,7 +221,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishLine(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                         ITestResult testNgTestResult) {
         String line = TestNGYAMLishUtils.getLine(testNgTestResult);
         yamlish.put("line", line);
     }
@@ -239,7 +231,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishName(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                         ITestResult testNgTestResult) {
         String name = TestNGYAMLishUtils.getName(testNgTestResult);
         yamlish.put("name", name);
     }
@@ -247,13 +239,11 @@ public final class TestNGTAPUtils {
     /**
      * Creates YAMLish diagnostic extensions entry data.
      * 
-     * @param yamlish
-     *            YAMLish Map
-     * @param testNgTestResult
-     *            TestNG TestResult
+     * @param yamlish YAMLish Map
+     * @param testNgTestResult TestNG TestResult
      */
     public static void createYAMLishExtensions(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                               ITestResult testNgTestResult) {
         Object extensions = TestNGYAMLishUtils.getExtensions(testNgTestResult);
         yamlish.put("extensions", extensions);
     }
@@ -262,8 +252,8 @@ public final class TestNGTAPUtils {
      * @param yamlish
      * @param testNgTestResult
      */
-    public static void createYAMLishActualAndExpected(
-            Map<String, Object> yamlish, ITestResult testNgTestResult) {
+    public static void createYAMLishActualAndExpected(Map<String, Object> yamlish,
+                                                      ITestResult testNgTestResult) {
         String expected = TestNGYAMLishUtils.getExpected(testNgTestResult);
         String actual = TestNGYAMLishUtils.getActual(testNgTestResult);
 
@@ -284,7 +274,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishDisplay(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                            ITestResult testNgTestResult) {
 
         String display = TestNGYAMLishUtils.getDisplay(testNgTestResult);
         yamlish.put("display", display);
@@ -295,7 +285,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishDump(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                         ITestResult testNgTestResult) {
         Object dump = TestNGYAMLishUtils.getDump(testNgTestResult);
         yamlish.put("dump", dump);
     }
@@ -305,7 +295,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishError(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                          ITestResult testNgTestResult) {
         String error = TestNGYAMLishUtils.getError(testNgTestResult);
         yamlish.put("error", error);
     }
@@ -315,7 +305,7 @@ public final class TestNGTAPUtils {
      * @param testNgTestResult
      */
     public static void createYAMLishBacktrace(Map<String, Object> yamlish,
-            ITestResult testNgTestResult) {
+                                              ITestResult testNgTestResult) {
         Object backtrace = TestNGYAMLishUtils.getBacktrace(testNgTestResult);
         yamlish.put("backtrace", backtrace);
     }
@@ -324,18 +314,16 @@ public final class TestNGTAPUtils {
      * Return an ordered list of TestNG TestResult from a given TestNG Test
      * Context.
      * 
-     * @param testContext
-     *            TestNG Test Context
+     * @param testContext TestNG Test Context
      * @return Ordered list of TestNG TestResults
      */
-    public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(
-            ITestContext testContext) {
+    public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(ITestContext testContext) {
         Map<String, IResultMap> results = new LinkedHashMap<String, IResultMap>();
 
         results.put("passed", testContext.getPassedTests());
         results.put("failed", testContext.getFailedTests());
         results.put("failedBut",
-                testContext.getFailedButWithinSuccessPercentageTests());
+                    testContext.getFailedButWithinSuccessPercentageTests());
         results.put("skipped", testContext.getSkippedTests());
 
         ResultMap total = new ResultMap();
@@ -353,25 +341,34 @@ public final class TestNGTAPUtils {
             boolean exists = false;
             for (ITestNGMethod methodFound : allMethodsFound) {
                 if (methodInCtx.getTestClass().getName()
-                        .equals(methodFound.getTestClass().getName())
-                        && methodInCtx.getMethod().getName()
-                                .equals(methodFound.getMethod().getName())) {
+                    .equals(methodFound.getTestClass().getName()) &&
+                    methodInCtx.getMethod().getName()
+                        .equals(methodFound.getMethod().getName())) {
                     exists = true;
                 }
             }
             if (!exists) {
                 ITestResult skippedTestResult = new org.testng.internal.TestResult(
-                        methodInCtx.getTestClass(), methodInCtx.getInstances(),
-                        methodInCtx, null,
-                        testContext.getStartDate().getTime(), testContext
-                                .getEndDate().getTime());
+                                                                                   methodInCtx
+                                                                                       .getTestClass(),
+                                                                                   methodInCtx
+                                                                                       .getInstances(),
+                                                                                   methodInCtx,
+                                                                                   null,
+                                                                                   testContext
+                                                                                       .getStartDate()
+                                                                                       .getTime(),
+                                                                                   testContext
+                                                                                       .getEndDate()
+                                                                                       .getTime());
                 skippedTestResult.setStatus(ITestResult.SKIP);
                 total.addResult(skippedTestResult, methodInCtx);
             }
         }
 
         List<ITestResult> testNGTestResults = new ArrayList<ITestResult>(
-                total.getAllResults());
+                                                                         total
+                                                                             .getAllResults());
         Collections.sort(testNGTestResults, EXECUTION_DATE_COMPARATOR);
 
         return testNGTestResults;
@@ -381,14 +378,13 @@ public final class TestNGTAPUtils {
      * Return an ordered list of TestNG TestResult from a given TestNG Test
      * Context.
      * 
-     * @param total
-     *            TestNG Result Map
+     * @param total TestNG Result Map
      * @return Ordered list of TestNG TestResults
      */
-    public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(
-            ResultMap total) {
+    public static List<ITestResult> getTestNGResultsOrderedByExecutionDate(ResultMap total) {
         List<ITestResult> testNGTestResults = new ArrayList<ITestResult>(
-                total.getAllResults());
+                                                                         total
+                                                                             .getAllResults());
         Collections.sort(testNGTestResults, EXECUTION_DATE_COMPARATOR);
 
         return testNGTestResults;
@@ -397,10 +393,8 @@ public final class TestNGTAPUtils {
     /**
      * Adds all ITestResult's inside the map object inside the total one.
      * 
-     * @param total
-     *            ResultMap that holds the total of IResultMap's.
-     * @param map
-     *            An IResultMap object.
+     * @param total ResultMap that holds the total of IResultMap's.
+     * @param map An IResultMap object.
      */
     public static void addAll(ResultMap total, IResultMap map) {
         for (ITestResult testResult : map.getAllResults()) {

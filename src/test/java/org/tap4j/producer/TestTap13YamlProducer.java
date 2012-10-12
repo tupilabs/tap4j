@@ -1,25 +1,19 @@
-/* 
- * The MIT License
- * 
- * Copyright (c) 2010 Bruno P. Kinoshita <http://www.kinoshita.eti.br>
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+/*
+ * The MIT License Copyright (c) 2010 Bruno P. Kinoshita
+ * <http://www.kinoshita.eti.br> Permission is hereby granted, free of charge,
+ * to any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following
+ * conditions: The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software. THE SOFTWARE
+ * IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+ * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.tap4j.producer;
 
@@ -51,248 +45,255 @@ import org.testng.annotations.Test;
  */
 public class TestTap13YamlProducer {
 
-	private static final Integer TAP_VERSION = 13;
-	private Producer tapProducer;
-	private TestSet testSet;
-	// Temp file to where we output the generated tap stream.
-	private File tempFile;
+    private static final Integer TAP_VERSION = 13;
 
-	private static final Integer INITIAL_TEST_STEP = 1;
+    private Producer tapProducer;
 
-	@BeforeTest
-	public void setUp() {
-		DumperOptions options = new DumperOptions();
-		options.setAllowEmptyTestPlan(Boolean.FALSE);
-		tapProducer = new TapProducer(new Tap13Representer(options));
-		testSet = new TestSet();
-		Header header = new Header(TAP_VERSION);
-		testSet.setHeader(header);
-		Plan plan = new Plan(INITIAL_TEST_STEP, 3);
-		testSet.setPlan(plan);
-		Comment singleComment = new Comment("Starting tests");
-		testSet.addComment(singleComment);
+    private TestSet testSet;
 
-		TestResult tr1 = new TestResult(StatusValues.OK, 1);
-		LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
-		diagnostic.put("file", "testingproducer.txt");
-		diagnostic.put("time", System.currentTimeMillis());
-		diagnostic.put("Tester", "Bruno P. Kinoshita");
-		LinkedHashMap<String, Object> map2 = new LinkedHashMap<String, Object>();
-		map2.put("EHCTA", 1233);
-		map2.put("TRANSACTION", 3434);
-		diagnostic.put("Audit", map2);
-		tr1.setDiagnostic(diagnostic);
-		// tr1.setDiagnostic(diagnostic)
-		testSet.addTestResult(tr1);
+    // Temp file to where we output the generated tap stream.
+    private File tempFile;
 
-		TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
-		tr2.setTestNumber(2);
-		testSet.addTestResult(tr2);
+    private static final Integer INITIAL_TEST_STEP = 1;
 
-		BailOut bailOut = new BailOut("Test 2 failed");
-		testSet.addBailOut(bailOut);
+    @BeforeTest
+    public void setUp() {
+        DumperOptions options = new DumperOptions();
+        options.setAllowEmptyTestPlan(Boolean.FALSE);
+        tapProducer = new TapProducer(new Tap13Representer(options));
+        testSet = new TestSet();
+        Header header = new Header(TAP_VERSION);
+        testSet.setHeader(header);
+        Plan plan = new Plan(INITIAL_TEST_STEP, 3);
+        testSet.setPlan(plan);
+        Comment singleComment = new Comment("Starting tests");
+        testSet.addComment(singleComment);
 
-		Comment simpleComment = new Comment("Test bailed out.");
-		testSet.addComment(simpleComment);
+        TestResult tr1 = new TestResult(StatusValues.OK, 1);
+        LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+        diagnostic.put("file", "testingproducer.txt");
+        diagnostic.put("time", System.currentTimeMillis());
+        diagnostic.put("Tester", "Bruno P. Kinoshita");
+        LinkedHashMap<String, Object> map2 = new LinkedHashMap<String, Object>();
+        map2.put("EHCTA", 1233);
+        map2.put("TRANSACTION", 3434);
+        diagnostic.put("Audit", map2);
+        tr1.setDiagnostic(diagnostic);
+        // tr1.setDiagnostic(diagnostic)
+        testSet.addTestResult(tr1);
 
-		testSet.setFooter(new Footer("End"));
+        TestResult tr2 = new TestResult(StatusValues.NOT_OK, 2);
+        tr2.setTestNumber(2);
+        testSet.addTestResult(tr2);
 
-		try {
-			tempFile = File.createTempFile("tap4j_", ".tap");
-		} catch (IOException e) {
-			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
-		}
-	}
+        BailOut bailOut = new BailOut("Test 2 failed");
+        testSet.addBailOut(bailOut);
 
-	@Test
-	public void testTapProducer() {
-		Assert.assertTrue(testSet.getTapLines().size() > 0);
+        Comment simpleComment = new Comment("Test bailed out.");
+        testSet.addComment(simpleComment);
 
-		Assert.assertTrue(testSet.getNumberOfTestResults() == 2);
+        testSet.setFooter(new Footer("End"));
 
-		Assert.assertTrue(testSet.getNumberOfBailOuts() == 1);
+        try {
+            tempFile = File.createTempFile("tap4j_", ".tap");
+        } catch (IOException e) {
+            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+        }
+    }
 
-		Assert.assertTrue(testSet.getNumberOfComments() == 2);
+    @Test
+    public void testTapProducer() {
+        Assert.assertTrue(testSet.getTapLines().size() > 0);
 
-		try {
-			tapProducer.dump(testSet, tempFile);
+        Assert.assertTrue(testSet.getNumberOfTestResults() == 2);
 
-			// System.out.println(tempFile);
-		} catch (Exception e) {
-			Assert.fail("Failed to print TAP Stream into file.", e);
-		}
+        Assert.assertTrue(testSet.getNumberOfBailOuts() == 1);
 
-		// BufferedReader reader = null;
-		//
-		// try
-		// {
-		// reader = new BufferedReader( new FileReader( tempFile ) );
-		//
-		// String line = null;
-		//
-		// while ( (line = reader.readLine()) != null )
-		// {
-		// System.out.println(line);
-		// }
-		// }
-		// catch (Exception e)
-		// {
-		// fail("Failed to read temp file.", e);
-		// }
-		// finally
-		// {
-		// if ( reader != null )
-		// {
-		// try
-		// {
-		// reader.close();
-		// } catch (Exception e2)
-		// {
-		// e2.printStackTrace(System.err);
-		// }
-		// reader = null;
-		// }
-		// }
-	}
+        Assert.assertTrue(testSet.getNumberOfComments() == 2);
 
-	@Test(expectedExceptions = { ProducerException.class })
-	public void testDumpFailsForMissingPlan() {
-		DumperOptions options = new DumperOptions();
-		options.setAllowEmptyTestPlan(Boolean.FALSE);
-		Representer representer = new Tap13Representer(options);
-		Producer tapProducer = new TapProducer(representer);
-		
-		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK,
-		        Integer.valueOf(1));
-		Assert.assertTrue(testSet.addTestResult(okTestResult));
+        try {
+            tapProducer.dump(testSet, tempFile);
 
-		try {
-			File fileOutput = null;
-			tapProducer.dump(testSet, fileOutput);
-		} catch (NullPointerException npe) {
-			Assert.assertNotNull(npe);
-		}
+            // System.out.println(tempFile);
+        } catch (Exception e) {
+            Assert.fail("Failed to print TAP Stream into file.", e);
+        }
 
-		StringWriter sw = new StringWriter();
+        // BufferedReader reader = null;
+        //
+        // try
+        // {
+        // reader = new BufferedReader( new FileReader( tempFile ) );
+        //
+        // String line = null;
+        //
+        // while ( (line = reader.readLine()) != null )
+        // {
+        // System.out.println(line);
+        // }
+        // }
+        // catch (Exception e)
+        // {
+        // fail("Failed to read temp file.", e);
+        // }
+        // finally
+        // {
+        // if ( reader != null )
+        // {
+        // try
+        // {
+        // reader.close();
+        // } catch (Exception e2)
+        // {
+        // e2.printStackTrace(System.err);
+        // }
+        // reader = null;
+        // }
+        // }
+    }
 
-		tapProducer.dump(testSet, sw);
+    @Test(expectedExceptions = {
+        ProducerException.class
+    })
+    public void testDumpFailsForMissingPlan() {
+        DumperOptions options = new DumperOptions();
+        options.setAllowEmptyTestPlan(Boolean.FALSE);
+        Representer representer = new Tap13Representer(options);
+        Producer tapProducer = new TapProducer(representer);
 
-		Assert.fail("Not supposed to get here");
-	}
+        TestSet testSet = new TestSet();
+        TestResult okTestResult = new TestResult(StatusValues.OK,
+                                                 Integer.valueOf(1));
+        Assert.assertTrue(testSet.addTestResult(okTestResult));
 
-	@Test
-	public void testDumpToStringWriter() {
-		Producer tapProducer = new TapProducer();
+        try {
+            File fileOutput = null;
+            tapProducer.dump(testSet, fileOutput);
+        } catch (NullPointerException npe) {
+            Assert.assertNotNull(npe);
+        }
 
-		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK,
-		        Integer.valueOf(1));
-		Assert.assertTrue(testSet.addTestResult(okTestResult));
+        StringWriter sw = new StringWriter();
 
-		Assert.assertNull(testSet.getPlan());
+        tapProducer.dump(testSet, sw);
 
-		Plan plan = new Plan(1, 1);
-		testSet.setPlan(plan);
+        Assert.fail("Not supposed to get here");
+    }
 
-		Assert.assertNotNull(testSet.getPlan());
+    @Test
+    public void testDumpToStringWriter() {
+        Producer tapProducer = new TapProducer();
 
-		StringWriter sw = new StringWriter();
+        TestSet testSet = new TestSet();
+        TestResult okTestResult = new TestResult(StatusValues.OK,
+                                                 Integer.valueOf(1));
+        Assert.assertTrue(testSet.addTestResult(okTestResult));
 
-		tapProducer.dump(testSet, sw);
+        Assert.assertNull(testSet.getPlan());
 
-	}
+        Plan plan = new Plan(1, 1);
+        testSet.setPlan(plan);
 
-	@Test(expectedExceptions = { NullPointerException.class })
-	public void testDumpToNullWriter() {
-		Producer tapProducer = new TapProducer();
+        Assert.assertNotNull(testSet.getPlan());
 
-		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK,
-		        Integer.valueOf(1));
-		Assert.assertTrue(testSet.addTestResult(okTestResult));
+        StringWriter sw = new StringWriter();
 
-		Assert.assertNull(testSet.getPlan());
+        tapProducer.dump(testSet, sw);
 
-		Plan plan = new Plan(1, 1);
-		testSet.setPlan(plan);
+    }
 
-		Assert.assertNotNull(testSet.getPlan());
+    @Test(expectedExceptions = {
+        NullPointerException.class
+    })
+    public void testDumpToNullWriter() {
+        Producer tapProducer = new TapProducer();
 
-		StringWriter writer = null;
+        TestSet testSet = new TestSet();
+        TestResult okTestResult = new TestResult(StatusValues.OK,
+                                                 Integer.valueOf(1));
+        Assert.assertTrue(testSet.addTestResult(okTestResult));
 
-		tapProducer.dump(testSet, writer);
-	}
+        Assert.assertNull(testSet.getPlan());
 
-	@Test(expectedExceptions = ProducerException.class)
-	public void testDumpToInvalidFile() {
-		Producer tapProducer = new TapProducer();
+        Plan plan = new Plan(1, 1);
+        testSet.setPlan(plan);
 
-		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK,
-		        Integer.valueOf(1));
-		Assert.assertTrue(testSet.addTestResult(okTestResult));
+        Assert.assertNotNull(testSet.getPlan());
 
-		Assert.assertNull(testSet.getPlan());
+        StringWriter writer = null;
 
-		Plan plan = new Plan(1, 1);
-		testSet.setPlan(plan);
+        tapProducer.dump(testSet, writer);
+    }
 
-		Assert.assertNotNull(testSet.getPlan());
+    @Test(expectedExceptions = ProducerException.class)
+    public void testDumpToInvalidFile() {
+        Producer tapProducer = new TapProducer();
 
-		File outputFile = new File("");
+        TestSet testSet = new TestSet();
+        TestResult okTestResult = new TestResult(StatusValues.OK,
+                                                 Integer.valueOf(1));
+        Assert.assertTrue(testSet.addTestResult(okTestResult));
 
-		tapProducer.dump(testSet, outputFile);
-	}
+        Assert.assertNull(testSet.getPlan());
 
-	@Test(expectedExceptions = ProducerException.class)
-	public void testDumpToInvalidWriter() {
-		Producer tapProducer = new TapProducer();
+        Plan plan = new Plan(1, 1);
+        testSet.setPlan(plan);
 
-		TestSet testSet = new TestSet();
-		TestResult okTestResult = new TestResult(StatusValues.OK,
-		        Integer.valueOf(1));
-		Assert.assertTrue(testSet.addTestResult(okTestResult));
+        Assert.assertNotNull(testSet.getPlan());
 
-		Assert.assertNull(testSet.getPlan());
+        File outputFile = new File("");
 
-		Plan plan = new Plan(1, 1);
-		testSet.setPlan(plan);
+        tapProducer.dump(testSet, outputFile);
+    }
 
-		Assert.assertNotNull(testSet.getPlan());
+    @Test(expectedExceptions = ProducerException.class)
+    public void testDumpToInvalidWriter() {
+        Producer tapProducer = new TapProducer();
 
-		File tempFile = null;
-		try {
-			tempFile = File.createTempFile("delete_", ".delete");
-		} catch (IOException e) {
-			Assert.fail("Failed to create temp file: " + e.getMessage(), e);
-		}
+        TestSet testSet = new TestSet();
+        TestResult okTestResult = new TestResult(StatusValues.OK,
+                                                 Integer.valueOf(1));
+        Assert.assertTrue(testSet.addTestResult(okTestResult));
 
-		FileWriter writer = null;
-		try {
-			writer = new FileWriter(tempFile);
-			writer.close();
-		} catch (IOException e) {
-			try {
-				FileUtils.forceDelete(tempFile);
-			} catch (IOException ioe) {
-				Assert.fail("Failed to delete temp file '" + tempFile + "': "
-				        + ioe.getMessage(), ioe);
-			}
+        Assert.assertNull(testSet.getPlan());
 
-			Assert.fail("Failed to create writer: " + e.getMessage(), e);
-		}
+        Plan plan = new Plan(1, 1);
+        testSet.setPlan(plan);
 
-		try {
-			tapProducer.dump(testSet, writer);
-		} finally {
-			try {
-				FileUtils.forceDelete(tempFile);
-			} catch (IOException e) {
-				Assert.fail("Failed to delete temp file '" + tempFile + "': "
-				        + e.getMessage(), e);
-			}
-		}
-	}
+        Assert.assertNotNull(testSet.getPlan());
+
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("delete_", ".delete");
+        } catch (IOException e) {
+            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+        }
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(tempFile);
+            writer.close();
+        } catch (IOException e) {
+            try {
+                FileUtils.forceDelete(tempFile);
+            } catch (IOException ioe) {
+                Assert.fail("Failed to delete temp file '" + tempFile + "': " +
+                            ioe.getMessage(), ioe);
+            }
+
+            Assert.fail("Failed to create writer: " + e.getMessage(), e);
+        }
+
+        try {
+            tapProducer.dump(testSet, writer);
+        } finally {
+            try {
+                FileUtils.forceDelete(tempFile);
+            } catch (IOException e) {
+                Assert.fail("Failed to delete temp file '" + tempFile + "': " +
+                            e.getMessage(), e);
+            }
+        }
+    }
 
 }

@@ -30,5 +30,6 @@ package org.tap4j.model;
  * @since 1.0
  */
 public abstract class TapResult extends AbstractTapElementDiagnostic {
-	private static final long serialVersionUID = 5602024143464978179L;
+
+    private static final long serialVersionUID = 5602024143464978179L;
 }

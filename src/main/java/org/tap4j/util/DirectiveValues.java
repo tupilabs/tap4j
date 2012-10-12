@@ -32,22 +32,21 @@ package org.tap4j.util;
  * @since 1.0
  */
 public enum DirectiveValues {
-	SKIP("SKIP"), TODO("TODO");
+    SKIP("SKIP"), TODO("TODO");
 
-	private String textValue;
+    private String textValue;
 
-	DirectiveValues(String textValue) {
-		this.textValue = textValue;
-	}
+    DirectiveValues(String textValue) {
+        this.textValue = textValue;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Enum#toString()
-	 */
-	@Override
-	public String toString() {
-		return this.textValue;
-	}
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
+    @Override
+    public String toString() {
+        return this.textValue;
+    }
 
 }

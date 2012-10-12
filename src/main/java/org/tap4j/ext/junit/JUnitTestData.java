@@ -31,63 +31,68 @@ import org.junit.runner.Description;
  */
 public class JUnitTestData {
 
-	private Description description;
-	private Boolean ignored;
-	private Boolean failed;
-	private String failMessage;
-	private String failTrace;
-	private Throwable failException;
+    private Description description;
 
-	public JUnitTestData(Boolean ignored, Boolean failed) {
-		this.ignored = ignored;
-		this.failed = failed;
-	}
+    private Boolean ignored;
 
-	public Description getDescription() {
-		return description;
-	}
+    private Boolean failed;
 
-	public void setDescription(Description description) {
-		this.description = description;
-	}
+    private String failMessage;
 
-	public Boolean isIgnored() {
-		return ignored;
-	}
+    private String failTrace;
 
-	public void setIgnored(Boolean ignored) {
-		this.ignored = ignored;
-	}
+    private Throwable failException;
 
-	public Boolean isFailed() {
-		return failed;
-	}
+    public JUnitTestData(Boolean ignored, Boolean failed) {
+        this.ignored = ignored;
+        this.failed = failed;
+    }
 
-	public void setFailed(Boolean failed) {
-		this.failed = failed;
-	}
+    public Description getDescription() {
+        return description;
+    }
 
-	public String getFailMessage() {
-		return failMessage;
-	}
+    public void setDescription(Description description) {
+        this.description = description;
+    }
 
-	public void setFailMessage(String failMessage) {
-		this.failMessage = failMessage;
-	}
+    public Boolean isIgnored() {
+        return ignored;
+    }
 
-	public String getFailTrace() {
-		return failTrace;
-	}
+    public void setIgnored(Boolean ignored) {
+        this.ignored = ignored;
+    }
 
-	public void setFailTrace(String failTrace) {
-		this.failTrace = failTrace;
-	}
+    public Boolean isFailed() {
+        return failed;
+    }
 
-	public Throwable getFailException() {
-		return failException;
-	}
+    public void setFailed(Boolean failed) {
+        this.failed = failed;
+    }
 
-	public void setFailException(Throwable failException) {
-		this.failException = failException;
-	}
+    public String getFailMessage() {
+        return failMessage;
+    }
+
+    public void setFailMessage(String failMessage) {
+        this.failMessage = failMessage;
+    }
+
+    public String getFailTrace() {
+        return failTrace;
+    }
+
+    public void setFailTrace(String failTrace) {
+        this.failTrace = failTrace;
+    }
+
+    public Throwable getFailException() {
+        return failException;
+    }
+
+    public void setFailException(Throwable failException) {
+        this.failException = failException;
+    }
 }

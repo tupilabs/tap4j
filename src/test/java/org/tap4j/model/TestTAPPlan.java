@@ -1,25 +1,19 @@
 /*
- * The MIT License
- *
- * Copyright (c) <2010> <tap4j>
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * The MIT License Copyright (c) <2010> <tap4j> Permission is hereby granted,
+ * free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software
+ * without restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the
+ * Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions: The above copyright notice and this
+ * permission notice shall be included in all copies or substantial portions of
+ * the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+ * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+ * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
 package org.tap4j.model;
 
@@ -33,70 +27,74 @@ import org.testng.annotations.Test;
  */
 public class TestTAPPlan {
 
-	protected Plan simplePlan;
-	protected Plan skipAllPlan;
+    protected Plan simplePlan;
 
-	protected final static Integer INITIAL_TEST_NUMBER = 1;
-	protected final static Integer LAST_TEST_NUMBER = 3;
-	protected final static String EXPECTED_OUTPUT = "1..3 # Plan's comment.";
+    protected Plan skipAllPlan;
 
-	protected final static String REASON = "Function not yet implemented.";
+    protected final static Integer INITIAL_TEST_NUMBER = 1;
 
-	@BeforeTest
-	public void setUp() {
-		simplePlan = new Plan(INITIAL_TEST_NUMBER, LAST_TEST_NUMBER);
-		simplePlan.setComment(new Comment("Plan's comment."));
-		SkipPlan skip = new SkipPlan(REASON);
-		skipAllPlan = new Plan(LAST_TEST_NUMBER, skip);
-	}
+    protected final static Integer LAST_TEST_NUMBER = 3;
 
-	@Test
-	public void testSimplePlan() {
-		Assert.assertTrue(simplePlan != null);
+    protected final static String EXPECTED_OUTPUT = "1..3 # Plan's comment.";
 
-		Assert.assertEquals(simplePlan.getInitialTestNumber(),
-		        INITIAL_TEST_NUMBER);
+    protected final static String REASON = "Function not yet implemented.";
 
-		Assert.assertEquals(simplePlan.getLastTestNumber(), LAST_TEST_NUMBER);
+    @BeforeTest
+    public void setUp() {
+        simplePlan = new Plan(INITIAL_TEST_NUMBER, LAST_TEST_NUMBER);
+        simplePlan.setComment(new Comment("Plan's comment."));
+        SkipPlan skip = new SkipPlan(REASON);
+        skipAllPlan = new Plan(LAST_TEST_NUMBER, skip);
+    }
 
-		Assert.assertNull(simplePlan.getSkip());
+    @Test
+    public void testSimplePlan() {
+        Assert.assertTrue(simplePlan != null);
 
-		Assert.assertFalse(simplePlan.isSkip());
+        Assert.assertEquals(simplePlan.getInitialTestNumber(),
+                            INITIAL_TEST_NUMBER);
 
-		Assert.assertNotNull(simplePlan.getComment());
-	}
+        Assert.assertEquals(simplePlan.getLastTestNumber(), LAST_TEST_NUMBER);
 
-	@Test
-	public void testSkipAllPlan() {
-		Assert.assertTrue(skipAllPlan != null);
+        Assert.assertNull(simplePlan.getSkip());
 
-		Assert.assertEquals(skipAllPlan.getInitialTestNumber(),
-		        INITIAL_TEST_NUMBER);
+        Assert.assertFalse(simplePlan.isSkip());
 
-		Assert.assertEquals(skipAllPlan.getLastTestNumber(), LAST_TEST_NUMBER);
+        Assert.assertNotNull(simplePlan.getComment());
+    }
 
-		Assert.assertTrue(skipAllPlan.isSkip());
+    @Test
+    public void testSkipAllPlan() {
+        Assert.assertTrue(skipAllPlan != null);
 
-		Assert.assertNotNull(skipAllPlan.getSkip());
+        Assert.assertEquals(skipAllPlan.getInitialTestNumber(),
+                            INITIAL_TEST_NUMBER);
 
-		Assert.assertEquals(skipAllPlan.getSkip().getReason(),
-		        TestTAPPlan.REASON);
+        Assert.assertEquals(skipAllPlan.getLastTestNumber(), LAST_TEST_NUMBER);
 
-		skipAllPlan = new Plan(skipAllPlan.getInitialTestNumber(),
-		        skipAllPlan.getLastTestNumber(), skipAllPlan.getSkip());
+        Assert.assertTrue(skipAllPlan.isSkip());
 
-		Assert.assertNotNull(skipAllPlan);
+        Assert.assertNotNull(skipAllPlan.getSkip());
 
-		Assert.assertNotNull(skipAllPlan.getSkip());
+        Assert.assertEquals(skipAllPlan.getSkip().getReason(),
+                            TestTAPPlan.REASON);
 
-		Assert.assertEquals(skipAllPlan.getSkip().getReason(), REASON);
-	}
+        skipAllPlan = new Plan(skipAllPlan.getInitialTestNumber(),
+                               skipAllPlan.getLastTestNumber(),
+                               skipAllPlan.getSkip());
 
-	@Test
-	public void testSkip() {
-		SkipPlan skip = skipAllPlan.getSkip();
+        Assert.assertNotNull(skipAllPlan);
 
-		Assert.assertEquals(skip.getReason(), REASON);
-	}
+        Assert.assertNotNull(skipAllPlan.getSkip());
+
+        Assert.assertEquals(skipAllPlan.getSkip().getReason(), REASON);
+    }
+
+    @Test
+    public void testSkip() {
+        SkipPlan skip = skipAllPlan.getSkip();
+
+        Assert.assertEquals(skip.getReason(), REASON);
+    }
 
 }

@@ -30,43 +30,43 @@ package org.tap4j.model;
  * @since 1.0
  */
 public class Comment extends TapResult {
+
     private static final long serialVersionUID = 6694406960961188778L;
 
     /**
-	 * Comment text.
-	 */
-	private final String text;
-	
-	/**
-	 * Whether the comment is inline or not.
-	 */
-	private boolean inline;
+     * Comment text.
+     */
+    private final String text;
 
-	/**
-	 * Constructor with text. A comment must always have a text.
-	 * 
-	 * @param text
-	 *            Text of the comment.
-	 */
-	public Comment(String text) {
-		super();
-		this.text = text;
-	}
+    /**
+     * Whether the comment is inline or not.
+     */
+    private boolean inline;
 
-	/**
-	 * @return Comment text.
-	 */
-	public String getText() {
-		return this.text;
-	}
-	
-	/**
+    /**
+     * Constructor with text. A comment must always have a text.
+     * 
+     * @param text Text of the comment.
+     */
+    public Comment(String text) {
+        super();
+        this.text = text;
+    }
+
+    /**
+     * @return Comment text.
+     */
+    public String getText() {
+        return this.text;
+    }
+
+    /**
      * @return the inline
      */
     public boolean isInline() {
         return inline;
     }
-    
+
     /**
      * @param inline the inline to set
      */

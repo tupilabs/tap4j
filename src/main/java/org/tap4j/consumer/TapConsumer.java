@@ -36,38 +36,36 @@ import org.tap4j.parser.Parser;
  */
 public interface TapConsumer {
 
-	/**
-	 * Parses a TAP File.
-	 * 
-	 * @param file
-	 *            TAP File.
-	 * @return TestSet
-	 * @throws TapConsumerException
-	 */
-	TestSet load(File file);
+    /**
+     * Parses a TAP File.
+     * 
+     * @param file TAP File.
+     * @return TestSet
+     * @throws TapConsumerException
+     */
+    TestSet load(File file);
 
-	/**
-	 * Parses a TAP Stream.
-	 * 
-	 * @param tapStream
-	 *            TAP Stream
-	 * @return TestSet
-	 * @throws TapConsumerException
-	 */
-	TestSet load(String tapStream);
+    /**
+     * Parses a TAP Stream.
+     * 
+     * @param tapStream TAP Stream
+     * @return TestSet
+     * @throws TapConsumerException
+     */
+    TestSet load(String tapStream);
 
-	/**
-	 * Returns the TestSet resulted from parsing a TAP File or TAP Stream.
-	 * 
-	 * @return TestSet
-	 */
-	TestSet getTestSet();
+    /**
+     * Returns the TestSet resulted from parsing a TAP File or TAP Stream.
+     * 
+     * @return TestSet
+     */
+    TestSet getTestSet();
 
-	/**
-	 * Returns the Parser used in the Consumer.
-	 * 
-	 * @return Parser
-	 */
-	Parser getParser();
+    /**
+     * Returns the Parser used in the Consumer.
+     * 
+     * @return Parser
+     */
+    Parser getParser();
 
 }

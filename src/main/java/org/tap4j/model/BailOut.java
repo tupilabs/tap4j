@@ -31,49 +31,48 @@ package org.tap4j.model;
  * @since 1.0
  */
 public class BailOut extends TapResult {
-	private static final long serialVersionUID = -354950715195034445L;
 
-	/**
-	 * Reason to Bail Out.
-	 */
-	private String reason;
+    private static final long serialVersionUID = -354950715195034445L;
 
-	/**
-	 * Optional comment.
-	 */
-	private Comment comment;
+    /**
+     * Reason to Bail Out.
+     */
+    private String reason;
 
-	/**
-	 * Constructor with parameter.
-	 * 
-	 * @param reason
-	 *            Reason to Bail Out.
-	 */
-	public BailOut(String reason) {
-		super();
-		this.reason = reason;
-	}
+    /**
+     * Optional comment.
+     */
+    private Comment comment;
 
-	/**
-	 * @return Reason to Bail Out.
-	 */
-	public String getReason() {
-		return this.reason;
-	}
+    /**
+     * Constructor with parameter.
+     * 
+     * @param reason Reason to Bail Out.
+     */
+    public BailOut(String reason) {
+        super();
+        this.reason = reason;
+    }
 
-	/**
-	 * @return Bail Out comment.
-	 */
-	public Comment getComment() {
-		return this.comment;
-	}
+    /**
+     * @return Reason to Bail Out.
+     */
+    public String getReason() {
+        return this.reason;
+    }
 
-	/**
-	 * @param comment
-	 *            Bail Out comment.
-	 */
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
+    /**
+     * @return Bail Out comment.
+     */
+    public Comment getComment() {
+        return this.comment;
+    }
+
+    /**
+     * @param comment Bail Out comment.
+     */
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
 }

@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
-		<version>5</version>
+		<version>7</version>
 	</parent>
 
 	<organization>
@@ -33,20 +33,20 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git://github.com/kinow/tap4j.git</connection>
-		<developerConnection>scm:git:git@github.com:kinow/tap4j.git</developerConnection>
-		<url>http://github.com/kinow/tap4j</url>
+		<connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
+		<developerConnection>scm:git:git@github.com:tupilabs/tap4j.git</developerConnection>
+		<url>https://github.com/tupilabs/tap4j</url>
 	</scm>
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://tap4j.ci.cloudbees.com/</url>
+		<url>https://buildhive.cloudbees.com/job/tupilabs/job/tap4j/</url>
 	</ciManagement>
 	<inceptionYear>2010</inceptionYear>
 
 	<issueManagement>
-		<system>SourceForge.net</system>
-		<url>http://sourceforge.net/tracker/?group_id=351793</url>
+		<system>GitHub</system>
+		<url>https://github.com/tupilabs/tap4j/issues</url>
 	</issueManagement>
 
 	<developers>

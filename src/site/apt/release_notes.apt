@@ -1,5 +1,15 @@
 Release Notes
 
+* Version 3.2
+
+ * Code clean up
+ 
+ * TestNG upgraded to latest version
+ 
+ * Adjustments in TestNG extension code for compatibility
+ 
+ * JUnit upgraded to latest version
+
 * Version 3.0
  
  * 3525607 - Added support to comment diagnostics

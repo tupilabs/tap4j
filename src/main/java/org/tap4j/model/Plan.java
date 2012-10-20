@@ -28,11 +28,13 @@ package org.tap4j.model;
  * initial test number, last test number, flag to skip all tests and a reason
  * for this.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Plan extends AbstractTapElementDiagnostic {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 8517740981464132024L;
 
     /**

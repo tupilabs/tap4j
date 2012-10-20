@@ -46,16 +46,14 @@ import org.testng.internal.ResultMap;
 /**
  * Utility class with methods to support TAP generation with TestNG.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @author Cesar Fernandes de Almeida
  * @since 1.1
  */
-public final class TestNGTAPUtils {
+public final class TestNGTapUtils {
 
     /**
      * Hidden constructor.
      */
-    private TestNGTAPUtils() {
+    private TestNGTapUtils() {
         super();
     }
 
@@ -81,10 +79,10 @@ public final class TestNGTAPUtils {
         String testResultDescription = generateTAPTestResultDescription(testResult);
         tapTestResult.setDescription(testResultDescription);
 
-        TestNGTAPUtils.setTapTestResultStatus(tapTestResult,
+        TestNGTapUtils.setTapTestResultStatus(tapTestResult,
                                               testResult.getStatus());
 
-        TestNGTAPUtils.createTestNGYAMLishData(tapTestResult, testResult);
+        TestNGTapUtils.createTestNGYAMLishData(tapTestResult, testResult);
 
         return tapTestResult;
     }
@@ -348,19 +346,11 @@ public final class TestNGTAPUtils {
                 }
             }
             if (!exists) {
-                ITestResult skippedTestResult = new org.testng.internal.TestResult(
-                                                                                   methodInCtx
-                                                                                       .getTestClass(),
-                                                                                   methodInCtx
-                                                                                       .getInstances(),
-                                                                                   methodInCtx,
-                                                                                   null,
-                                                                                   testContext
-                                                                                       .getStartDate()
-                                                                                       .getTime(),
-                                                                                   testContext
-                                                                                       .getEndDate()
-                                                                                       .getTime());
+                ITestResult skippedTestResult = 
+                        new org.testng.internal.TestResult(methodInCtx.getTestClass(),
+                             methodInCtx.getInstances(), methodInCtx, null, 
+                             testContext.getStartDate().getTime(), testContext.getEndDate().getTime(), 
+                             testContext);
                 skippedTestResult.setStatus(ITestResult.SKIP);
                 total.addResult(skippedTestResult, methodInCtx);
             }
@@ -412,8 +402,8 @@ public final class TestNGTAPUtils {
         final Set<String> attrsNames = ctx.getAttributeNames();
         for (String attr : attrsNames) {
             Object o = ctx.getAttribute(attr);
-            if (o instanceof TAPAttribute) {
-                TAPAttribute tapAttr = (TAPAttribute) o;
+            if (o instanceof TapAttribute) {
+                TapAttribute tapAttr = (TapAttribute) o;
                 ITestNGMethod testNGMethod = tr.getMethod();
                 Method method = testNGMethod.getMethod();
                 if (method == tapAttr.getMethod()) {

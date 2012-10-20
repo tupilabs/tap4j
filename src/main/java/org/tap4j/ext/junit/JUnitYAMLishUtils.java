@@ -35,7 +35,8 @@ import org.junit.runner.Description;
 import org.yaml.snakeyaml.DumperOptions.LineBreak;
 
 /**
- * @author Cesar Fernandes de Almeida
+ * JUnit YAMLish utility class.
+ * 
  * @since 1.4.3
  */
 public final class JUnitYAMLishUtils {

@@ -24,21 +24,28 @@
 package org.tap4j.producer;
 
 /**
+ * Runtime exception used by TAP producers.
+ * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class ProducerException extends RuntimeException {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 5579591125440097408L;
 
     /**
-	 * 
+	 * Default constructor.
 	 */
     public ProducerException() {
         super();
     }
 
     /**
+     * Constructor with parameter.
+     * 
      * @param message
      */
     public ProducerException(String message) {

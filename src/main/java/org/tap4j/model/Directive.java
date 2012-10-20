@@ -30,11 +30,13 @@ import org.tap4j.util.DirectiveValues;
 /**
  * Represents a Test Directive. Usually it would be a TO DO or SKIP directive.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Directive implements Serializable {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 8183935213177175225L;
 
     /**

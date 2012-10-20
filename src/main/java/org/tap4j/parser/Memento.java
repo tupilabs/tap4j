@@ -27,9 +27,9 @@ import org.tap4j.model.TapElement;
 import org.tap4j.model.TestSet;
 
 /**
- * Memento for parsers.
+ * Memento for parsers. Stores information about a parser in certain moment 
+ * of the parsing method.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.0
  */
 public class Memento {

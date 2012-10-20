@@ -48,11 +48,11 @@ import org.testng.ITestResult;
 import org.testng.xml.XmlSuite;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @author Cesar Fernandes de Almeida
- * @since 03/01/2011
+ * A TestNG suite TAP reporter.
+ * 
+ * @since 1.0
  */
-public class SuiteTAPReporter implements IReporter {
+public class SuiteTapReporter implements IReporter {
 
     private final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
 
@@ -109,7 +109,7 @@ public class SuiteTAPReporter implements IReporter {
                     .get(testResultClass);
 
                 for (ITestResult testResult : testResults) {
-                    TestResult tapTestResult = TestNGTAPUtils
+                    TestResult tapTestResult = TestNGTapUtils
                         .generateTAPTestResult(testResult,
                                                testSet.getNumberOfTestResults() + 1);
                     testSet.addTestResult(tapTestResult);
@@ -156,7 +156,7 @@ public class SuiteTAPReporter implements IReporter {
                             testSet.setPlan(new Plan(totalTestResultsByGroup));
 
                             for (ITestResult testResult : groupTestResults) {
-                                TestResult tapTestResult = TestNGTAPUtils
+                                TestResult tapTestResult = TestNGTapUtils
                                     .generateTAPTestResult(testResult, testSet
                                         .getNumberOfTestResults() + 1);
                                 testSet.addTestResult(tapTestResult);
@@ -227,7 +227,7 @@ public class SuiteTAPReporter implements IReporter {
     public void generateClasses(XmlSuite xmlSuite, ISuite suite) {
         if (suite.getResults().size() > 0) {
             for (ISuiteResult suiteResult : suite.getResults().values()) {
-                List<ITestResult> testResults = TestNGTAPUtils
+                List<ITestResult> testResults = TestNGTapUtils
                     .getTestNGResultsOrderedByExecutionDate(suiteResult
                         .getTestContext());
 
@@ -258,7 +258,7 @@ public class SuiteTAPReporter implements IReporter {
                                                Map<String, Collection<ITestNGMethod>> groups) {
         if (suite.getResults().size() > 0) {
             for (ISuiteResult suiteResult : suite.getResults().values()) {
-                List<ITestResult> testResults = TestNGTAPUtils
+                List<ITestResult> testResults = TestNGTapUtils
                     .getTestNGResultsOrderedByExecutionDate(suiteResult
                         .getTestContext());
 

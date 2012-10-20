@@ -26,13 +26,14 @@ package org.tap4j.representer;
 import org.tap4j.model.TestSet;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * Responsible for knowing how to represent a TestSet as String.
+ * 
  * @since 1.0
  */
 public interface Representer {
 
     /**
-     * Class responsible for knowing how to represent a TestSet as String.
+     * Get Test Set as text.
      * 
      * @param testSet TestSet
      * @return TestSet represented as String

@@ -43,13 +43,20 @@ import org.yaml.snakeyaml.DumperOptions.LineBreak;
 import org.yaml.snakeyaml.Yaml;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * A TAP 13 representer.
+ * 
  * @since 1.0
  */
 public class Tap13Representer implements Representer {
 
+    /**
+     * Line separator.
+     */
     private static final CharSequence LINE_SEPARATOR = "\n";
 
+    /**
+     * Dumper options.
+     */
     private org.tap4j.representer.DumperOptions options;
 
     /**

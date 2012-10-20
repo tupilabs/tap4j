@@ -50,7 +50,8 @@ import org.yaml.snakeyaml.JavaBeanLoader;
 import org.yaml.snakeyaml.reader.UnicodeReader;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TestNG YAMLish utility class.
+ * 
  * @since 1.0
  */
 @SuppressWarnings("unchecked") // TODO: explain why this can be unchecked

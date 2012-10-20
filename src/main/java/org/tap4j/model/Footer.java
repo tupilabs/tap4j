@@ -28,11 +28,13 @@ package org.tap4j.model;
  * line with some text. In the very beginning there is a 'TAP' token and then
  * the text. For instance, 'TAP done' is a valid Footer.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Footer extends AbstractTapElementDiagnostic {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 6941329821890027928L;
 
     /**

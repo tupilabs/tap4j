@@ -26,7 +26,8 @@ package org.tap4j.ext.junit;
 import org.junit.runner.Description;
 
 /**
- * @author Cesar Fernandes de Almeida
+ * JUnit test data.
+ * 
  * @since 1.4.3
  */
 public class JUnitTestData {

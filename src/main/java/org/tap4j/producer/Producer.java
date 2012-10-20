@@ -32,7 +32,6 @@ import org.tap4j.representer.Representer;
 /**
  * Produces a TAP Stream.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public interface Producer {

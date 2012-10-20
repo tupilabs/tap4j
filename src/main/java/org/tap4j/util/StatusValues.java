@@ -27,14 +27,25 @@ package org.tap4j.util;
  * Test Status. Valid values are OK and NOT OK, represent respectively "ok" and
  * "not ok".
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public enum StatusValues {
+    
+    /*
+     * Valid values.
+     */
     OK("ok"), NOT_OK("not ok");
 
+    /**
+     * Status value.
+     */
     private String textValue;
 
+    /**
+     * Constructor with parameter.
+     * 
+     * @param textValue
+     */
     StatusValues(String textValue) {
         this.textValue = textValue;
     }
@@ -47,4 +58,5 @@ public enum StatusValues {
     public String toString() {
         return this.textValue;
     }
+    
 }

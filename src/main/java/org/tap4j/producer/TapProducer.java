@@ -34,18 +34,30 @@ import org.tap4j.representer.RepresenterException;
 import org.tap4j.representer.Tap13Representer;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP Producer is responsible for writing the TAP Stream onto some media.
+ * 
  * @since 1.0
  */
 public class TapProducer implements Producer {
 
+    /**
+     * Represents the TAP Stream.
+     */
     private Representer representer;
 
+    /**
+     * Default constructor.
+     */
     public TapProducer() {
         super();
         representer = new Tap13Representer();
     }
 
+    /**
+     * Constructor with parameter.
+     * 
+     * @param representer
+     */
     public TapProducer(Representer representer) {
         this.representer = representer;
     }

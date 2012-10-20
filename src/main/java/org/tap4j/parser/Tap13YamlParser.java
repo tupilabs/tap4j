@@ -47,7 +47,8 @@ import org.tap4j.util.StatusValues;
 import org.yaml.snakeyaml.Yaml;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP 13 parser with support to YAML.
+ * 
  * @since 1.0
  */
 public class Tap13YamlParser implements Parser {
@@ -112,7 +113,7 @@ public class Tap13YamlParser implements Parser {
     }
 
     /**
-     * 
+     * Save the parser memento.
      */
     private void saveMemento() {
         Memento memento = new Memento();
@@ -128,7 +129,7 @@ public class Tap13YamlParser implements Parser {
     }
 
     /**
-     * 
+     * Load the parser memento.
      */
     private void loadMemento() {
         Memento memento = this.mementos.pop();

@@ -42,7 +42,6 @@ import org.tap4j.producer.TapProducer;
  * Listener implemented to generate a tap file with the testes results for every
  * class, suite and method tested
  * 
- * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
 public class JUnitTestTapReporter extends RunListener {
@@ -140,7 +139,7 @@ public class JUnitTestTapReporter extends RunListener {
      */
     protected void generateTapPerMethod(Result result) {
         for (JUnitTestData testMethod : testMethodsList) {
-            TestResult tapTestResult = JUnitTAPUtils
+            TestResult tapTestResult = JUnitTapUtils
                 .generateTAPTestResult(testMethod, 1);
 
             TestSet testSet = new TestSet();
@@ -183,7 +182,7 @@ public class JUnitTestTapReporter extends RunListener {
                 testSet = new TestSet();
                 methodsSizeList = 0;
             }
-            TestResult tapTestResult = JUnitTAPUtils
+            TestResult tapTestResult = JUnitTapUtils
                 .generateTAPTestResult(testMethod, 1);
             testSet.addTestResult(tapTestResult);
             methodsSizeList++;
@@ -210,7 +209,7 @@ public class JUnitTestTapReporter extends RunListener {
             className = JUnitYAMLishUtils.extractClassName(testMethod
                 .getDescription());
 
-            TestResult tapTestResult = JUnitTAPUtils
+            TestResult tapTestResult = JUnitTapUtils
                 .generateTAPTestResult(testMethod, 1);
             testSet.addTestResult(tapTestResult);
         }

@@ -27,13 +27,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * TAP Element that supports diagnostic information.
+ * TAP Element that supports diagnostic information. The diagnostics is a map 
+ * containing the YAMLish extra information of a test.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public abstract class AbstractTapElementDiagnostic implements TapElement {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 8568950679698773071L;
 
     /**

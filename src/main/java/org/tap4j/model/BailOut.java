@@ -27,11 +27,13 @@ package org.tap4j.model;
  * Represents a Bail Out TAP Line. The test execution should be suspended if
  * there is a Bail Out.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class BailOut extends TapResult {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -354950715195034445L;
 
     /**
@@ -55,6 +57,8 @@ public class BailOut extends TapResult {
     }
 
     /**
+     * Get the reason for bailing out.
+     * 
      * @return Reason to Bail Out.
      */
     public String getReason() {
@@ -62,6 +66,8 @@ public class BailOut extends TapResult {
     }
 
     /**
+     * Get the comment.
+     * 
      * @return Bail Out comment.
      */
     public Comment getComment() {
@@ -69,6 +75,8 @@ public class BailOut extends TapResult {
     }
 
     /**
+     * Set the comment.
+     * 
      * @param comment Bail Out comment.
      */
     public void setComment(Comment comment) {

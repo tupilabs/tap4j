@@ -24,20 +24,37 @@
 package org.tap4j.util;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP versions.
+ * 
  * @since 1.0
  */
 public enum TapVersionValues {
 
+    /*
+     * Valid values.
+     */
     TAP_1(1), TAP_2(2), TAP_3(3), TAP_4(4), TAP_5(5), TAP_6(6), TAP_7(7),
     TAP_8(8), TAP_9(9), TAP_10(10), TAP_11(11), TAP_12(12), TAP_13(13);
 
+    /**
+     * The TAP version.
+     */
     private Integer version;
 
+    /**
+     * Constructor with parameter.
+     * 
+     * @param version
+     */
     TapVersionValues(Integer version) {
         this.version = version;
     }
 
+    /**
+     * Get the TAP version value.
+     * 
+     * @return TAP version value
+     */
     public Integer getValue() {
         return this.version;
     }

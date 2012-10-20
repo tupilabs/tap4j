@@ -29,7 +29,8 @@ import java.util.regex.Pattern;
 import org.tap4j.model.TestSet;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP regex parser.
+ * 
  * @since 1.0
  */
 public interface Parser {

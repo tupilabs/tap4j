@@ -34,12 +34,16 @@ import org.testng.ITestResult;
 import org.testng.internal.ResultMap;
 
 /**
- * @author Cesar Fernandes de Almeida
+ * JUnit TAP extention utility class.
+ * 
  * @since 1.4.3
  */
-final class JUnitTAPUtils {
+final class JUnitTapUtils {
 
-    private JUnitTAPUtils() {
+    /**
+     * Default constructor.
+     */
+    private JUnitTapUtils() {
         super();
     }
 

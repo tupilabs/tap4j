@@ -37,7 +37,6 @@ import org.tap4j.util.StatusValues;
 /**
  * TAP JUnit representer. Outputs Junit XML.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.1
  */
 public class TapJunitRepresenter implements Representer {

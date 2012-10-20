@@ -42,12 +42,11 @@ import org.testng.TestListenerAdapter;
 import org.testng.internal.ResultMap;
 
 /**
- * This class implements a TAP reporter for individual tests.
+ * A TestNG test reporter.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br, January 3, 2010
- * @since January 3, 2010
+ * @since 1.0
  */
-public class TestTAPReporter extends TestListenerAdapter {
+public class TestTapReporter extends TestListenerAdapter {
 
     private final ResultMap resultMap = new ResultMap();
 
@@ -77,7 +76,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     @Override
     public void onTestSuccess(ITestResult tr) {
-        TestNGTAPUtils.fillAttributes(tr, ctx);
+        TestNGTapUtils.fillAttributes(tr, ctx);
 
         resultMap.addResult(tr, tr.getMethod());
     }
@@ -88,7 +87,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     @Override
     public void onTestFailure(ITestResult tr) {
-        TestNGTAPUtils.fillAttributes(tr, ctx);
+        TestNGTapUtils.fillAttributes(tr, ctx);
 
         resultMap.addResult(tr, tr.getMethod());
     }
@@ -99,7 +98,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     @Override
     public void onTestSkipped(ITestResult tr) {
-        TestNGTAPUtils.fillAttributes(tr, ctx);
+        TestNGTapUtils.fillAttributes(tr, ctx);
 
         resultMap.addResult(tr, tr.getMethod());
     }
@@ -112,7 +111,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      */
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult tr) {
-        TestNGTAPUtils.fillAttributes(tr, ctx);
+        TestNGTapUtils.fillAttributes(tr, ctx);
 
         resultMap.addResult(tr, tr.getMethod());
     }
@@ -134,7 +133,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      * @param testContext
      */
     protected void generateTAPPerClass(ITestContext testContext) {
-        List<ITestResult> testNGTestResults = TestNGTAPUtils
+        List<ITestResult> testNGTestResults = TestNGTapUtils
             .getTestNGResultsOrderedByExecutionDate(this.resultMap);
 
         for (ITestResult testResult : testNGTestResults) {
@@ -158,7 +157,7 @@ public class TestTAPReporter extends TestListenerAdapter {
             testSet.setPlan(new Plan(testResults.size()));
 
             for (ITestResult testResult : testResults) {
-                TestResult tapTestResult = TestNGTAPUtils
+                TestResult tapTestResult = TestNGTapUtils
                     .generateTAPTestResult(testResult,
                                            testSet.getNumberOfTestResults() + 1);
                 testSet.addTestResult(tapTestResult);
@@ -176,7 +175,7 @@ public class TestTAPReporter extends TestListenerAdapter {
      * @param testContext
      */
     protected void generateTAPPerMethod(ITestContext testContext) {
-        List<ITestResult> testNGTestResults = TestNGTAPUtils
+        List<ITestResult> testNGTestResults = TestNGTapUtils
             .getTestNGResultsOrderedByExecutionDate(resultMap);
 
         for (ITestResult testResult : testNGTestResults) {
@@ -201,7 +200,7 @@ public class TestTAPReporter extends TestListenerAdapter {
             testSet.setPlan(new Plan(testResults.size()));
 
             for (ITestResult testResult : testResults) {
-                TestResult tapTestResult = TestNGTAPUtils
+                TestResult tapTestResult = TestNGTapUtils
                     .generateTAPTestResult(testResult,
                                            testSet.getNumberOfTestResults() + 1);
                 testSet.addTestResult(tapTestResult);

@@ -24,21 +24,27 @@
 package org.tap4j.parser;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * Exception thrown by parsers.
+ * 
  * @since 1.0
  */
 public class ParserException extends RuntimeException {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 8375457492239728975L;
 
     /**
-	 * 
+	 * Default constructor.
 	 */
     public ParserException() {
         super();
     }
 
     /**
+     * Constructor with parameter.
+     * 
      * @param message
      * @param cause
      */

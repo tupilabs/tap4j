@@ -33,11 +33,13 @@ import org.tap4j.util.StatusValues;
  * A Test Set is the top element in a TAP File. It holds references to the
  * Header, Plan, List of Test Results and the rest of elements in TAP spec.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class TestSet implements Serializable {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 114777557084672201L;
 
     /**
@@ -123,6 +125,13 @@ public class TestSet implements Serializable {
      */
     public List<TestResult> getTestResults() {
         return this.testResults;
+    }
+    
+    /**
+     * @return Next test number.
+     */
+    public int getNextTestNumber() {
+        return (this.testResults.size() + 1);
     }
 
     /**
@@ -355,13 +364,6 @@ public class TestSet implements Serializable {
         }
 
         return foundTestResult;
-    }
-
-    /**
-     * @return Next test number.
-     */
-    public int getNextTestNumber() {
-        return (this.testResults.size() + 1);
     }
 
 }

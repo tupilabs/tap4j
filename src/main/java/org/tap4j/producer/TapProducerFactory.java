@@ -29,7 +29,6 @@ import org.tap4j.representer.TapJunitRepresenter;
 /**
  * Factory class to produce TAP Producers.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.1
  */
 public class TapProducerFactory {

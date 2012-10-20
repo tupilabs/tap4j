@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.tap4j.ext.testng.TestTAPReporter;
+import org.tap4j.ext.testng.TestTapReporter;
 import org.tap4j.model.Directive;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
@@ -46,7 +46,7 @@ import com.google.inject.Inject;
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.4.6
  */
-@Listeners(TestTAPReporter.class)
+@Listeners(TestTapReporter.class)
 @Guice(modules = {
     TapPerlIntegrationModule.class
 })

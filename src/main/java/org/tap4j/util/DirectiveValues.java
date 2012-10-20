@@ -28,14 +28,25 @@ package org.tap4j.util;
  * "SKIP" and "TOD O". (Extra space added purposefully to avoid task scanning
  * problems).
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public enum DirectiveValues {
+    
+    /*
+     * Valid values.
+     */
     SKIP("SKIP"), TODO("TODO");
 
+    /**
+     * The text of the directive.
+     */
     private String textValue;
 
+    /**
+     * Constructor with parameter.
+     * 
+     * @param textValue
+     */
     DirectiveValues(String textValue) {
         this.textValue = textValue;
     }

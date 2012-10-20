@@ -26,11 +26,13 @@ package org.tap4j.model;
 /**
  * A TAP Comment. In TAP files the comments have a # before the text.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Comment extends TapResult {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 6694406960961188778L;
 
     /**

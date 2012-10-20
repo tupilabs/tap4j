@@ -42,7 +42,8 @@ import org.tap4j.util.DirectiveValues;
 import org.tap4j.util.StatusValues;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP 13 parser.
+ * 
  * @since 1.0
  */
 public class Tap13Parser implements Parser {

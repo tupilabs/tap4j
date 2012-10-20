@@ -28,11 +28,13 @@ package org.tap4j.model;
  * the TAP Consumer. Used only for debugging, customization or back
  * compatibility.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Text extends TapResult {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 5408008204269040841L;
 
     /**

@@ -24,7 +24,8 @@
 package org.tap4j.representer;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * Options used by a representer.
+ * 
  * @since 0.1
  */
 public class DumperOptions {

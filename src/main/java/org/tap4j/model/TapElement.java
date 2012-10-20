@@ -27,9 +27,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Any element that belongs to TAP.
+ * A TAP element.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public interface TapElement extends Serializable {

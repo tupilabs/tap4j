@@ -14,8 +14,8 @@
 	</parent>
 
 	<organization>
-		<name>tap4j</name>
-		<url>http://www.tap4j.org</url>
+		<name>TupiLabs</name>
+		<url>http://www.tupilabs.com</url>
 	</organization>
 
 	<properties>
@@ -265,13 +265,13 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.0</version>
+			<version>6.8</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
-			<version>1.7</version>
+			<version>1.11</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -292,7 +292,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.0</version>
+			<version>4.10</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

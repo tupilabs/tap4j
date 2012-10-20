@@ -28,11 +28,13 @@ package org.tap4j.model;
  * only thing that can precede the Header are comments. However a Header is not
  * required in a TAP File (i.e. the Header is optional).
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class Header extends AbstractTapElementDiagnostic {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -3823455733333632836L;
 
     /**

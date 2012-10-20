@@ -31,7 +31,6 @@ import org.tap4j.parser.Parser;
 /**
  * TAP Consumer is the responsible for generating the TAP Stream.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public interface TapConsumer {

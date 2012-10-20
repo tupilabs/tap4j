@@ -26,11 +26,15 @@ package org.tap4j.model;
 import java.io.Serializable;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * TAP element for a plan that is skipped.
+ * 
  * @since 1.0
  */
 public class SkipPlan implements Serializable {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = 9108007596777603763L;
 
     /**

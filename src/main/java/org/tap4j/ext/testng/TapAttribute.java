@@ -27,22 +27,35 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * A TAP attribute used by TestNG extension. This attribute is 
+ * linked to a method.
+ * 
  * @since 1.0
  */
-public class TAPAttribute implements Serializable {
+public class TapAttribute implements Serializable {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -6479674325095714937L;
 
+    /**
+     * A method.
+     */
     private Method method;
 
+    /**
+     * Any value to be persisted in the TAP Stream.
+     */
     private Object value;
 
     /**
+     * Constructor with parameters.
+     * 
      * @param method
      * @param value
      */
-    public TAPAttribute(Method method, Object value) {
+    public TapAttribute(Method method, Object value) {
         super();
         this.method = method;
         this.value = value;

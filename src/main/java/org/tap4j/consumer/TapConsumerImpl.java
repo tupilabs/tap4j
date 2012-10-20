@@ -31,24 +31,40 @@ import org.tap4j.parser.ParserException;
 import org.tap4j.parser.Tap13Parser;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * Implementation of a TAP Consumer. It can use different TAP parsers. The 
+ * parser can change the behaviour of the consumer, as the latter delegates 
+ * the parsing and TAP model loading to the former.
+ * 
  * @since 1.0
  */
 public class TapConsumerImpl implements TapConsumer {
-
+    
+    /**
+     * TAP parser.
+     */
     private final Parser parser;
-
+    
+    /**
+     * TAP Test Set.
+     */
     private TestSet testSet;
-
+    
+    /**
+     * Default constructor.
+     */
     public TapConsumerImpl() {
         parser = new Tap13Parser();
         testSet = new TestSet();
     }
-
+    
+    /**
+     * Constructor with a parser.
+     * @param parser a parser
+     */
     public TapConsumerImpl(Parser parser) {
         this.parser = parser;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see org.tap4j.consumer.TapConsumer#getTestSet()
@@ -56,7 +72,7 @@ public class TapConsumerImpl implements TapConsumer {
     public TestSet getTestSet() {
         return this.testSet;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see org.tap4j.consumer.TapConsumer#load(java.io.File)
@@ -68,10 +84,9 @@ public class TapConsumerImpl implements TapConsumer {
             throw new TapConsumerException("Failed to parse file " + file +
                                            ": " + e.getMessage(), e);
         }
-
         return this.testSet;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see org.tap4j.consumer.TapConsumer#load(java.lang.String)
@@ -83,10 +98,9 @@ public class TapConsumerImpl implements TapConsumer {
             throw new TapConsumerException("Failed to parse TAP Stream " +
                                            tapStream + ": " + e.getMessage(), e);
         }
-
         return this.testSet;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see org.tap4j.consumer.TapConsumer#getParser()

@@ -29,13 +29,15 @@ import java.util.List;
 import org.tap4j.util.StatusValues;
 
 /**
- * A simple test result. Valid values are OK and NOT OK.
+ * A simple test result. Valid values are <em>OK</em> and <em>NOT OK</em>.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class TestResult extends TapResult {
 
+    /*
+     * Serial Version UID.
+     */
     private static final long serialVersionUID = -2735372334488828166L;
 
     /**

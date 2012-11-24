@@ -90,10 +90,26 @@ public class Tap13YamlParser implements Parser {
     private Yaml yaml;
 
     private StringBuilder diagnosticBuffer;
+    
+    // TODO rethink it later. Part of initial tap4j code was based in snakeyaml 
+    // and written in a hurry. A parser is created with no ways to alter is 
+    // behaviour, so you have to create new parsers when you have to do so.
+    private final boolean subtestsEnabled;
 
     public Tap13YamlParser() {
         super();
         this.init();
+        subtestsEnabled = true; // default behaviour
+    }
+    
+    /**
+     * 
+     * @param subtestsEnabled flag to disable subtests
+     */
+    public Tap13YamlParser(boolean subtestsEnabled) {
+        super();
+        this.init();
+        this.subtestsEnabled = subtestsEnabled;
     }
 
     /**
@@ -195,7 +211,7 @@ public class Tap13YamlParser implements Parser {
                     } else {
                         // If we are in a different level, but it is not YAML,
                         // Then it must be a subtest! Yay!
-                        if (this.lastParsedElement instanceof TestResult) {
+                        if (this.subtestsEnabled && this.lastParsedElement instanceof TestResult) {
                             indentation = baseIndentationLevel;
                             TestResult lastTestResult = (TestResult) this.lastParsedElement;
                             TestSet newTestSet = new TestSet();

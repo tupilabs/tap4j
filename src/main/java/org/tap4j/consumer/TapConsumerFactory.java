@@ -56,5 +56,14 @@ public final class TapConsumerFactory {
     public static TapConsumer makeTap13YamlConsumer() {
         return new TapConsumerImpl(new Tap13YamlParser());
     }
+    
+    /**
+     * Produces a new TAP version 13 Consumer with YAML diagnostics.
+     * 
+     * @return TAP Consumer with YAML support.
+     */
+    public static TapConsumer makeTap13YamlConsumerWithoutSubtests() {
+        return new TapConsumerImpl(new Tap13YamlParser(false));
+    }
 
 }

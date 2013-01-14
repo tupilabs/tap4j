@@ -1,0 +1,1 @@
+\s*(ok|not ok)\s*(\d+)?\s*([^#]*)?\s*(#\s*(SKIP|skip|TODO|todo)\s*([^#]+))?\s*(#\s*(.*))?

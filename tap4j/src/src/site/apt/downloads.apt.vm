@@ -1,0 +1,22 @@
+Download
+
+  tap4j is a Java API to produce and consume TAP files. 
+  In order to use tap4j in your project simply put its jar in your project build path 
+  and start coding. 
+
+* Maven artifact
+
+  If you are using Maven then you can add a dependency to tap4j. 
+
++---+
+<dependency>
+  <groupid>org.tap4j</groupid>
+  <artifactid>tap4j</artifactid>
+  <version>${project.version}</version>
+</dependency>
++---+
+
+* tap4j jar
+
+  Download tap4j's jar directly from {{{http://sourceforge.net/projects/tap4j/files/}SourceForge}} and add it to your project 
+  build path.

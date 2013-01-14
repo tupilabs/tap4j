@@ -1,0 +1,91 @@
+JUnit support
+
+ We introduced JUnit support in tap4j 1.4.3. There are 2 possible ways to achieve the 
+ integration between tap4j and JUnit. One is creating a customized JUnit RunListener 
+ {{{http://junit.sourceforge.net/javadoc_40/org/junit/runner/notification/RunListener.html}(JUnit RunListener)}}. 
+ The other way is using TestNG xml suites. In both cases it is necessary to add to the 
+ tests execution a Listener provided by tap4j.
+ 
+ Let's speak more about each case. 
+ 
+* Use a JUnit test executor class
+
+ You will need to create an initial test executor class, instantiate a JUnitCore object, 
+ add the JUnitTestTapReporter listener class provided by tap4j and run your tests.
+ 
+ The classes for JUnit are inside org.tap4j.ext.junit package. The class 
+ JUnitTestTapReporter extends RunListener and generates TAP per suite, class and 
+ method. 
+ 
+ Your initial test executor class will look like this.
+
++---+
+package sample;
+
+import junit.framework.TestSuite;
+
+import org.junit.runner.JUnitCore;
+import org.tap4j.ext.junit.JUnitTestTapReporter;
+
+public class RunJUnitSuiteWithListener 
+{
+	public static void main(String[] args) 
+	{
+		// Create a JUnit suite
+		TestSuite suite = new TestSuite();
+		
+		// Add every test class you want to the suite
+		suite.addTestSuite(YourJUnitTestClass1.class);
+		suite.addTestSuite(YourJUnitTestClass2.class);
+		
+		// Instantiate a JUniteCore object
+		JUnitCore core = new JUnitCore();
+		
+		// Add TAP Reporter Listener to the core object executor
+		core.addListener(new JUnitTestTapReporter());
+		
+		// Run the test suite
+		core.run(suite);
+	}
+}
++---+
+
+
+* Command line
+ 
++---+
+java -classpath %CLASSPATH%;junit-4.0.jar;jcommander-1.5.jar;commons-io-1.4.jar;
+guice-2.0.jar;commons-lang-2.5.jar;bsh-2.0b4.jar;snakeyaml-1.7.jar;
+aopalliance-1.0.jar;tap4j-1.4.3.jar;. RunJUnitTestWithListener
++---+
+ 
+ Don't forget to check all the dependencies versions and directory location
+ 
+ 
+* Use TestNG suite xml files to execute your JUnit tests
+ 
+ This is a very good idea because it is easy to implement and works perfectly. 
+ Here, in order to make your JUnit tests speak TAP you just need to create xml 
+ suite files with the tap4j listeners, just like you would do if the tests were 
+ made with TestNG. The only difference is that you need to set the "junit" attribute 
+ inside "<suite>" branch to "true". Really easy no? TestNG takes care of the rest.
+ 
+ So your suite xml file will look like this:
+ 
++---+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="JUnit tests with TestNG suite" verbose="0" parallel="false" junit="true">
+  <listeners>
+    <listener class-name="org.tap4j.ext.testng.SuiteTAPReporter" /> 
+    <listener class-name="org.tap4j.ext.testng.TestTAPReporter" /> 
+  </listeners>
+  <test name="JUnit tests with TestNG suite" preserve-order="false">
+    <classes>
+      <class name="YourJUnitTestClass1"/>
+      <class name="YourJUnitTestClass2"/>
+    </classes>
+  </test>
+</suite> 
++---+ 
+

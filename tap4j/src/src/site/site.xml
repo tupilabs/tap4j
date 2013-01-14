@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="tap4j">
+  <bannerLeft>
+    <name>tap4j</name>
+    <src>images/tap4j-project.png</src>
+    <href>http://sourceforge.net/projects/tap4j/</href>
+    <alt>tap4j</alt>
+  </bannerLeft>
+  <body>
+  
+  	<breadcrumbs>
+  		<item name="Test Anything Protocol" href="http://www.testanything.org" />
+  	</breadcrumbs>
+  
+    <links>
+      <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
+    </links>
+
+    <menu name="Reference">
+      <item name="Introduction" href="index.html"/>
+      <item name="Download" href="downloads.html"/>
+      <item name="Release Notes" href="release_notes.html"/>
+      <item name="Roadmap" href="roadmap.html"/>
+      <item name="FAQ" href="faq.html"/>
+      <item name="Related projects" href="related_projects.html"/>
+    </menu>
+    
+    <menu name="Tutorial">
+      <item name="Using TAP with Java book" href="book/"/>
+      <item name="TAP Consumer" href="tapconsumer.html"/>
+      <item name="TAP Producer" href="tapproducer.html"/>
+      <item name="TAP Directives" href="tapdirectives.html"/>
+      <item name="Subtests" href="subtests.html"/>
+    </menu>
+    
+    <menu name="tap4j Extensions">
+    	<item name="TestNG support" href="testng_support.html"/>
+    	<item name="JUnit support" href="junit_support.html"/>
+    </menu>
+    
+    <menu name="Perl Compatibility">
+    	<item name="Perl Integration tests" href="perl_integration_tests.html"/>
+    </menu>
+
+    <menu ref="reports" />
+
+  </body>
+  
+  <skin>
+      <groupId>org.apache.maven.skins</groupId>
+      <artifactId>maven-fluido-skin</artifactId>
+      <version>1.3.0</version>
+  </skin>
+  
+</project>

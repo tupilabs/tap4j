@@ -1,0 +1,112 @@
+Release Notes
+
+* Version 3.2
+
+ * Code clean up
+ 
+ * TestNG upgraded to latest version
+ 
+ * Adjustments in TestNG extension code for compatibility
+ 
+ * JUnit upgraded to latest version
+
+* Version 3.0
+ 
+ * 3525607 - Added support to comment diagnostics
+ 
+ * 3525603 - Bug fix. Whenever the parser found a simple 'ok', like the one added by done_testing, it would increase the test number by 1
+ 
+ * 3504508 - Added support to subtests
+ 
+ * Code clean up, increasing the quality index measured by Sonar (from 91, to 98.5, FWIW) 
+
+* Version 2.0.7
+
+ * Removed the requirement to have TAP Plan as last element of a TAP Stream
+
+* Version 2.0.6
+
+ * Support JSON within YAMLish
+
+* Version 2.0
+
+ * Migration from br.eti.kinoshita to org.tap4j
+ 
+* Version 1.4.6
+
+ * Added integration tests between tapj and Perl using metatap. 100% passed :-)
+
+* Version 1.4.5
+
+ * Betterment of the TestNG Listeners.
+
+* Version 1.4
+
+ * Added UML to Javadocs
+ 
+ * Separated parser logic from TAP Consumer creating a specific Parser
+ 
+ * Corrected a BUG while parsing the TAP Header (now the Header is not mandatory 
+ anymore
+ 
+ * Added Factories (Design Pattern) to help with the Strategy (DP too) used in 
+ Parser and Emitter.
+ 
+ * Removed unused classes
+ 
+ * Applied PMD, CPD and FindBugs on code to 'clean it'
+ 
+ * Applied Stan4j and fixed a cyclic dependency problem between Parser and Consumer
+ 
+ * Added Serial version ID into model objects
+ 
+ * Removed TestNG *.ext package and classes. Now it will be available separated from the jar release
+ 
+ * Updated Maven Site
+ 
+* Version 1.3
+
+ * Small BUGs fixed
+ 
+ * First integration tests between tap4j and Perl Test::More tool
+
+* Version 1.2
+
+ * Upgrade in DefaultTapCoreProducer
+
+* Version 1.1
+
+ * <<Tap13Consumer>>: This new consumer parses yaml-like TAP diagnostic.
+ 
+ * Added yaml support to <<DefaultTapProducer>>.
+ 
+ * Increased code coverage from 62%/46% (line/branch) up to 95%/80%.
+ 
+ * Fixed minor bugs found whilst increasing code coverage.
+ 
+ * Started to open issues on SF.net Issue Tracker to maintain project history.
+ 
+ * Reduced Cyclomatic Complexity from {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/consumer/Tap13Consumer.html#parseLine(java.lang.String)}Tap13Consumer#parseLine}} that reached 20 back to 10.
+
+ * Added TestNG Support.
+
+* Version 1.0
+
+ * Basic TAP Producers
+
+ 	* <<Default TAP Producer>>: lets the user specify Plan, Test Results, Bailt Outs, 
+ 	Header, Footer and comments. With this producer the user has no restraints on 
+ 	how to create the TAP Stream.
+ 
+ 	* <<Default TAP Core Producer>>: is a simplified version of the TAP producer 
+ 	that outputs only the Test Results status, number and description. You don't 
+ 	need to specify a Plan, as this producer calculates how many test results you 
+ 	added and simply creates a plan from 1..n, where n is the number of test 
+ 	results added.
+ 
+ * <<Basic TAP Consumer>>: Reads a file and matches each line against a REGEX. 
+ If the regex matches than the consumer make a few more checks on position of the 
+ elements as well as duplicity.
+ 
+ * Basic TAP model objects, including Plan, Header, TestResult, Comment, 
+ Bail Out and Footer.

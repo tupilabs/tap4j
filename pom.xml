@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.tap4j</groupId>
+	<artifactId>tap4j-parent</artifactId>
+	<version>3.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>tap4j - parent</name>
+	<description>tap4j parent.</description>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<modules>
+		<module>tap4j</module>
+		<module>tap4j-ext</module>
+	</modules>
+	<url>http://www.tap4j.org</url>
+	<inceptionYear>2010</inceptionYear>
+	<organization>
+		<url>http://www.tupilabs.com</url>
+		<name>TupiLabs</name>
+	</organization>
+</project>

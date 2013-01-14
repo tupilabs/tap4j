@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>tap4j-ext</artifactId>
+    <name>tap4j - Extension utilities</name>
+    <description>TAP extensions for Java.</description>
+
+    <parent>
+        <artifactId>tap4j-parent</artifactId>
+        <relativePath>../pom.xml</relativePath>
+        <version>3.4-SNAPSHOT</version>
+        <groupId>org.tap4j</groupId>
+    </parent>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>3.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.tap4j</groupId>
+        	<artifactId>tap4j</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
+        <developerConnection>scm:git:git@github.com:tupilabs/tap4j.git</developerConnection>
+        <url>https://github.com/tupilabs/tap4j</url>
+    </scm>
+
+</project>

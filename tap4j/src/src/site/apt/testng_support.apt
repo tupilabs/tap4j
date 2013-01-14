@@ -1,0 +1,51 @@
+TestNG support
+
+ We introduced TestNG support in tap4j 1.1. The integration between tap4j and 
+ TestNG is achieved through the use of a TestNG Test Listener 
+ {{{http://testng.org/doc/documentation-main.html#testng-listeners}(TestNG Listeners)}}.
+ 
+ In order to be able to produce tap files with TestNG you have to tell/  
+ TestNG that you will be using a Listener. This can be done through command line, 
+ suite xml file or Test class Listeners Annotation.
+ 
+ The classes for TestNG are inside org.tap4j.ext.testng package. The class 
+ TestTAPReporter extends TestListenerAdapter and generates TAP per class and 
+ per method. The class SuiteTAPReporter implements a IReporter and generates 
+ TAP per Suite and Groups. They were done based on the existing HTML report for TestNG.
+ 
+* Command line
+ 
++---+
+java -classpath %CLASSPATH%;testng.jar;jcommander-1.5.jar;commons-io-1.4.jar;
+guice-2.0.jar;commons-lang-2.5.jar;bsh-2.0b4.jar;snakeyaml-1.7.jar;
+aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG 
+-listener org.tap4j.ext.testng.TestTAPReporter test\testng.xml
++---+
+
+ Don´t forget to check all the dependencies versions and directory location
+
+* TestNG suite xml
+ 
+ Add the following to your TestNG suite xml file in order to produce TAP Streams 
+ within your TestNG tests. Do not forget to add tap4j jar into your  
+ classpath during execution of the tests.
+
++---+
+<suite>
+ 
+  <listeners>
+    <listener class-name="org.tap4j.ext.SuiteTAPReporter" />
+  </listeners>
+ 
+...
++---+
+
+* Listeners Annotation
+ 
+ Add the @Listeners annotation to your Test class.
+ 
++---+
+@Listeners(value={org.tap4j.ext.testng.TestTAPReporter.class})
+public class MyTestClass {
+...
++---+

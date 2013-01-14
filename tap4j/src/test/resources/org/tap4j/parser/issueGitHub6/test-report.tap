@@ -1,0 +1,75 @@
+1..63
+ok 1 Create Search results copies simple attributes
+ok 2 Create Search results creates empty product list for no results
+ok 3 Create Search results creates 1 product list for one results
+ok 4 Create Search results creates multiple product list for more than one result
+ok 5 serviceUrlFor should prepend current site
+ok 6 fullUrlFor should prepend current site
+ok 7 config should return config for supplied site
+ok 8 Middleware should add current site to res locals
+ok 9 Middleware should set locale for i18n correctly
+ok 10 Middleware should set the site to the default if the country is not an allowed country in config
+ok 11 Middleware should set the site to the default if the country is not an allowed country in config and no path
+ok 12 Middleware should set the site to the default if the country is not an allowed country in config and no path or country
+ok 13 Middleware should set the site to the default if the site is not an allowed country in config and use configured url
+ok 14 Middleware should set the site to the one stored in the cookies if no site is set
+ok 15 Create Product get attribute does not have attribute should return null from json
+ok 16 Create Product get attribute does not have attribute for locale or site code should return attribute of product from json
+ok 17 Create Product get attribute has attribute for locale should return attribute with locale of product from json
+ok 18 Create Product get attribute has attribute for site code should return attribute with site code of product from json
+ok 19 Create Product get attribute has attribute for site code and locale together should return attribute with site code and locale of product from json
+ok 20 Create Product get attribute has attribute for site code and locale together and seperate should return attribute with site code and locale of product from json
+ok 21 Create Product get images product should contain one image
+ok 22 Create Product get images product should contain more than one image
+ok 23 Create Product get images product should contain no images
+ok 24 Create Product get related products product should contain one image
+ok 25 Create Product get related products product should contain more than one image
+ok 26 Create Product get related products product should contain no images
+ok 27 Create Product get predefined attribute get product name
+ok 28 Create Product get predefined attribute get product name with locale and site code
+ok 29 Create Product get predefined attribute get product description
+ok 30 Create Product get predefined attribute get product description with locale and site code
+ok 31 Create Product get predefined attribute get product summary
+ok 32 Create Product get predefined attribute get product summary with locale and site code
+ok 33 Filter should return empty list when no filters or query applied
+ok 34 Filter should return query in list when query applied but no filter
+ok 35 Filter should return filter in list when applied but no query
+ok 36 Filter should return filter in list when applied with query
+ok 37 Filter should return 2 filters in list when applied with query
+not ok 38 Calculate offset should return zero for page 1
+  AssertionError: expected 0 to equal 1
+      at Object.Assertion.equal (/XXX/node_modules/should/lib/should.js:304:10)
+      at Context.results.resultsPerPage (XXX/test/pager.js:9:17)
+      at Test.Runnable.run (/usr/lib/node_modules/mocha/lib/runnable.js:184:32)
+      at Runner.runTest (/usr/lib/node_modules/mocha/lib/runner.js:300:10)
+      at Runner.runTests.next (/usr/lib/node_modules/mocha/lib/runner.js:346:12)
+      at next (/usr/lib/node_modules/mocha/lib/runner.js:228:14)
+      at Runner.hooks (/usr/lib/node_modules/mocha/lib/runner.js:237:7)
+      at next (/usr/lib/node_modules/mocha/lib/runner.js:185:23)
+      at Runner.hook (/usr/lib/node_modules/mocha/lib/runner.js:205:5)
+      at process.startup.processNextTick.process._tickCallback (node.js:244:9)
+ok 39 Calculate offset should return one more than resultsPerPage for page 2
+ok 40 Calculate offset should return one more than twice resultsPerPage for page 3
+ok 41 Pager should return empty pager when no results
+ok 42 Pager should return empty pager when number of results less than total
+ok 43 Pager should return empty pager when number of results equal to total
+ok 44 Pager next link should link to the next page if number of results greater than total
+ok 45 Pager next link should not be shown if already on last page
+ok 46 Pager last link should not be shown if already on last page
+ok 47 Pager last link should be correct for full last page of results
+ok 48 Pager last link should be correct for less than full last page of results
+ok 49 Pager prev link should link to previous page if page is not first
+ok 50 Pager first link should link to first page if page is not first
+ok 51 Pager for 1 page of results there should be single step with first page
+ok 52 Pager the current step should be marked current
+ok 53 Pager for 2 pages of results there should be two steps starting with first page
+ok 54 Pager for 2 pages of results on 2nd page there should be two steps starting with first page
+ok 55 Pager for 3 pages of results on 3rd page there should be three steps starting with first page
+ok 56 Pager for 5 pages of results on 5th page there should be four steps starting with second page
+ok 57 Pager for 10 pages of results on 10th page there should be four steps starting with 7th page
+ok 58 Pager for 10 pages of results on 9th page there should be four steps starting with 7th page
+ok 59 Pager link formatting should include query in link
+ok 60 Pager link formatting should include filters in link
+ok 61 Pager link formatting should include multiple filters in link
+ok 62 Pager link formatting should include both query and filters in link
+ok 63 Site Controller should redirect to new site

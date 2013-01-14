@@ -1,0 +1,28 @@
+TAP Consumer
+
+ A TAP Consumer can interpret the output of a TAP Producer to determine how 
+ many tests were run, which tests succeedded, and which dianostic information 
+ might be usefully reported to the user. In tap4j the consumers are created 
+ using the class {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/consumer/TapConsumerFactory.html}TapConsumerFactory}}.
+
++---+
+TapConsumer consumer = TapConsumerFactory.makeTap13Consumer();
++---+
+
+ The consumer interprets a TAP Stream and transforms it into a {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/model/TestSet.html}TestSet}} 
+ object. A TAP Stream consists of one test set. A test set, by its turn, 
+ consists of zero or more test results and exactly one plan. A test set can be 
+ determined to have failed or passed.
+ 
++---+
+TestSet testSet = consumer.load(
+	"1..2\n" + 
+	"ok 1 - no error" + 
+	"not ok 2 - io error"
+);
+System.out.println( "Number of tests found: " + testSet.getNumberOfTestResults() );
+System.out.println( "Test Set failed? " + testSet.containsNotOk() );
++---+ 
+
+ {{{http://testanything.org/wiki/index.php/Testing_with_Java#Reading_TAP_using_a_TAP_Consumer}Reading TAP using a TAP Consumer}} 
+ from {{{http://testanything.org/}Test Anything Protocol Wiki}}.

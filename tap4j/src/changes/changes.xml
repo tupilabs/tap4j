@@ -1,0 +1,54 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>Changes tap4j</title>
+        <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
+    </properties>
+    <body>
+        <release version="3.2" date="2012-11-24" description="3.3 release">
+            <action dev="kinow" type="add">
+                Add subtests.
+            </action>
+        </release>
+        <release version="3.2" date="2012-10-20" description="3.2 release">
+            <action dev="kinow" type="add">
+                Minor code clean up.
+            </action>
+        </release>
+        <release version="3.1" date="2012-06-26" description="3.1 release">
+            <action dev="kinow" type="add">
+                Added a JUnit TAP Representer and a factory for TAP Producers.
+            </action>
+        </release>
+        <!-- the issues prior to this release were in SourceForge.net. Now we are using GitHub. -->
+        <release version="3.0" date="2012-05-10" description="3.0 release">
+            <action dev="kinow" type="fix" issue="3525607">
+                Added support to comment diagnostics
+            </action>
+            <action dev="kinow" type="fix" issue="3525603">
+                Bug fix. Whenever the parser found a simple 'ok', like the one added
+                by done_testing, it would increase the test number by 1
+            </action>
+            <action dev="kinow" type="fix" issue="3504508">
+                Added support to subtests
+            </action>
+            <action dev="kinow" type="add">
+                Code clean up, increasing the quality index measured by Sonar (from 91,
+                to 98.5, FWIW)
+            </action>
+        </release>
+        <release version="2.0.7" date="2012-03-12" description="First release">
+            <action dev="kinow" type="add">
+                Added maven changes plug-in.
+            </action>
+            <action dev="kinow" type="remove">
+                Removed the code that verified if TAP Plan has been set either at the
+                beginning or at the end of the TAP Stream.
+            </action>
+            <action dev="kinow" type="add">
+                Added code to verify if TAP Plan has been set. Added unit tests.
+            </action>
+        </release>
+    </body>
+</document>

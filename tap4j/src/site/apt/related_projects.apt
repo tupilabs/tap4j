@@ -1,0 +1,19 @@
+Related projects
+
+ This page lists projects similar to ours.
+ 
+ * {{{http://testanything.org/wiki/index.php/JTap}JTap}}
+ 
+ * {{{http://code.google.com/p/taps-testing}Taps}}
+ 
+ * {{{http://openjsan.org/doc/t/th/theory/Test/Simple/}Test.Simple}}
+
+ * {{{http://search.cpan.org/~mschwern/Test-Simple-0.96/lib/Test/Builder.pm}Test::Builder}}
+ 
+ * {{{http://search.cpan.org/dist/Test/}Test.pm}} 
+ 
+ * {{{http://git.codesimply.com/?p=PyTAP.git;a=summary}PyTAP}} 
+ 
+ For a more complete list of TAP producers and consumers, check out 
+ {{{http://testanything.org/wiki/index.php/TAP_Producers#tap4j}TAP homepage}}.
+ 

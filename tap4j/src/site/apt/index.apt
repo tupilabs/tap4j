@@ -1,0 +1,53 @@
+tap4j
+
+ tap4j is an implementation of the TAP - <<Test Anything Protocol>> - for <<Java>>. 
+ TAP is a standard way to document test execution. There are two main roles in 
+ TAP, a producer and a consumer.
+
+ The <<TAP Producer>> is responsible for producing a <TAP Stream>. Usually the TAP Stream is written to a file.
+ The following is an example of a TAP Stream.
+
++---+
+1..4
+ok 1 - Input file opened
+not ok 2
+ok 3 - Read the rest of the file
+# Yeah, you can comment your TAP Stream
+not ok 4 - Summarized correctly # TODO Not written yet
++---+
+
+ Test your TAP with {{{http://instanttap.appspot.com/}InstantTAP}}.
+  
+ The <<TAP Consumer>> read and parses a TAP Stream. The user 
+ of the TAP Consumer can then utilize its data to build graphs, integrate 
+ systems, log tests executions or produce cool test reports.
+ 
+[./images/drawing1.jpg] tap4j producer and consumer
+
+ For more detailed documentation see {{{http://www.tap4j.org/book/}Using TAP with Java book}}.
+
+* Open source licenses donated for this project
+
+[./images/stan4j-88x31-o1.png]
+
+ {{{http://stan4j.com}Stan4J}} 
+ 
+[./images/builtonDEV.png]
+ 
+ {{{http://www.cloudbees.com}CloudBees}} 
+ 
+ YourKit is kindly supporting open source projects with its full-featured Java Profiler.
+ 
+ YourKit, LLC is the creator of innovative and intelligent tools for profiling
+ Java and .NET applications. Take a look at YourKit's leading software products:
+ 
+ {{{http://www.yourkit.com/java/profiler/index.jsp}YourKit Java Profiler}} and {{{http://www.yourkit.com/.net/profiler/index.jsp}YourKit .NET Profiler}}.
+ 
+ 
+* Presentations
+
+[./images/JCertif_Conf2011_2.png]
+
+ {{{http://www.jcertif.com}JCertif}} - Make your tests speak TAP, by Bruno P. 
+ Kinoshita. September, 2011 - Brazzaville/Congo. 
+ 

@@ -1,4 +1,0 @@
-1..3
-ok 1 - Time series complete # SKIP skip me please
-not ok 2 - Wrong version in path # skip me too
-ok 3 #skip well, then...

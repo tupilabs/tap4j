@@ -1,28 +1,113 @@
+<?xml version="1.0"?>
+<!-- 
+  The MIT License
+  
+  Copyright (c) 2010 tap4j team (see AUTHORS)
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.tap4j</groupId>
-	<artifactId>tap4j-parent</artifactId>
-	<version>3.4-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>tap4j - parent</name>
-	<description>tap4j parent.</description>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<modules>
-		<module>tap4j</module>
-		<module>tap4j-ext</module>
-	</modules>
-	<url>http://www.tap4j.org</url>
-	<inceptionYear>2010</inceptionYear>
-	<organization>
-		<url>http://www.tupilabs.com</url>
-		<name>TupiLabs</name>
-	</organization>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.tap4j</groupId>
+    <artifactId>tap4j-parent</artifactId>
+    <version>3.4-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>tap4j parent</name>
+    <description>tap4j parent</description>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <modules>
+        <module>tap4j</module>
+        <module>tap4j-ext</module>
+    </modules>
+    <url>http://www.tap4j.org</url>
+    <inceptionYear>2010</inceptionYear>
+    <organization>
+        <url>http://www.tupilabs.com</url>
+        <name>TupiLabs</name>
+    </organization>
+    <developers>
+        <developer>
+            <email>brunodepaulak@yahoo.com.br</email>
+            <id>kinow</id>
+            <name>Bruno P. Kinoshita</name>
+            <timezone>-3</timezone>
+            <url>http://www.kinoshita.eti.br</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <email>cesar.fa@gmail.com</email>
+            <id>cesar1983</id>
+            <name>Cesar Fernandes de Almeida</name>
+            <timezone>-3</timezone>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <email>patl@cpan.org</email>
+            <name>Patrick LeBoutillier</name>
+            <timezone>0</timezone>
+            <roles>
+                <role>contributor</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://buildhive.cloudbees.com/job/tupilabs/job/tap4j/</url>
+    </ciManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/tupilabs/tap4j/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
+        <developerConnection>scm:git:git@github.com:tupilabs/tap4j-parent.git</developerConnection>
+        <url>https://github.com/tupilabs/tap4j</url>
+    </scm>
+    <profiles>
+        <profile>
+            <id>test-perl-integration</id>
+            <modules>
+                <module>tap4j</module>
+                <module>tap4j-ext</module>
+                <module>perl-integration-tests</module>
+            </modules>
+        </profile>
+    </profiles>    
 </project>

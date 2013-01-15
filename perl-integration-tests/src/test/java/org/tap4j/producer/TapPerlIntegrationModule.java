@@ -21,27 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package org.tap4j.producer;
 
-package org.tap4j.ext.testng.issue3167058;
-
-import org.tap4j.ext.testng.TestNGYAMLishUtils;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import com.google.inject.Binder;
+import com.google.inject.Module;
 
 /**
- * @author Cesar Fernandes de Almeida
- * @since 1.4.3
+ * Binds the required classes to have the integration test between Java and
+ * Perl.
+ * 
+ * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * @since 1.4.6
  */
-public class TestGetLine {
+public class TapPerlIntegrationModule
+    implements Module {
 
-    @Test
-    public void testGetYAMLExcepetionLine() {
-        String exceptionTrackLine = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:178)";
-        String strToFind = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:";
-
-        String lineStr = TestNGYAMLishUtils
-            .getLineNumberFromExceptionTraceLine(exceptionTrackLine, strToFind);
-
-        Assert.assertTrue(lineStr != "");
+    /*
+     * (non-Javadoc)
+     * @see com.google.inject.Module#configure(com.google.inject.Binder)
+     */
+    public void configure(Binder binder) {
+        binder.bind(Producer.class).to(TapProducer.class);
     }
+
 }

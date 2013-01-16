@@ -1,18 +1,18 @@
 /*
  * The MIT License
  *
- * Copyright (c) <2010> <tap4j>
- * 
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,16 +25,17 @@ package org.tap4j.util;
 
 /**
  * TAP versions.
- * 
+ *
  * @since 1.0
  */
 public enum TapVersionValues {
 
-    /*
+    //CHECKSTYLE:OFF
+    /**
      * Valid values.
      */
-    TAP_1(1), TAP_2(2), TAP_3(3), TAP_4(4), TAP_5(5), TAP_6(6), TAP_7(7),
-    TAP_8(8), TAP_9(9), TAP_10(10), TAP_11(11), TAP_12(12), TAP_13(13);
+    TAP_1(1), TAP_2(2), TAP_3(3), TAP_4(4), TAP_5(5), TAP_6(6), TAP_7(7), TAP_8(8), TAP_9(9), TAP_10(10), TAP_11(11), TAP_12(12), TAP_13(13);
+    //CHECKSTYLE:ON
 
     /**
      * The TAP version.
@@ -43,8 +44,8 @@ public enum TapVersionValues {
 
     /**
      * Constructor with parameter.
-     * 
-     * @param version
+     *
+     * @param version TAP version number
      */
     TapVersionValues(Integer version) {
         this.version = version;
@@ -52,16 +53,15 @@ public enum TapVersionValues {
 
     /**
      * Get the TAP version value.
-     * 
+     *
      * @return TAP version value
      */
     public Integer getValue() {
         return this.version;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Enum#toString()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

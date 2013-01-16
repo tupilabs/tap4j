@@ -26,16 +26,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tap4j-ext</artifactId>
+    <name>tap4j extension utilities</name>
+    <description>TAP extension utilities to support other test formats like TestNG and JUnit</description>
     <parent>
         <artifactId>tap4j-parent</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>3.4-SNAPSHOT</version>
         <groupId>org.tap4j</groupId>
     </parent>
-    <name>tap4j extension utilities</name>
-    <description>TAP extension utilities to support other test formats like TestNG and JUnit</description>
     <dependencies>
-    <dependency>
+        <dependency>
             <groupId>org.tap4j</groupId>
             <artifactId>tap4j</artifactId>
             <version>${project.version}</version>

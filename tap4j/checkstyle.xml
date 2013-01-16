@@ -91,7 +91,11 @@
         <property name="message" value="Line has trailing spaces."/>
     </module>
 
+    <module name="SuppressionCommentFilter"/>
+
     <module name="TreeWalker">
+
+        <module name="FileContentsHolder"/>
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
 

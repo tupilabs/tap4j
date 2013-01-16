@@ -1,18 +1,18 @@
 /*
  * The MIT License
  *
- * Copyright (c) <2010> <tap4j>
- * 
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,12 +32,12 @@ import org.tap4j.util.StatusValues;
 /**
  * A Test Set is the top element in a TAP File. It holds references to the
  * Header, Plan, List of Test Results and the rest of elements in TAP spec.
- * 
+ *
  * @since 1.0
  */
 public class TestSet implements Serializable {
 
-    /*
+    /**
      * Serial Version UID.
      */
     private static final long serialVersionUID = 114777557084672201L;
@@ -126,7 +126,7 @@ public class TestSet implements Serializable {
     public List<TestResult> getTestResults() {
         return this.testResults;
     }
-    
+
     /**
      * @return Next test number.
      */
@@ -150,7 +150,7 @@ public class TestSet implements Serializable {
 
     /**
      * Adds a new TAP Line.
-     * 
+     *
      * @param tapLine TAP Line.
      * @return True if the TAP Line could be added into the list successfully.
      */
@@ -162,13 +162,13 @@ public class TestSet implements Serializable {
      * Adds a TestResult into the list of TestResults. If the TestResult Test
      * Number is null or less than or equals to zero it is changed to the next
      * Test Number in the sequence.
-     * 
+     *
      * @param testResult TAP TestResult.
      * @return Whether could add to TestResult list or not.
      */
     public boolean addTestResult(TestResult testResult) {
-        if (testResult.getTestNumber() == null ||
-            testResult.getTestNumber() <= 0) {
+        if (testResult.getTestNumber() == null
+                || testResult.getTestNumber() <= 0) {
             testResult.setTestNumber(this.testResults.size() + 1);
         }
         this.testResults.add(testResult);
@@ -186,6 +186,7 @@ public class TestSet implements Serializable {
 
     /**
      * @param comment Comment. Whether could add to Comment list or not.
+     * @return True if could successfully add the comment.
      */
     public boolean addComment(Comment comment) {
         this.comments.add(comment);
@@ -194,7 +195,7 @@ public class TestSet implements Serializable {
 
     /**
      * Removes a TAP Line from the list.
-     * 
+     *
      * @param tapLine TAP Line object.
      * @return True if could successfully remove the TAP Line from the list.
      */
@@ -204,7 +205,7 @@ public class TestSet implements Serializable {
 
     /**
      * Removes a Test Result from the list.
-     * 
+     *
      * @param testResult Test Result.
      * @return True if could successfully remove the Test Result from the list.
      */
@@ -219,7 +220,7 @@ public class TestSet implements Serializable {
 
     /**
      * Removes a Bail Out from the list.
-     * 
+     *
      * @param bailOut Bail Out object.
      * @return True if could successfully remove the Bail Out from the list.
      */
@@ -234,7 +235,7 @@ public class TestSet implements Serializable {
 
     /**
      * Removes a Comment from the list.
-     * 
+     *
      * @param comment Comment.
      * @return True if could successfully remove the Comment from the list.
      */
@@ -306,9 +307,8 @@ public class TestSet implements Serializable {
         return isBailOut;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.TapConsumer#containsOk()
+    /**
+     * {@inheritDoc}
      */
     public Boolean containsOk() {
         Boolean containsOk = false;
@@ -323,9 +323,8 @@ public class TestSet implements Serializable {
         return containsOk;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.TapConsumer#containsNotOk()
+    /**
+     * {@inheritDoc}
      */
     public Boolean containsNotOk() {
         Boolean containsNotOk = false;
@@ -340,24 +339,22 @@ public class TestSet implements Serializable {
         return containsNotOk;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.TapConsumer#containsBailOut()
+    /**
+     * {@inheritDoc}
      */
     public Boolean containsBailOut() {
         return this.bailOuts.size() > 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.TapConsumer#getTestResult(java.lang.Integer)
+    /**
+     * {@inheritDoc}
      */
     public TestResult getTestResult(Integer testNumber) {
         TestResult foundTestResult = null;
 
         for (TestResult testResult : this.testResults) {
-            if (testResult.getTestNumber() != null &&
-                testResult.getTestNumber().equals(testNumber)) {
+            if (testResult.getTestNumber() != null
+                    && testResult.getTestNumber().equals(testNumber)) {
                 foundTestResult = testResult;
                 break;
             }

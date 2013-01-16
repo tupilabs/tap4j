@@ -21,41 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.producer;
-
-import org.tap4j.representer.TapJunitRepresenter;
-
 
 /**
- * Factory class to produce TAP Producers.
- * 
- * @since 3.1
+ * TAP consumers.
  */
-public class TapProducerFactory {
-
-    /**
-     * Private constructor.
-     */
-    private TapProducerFactory() {
-        throw new AssertionError("Private constructor called!");
-    }
-
-    /**
-     * Create a TAP 13 producer.
-     * 
-     * @return TapProducer
-     */
-    public static TapProducer makeTap13Producer() {
-        return new TapProducer();
-    }
-
-    /**
-     * Create a TAP JUnit producer.
-     * 
-     * @param name JUnit file name
-     * @return TapProducer
-     */
-    public static TapProducer makeTapJunitProducer(String name) {
-        return new TapProducer(new TapJunitRepresenter(name));
-    }
-}
+package org.tap4j.consumer;

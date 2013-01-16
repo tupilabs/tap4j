@@ -1,18 +1,18 @@
 /*
  * The MIT License
  *
- * Copyright (c) <2010> <tap4j>
- * 
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,12 +25,12 @@ package org.tap4j.model;
 
 /**
  * A TAP Comment. In TAP files the comments have a # before the text.
- * 
+ *
  * @since 1.0
  */
 public class Comment extends TapResult {
 
-    /*
+    /**
      * Serial Version UID.
      */
     private static final long serialVersionUID = 6694406960961188778L;
@@ -47,7 +47,7 @@ public class Comment extends TapResult {
 
     /**
      * Constructor with text. A comment must always have a text.
-     * 
+     *
      * @param text Text of the comment.
      */
     public Comment(String text) {

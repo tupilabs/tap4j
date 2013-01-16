@@ -1,18 +1,18 @@
 /*
  * The MIT License
  *
- * Copyright (c) <2010> <tap4j>
- * 
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,12 +30,12 @@ import org.tap4j.util.StatusValues;
 
 /**
  * A simple test result. Valid values are <em>OK</em> and <em>NOT OK</em>.
- * 
+ *
  * @since 1.0
  */
 public class TestResult extends TapResult {
 
-    /*
+    /**
      * Serial Version UID.
      */
     private static final long serialVersionUID = -2735372334488828166L;
@@ -70,6 +70,9 @@ public class TestResult extends TapResult {
      */
     private List<Comment> comments;
 
+    /**
+     * Default constructor.
+     */
     public TestResult() {
         super();
         this.status = StatusValues.NOT_OK;
@@ -80,7 +83,7 @@ public class TestResult extends TapResult {
 
     /**
      * Constructor with parameter.
-     * 
+     *
      * @param testStatus Status of the test.
      * @param testNumber Number of the test.
      */
@@ -177,7 +180,7 @@ public class TestResult extends TapResult {
 
     /**
      * Adds a new comment to this Test Result.
-     * 
+     *
      * @param comment comment for this Test Result.
      */
     public void addComment(Comment comment) {

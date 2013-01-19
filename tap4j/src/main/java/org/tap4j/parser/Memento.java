@@ -37,55 +37,55 @@ public class Memento {
     /**
      * If it processed only the first line.
      */
-    private boolean firstLine;
+    private boolean firstLine = true;
 
     /**
      * If the plan must come before the test result.
      */
-    private boolean planBeforeTestResult;
+    private boolean planBeforeTestResult = false;
 
     /**
      * The last line processed.
      */
-    private String lastLine;
+    private String lastLine = null;
 
     /**
      * The last element parsed.
      */
-    private TapElement lastParsedElement;
+    private TapElement lastParsedElement = null;
 
     /**
      * Indicator of the base indentation level. Usually defined by the TAP
      * Header.
      */
-    private int baseIndentationLevel;
+    private int baseIndentationLevel = -1;
 
     /**
      * Helper indicator of in what indentantion level we are working at moment.
      * It is helpful specially when you have many nested elements, like a META
      * element with some multiline text.
      */
-    private int currentIndentationLevel;
+    private int currentIndentationLevel = -1;
 
     /**
      * If we are processing a YAMLish block.
      */
-    private boolean currentlyInYaml;
+    private boolean currentlyInYaml = false;
 
     /**
      * If we are processing a subtest.
      */
-    private boolean currentlyInSubtest;
+    private boolean currentlyInSubtest = false;
 
     /**
      * Tje diagnostics buffer.
      */
-    private StringBuilder diagnosticBuffer = new StringBuilder();
+    private final StringBuilder diagnosticBuffer = new StringBuilder();
 
     /**
-     * The test set.
+     * The immutable test set.
      */
-    private TestSet testSet;
+    private final TestSet testSet = new TestSet();
 
     /**
      * Default constructor.
@@ -214,24 +214,10 @@ public class Memento {
     }
 
     /**
-     * @param diagnosticBuffer the diagnosticBuffer to set
-     */
-    public void setDiagnosticBuffer(StringBuilder diagnosticBuffer) {
-        this.diagnosticBuffer = diagnosticBuffer;
-    }
-
-    /**
      * @return the testSet
      */
     public TestSet getTestSet() {
         return testSet;
-    }
-
-    /**
-     * @param testSet the testSet to set
-     */
-    public void setTestSet(TestSet testSet) {
-        this.testSet = testSet;
     }
 
 }

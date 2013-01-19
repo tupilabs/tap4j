@@ -23,7 +23,7 @@ import org.tap4j.model.Directive;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
-import org.tap4j.parser.Tap13YamlParser;
+import org.tap4j.parser.Tap13Parser;
 import org.tap4j.util.DirectiveValues;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -37,7 +37,7 @@ public class TestTap13YamlConsumer2 {
     @Test
     public void testTapConsumerYaml() {
 
-        TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
+        TapConsumer consumer = new TapConsumerImpl(new Tap13Parser());
 
         TestSet testSet = consumer
             .load(new File(
@@ -72,7 +72,7 @@ public class TestTap13YamlConsumer2 {
         TapConsumerException.class
     })
     public void testDiagnosticWithoutLastParsedElement() {
-        TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
+        TapConsumer consumer = new TapConsumerImpl(new Tap13Parser());
 
         consumer
             .load(new File(
@@ -85,7 +85,7 @@ public class TestTap13YamlConsumer2 {
         TapConsumerException.class
     })
     public void testDiagnosticWithWrongIndentation() {
-        TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
+        TapConsumer consumer = new TapConsumerImpl(new Tap13Parser());
 
         consumer
             .load(new File(

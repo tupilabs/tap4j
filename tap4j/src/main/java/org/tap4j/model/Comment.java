@@ -51,8 +51,19 @@ public class Comment extends TapResult {
      * @param text Text of the comment.
      */
     public Comment(String text) {
+        this(text, false);
+    }
+    
+    /**
+     * Constructor with text. A comment must always have a text.
+     *
+     * @param text Text of the comment.
+     * @param inline Whether the comment is inline or not.
+     */
+    public Comment(String text, boolean inline) {
         super();
         this.text = text;
+        this.inline = inline;
     }
 
     /**

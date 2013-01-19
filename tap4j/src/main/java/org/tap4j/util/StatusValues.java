@@ -58,4 +58,13 @@ public enum StatusValues {
         return this.textValue;
     }
 
+    public static StatusValues get(String textValue) {
+        if ("ok".equals(textValue)) {
+            return StatusValues.OK;
+        } if ("not ok".equals(textValue)) {
+            return StatusValues.NOT_OK;
+        }
+        return null;
+    }
+
 }

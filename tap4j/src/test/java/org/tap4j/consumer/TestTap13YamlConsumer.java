@@ -21,7 +21,7 @@ import java.io.File;
 import java.util.Map;
 
 import org.tap4j.model.TestSet;
-import org.tap4j.parser.Tap13YamlParser;
+import org.tap4j.parser.Tap13Parser;
 import org.tap4j.util.StatusValues;
 import org.tap4j.util.TapVersionValues;
 import org.testng.Assert;
@@ -38,22 +38,22 @@ public class TestTap13YamlConsumer {
 
     @BeforeMethod
     public void setUp() {
-        consumer = new TapConsumerImpl(new Tap13YamlParser());
+        consumer = new TapConsumerImpl(new Tap13Parser());
     }
 
     @Test
     public void test1() {
         try {
-            TestSet testSet = consumer
-                .load(new File(TestTap13YamlConsumer.class
-                    .getResource("/input_tap13/1.tap").getFile()));
+            TestSet testSet = consumer.load(new File(
+                    TestTap13YamlConsumer.class.getResource(
+                            "/input_tap13/1.tap").getFile()));
 
             Assert.assertNotNull(testSet.getHeader());
 
             Assert.assertNotNull(testSet.getHeader().getVersion());
 
             Assert.assertTrue(testSet.getHeader().getVersion()
-                .equals(TapVersionValues.TAP_13.getValue()));
+                    .equals(TapVersionValues.TAP_13.getValue()));
 
             Assert.assertNotNull(testSet.getPlan());
 
@@ -63,23 +63,20 @@ public class TestTap13YamlConsumer {
 
             Assert.assertTrue(testSet.getTestResults().size() == 3);
 
-            Assert
-                .assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.OK);
+            Assert.assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.OK);
 
-            Assert.assertNotNull(testSet.getTestResult(1).getDiagnostic());
+            Assert.assertNotNull(testSet.getTestResult(2).getDiagnostic());
 
-            Assert
-                .assertTrue(testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK);
+            Assert.assertTrue(testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK);
 
             Map<String, Object> diagnostic = testSet.getTestResult(2)
-                .getDiagnostic();
+                    .getDiagnostic();
 
             Assert.assertNotNull(diagnostic);
 
             Assert.assertEquals(diagnostic.get("file"), "t/something.t");
 
-            Assert
-                .assertTrue(testSet.getTestResult(3).getStatus() == StatusValues.OK);
+            Assert.assertTrue(testSet.getTestResult(3).getStatus() == StatusValues.OK);
 
         } catch (TapConsumerException e) {
             Assert.fail(e.getMessage());
@@ -90,17 +87,18 @@ public class TestTap13YamlConsumer {
     public void test2() {
         try {
             TestSet testSet = consumer
-                .load(new File(
-                               TestTap13YamlConsumer.class
-                                   .getResource("/input_tap13/org.tap4j.testng.TestGoogleBrunoKinoshita.tap")
-                                   .getFile()));
+                    .load(new File(
+                            TestTap13YamlConsumer.class
+                                    .getResource(
+                                            "/input_tap13/org.tap4j.testng.TestGoogleBrunoKinoshita.tap")
+                                    .getFile()));
 
             Assert.assertNotNull(testSet.getHeader());
 
             Assert.assertNotNull(testSet.getHeader().getVersion());
 
             Assert.assertTrue(testSet.getHeader().getVersion()
-                .equals(TapVersionValues.TAP_13.getValue()));
+                    .equals(TapVersionValues.TAP_13.getValue()));
 
             Assert.assertNotNull(testSet.getPlan());
 
@@ -110,19 +108,17 @@ public class TestTap13YamlConsumer {
 
             Assert.assertTrue(testSet.getTestResults().size() == 1);
 
-            Assert
-                .assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
+            Assert.assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
 
             Assert.assertNotNull(testSet.getTestResult(1).getDiagnostic());
 
             Map<String, Object> diagnostic = testSet.getTestResult(1)
-                .getDiagnostic();
+                    .getDiagnostic();
 
             Assert.assertNotNull(diagnostic);
 
-            Assert
-                .assertEquals(diagnostic.get("file"),
-                              "org.tap4j.testng.TestGoogleBrunoKinoshita.java");
+            Assert.assertEquals(diagnostic.get("file"),
+                    "org.tap4j.testng.TestGoogleBrunoKinoshita.java");
 
         } catch (TapConsumerException e) {
             Assert.fail(e.getMessage());
@@ -132,10 +128,10 @@ public class TestTap13YamlConsumer {
     @Test
     public void test3() {
         try {
-            TestSet testSet = consumer
-                .load(new File(TestTap13YamlConsumer.class
-                    .getResource("/input_tap13/org.tap4j.testng.konobi.tap")
-                    .getFile()));
+            TestSet testSet = consumer.load(new File(
+                    TestTap13YamlConsumer.class.getResource(
+                            "/input_tap13/org.tap4j.testng.konobi.tap")
+                            .getFile()));
 
             Assert.assertNotNull(testSet.getPlan());
 
@@ -145,18 +141,17 @@ public class TestTap13YamlConsumer {
 
             Assert.assertTrue(testSet.getTestResults().size() == 1);
 
-            Assert
-                .assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
+            Assert.assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
 
             Assert.assertNotNull(testSet.getTestResult(1).getDiagnostic());
 
             Map<String, Object> diagnostic = testSet.getTestResult(1)
-                .getDiagnostic();
+                    .getDiagnostic();
 
             Assert.assertNotNull(diagnostic);
 
             Assert.assertEquals(diagnostic.get("file"),
-                                "org.tap4j.testng.konobi.java");
+                    "org.tap4j.testng.konobi.java");
 
             Assert.assertNotNull(diagnostic.get("stack"));
 

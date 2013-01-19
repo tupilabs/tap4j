@@ -59,4 +59,13 @@ public enum DirectiveValues {
         return this.textValue;
     }
 
+    public static DirectiveValues get(String textValue) {
+        if ("skip".equalsIgnoreCase(textValue)) {
+            return DirectiveValues.SKIP;
+        } else if ("todo".equalsIgnoreCase(textValue)) {
+            return DirectiveValues.TODO;
+        }
+        return null;
+    }
+
 }

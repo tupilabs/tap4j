@@ -21,7 +21,6 @@ import java.lang.reflect.Constructor;
 
 import org.tap4j.parser.Parser;
 import org.tap4j.parser.Tap13Parser;
-import org.tap4j.parser.Tap13YamlParser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -48,7 +47,7 @@ public class TestTapConsumerFactory {
 
         Parser tap13YamlParser = tapConsumer.getParser();
 
-        Assert.assertTrue(tap13YamlParser instanceof Tap13YamlParser);
+        Assert.assertTrue(tap13YamlParser instanceof Tap13Parser);
     }
 
     @Test

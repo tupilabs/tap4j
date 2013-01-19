@@ -23,7 +23,7 @@
  */
 package org.tap4j.consumer;
 
-import org.tap4j.parser.Tap13YamlParser;
+import org.tap4j.parser.Tap13Parser;
 
 /**
  * Factory class to produce TAP Consumers.
@@ -54,7 +54,7 @@ public final class TapConsumerFactory {
      * @return TAP Consumer with YAML support.
      */
     public static TapConsumer makeTap13YamlConsumer() {
-        return new TapConsumerImpl(new Tap13YamlParser());
+        return new TapConsumerImpl(new Tap13Parser(true));
     }
 
     /**
@@ -63,7 +63,7 @@ public final class TapConsumerFactory {
      * @return TAP Consumer with YAML support.
      */
     public static TapConsumer makeTap13YamlConsumerWithoutSubtests() {
-        return new TapConsumerImpl(new Tap13YamlParser(false));
+        return new TapConsumerImpl(new Tap13Parser(false));
     }
 
 }

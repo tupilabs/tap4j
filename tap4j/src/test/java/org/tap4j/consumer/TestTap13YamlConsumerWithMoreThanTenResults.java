@@ -18,7 +18,7 @@
 package org.tap4j.consumer;
 
 import org.tap4j.model.TestSet;
-import org.tap4j.parser.Tap13YamlParser;
+import org.tap4j.parser.Tap13Parser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -30,7 +30,7 @@ public class TestTap13YamlConsumerWithMoreThanTenResults {
 
     @Test
     public void testManyTestResults() {
-        TapConsumer consumer = new TapConsumerImpl(new Tap13YamlParser());
+        TapConsumer consumer = new TapConsumerImpl(new Tap13Parser());
 
         TestSet testSet = consumer.load("1..20");
 

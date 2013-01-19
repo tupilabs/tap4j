@@ -28,10 +28,10 @@ import org.tap4j.representer.TapJunitRepresenter;
 
 /**
  * Factory class to produce TAP Producers.
- * 
+ *
  * @since 3.1
  */
-public class TapProducerFactory {
+public final class TapProducerFactory {
 
     /**
      * Private constructor.
@@ -42,7 +42,7 @@ public class TapProducerFactory {
 
     /**
      * Create a TAP 13 producer.
-     * 
+     *
      * @return TapProducer
      */
     public static TapProducer makeTap13Producer() {
@@ -51,7 +51,7 @@ public class TapProducerFactory {
 
     /**
      * Create a TAP JUnit producer.
-     * 
+     *
      * @param name JUnit file name
      * @return TapProducer
      */

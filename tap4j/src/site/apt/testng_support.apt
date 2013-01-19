@@ -22,7 +22,7 @@ aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG
 -listener org.tap4j.ext.testng.TestTAPReporter test\testng.xml
 +---+
 
- Don´t forget to check all the dependencies versions and directory location
+ Don't forget to check all the dependencies versions and directory location
 
 * TestNG suite xml
  

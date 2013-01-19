@@ -25,21 +25,44 @@ package org.tap4j.representer;
 
 /**
  * Options used by a representer.
- * 
+ *
  * @since 0.1
  */
 public class DumperOptions {
 
+    /**
+     * Default number of spaces.
+     */
+    static final int DEFAULT_SPACES = 4;
+
+    /**
+     * Verbose diagnostics.
+     */
     private boolean printDiagnostics = Boolean.TRUE;
 
+    /**
+     * Verbose subtests.
+     */
     private boolean printSubtests = Boolean.TRUE;
 
+    /**
+     * Allow an empty (or missing) Plan.
+     */
     private boolean allowEmptyTestPlan = Boolean.TRUE;
 
+    /**
+     * Indententation.
+     */
     private int indent = 0;
 
-    private int spaces = 4;
+    /**
+     * Number of spaces for a tab.
+     */
+    private int spaces = DEFAULT_SPACES;
 
+    /**
+     * Default constructor.
+     */
     public DumperOptions() {
     }
 

@@ -38,16 +38,16 @@ public interface Parser {
      * Parses a TAP Stream.
      *
      * @param tapStream TAP Stream
-     * @throws ParserException when parser fails
+     * @return Test Set
      */
-    TestSet parseTapStream(String tapStream) throws ParserException;
+    TestSet parseTapStream(String tapStream);
 
     /**
      * Parses a TAP File.
      *
      * @param tapFile TAP File
-     * @throws ParserException when parser fails
+     * @return Test Set
      */
-    TestSet parseFile(File tapFile) throws ParserException;
+    TestSet parseFile(File tapFile);
 
 }

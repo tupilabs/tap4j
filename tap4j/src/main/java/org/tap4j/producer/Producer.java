@@ -31,14 +31,14 @@ import org.tap4j.representer.Representer;
 
 /**
  * Produces a TAP Stream.
- * 
+ *
  * @since 1.0
  */
 public interface Producer {
 
     /**
      * Returns a String representing the TAP Stream produced from a TestSet.
-     * 
+     *
      * @param testSet TestSet
      * @return TAP Stream
      * @throws ProducerException
@@ -47,7 +47,7 @@ public interface Producer {
 
     /**
      * Writes the TAP Stream produced from a TestSet into a Writer.
-     * 
+     *
      * @param testSet TestSet
      * @param writer Writer
      * @throws ProducerException
@@ -56,7 +56,7 @@ public interface Producer {
 
     /**
      * Writes the TAP Stream into an output File.
-     * 
+     *
      * @param testSet TestSet
      * @param output Output File
      * @throws ProducerException
@@ -65,7 +65,7 @@ public interface Producer {
 
     /**
      * Returns the Representer used in the Producer.
-     * 
+     *
      * @return Representer
      */
     Representer getRepresenter();

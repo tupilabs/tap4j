@@ -44,7 +44,7 @@ import org.yaml.snakeyaml.Yaml;
 
 /**
  * A TAP 13 representer.
- * 
+ *
  * @since 1.0
  */
 public class Tap13Representer implements Representer {
@@ -64,22 +64,24 @@ public class Tap13Representer implements Representer {
      */
     private Yaml yaml;
 
+    /**
+     * Default constructor.
+     */
     public Tap13Representer() {
         this(new org.tap4j.representer.DumperOptions());
     }
 
+    /**
+     * @param options Dumper options
+     */
     public Tap13Representer(org.tap4j.representer.DumperOptions options) {
         super();
         this.options = options;
-
         final DumperOptions yamlDumperOptions = new DumperOptions();
         yamlDumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        // options.setDefaultScalarStyle(DumperOptions.ScalarStyle.LITERAL);
         yamlDumperOptions.setLineBreak(LineBreak.getPlatformLineBreak());
         yamlDumperOptions.setExplicitStart(true);
         yamlDumperOptions.setExplicitEnd(true);
-        // TBD: set indent is not working on yaml, perhaps we should implement
-        // a representer...
         yaml = new Yaml(yamlDumperOptions);
     }
 
@@ -90,10 +92,8 @@ public class Tap13Representer implements Representer {
         return options;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.tap4j.representer.Representer#representData(org.tap4j.model.TestSet)
+    /**
+     * {@inheritDoc}
      */
     public String representData(TestSet testSet) {
         StringWriter sw = new StringWriter();
@@ -108,23 +108,23 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param tapLine
+     * @param pw Print Writer
+     * @param tapResult TAP test result
      */
-    protected void printTapLine(PrintWriter pw, TapResult tapLine) {
-        if (tapLine instanceof BailOut) {
-            printBailOut(pw, (BailOut) tapLine);
-        } else if (tapLine instanceof Comment) {
-            printComment(pw, (Comment) tapLine);
+    protected void printTapLine(PrintWriter pw, TapResult tapResult) {
+        if (tapResult instanceof BailOut) {
+            printBailOut(pw, (BailOut) tapResult);
+        } else if (tapResult instanceof Comment) {
+            printComment(pw, (Comment) tapResult);
             pw.append(LINE_SEPARATOR);
-        } else if (tapLine instanceof TestResult) {
-            printTestResult(pw, (TestResult) tapLine);
+        } else if (tapResult instanceof TestResult) {
+            printTestResult(pw, (TestResult) tapResult);
         }
     }
 
     /**
-     * @param pw
-     * @param testResult
+     * @param pw Print Writer
+     * @param testResult TAP test result
      */
     protected void printTestResult(PrintWriter pw, TestResult testResult) {
         printFiller(pw);
@@ -136,8 +136,8 @@ public class Tap13Representer implements Representer {
             pw.append(' ' + testResult.getDescription());
         }
         if (testResult.getDirective() != null) {
-            pw.append(" # " +
-                      testResult.getDirective().getDirectiveValue().toString());
+            pw.append(" # "
+                    + testResult.getDirective().getDirectiveValue().toString());
             if (StringUtils.isNotBlank(testResult.getDirective().getReason())) {
                 pw.append(' ' + testResult.getDirective().getReason());
             }
@@ -166,8 +166,8 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param bailOut
+     * @param pw Print Writer
+     * @param bailOut Bail Out!
      */
     protected void printBailOut(PrintWriter pw, BailOut bailOut) {
         printFiller(pw);
@@ -184,8 +184,8 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param footer
+     * @param pw Print Writer
+     * @param footer Footer
      */
     protected void printFooter(PrintWriter pw, Footer footer) {
         if (footer != null) {
@@ -201,14 +201,15 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param plan
+     * @param pw Print Writer
+     * @param plan Plan
      */
     protected void printPlan(PrintWriter pw, Plan plan) {
         if (plan != null) {
             printFiller(pw);
-            pw.append(plan.getInitialTestNumber() + ".." +
-                      plan.getLastTestNumber());
+            pw.append(plan.getInitialTestNumber()
+                    + ".."
+                    + plan.getLastTestNumber());
             if (plan.getSkip() != null) {
                 pw.append(" skip ");
                 pw.append(plan.getSkip().getReason());
@@ -227,8 +228,8 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param header
+     * @param pw Print Writer
+     * @param header Header
      */
     protected void printHeader(PrintWriter pw, Header header) {
         if (header != null) {
@@ -244,8 +245,8 @@ public class Tap13Representer implements Representer {
     }
 
     /**
-     * @param pw
-     * @param comment
+     * @param pw Print Writer
+     * @param comment Comment
      */
     protected void printComment(PrintWriter pw, Comment comment) {
         pw.append("# " + comment.getText());
@@ -253,8 +254,8 @@ public class Tap13Representer implements Representer {
 
     /**
      * Prints diagnostic of the TAP Element into the Print Writer.
-     * 
-     * @param pw PrintWriter
+     *
+     * @param pw Print Writer
      * @param tapElement TAP element
      */
     protected void printDiagnostic(PrintWriter pw, TapElement tapElement) {
@@ -268,6 +269,11 @@ public class Tap13Representer implements Representer {
         }
     }
 
+    /**
+     * Print filler.
+     *
+     * @param pw Print Writer
+     */
     protected void printFiller(PrintWriter pw) {
         if (this.options.getIndent() > 0) {
             pw.append(StringUtils.repeat(" ", this.options.getIndent()));

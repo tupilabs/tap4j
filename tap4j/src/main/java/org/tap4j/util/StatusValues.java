@@ -58,10 +58,16 @@ public enum StatusValues {
         return this.textValue;
     }
 
+    /**
+     * Get status value for a given string.
+     * @param textValue String
+     * @return Status value
+     */
     public static StatusValues get(String textValue) {
         if ("ok".equals(textValue)) {
             return StatusValues.OK;
-        } if ("not ok".equals(textValue)) {
+        }
+        if ("not ok".equals(textValue)) {
             return StatusValues.NOT_OK;
         }
         return null;

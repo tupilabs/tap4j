@@ -35,7 +35,7 @@ import org.tap4j.representer.Tap13Representer;
 
 /**
  * TAP Producer is responsible for writing the TAP Stream onto some media.
- * 
+ *
  * @since 1.0
  */
 public class TapProducer implements Producer {
@@ -55,16 +55,15 @@ public class TapProducer implements Producer {
 
     /**
      * Constructor with parameter.
-     * 
-     * @param representer
+     *
+     * @param representer Representer
      */
     public TapProducer(Representer representer) {
         this.representer = representer;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.producer.TapProducer#dump(org.tap4j.model.TestSet)
+    /**
+     * {@inheritDoc}
      */
     public String dump(TestSet testSet) {
         String dumpData = null;
@@ -72,17 +71,15 @@ public class TapProducer implements Producer {
         try {
             dumpData = this.representer.representData(testSet);
         } catch (RepresenterException re) {
-            throw new ProducerException("Failed to produce test set dump: " +
-                                        re.getMessage(), re);
+            throw new ProducerException("Failed to produce test set dump: "
+                    + re.getMessage(), re);
         }
 
         return dumpData;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.producer.TapProducer#dump(org.tap4j.model.TestSet,
-     * java.io.Writer)
+    /**
+     * {@inheritDoc}
      */
     public void dump(TestSet testSet, Writer writer) {
         String tapStream = null;
@@ -90,22 +87,20 @@ public class TapProducer implements Producer {
         try {
             tapStream = this.dump(testSet);
         } catch (RepresenterException re) {
-            throw new ProducerException("Failed to dump Test Set to writer: " +
-                                        re.getMessage(), re);
+            throw new ProducerException("Failed to dump Test Set to writer: "
+                    + re.getMessage(), re);
         }
 
         try {
             writer.append(tapStream);
         } catch (IOException e) {
-            throw new ProducerException("Failed to dump TAP Stream: " +
-                                        e.getMessage(), e);
+            throw new ProducerException("Failed to dump TAP Stream: "
+                    + e.getMessage(), e);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.producer.TapProducer#dump(org.tap4j.model.TestSet,
-     * java.io.File)
+    /**
+     * {@inheritDoc}
      */
     public void dump(TestSet testSet, File output) {
         String tapStream = null;
@@ -114,23 +109,22 @@ public class TapProducer implements Producer {
             tapStream = this.dump(testSet);
         } catch (RepresenterException re) {
             throw new ProducerException(
-                                        "Failed to dump Test Set to output file '" +
-                                                output +
-                                                "': " +
-                                                re.getMessage(), re);
+                                        "Failed to dump Test Set to output file '"
+                                                + output
+                                                + "': "
+                                                + re.getMessage(), re);
         }
 
         try {
             FileUtils.writeStringToFile(output, tapStream);
         } catch (IOException e) {
-            throw new ProducerException("Failed to dump TAP Stream: " +
-                                        e.getMessage(), e);
+            throw new ProducerException("Failed to dump TAP Stream: "
+                    + e.getMessage(), e);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.tap4j.producer.TapProducer#getRepresenter()
+    /**
+     * {@inheritDoc}
      */
     public Representer getRepresenter() {
         return this.representer;

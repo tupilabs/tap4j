@@ -36,21 +36,25 @@ import org.tap4j.util.StatusValues;
 
 /**
  * TAP JUnit representer. Outputs Junit XML.
- * 
+ *
  * @since 3.1
  */
 public class TapJunitRepresenter implements Representer {
 
+    /**
+     * Name of test suite.
+     */
     private String name;
 
+    /**
+     * @param name Test suite name.
+     */
     public TapJunitRepresenter(String name) {
         this.name = name;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.tap4j.representer.Representer#representData(org.tap4j.model.TestSet)
+    /**
+     * {@inheritDoc}
      */
     public String representData(TestSet testSet) {
         StringWriter sw = new StringWriter();
@@ -61,35 +65,36 @@ public class TapJunitRepresenter implements Representer {
                                                                    // dumper
                                                                    // options
         Statuses statuses = this.getStatuses(testSet);
-        pw.println("<testsuite failures=\"" + statuses.getFailures() + "\" " +
-                   "time=\"" + statuses.getTime() + "\" errors=\"" +
-                   statuses.getErrors() + "\" " + "skipped=\"" +
-                   statuses.getSkipped() + "\" tests=\"" + statuses.getTests() +
-                   "\" " + "name=\"" + this.name + "\">");
+        pw.println("<testsuite failures=\"" + statuses.getFailures() + "\" "
+                + "time=\"" + statuses.getTime() + "\" errors=\""
+                + statuses.getErrors() + "\" " + "skipped=\""
+                + statuses.getSkipped() + "\" tests=\"" + statuses.getTests()
+                + "\" " + "name=\"" + this.name + "\">");
         // TBD: output TAP header, TAP plan as properties
         for (TapResult tapLine : testSet.getTapLines()) {
             if (tapLine instanceof TestResult) {
-                pw.println("<testcase time=\"0\" classname=\"" + this.name +
-                           "\" name=\"" +
-                           ((TestResult) tapLine).getDescription() + "\">");
-                if (((TestResult) tapLine).getDirective() != null &&
-                    ((TestResult) tapLine).getDirective().getDirectiveValue() == DirectiveValues.SKIP) {
+                pw.println("<testcase time=\"0\" classname=\"" + this.name
+                        + "\" name=\""
+                        + ((TestResult) tapLine).getDescription() + "\">");
+                if (((TestResult) tapLine).getDirective() != null
+                        && ((TestResult) tapLine).getDirective()
+                                .getDirectiveValue() == DirectiveValues.SKIP) {
                     pw.println("<skipped/>");
                 }
                 if (((TestResult) tapLine).getStatus() == StatusValues.NOT_OK) {
-                    pw.println("<failure message=\"" +
-                               ((TestResult) tapLine).getDescription() +
-                               "\" type=\"Failure\" />");
+                    pw.println("<failure message=\""
+                            + ((TestResult) tapLine).getDescription()
+                            + "\" type=\"Failure\" />");
                 }
                 pw.println("</testcase>");
             }
             if (tapLine instanceof BailOut) {
-                pw.println("<testcase time=\"0\" classname=\"" + this.name +
-                           "\" name=\"" + ((BailOut) tapLine).getReason() +
-                           "\">");
-                pw.println("<error message=\"" +
-                           ((BailOut) tapLine).getReason() +
-                           "\" type=\"BailOut\"/>");
+                pw.println("<testcase time=\"0\" classname=\"" + this.name
+                        + "\" name=\"" + ((BailOut) tapLine).getReason()
+                        + "\">");
+                pw.println("<error message=\""
+                        + ((BailOut) tapLine).getReason()
+                        + "\" type=\"BailOut\"/>");
                 pw.println("</testcase>");
             }
         }
@@ -98,7 +103,7 @@ public class TapJunitRepresenter implements Representer {
     }
 
     /**
-     * @param testSet
+     * @param testSet Test Set
      * @return Statuses
      */
     private Statuses getStatuses(TestSet testSet) {
@@ -106,8 +111,8 @@ public class TapJunitRepresenter implements Representer {
         statuses.setErrors(testSet.getBailOuts().size());
         for (TestResult tr : testSet.getTestResults()) {
             statuses.setTests(statuses.getTests() + 1);
-            if (tr.getDirective() != null &&
-                tr.getDirective().getDirectiveValue() == DirectiveValues.SKIP) {
+            if (tr.getDirective() != null
+                    && tr.getDirective().getDirectiveValue() == DirectiveValues.SKIP) {
                 statuses.setSkipped(statuses.getSkipped() + 1);
             } else if (tr.getStatus() == StatusValues.NOT_OK) {
                 statuses.setFailures(statuses.getFailures() + 1);
@@ -120,35 +125,50 @@ public class TapJunitRepresenter implements Representer {
 
 /**
  * Helper class for Junit report.
- * 
+ *
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.1
  */
 class Statuses {
 
+    /**
+     * Number of errors.
+     */
     private int errors;
 
+    /**
+     * Number of failures.
+     */
     private int failures;
 
+    /**
+     * Number of skipped tests.
+     */
     private int skipped;
 
+    /**
+     * Number of tests.
+     */
     private int tests;
 
+    /**
+     * Time.
+     */
     private double time;
 
     /**
-     * 
+     * Default constructor.
      */
     public Statuses() {
         super();
     }
 
     /**
-     * @param errors
-     * @param failures
-     * @param skipped
-     * @param tests
-     * @param time
+     * @param errors Number of errors
+     * @param failures Number of failures
+     * @param skipped Number of skipped tests
+     * @param tests Number of tests
+     * @param time Time
      */
     public Statuses(int errors, int failures, int skipped, int tests,
                     double time) {

@@ -54,12 +54,12 @@ import org.yaml.snakeyaml.Yaml;
 
 /**
  * TAP 13 parser.
- * 
+ *
  * @since 1.0
  */
 public class Tap13Parser implements Parser {
 
-    /*
+    /**
      * Logger.
      */
     private static final Logger LOGGER = Logger.getLogger(Tap13Parser.class
@@ -87,7 +87,10 @@ public class Tap13Parser implements Parser {
     private boolean subtestsEnabled = false;
 
     /**
-     * Default constructor. Calls the init method.
+     * Parser Constructor.
+     *
+     * @param encoding Encoding
+     * @param enableSubtests Whether subtests are enabled or not
      */
     public Tap13Parser(String encoding, boolean enableSubtests) {
         super();
@@ -95,19 +98,33 @@ public class Tap13Parser implements Parser {
         this.subtestsEnabled = enableSubtests;
     }
 
+    /**
+     * Parser Constructor.
+     *
+     * @param enableSubtests Whether subtests are enabled or not
+     */
     public Tap13Parser(boolean enableSubtests) {
         this("UTF-8", enableSubtests);
     }
 
+    /**
+     * Parser Constructor.
+     */
     public Tap13Parser() {
         this("UTF-8", false);
     }
 
+    /**
+     * Saves the current state in the stack.
+     */
     protected void pushMemento() {
         this.states.push(state);
         state = new Memento();
     }
-    
+
+    /**
+     * Loads the previous state from the stack.
+     */
     protected void popMemento() {
         this.state = this.states.pop();
     }
@@ -122,7 +139,7 @@ public class Tap13Parser implements Parser {
     /**
      * {@inheritDoc}
      */
-    public TestSet parseTapStream(String tapStream) throws ParserException {
+    public TestSet parseTapStream(String tapStream) {
         ByteArrayInputStream is = null;
         try {
             is = new ByteArrayInputStream(tapStream.getBytes(encoding));
@@ -146,7 +163,7 @@ public class Tap13Parser implements Parser {
     /**
      * {@inheritDoc}
      */
-    public TestSet parseFile(File tapFile) throws ParserException {
+    public TestSet parseFile(File tapFile) {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(tapFile);
@@ -165,6 +182,11 @@ public class Tap13Parser implements Parser {
         }
     }
 
+    /**
+     * Internal parse routine.
+     * @param stream Input Stream
+     * @return Test Set
+     */
     protected TestSet parse(InputStream stream) {
         state = new Memento();
         Scanner scanner = null;
@@ -173,25 +195,25 @@ public class Tap13Parser implements Parser {
             String line = null;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                if (StringUtils.isNotEmpty(line))
+                if (StringUtils.isNotEmpty(line)) {
                     this.parseLine(line);
+                }
             }
             this.onFinish();
         } catch (Exception e) {
             throw new ParserException("Error parsing TAP Stream: "
                     + e.getMessage(), e);
         } finally {
-            if (scanner != null)
+            if (scanner != null) {
                 scanner.close();
+            }
         }
 
         return this.getTestSet();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.tap4j.TapConsumer#parseLine(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public void parseLine(String tapLine) {
         if (StringUtils.isNotEmpty(tapLine)) {
@@ -246,7 +268,7 @@ public class Tap13Parser implements Parser {
                     this.checkIndentationLevel(indentation, tapLine);
                 }
             }
-            
+
             // Check if we have some diagnostic set in the buffer
             this.parseDiagnostics();
             state.setLastLine(tapLine);
@@ -300,6 +322,11 @@ public class Tap13Parser implements Parser {
 
     /* -- Event handling -- */
 
+    /**
+     * Handles comments.
+     *
+     * @param text Comment
+     */
     private void onComment(String text) {
         final Comment comment = new Comment(text);
         getTestSet().addComment(comment);
@@ -311,6 +338,12 @@ public class Tap13Parser implements Parser {
         }
     }
 
+    /**
+     * Handles Bail Out!s.
+     *
+     * @param reason Reason
+     * @param comment Comment
+     */
     private void onBailOut(String reason, String comment) {
         setIndentationLevelIfNotDefined(state.getLastLine());
         final BailOut bailOut = new BailOut(reason);
@@ -322,13 +355,20 @@ public class Tap13Parser implements Parser {
                 (getTestSet().getTapLines().size() - 1)));
     }
 
+    /**
+     * Handles Headers.
+     *
+     * @param version Version
+     * @param comment Comment
+     */
     private void onHeader(int version, String comment) {
         if (getTestSet().getHeader() != null) {
             throw new ParserException("Duplicated TAP Header found.");
         }
         if (!state.isFirstLine()) {
             throw new ParserException(
-                    "Invalid position of TAP Header. It must be the first element (apart of Comments) in the TAP Stream.");
+                    "Invalid position of TAP Header. It must be the first "
+                            + "element (apart of Comments) in the TAP Stream.");
         }
         setIndentationLevelIfNotDefined(state.getLastLine());
         state.setCurrentIndentationLevel(state.getBaseIndentationLevel());
@@ -341,6 +381,14 @@ public class Tap13Parser implements Parser {
         state.setLastParsedElement(header);
     }
 
+    /**
+     * Handles Plans.
+     *
+     * @param begin Plan begin
+     * @param end Plan end
+     * @param skip Skip
+     * @param comment Comment
+     */
     private void onPlan(int begin, int end, String skip, String comment) {
         if (getTestSet().getPlan() != null) {
             throw new ParserException("Duplicated TAP Plan found.");
@@ -364,11 +412,23 @@ public class Tap13Parser implements Parser {
         state.setLastParsedElement(plan);
     }
 
-    private void onTestResult(StatusValues status, int number, String description, DirectiveValues directive, String reason, String comment) {
+    /**
+     * Handles Test Results.
+     *
+     * @param status Test Status
+     * @param number Test Number
+     * @param description Description
+     * @param directive Directive
+     * @param reason Reason
+     * @param comment Comment
+     */
+    private void onTestResult(StatusValues status, int number,
+            String description, DirectiveValues directive, String reason,
+            String comment) {
         setIndentationLevelIfNotDefined(state.getLastLine());
         final TestResult testResult = new TestResult(status, number);
         testResult.setDescription(description);
-        
+
         if (directive != null) {
             testResult.setDirective(new Directive(directive, reason));
         }
@@ -381,6 +441,12 @@ public class Tap13Parser implements Parser {
         state.setLastParsedElement(testResult);
     }
 
+    /**
+     * Handles Footer.
+     *
+     * @param text Footer text
+     * @param comment Comment
+     */
     private void onFooter(String text, String comment) {
         final Footer footer = new Footer(text);
         if (StringUtils.isNotBlank(comment)) {
@@ -390,6 +456,9 @@ public class Tap13Parser implements Parser {
         state.setFirstLine(false);
     }
 
+    /**
+     * Called after the rest of the stream has been processed.
+     */
     private void onFinish() {
         if (getTestSet().getPlan() == null) {
             throw new ParserException("Missing TAP Plan.");
@@ -406,8 +475,6 @@ public class Tap13Parser implements Parser {
      * <p>
      * If so, tries to parse it using snakeyaml.
      * </p>
-     * 
-     * @throws org.tap4j.consumer.TapConsumerException
      */
     private void parseDiagnostics() {
      // If we found any meta, then process it with SnakeYAML
@@ -439,8 +506,8 @@ public class Tap13Parser implements Parser {
      * @param diagnosticLine diagnostic line
      */
     private void appendTapLineToDiagnosticBuffer(String diagnosticLine) {
-        if (diagnosticLine.trim().equals("---") ||
-            diagnosticLine.trim().equals("...")) {
+        if (diagnosticLine.trim().equals("---")
+                || diagnosticLine.trim().equals("...")) {
             return;
         }
         if (state.isCurrentlyInYaml()) {
@@ -449,6 +516,10 @@ public class Tap13Parser implements Parser {
         }
     }
 
+    /**
+     * Set the indentation level, only if not defined yet.
+     * @param tapLine TAP Line
+     */
     private void setIndentationLevelIfNotDefined(String tapLine) {
         if (state.getBaseIndentationLevel() < 0) {
             state.setBaseIndentationLevel(this.getIndentationLevel(tapLine));
@@ -456,7 +527,7 @@ public class Tap13Parser implements Parser {
     }
 
     /**
-     * Gets the indentation level of a line.
+     * Get the indentation level of a line.
      *
      * @param tapLine line.
      * @return indentation level of a line.
@@ -475,11 +546,10 @@ public class Tap13Parser implements Parser {
 
     /**
      * Checks if the indentation is greater than the
-     * {@link #baseIndentationLevel}
+     * {@link #baseIndentationLevel}.
      *
      * @param indentation indentation level
-     * @throws org.tap4j.consumer.TapConsumerException if indentation is less
-     *             then the {@link #baseIndentationLevel} .
+     * @param tapLine TAP Line
      */
     private void checkIndentationLevel(int indentation, String tapLine) {
         if (indentation < state.getBaseIndentationLevel()) {

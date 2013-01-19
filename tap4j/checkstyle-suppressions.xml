@@ -31,4 +31,5 @@
   <suppress checks="HiddenField" files=".+\.java" lines="0-9999" />
   <suppress checks="DesignForExtension" files=".+\.java" lines="0-9999" />
   <suppress checks="HideUtilityClassConstructor" files=".+\.java" lines="0-9999" />
+  <suppress checks="MagicNumber" files=".+Tap13Parser.java" lines="0-9999" />
 </suppressions>

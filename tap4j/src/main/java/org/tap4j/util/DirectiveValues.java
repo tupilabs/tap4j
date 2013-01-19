@@ -59,6 +59,11 @@ public enum DirectiveValues {
         return this.textValue;
     }
 
+    /**
+     * Get a directive value for a given string.
+     * @param textValue String
+     * @return Directive value
+     */
     public static DirectiveValues get(String textValue) {
         if ("skip".equalsIgnoreCase(textValue)) {
             return DirectiveValues.SKIP;

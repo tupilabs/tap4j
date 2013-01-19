@@ -53,7 +53,7 @@ public class Comment extends TapResult {
     public Comment(String text) {
         this(text, false);
     }
-    
+
     /**
      * Constructor with text. A comment must always have a text.
      *

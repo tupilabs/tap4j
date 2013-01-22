@@ -1,21 +1,32 @@
 /*
- * The MIT License Copyright (c) 2010 Bruno P. Kinoshita
- * <http://www.kinoshita.eti.br> Permission is hereby granted, free of charge,
- * to any person obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to permit
- * persons to whom the Software is furnished to do so, subject to the following
- * conditions: The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software. THE SOFTWARE
- * IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
- * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * The MIT License
+ *
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package org.tap4j.producer;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,6 +35,8 @@ import java.io.StringWriter;
 import java.util.LinkedHashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Before;
+import org.junit.Test;
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Footer;
@@ -35,28 +48,21 @@ import org.tap4j.representer.DumperOptions;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;
 import org.tap4j.util.StatusValues;
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class TestTap13YamlProducer {
 
     private static final Integer TAP_VERSION = 13;
-
     private Producer tapProducer;
-
     private TestSet testSet;
-
     // Temp file to where we output the generated tap stream.
     private File tempFile;
 
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @BeforeTest
+    @Before
     public void setUp() {
         DumperOptions options = new DumperOptions();
         options.setAllowEmptyTestPlan(Boolean.FALSE);
@@ -97,26 +103,26 @@ public class TestTap13YamlProducer {
         try {
             tempFile = File.createTempFile("tap4j_", ".tap");
         } catch (IOException e) {
-            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+            fail("Failed to create temp file: " + e.getMessage());
         }
     }
 
     @Test
     public void testTapProducer() {
-        Assert.assertTrue(testSet.getTapLines().size() > 0);
+        assertTrue(testSet.getTapLines().size() > 0);
 
-        Assert.assertTrue(testSet.getNumberOfTestResults() == 2);
+        assertTrue(testSet.getNumberOfTestResults() == 2);
 
-        Assert.assertTrue(testSet.getNumberOfBailOuts() == 1);
+        assertTrue(testSet.getNumberOfBailOuts() == 1);
 
-        Assert.assertTrue(testSet.getNumberOfComments() == 2);
+        assertTrue(testSet.getNumberOfComments() == 2);
 
         try {
             tapProducer.dump(testSet, tempFile);
 
             // System.out.println(tempFile);
         } catch (Exception e) {
-            Assert.fail("Failed to print TAP Stream into file.", e);
+            fail("Failed to print TAP Stream into file.");
         }
 
         // BufferedReader reader = null;
@@ -152,9 +158,7 @@ public class TestTap13YamlProducer {
         // }
     }
 
-    @Test(expectedExceptions = {
-        ProducerException.class
-    })
+    @Test(expected = ProducerException.class)
     public void testDumpFailsForMissingPlan() {
         DumperOptions options = new DumperOptions();
         options.setAllowEmptyTestPlan(Boolean.FALSE);
@@ -164,20 +168,20 @@ public class TestTap13YamlProducer {
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
                                                  Integer.valueOf(1));
-        Assert.assertTrue(testSet.addTestResult(okTestResult));
+        assertTrue(testSet.addTestResult(okTestResult));
 
         try {
             File fileOutput = null;
             tapProducer.dump(testSet, fileOutput);
         } catch (NullPointerException npe) {
-            Assert.assertNotNull(npe);
+            assertNotNull(npe);
         }
 
         StringWriter sw = new StringWriter();
 
         tapProducer.dump(testSet, sw);
 
-        Assert.fail("Not supposed to get here");
+        fail("Not supposed to get here");
     }
 
     @Test
@@ -187,14 +191,14 @@ public class TestTap13YamlProducer {
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
                                                  Integer.valueOf(1));
-        Assert.assertTrue(testSet.addTestResult(okTestResult));
+        assertTrue(testSet.addTestResult(okTestResult));
 
-        Assert.assertNull(testSet.getPlan());
+        assertNull(testSet.getPlan());
 
         Plan plan = new Plan(1, 1);
         testSet.setPlan(plan);
 
-        Assert.assertNotNull(testSet.getPlan());
+        assertNotNull(testSet.getPlan());
 
         StringWriter sw = new StringWriter();
 
@@ -202,71 +206,64 @@ public class TestTap13YamlProducer {
 
     }
 
-    @Test(expectedExceptions = {
-        NullPointerException.class
-    })
+    @Test(expected = NullPointerException.class)
     public void testDumpToNullWriter() {
         Producer tapProducer = new TapProducer();
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
                                                  Integer.valueOf(1));
-        Assert.assertTrue(testSet.addTestResult(okTestResult));
+        assertTrue(testSet.addTestResult(okTestResult));
 
-        Assert.assertNull(testSet.getPlan());
+        assertNull(testSet.getPlan());
 
         Plan plan = new Plan(1, 1);
         testSet.setPlan(plan);
 
-        Assert.assertNotNull(testSet.getPlan());
+        assertNotNull(testSet.getPlan());
 
         StringWriter writer = null;
 
         tapProducer.dump(testSet, writer);
     }
 
-    @Test(expectedExceptions = ProducerException.class)
+    @Test(expected = ProducerException.class)
     public void testDumpToInvalidFile() {
         Producer tapProducer = new TapProducer();
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
                                                  Integer.valueOf(1));
-        Assert.assertTrue(testSet.addTestResult(okTestResult));
+        assertTrue(testSet.addTestResult(okTestResult));
 
-        Assert.assertNull(testSet.getPlan());
+        assertNull(testSet.getPlan());
 
         Plan plan = new Plan(1, 1);
         testSet.setPlan(plan);
 
-        Assert.assertNotNull(testSet.getPlan());
+        assertNotNull(testSet.getPlan());
 
         File outputFile = new File("");
 
         tapProducer.dump(testSet, outputFile);
     }
 
-    @Test(expectedExceptions = ProducerException.class)
+    @Test(expected = ProducerException.class)
     public void testDumpToInvalidWriter() {
-        Producer tapProducer = new TapProducer();
-
-        TestSet testSet = new TestSet();
-        TestResult okTestResult = new TestResult(StatusValues.OK,
+        final Producer tapProducer = new TapProducer();
+        final TestSet testSet = new TestSet();
+        final TestResult okTestResult = new TestResult(StatusValues.OK,
                                                  Integer.valueOf(1));
-        Assert.assertTrue(testSet.addTestResult(okTestResult));
-
-        Assert.assertNull(testSet.getPlan());
-
-        Plan plan = new Plan(1, 1);
+        assertTrue(testSet.addTestResult(okTestResult));
+        assertNull(testSet.getPlan());
+        final Plan plan = new Plan(1, 1);
         testSet.setPlan(plan);
-
-        Assert.assertNotNull(testSet.getPlan());
-
+        assertNotNull(testSet.getPlan());
         File tempFile = null;
         try {
             tempFile = File.createTempFile("delete_", ".delete");
         } catch (IOException e) {
-            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+            fail("Failed to create temp file: " + e.getMessage());
         }
 
         FileWriter writer = null;
@@ -277,11 +274,11 @@ public class TestTap13YamlProducer {
             try {
                 FileUtils.forceDelete(tempFile);
             } catch (IOException ioe) {
-                Assert.fail("Failed to delete temp file '" + tempFile + "': " +
-                            ioe.getMessage(), ioe);
+                fail("Failed to delete temp file '" + tempFile + "': " +
+                            ioe.getMessage());
             }
 
-            Assert.fail("Failed to create writer: " + e.getMessage(), e);
+            fail("Failed to create writer: " + e.getMessage());
         }
 
         try {
@@ -290,8 +287,8 @@ public class TestTap13YamlProducer {
             try {
                 FileUtils.forceDelete(tempFile);
             } catch (IOException e) {
-                Assert.fail("Failed to delete temp file '" + tempFile + "': " +
-                            e.getMessage(), e);
+                fail("Failed to delete temp file '" + tempFile + "': " +
+                            e.getMessage());
             }
         }
     }

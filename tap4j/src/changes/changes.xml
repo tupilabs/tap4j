@@ -6,6 +6,11 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
+        <release version="3.3" date="2012-11-24" description="3.3 release">
+            <action dev="kinow" type="fix">
+                Fixing subtests bug.
+            </action>
+        </release>
         <release version="3.2" date="2012-11-24" description="3.3 release">
             <action dev="kinow" type="add">
                 Add subtests.

@@ -129,9 +129,7 @@ public class Tap13Representer implements Representer {
     protected void printTestResult(PrintWriter pw, TestResult testResult) {
         printFiller(pw);
         pw.append(testResult.getStatus().toString());
-        if (testResult.getTestNumber() != null) {
-            pw.append(' ' + Integer.toString(testResult.getTestNumber()));
-        }
+        pw.append(' ' + Integer.toString(testResult.getTestNumber()));
         if (StringUtils.isNotBlank(testResult.getDescription())) {
             pw.append(' ' + testResult.getDescription());
         }

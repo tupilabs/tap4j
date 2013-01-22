@@ -17,11 +17,18 @@
  */
 package org.tap4j;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.tap4j.consumer.TapConsumer;
-import org.tap4j.consumer.TapConsumerException;
 import org.tap4j.consumer.TapConsumerImpl;
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
@@ -34,9 +41,6 @@ import org.tap4j.producer.Producer;
 import org.tap4j.producer.TapProducer;
 import org.tap4j.representer.Tap13Representer;
 import org.tap4j.util.StatusValues;
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 /**
  * Test where the producer outputs a tap file and then a consumer reads it and
@@ -44,26 +48,20 @@ import org.testng.annotations.Test;
  * Result with a String there. Then you use the consumer to read the tap file
  * created and check if the consumer can read the String. Voila.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @author Cesar Fernandes de Almeida
  * @since 1.0
  */
 public class TestProduceConsume {
 
     private static final Integer TAP_VERSION = 13;
-
     private Producer tapProducer;
-
     private TapConsumer tapConsumer;
-
     private TestSet testSet;
-
     // Temp file to where we output the generated tap stream.
     private File tempFile;
 
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @BeforeTest
+    @Before
     public void setUp() {
         tapProducer = new TapProducer(new Tap13Representer());
         tapConsumer = new TapConsumerImpl();
@@ -100,69 +98,48 @@ public class TestProduceConsume {
         try {
             tempFile = File.createTempFile("tap4j_", ".tap");
         } catch (IOException e) {
-            Assert.fail("Failed to create temp file: " + e.getMessage(), e);
+            fail("Failed to create temp file: " + e.getMessage());
         }
     }
 
     @Test
-    public void testTapProducer() {
-        Assert.assertTrue(testSet.getTapLines().size() > 0);
-
+    public void testTapProducerConsumer() {
+        assertTrue(testSet.getTapLines().size() > 0);
+        
+        // testProducer
         try {
             tapProducer.dump(testSet, tempFile);
         } catch (Exception e) {
-            Assert.fail("Failed to print TAP Stream into file.", e);
+            fail("Failed to print TAP Stream into file.");
         }
-    }
-
-    @Test(dependsOnMethods = {
-        "testTapProducer"
-    })
-    public void testConsumer() {
-        try {
+        
+        // testConsumer
+        { 
             TestSet testSet = tapConsumer.load(tempFile);
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getPlan());
-
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 3);
-
-            Assert.assertNotNull(testSet.getFooter());
-
-            Assert.assertTrue(testSet.getTapLines().size() > 0);
-
-            Assert.assertTrue(testSet.getNumberOfTapLines() > 0);
-
-            Assert.assertTrue(testSet.containsOk());
-
-            Assert.assertFalse(testSet.containsBailOut());
-
-            Assert.assertTrue(testSet.containsNotOk());
-
-            Assert.assertTrue(testSet.getComments().size() > 0);
-
-            Assert.assertTrue(testSet.getNumberOfComments() > 0);
-
-            Assert.assertTrue(testSet.getComments().size() == testSet
+            assertNotNull(testSet.getHeader());
+            assertNotNull(testSet.getPlan());
+            assertTrue(testSet.getNumberOfTestResults() == 3);
+            assertNotNull(testSet.getFooter());
+            assertTrue(testSet.getTapLines().size() > 0);
+            assertTrue(testSet.getNumberOfTapLines() > 0);
+            assertTrue(testSet.containsOk());
+            assertFalse(testSet.containsBailOut());
+            assertTrue(testSet.containsNotOk());
+            assertTrue(testSet.getComments().size() > 0);
+            assertTrue(testSet.getNumberOfComments() > 0);
+            assertTrue(testSet.getComments().size() == testSet
                 .getNumberOfComments());
-
-            Assert.assertNotNull(tapConsumer.getTestSet());
-
-            Assert.assertEquals(testSet.getTestResult(1).getStatus(),
+            assertNotNull(tapConsumer.getTestSet());
+            assertEquals(testSet.getTestResult(1).getStatus(),
                                 StatusValues.OK);
-
-        } catch (TapConsumerException e) {
-            Assert.fail("Failed to parse TAP file: " + e.getMessage(), e);
         }
     }
+
 
     @Test
     public void testWithBailOut() {
-        BailOut bailOut = new BailOut(null);
-
+        final BailOut bailOut = new BailOut(null);
         tapConsumer.getTestSet().getBailOuts().add(bailOut);
-
-        Assert.assertTrue(tapConsumer.getTestSet().containsBailOut());
+        assertTrue(tapConsumer.getTestSet().containsBailOut());
     }
 }

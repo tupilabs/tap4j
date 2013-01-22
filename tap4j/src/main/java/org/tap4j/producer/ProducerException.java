@@ -26,7 +26,6 @@ package org.tap4j.producer;
 /**
  * Runtime exception used by TAP producers.
  *
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 1.0
  */
 public class ProducerException extends RuntimeException {

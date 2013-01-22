@@ -351,15 +351,12 @@ public class TestSet implements Serializable {
      */
     public TestResult getTestResult(Integer testNumber) {
         TestResult foundTestResult = null;
-
         for (TestResult testResult : this.testResults) {
-            if (testResult.getTestNumber() != null
-                    && testResult.getTestNumber().equals(testNumber)) {
+            if (testResult.getTestNumber().equals(testNumber)) {
                 foundTestResult = testResult;
                 break;
             }
         }
-
         return foundTestResult;
     }
 

@@ -1,377 +1,256 @@
 /*
- * The MIT License Copyright (c) <2010> <tap4j> Permission is hereby granted,
- * free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software
- * without restriction, including without limitation the rights to use, copy,
- * modify, merge, publish, distribute, sublicense, and/or sell copies of the
- * Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions: The above copyright notice and this
- * permission notice shall be included in all copies or substantial portions of
- * the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
- * EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
- * OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+ * The MIT License
+ *
+ * Copyright (c) 2010 tap4j team (see AUTHORS)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package org.tap4j.consumer;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import org.junit.Test;
+import org.tap4j.BaseTapTest;
 import org.tap4j.model.Footer;
 import org.tap4j.model.SkipPlan;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.ParserException;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 /**
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
+ * Tests for a TAP 13 parser. Without YAML or subtests.
  * @since 1.0
  */
-public class TestTap13Consumer {// NOPMD
-
-    /**
-	 * 
-	 */
-    private static final String FAILED_TO_PARSE_TAP_FILE = "Failed to parse TAP file: ";
-
-    /**
-	 * 
-	 */
-    private static final String NOT_SUPPOSED_TO_GET_HERE = "Not supposed to get here.";
-
-    protected TapConsumer consumer;
-
-    @BeforeMethod
-    public void setUp() {
-        consumer = new TapConsumerImpl();
-    }
+public class TestTap13Consumer extends BaseTapTest {// NOPMD
 
     // comment_planskipall.tap
     @Test
     public void testConsumerPlanskipall() {
-        try {
-            TestSet testSet = consumer
-                .load(new File(TestTap13Consumer.class
-                    .getResource("/input_tap4j/comment_planskipall.tap")
-                    .getFile()));
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 0);
-            Footer footer = testSet.getFooter();
-            Assert.assertNull(footer);
-            SkipPlan skip = testSet.getPlan().getSkip();
-            Assert.assertNotNull(skip);
-            Assert.assertTrue(skip.getReason().equals("Not implemented yet."));
-        } catch (TapConsumerException e) {
-            Assert.fail(FAILED_TO_PARSE_TAP_FILE + e.getMessage(), e);
-        }
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/comment_planskipall.tap");
+        assertTrue(testSet.getNumberOfTestResults() == 0);
+        
+        final Footer footer = testSet.getFooter();
+        assertNull(footer);
+        
+        final SkipPlan skip = testSet.getPlan().getSkip();
+        assertNotNull(skip);
+        assertTrue(skip.getReason().equals("Not implemented yet."));
     }
 
     // header_plan_tr_footer.tap
     @Test
     public void testConsumerHeaderPlanTrFooter() {
-        try {
-            TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-                .getResource("/input_tap4j/header_plan_tr_footer.tap")
-                .getFile()));
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getPlan());
-
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 2);
-
-            Assert.assertTrue(testSet.getTestResults().get(0).getDescription()
-                .equals("Test 1"));
-
-            Assert.assertNotNull(testSet.getFooter());
-
-            Assert.assertNotNull(testSet.getFooter().getComment());
-        } catch (TapConsumerException e) {
-            Assert.fail(FAILED_TO_PARSE_TAP_FILE + e.getMessage(), e);
-        }
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan_tr_footer.tap");
+        assertNotNull(testSet.getHeader());
+        assertNotNull(testSet.getPlan());
+        assertTrue(testSet.getNumberOfTestResults() == 2);
+        assertTrue(testSet.getTestResults().get(0).getDescription()
+            .equals("Test 1"));
+        assertNotNull(testSet.getFooter());
+        assertNotNull(testSet.getFooter().getComment());
     }
 
     // header_plan_tr.tap
     @Test
     public void testConsumerHeaderPlanTr() {
-        try {
-            TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-                .getResource("/input_tap4j/header_plan_tr.tap").getFile()));
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getPlan());
-
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 2);
-
-            Assert.assertTrue(testSet.getTestResults().get(0).getDescription()
-                .equals("Test 1"));
-
-            Assert.assertNull(testSet.getFooter());
-        } catch (TapConsumerException e) {
-            Assert.fail(FAILED_TO_PARSE_TAP_FILE + e.getMessage(), e);
-        }
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan_tr.tap");
+        assertNotNull(testSet.getHeader());
+        assertNotNull(testSet.getPlan());
+        assertTrue(testSet.getNumberOfTestResults() == 2);
+        assertTrue(testSet.getTestResults().get(0).getDescription()
+            .equals("Test 1"));
+        assertNull(testSet.getFooter());
     }
 
     // header_plan.tap
     @Test
     public void testConsumerHeaderPlan() {
-        try {
-            TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-                .getResource("/input_tap4j/header_plan.tap").getFile()));
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getPlan());
-
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 0);
-
-            Assert.assertNull(testSet.getFooter());
-        } catch (TapConsumerException e) {
-            Assert.fail(FAILED_TO_PARSE_TAP_FILE + e.getMessage(), e);
-        }
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan.tap");
+        assertNotNull(testSet.getHeader());
+        assertNotNull(testSet.getPlan());
+        assertTrue(testSet.getNumberOfTestResults() == 0);
+        assertNull(testSet.getFooter());
     }
 
     // header_planskipall.tap
     @Test
     public void testConsumerHeaderPlanskipall() {
-        try {
-            TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-                .getResource("/input_tap4j/header_planskipall.tap").getFile()));
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getPlan());
-
-            Assert.assertTrue(testSet.getPlan().isSkip());
-
-            Assert.assertNotNull(testSet.getPlan().getSkip());
-
-            Assert.assertTrue(testSet.getNumberOfTestResults() == 0);
-
-            Assert.assertNull(testSet.getFooter());
-        } catch (TapConsumerException e) {
-            Assert.fail(FAILED_TO_PARSE_TAP_FILE + e.getMessage(), e);
-        }
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/header_planskipall.tap");
+        assertNotNull(testSet.getHeader());
+        assertNotNull(testSet.getPlan());
+        assertTrue(testSet.getPlan().isSkip());
+        assertNotNull(testSet.getPlan().getSkip());
+        assertTrue(testSet.getNumberOfTestResults() == 0);
+        assertNull(testSet.getFooter());
     }
 
     // header_tr_plan.tap
     @Test
-    public void testConsumerHeaderTrPlan()
-        throws TapConsumerException {
-        TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/header_tr_plan.tap").getFile()));
-
-        Assert.assertTrue(testSet.getTestResults().size() == 2);
-
-        Assert.assertNotNull(testSet.getPlan());
-
-        // Assert.assertFalse(
+    public void testConsumerHeaderTrPlan() {
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/header_tr_plan.tap");
+        assertTrue(testSet.getTestResults().size() == 2);
+        assertNotNull(testSet.getPlan());
+        // assertFalse(
         // ((Tap13YamlParser)consumer).isPlanBeforeTestResult() );
     }
 
     // plan_comment_tr_footer.tap
     @Test
-    public void testConsumerPlanCommentTrFooter()
-        throws TapConsumerException {
-        TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/plan_comment_tr_footer.tap").getFile()));
-
-        Assert.assertNull(testSet.getHeader());
-
-        Assert.assertTrue(testSet.getTestResults().size() == 3);
-
-        Assert.assertNotNull(testSet.getPlan());
-
-        // Assert.assertTrue(
+    public void testConsumerPlanCommentTrFooter() {
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/plan_comment_tr_footer.tap");
+        assertNull(testSet.getHeader());
+        assertTrue(testSet.getTestResults().size() == 3);
+        assertNotNull(testSet.getPlan());
+        // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
-
-        Assert.assertTrue(testSet.getTestResults().size() == testSet.getPlan()
-            .getLastTestNumber());
-
-        Assert.assertNotNull(testSet.getFooter());
+        assertTrue(testSet.getTestResults().size() == testSet.getPlan()
+                .getLastTestNumber());
+        assertNotNull(testSet.getFooter());
     }
 
     // plan_tr.tap
     @Test
-    public void testConsumerPlanTr()
-        throws TapConsumerException {
-        TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/plan_tr.tap").getFile()));
-
-        Assert.assertNull(testSet.getHeader());
-
-        Assert.assertTrue(testSet.getTestResults().size() == 2);
-
-        Assert.assertNotNull(testSet.getPlan());
-
-        // Assert.assertTrue(
+    public void testConsumerPlanTr() {
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/plan_tr.tap");
+        assertNull(testSet.getHeader());
+        assertTrue(testSet.getTestResults().size() == 2);
+        assertNotNull(testSet.getPlan());
+        // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
-
-        Assert.assertTrue(testSet.getTestResults().size() == testSet.getPlan()
+        assertTrue(testSet.getTestResults().size() == testSet.getPlan()
             .getLastTestNumber());
-
-        Assert.assertNull(testSet.getFooter());
+        assertNull(testSet.getFooter());
     }
 
     // invalid_comment_tr_bailout_header.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidCommentTrBailoutHeader()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_comment_tr_bailout_header.tap")
-            .getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidCommentTrBailoutHeader() {
+        getTestSet("/org/tap4j/consumer/invalid_comment_tr_bailout_header.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_header_tr.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidHeaderTr()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_header_tr.tap").getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidHeaderTr() {
+        getTestSet("/org/tap4j/consumer/invalid_header_tr.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_plan_header_plan.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidPlanHeaderPlan()
-        throws TapConsumerException {
-        consumer
-            .load(new File(TestTap13Consumer.class
-                .getResource("/input_tap4j/invalid_plan_header_plan.tap")
-                .getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidPlanHeaderPlan() {
+        getConsumer().load("/org/tap4j/consumer/invalid_plan_header_plan.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_plan_tr_header.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidPlanTrHeader()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_plan_tr_header.tap").getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidPlanTrHeader() {
+        getTestSet("/org/tap4j/consumer/invalid_plan_tr_header.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_tr_footer.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidTrFooter()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_tr_footer.tap").getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidTrFooter() {
+        getTestSet("/org/tap4j/consumer/invalid_tr_footer.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_tr_header_header_tr.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidTrHeaderHeaderTr()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_tr_header_header_tr.tap")
-            .getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidTrHeaderHeaderTr() {
+        getTestSet("/org/tap4j/consumer/invalid_tr_header_header_tr.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_tr_plan_header.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidTrPlanHeader()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_tr_plan_header.tap").getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidTrPlanHeader() {
+        getTestSet("/org/tap4j/consumer/invalid_tr_plan_header.tap");
+        fail("Not supposed to get here");
     }
 
     // invalid_tr.tap
-    @Test(expectedExceptions = TapConsumerException.class)
-    public void testConsumerInvalidTr()
-        throws TapConsumerException {
-        consumer.load(new File(TestTap13Consumer.class
-            .getResource("/input_tap4j/invalid_tr.tap").getFile()));
-
-        Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+    @Test(expected = TapConsumerException.class)
+    public void testConsumerInvalidTr() {
+        getTestSet("/org/tap4j/consumer/invalid_tr.tap");
+        fail("Not supposed to get here");
     }
 
     @Test
     public void testConsumerTapStream1AndPrintDetails() {
-        StringBuilder tapStream = new StringBuilder();
-
+        final StringBuilder tapStream = new StringBuilder();
         tapStream.append("TAP version 13 # the header\n");
         tapStream.append("1..1\n");
         tapStream.append("ok 1\n");
         tapStream
             .append("Bail out! Out of memory exception # Contact admin! 9988\n");
-
-        try {
-            TestSet testSet = consumer.load(tapStream.toString());
-
-            Assert.assertTrue(testSet.getPlan().getLastTestNumber() == 1);
-
-            Assert.assertNotNull(testSet.getHeader());
-
-            Assert.assertNotNull(testSet.getHeader().getComment());
-
-            Assert.assertEquals(testSet.getBailOuts().get(0).getReason(),
-                                "Out of memory exception ");
-
-            Assert.assertEquals(testSet.getBailOuts().get(0).getComment()
-                .getText(), "Contact admin! 9988");
-
-        } catch (TapConsumerException e) {
-            Assert.fail("Failed to parse TAP stream: " + e.getMessage(), e);
-        }
+        final TestSet testSet = getConsumer().load(tapStream.toString());
+        assertTrue(testSet.getPlan().getLastTestNumber() == 1);
+        assertNotNull(testSet.getHeader());
+        assertNotNull(testSet.getHeader().getComment());
+        assertEquals(testSet.getBailOuts().get(0).getReason(),
+                            "Out of memory exception ");
+        assertEquals(testSet.getBailOuts().get(0).getComment()
+            .getText(), "Contact admin! 9988");
     }
 
-    @Test(description = "Tests a TapConsumer reading an invalid TAP Stream")
+    /**
+     * Tests a TapConsumer reading an invalid TAP Stream.
+     */
+    @Test
     public void testTapConsumerInvalidToken() {
-        TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-
+        final TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
         TestSet testSet = null;
-
         String invalidTapStream = "a..2\nok 1\n  ---\n  name:Bruno\n  ---ok2";
-
         try {
             testSet = tapConsumer.load(invalidTapStream);
-
-            Assert.fail(NOT_SUPPOSED_TO_GET_HERE);
+            fail("Not supposed to get here");
         } catch (TapConsumerException tapConsumerException) {
-            Assert
-                .assertTrue(tapConsumerException.getCause() instanceof ParserException);
+            assertTrue(tapConsumerException.getCause() instanceof ParserException);
         }
-
-        Assert.assertNull(testSet);
+        assertNull(testSet);
     }
 
-    @Test(description = "Tests a TapConsumer with a single Test Result")
+    /**
+     * Tests a TapConsumer with a single Test Result.
+     */
+    @Test
     public void testWithSingleTestResult() {
-        TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/org/tap4j/consumer/single_tr.tap").getFile()));
-
-        Assert.assertNotNull(testSet);
-
-        Assert.assertTrue(testSet.getNumberOfTestResults() == 1);
+        final TestSet testSet = getTestSet("/org/tap4j/consumer/single_tr.tap");
+        assertNotNull(testSet);
+        assertTrue(testSet.getNumberOfTestResults() == 1);
     }
 
-    @Test(description = "A Tap Consumer cannot save its state")
+    /**
+     * A Tap Consumer cannot save its state.
+     */
+    @Test
     public void testStateOfConsumer() {
-        TestSet testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/org/tap4j/consumer/single_tr.tap").getFile()));
-
-        Assert.assertNotNull(testSet);
-
-        Assert.assertTrue(testSet.getNumberOfTestResults() == 1);
-
-        testSet = consumer.load(new File(TestTap13Consumer.class
-            .getResource("/org/tap4j/consumer/two_tr.tap").getFile()));
+        TestSet testSet = getTestSet("/org/tap4j/consumer/single_tr.tap");
+        assertNotNull(testSet);
+        assertTrue(testSet.getNumberOfTestResults() == 1);
+        testSet = getTestSet("/org/tap4j/consumer/two_tr.tap");
     }
 
 }

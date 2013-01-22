@@ -126,7 +126,6 @@ public class TapJunitRepresenter implements Representer {
 /**
  * Helper class for Junit report.
  *
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 3.1
  */
 class Statuses {
@@ -161,23 +160,6 @@ class Statuses {
      */
     public Statuses() {
         super();
-    }
-
-    /**
-     * @param errors Number of errors
-     * @param failures Number of failures
-     * @param skipped Number of skipped tests
-     * @param tests Number of tests
-     * @param time Time
-     */
-    public Statuses(int errors, int failures, int skipped, int tests,
-                    double time) {
-        super();
-        this.errors = errors;
-        this.failures = failures;
-        this.skipped = skipped;
-        this.tests = tests;
-        this.time = time;
     }
 
     /**

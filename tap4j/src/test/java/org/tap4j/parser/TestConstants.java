@@ -21,33 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.parser.issueGitHub5;
+package org.tap4j.parser;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Test;
-import org.tap4j.BaseTapTest;
-import org.tap4j.model.TestSet;
-import org.tap4j.parser.issue3409478.TestDoneTesting;
 
 /**
- * If there is random STDOUT after a tap plan at end, it fails.
- * <p>
- * This issue has been fixed, as consequence of fixing issue 3409478.
- * 
- * @since 2.0.6
- * @see {@link TestDoneTesting}
+ * Tests for parser Constants.
  */
-public class TestRandomStdoutAfterTestPlanAtEnd extends BaseTapTest {
+public class TestConstants {
 
-    /**
-     * Tests a TapConsumer reading a plan at end with random output afterwards.
-     */
     @Test
-    public void testRandomStoutAfterTestPlanAtEnd() {
-        final String validTapStream = "ok 1\n1..1\nJust some random stuff here";
-        final TestSet testSet = getConsumer().load(validTapStream);
-        assertNotNull(testSet);
+    public void testUtilConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        final Constructor<?> c = Constants.class
+                .getDeclaredConstructors()[0];
+        c.setAccessible(true);
+        final Object o = c.newInstance((Object[]) null);
+        assertNotNull(o);
     }
-
+    
 }

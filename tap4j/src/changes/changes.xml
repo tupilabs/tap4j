@@ -6,6 +6,35 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
+        <release version="4.0" date="2013-01-??" description="4.0 release">
+            <action dev="kinow" type="add">
+                Separated project into multiple maven modules.
+            </action>
+            <action dev="kinow" type="add">
+                Increased test coverage.
+            </action>
+            <action dev="kinow" type="fix">
+                Simplified parsers with OO and options by constructor.
+            </action>
+            <action dev="kinow" type="add">
+                Organized test resources packages.
+            </action>
+            <action dev="kinow" type="remove">
+                Removed author tags.
+            </action>
+            <action dev="kinow" type="fix">
+                Fixed code license headers.
+            </action>
+            <action dev="kinow" type="fix">
+                Formatted code.
+            </action>
+            <action dev="kinow" type="add">
+                Updated project web site with more examples.
+            </action>
+            <action dev="kinow" type="add">
+                Updated integration with TestNG and JUnit.
+            </action>
+        </release>
         <release version="3.3" date="2012-11-24" description="3.3 release">
             <action dev="kinow" type="fix">
                 Fixing subtests bug.

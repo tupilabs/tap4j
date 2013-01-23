@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
@@ -53,7 +52,7 @@ import org.testng.xml.XmlSuite;
  * 
  * @since 1.0
  */
-public class SuiteTapReporter implements IReporter {
+public class TapTestNGListenerSuite implements IReporter {
 
     private final Map<Class<?>, List<ITestResult>> testResultsPerSuite = new LinkedHashMap<Class<?>, List<ITestResult>>();
 
@@ -110,7 +109,7 @@ public class SuiteTapReporter implements IReporter {
                     .get(testResultClass);
 
                 for (ITestResult testResult : testResults) {
-                    TestResult tapTestResult = TestNGTapUtils
+                    TestResult tapTestResult = TapTestNGUtil
                         .generateTAPTestResult(testResult,
                                                testSet.getNumberOfTestResults() + 1);
                     testSet.addTestResult(tapTestResult);
@@ -144,7 +143,7 @@ public class SuiteTapReporter implements IReporter {
                 Arrays.sort(groupNames);
 
                 for (String group : groupNames) {
-                    if (StringUtils.isNotEmpty(group)) {
+                    if (group != null && group.trim().length() > 0) {
                         List<ITestResult> groupTestResults = testResultsPerGroup
                             .get(group);
 
@@ -157,7 +156,7 @@ public class SuiteTapReporter implements IReporter {
                             testSet.setPlan(new Plan(totalTestResultsByGroup));
 
                             for (ITestResult testResult : groupTestResults) {
-                                TestResult tapTestResult = TestNGTapUtils
+                                TestResult tapTestResult = TapTestNGUtil
                                     .generateTAPTestResult(testResult, testSet
                                         .getNumberOfTestResults() + 1);
                                 testSet.addTestResult(tapTestResult);
@@ -228,7 +227,7 @@ public class SuiteTapReporter implements IReporter {
     public void generateClasses(XmlSuite xmlSuite, ISuite suite) {
         if (suite.getResults().size() > 0) {
             for (ISuiteResult suiteResult : suite.getResults().values()) {
-                List<ITestResult> testResults = TestNGTapUtils
+                List<ITestResult> testResults = TapTestNGUtil
                     .getTestNGResultsOrderedByExecutionDate(suiteResult
                         .getTestContext());
 
@@ -248,7 +247,7 @@ public class SuiteTapReporter implements IReporter {
     }
 
     /**
-     * Generate the results map for the groups
+     * Generate the map for the groups
      * 
      * @param xmlSuite
      * @param suite
@@ -259,7 +258,7 @@ public class SuiteTapReporter implements IReporter {
                                                Map<String, Collection<ITestNGMethod>> groups) {
         if (suite.getResults().size() > 0) {
             for (ISuiteResult suiteResult : suite.getResults().values()) {
-                List<ITestResult> testResults = TestNGTapUtils
+                List<ITestResult> testResults = TapTestNGUtil
                     .getTestNGResultsOrderedByExecutionDate(suiteResult
                         .getTestContext());
 
@@ -269,7 +268,7 @@ public class SuiteTapReporter implements IReporter {
                     String[] groupsNm = findInWhatGroupsMethodIs(method, groups);
 
                     for (String gpNm : groupsNm) {
-                        if (StringUtils.isNotEmpty(gpNm)) {
+                        if (gpNm != null && gpNm.trim().length() > 0) {
                             List<ITestResult> testResultsForThisGroup = testResultsPerGroup
                                 .get(gpNm);
 

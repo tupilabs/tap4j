@@ -39,7 +39,7 @@ public class RunJUnitTestWithListener {
      */
     public static void main(String[] args) {
         JUnitCore core = new JUnitCore();
-        core.addListener(new JUnitTestTapReporter());
+        core.addListener(new TapListener());
         core.run(TestTap13JUnit1.class);
     }
 }

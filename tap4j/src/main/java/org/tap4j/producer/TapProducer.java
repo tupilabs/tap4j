@@ -24,10 +24,11 @@
 package org.tap4j.producer;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.Writer;
 
-import org.apache.commons.io.FileUtils;
 import org.tap4j.model.TestSet;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.RepresenterException;
@@ -115,11 +116,26 @@ public class TapProducer implements Producer {
                                                 + re.getMessage(), re);
         }
 
+        FileOutputStream out = null;
+        PrintStream printStream = null;
         try {
-            FileUtils.writeStringToFile(output, tapStream);
+            out = new FileOutputStream(output);
+            printStream = new PrintStream(out);
+            printStream.print(tapStream);
         } catch (IOException e) {
             throw new ProducerException("Failed to dump TAP Stream: "
                     + e.getMessage(), e);
+        } finally {
+            if (printStream != null) {
+                printStream.close();
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    throw new ProducerException("Failed to close TAP Stream", e);
+                }
+            }
         }
     }
 

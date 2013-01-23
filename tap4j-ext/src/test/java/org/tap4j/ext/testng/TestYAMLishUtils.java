@@ -53,7 +53,7 @@ public class TestYAMLishUtils {
     public void testGetMessage() {
         ITestResult iTestResult = new TestResult();
 
-        String msg = TestNGYAMLishUtils.getMessage(iTestResult);
+        String msg = TapTestNGYamlUtil.getMessage(iTestResult);
 
         Assert.assertNotNull(msg);
     }

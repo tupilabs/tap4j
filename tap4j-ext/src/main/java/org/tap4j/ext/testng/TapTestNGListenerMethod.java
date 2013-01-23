@@ -22,26 +22,24 @@
  * THE SOFTWARE.
  */
 
-package org.tap4j.ext.testng.issue3167058;
+package org.tap4j.ext.testng;
 
-import org.tap4j.ext.testng.TapTestNGYamlUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.ITestContext;
 
 /**
- * @author Cesar Fernandes de Almeida
- * @since 1.4.3
+ * A TestNG test reporter.
+ * 
+ * @since 1.0
  */
-public class TestGetLine {
+public class TapTestNGListenerMethod extends AbstractTapTestNGListener {
 
-    @Test
-    public void testGetYAMLExcepetionLine() {
-        String exceptionTrackLine = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:178)";
-        String strToFind = "org.tap4j.producer.TestTap13YamlProducer.testDumpFailsForMissingPlan(TestTap13YamlProducer.java:";
-
-        String lineStr = TapTestNGYamlUtil
-            .getLineNumberFromExceptionTraceLine(exceptionTrackLine, strToFind);
-
-        Assert.assertTrue(lineStr != "");
+    /*
+     * (non-Javadoc)
+     * @see org.testng.TestListenerAdapter#onFinish(org.testng.ITestContext)
+     */
+    @Override
+    public void onFinish(ITestContext testContext) {
+        this.generateTAPPerMethod(testContext);
     }
+
 }

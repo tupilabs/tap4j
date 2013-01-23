@@ -28,7 +28,6 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Footer;
@@ -130,13 +129,14 @@ public class Tap13Representer implements Representer {
         printFiller(pw);
         pw.append(testResult.getStatus().toString());
         pw.append(' ' + Integer.toString(testResult.getTestNumber()));
-        if (StringUtils.isNotBlank(testResult.getDescription())) {
+        if (testResult.getDescription() != null && testResult.getDescription().trim().length() > 0) {
             pw.append(' ' + testResult.getDescription());
         }
         if (testResult.getDirective() != null) {
             pw.append(" # "
                     + testResult.getDirective().getDirectiveValue().toString());
-            if (StringUtils.isNotBlank(testResult.getDirective().getReason())) {
+            String reason = testResult.getDirective().getReason();
+            if (reason != null && reason.trim().length() > 0) {
                 pw.append(' ' + testResult.getDirective().getReason());
             }
         }
@@ -274,7 +274,9 @@ public class Tap13Representer implements Representer {
      */
     protected void printFiller(PrintWriter pw) {
         if (this.options.getIndent() > 0) {
-            pw.append(StringUtils.repeat(" ", this.options.getIndent()));
+            for (int i = 0; i < options.getIndent(); i++) {
+                pw.append(' ');
+            }
         }
     }
 

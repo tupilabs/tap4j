@@ -33,7 +33,7 @@ import org.testng.annotations.Test;
  * @since 18/03/2011
  */
 @Listeners({
-    org.tap4j.ext.testng.SuiteTapReporter.class
+    org.tap4j.ext.testng.TapTestNGListenerSuite.class
 })
 public class TestSuiteTapReporter {
 

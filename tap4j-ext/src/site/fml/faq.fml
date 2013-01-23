@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+  title="Frequently Asked Questions"
+  toplink="false">
+
+  <part id="general">
+    <title>General</title>
+
+    <faq id="whats-tap">
+      <question>
+        What is TAP
+      </question>
+      <answer>
+        <p>From TestAnything.org Wiki: <i>TAP, the Test Anything Protocol, 
+        is a simple text-based interface between testing modules in a test 
+        harness.</i></p>
+      </answer>
+    </faq>
+
+  </part>
+
+  <!--part id="install">
+
+    <title>Installation</title>
+
+    <faq id="how-install">
+      <question>
+        How do I install Foo?
+      </question>
+      <answer>
+        <p>some markup goes here</p>
+      </answer>
+    </faq>
+
+  </part-->
+
+</faqs>

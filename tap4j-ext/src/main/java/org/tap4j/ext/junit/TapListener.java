@@ -21,14 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package org.tap4j.ext.junit;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -42,32 +40,85 @@ import org.tap4j.producer.TapProducer;
 /**
  * Listener implemented to generate a tap file with the testes results for every
  * class, suite and method tested
- * 
+ *
  * @since 1.4.3
  */
-public class JUnitTestTapReporter extends RunListener {
-
-    private List<JUnitTestData> testMethodsList = null;
-
+public class TapListener extends RunListener {
+    public enum Type {
+        METHOD, CLASS, SUITE, ALL
+    };
+    /**
+     * List of test methods.
+     */
+    private List<JUnitTestData> testMethodsList = new LinkedList<JUnitTestData>();
     /**
      * TAP Producer.
      */
-    private Producer tapProducer = null;
+    private Producer tapProducer = new TapProducer();
+    /**
+     * Whether the listener must output YAML or not.
+     */
+    private final boolean yaml;
+    /**
+     * Listener mtype.
+     */
+    private final Type type;
+    /**
+     * Default constructor.
+     */
+    public TapListener() {
+        super();
+        this.yaml = false;
+        this.type = Type.ALL;
+    }
 
-    private boolean isSuite = false;
+    /**
+     * Default constructor.
+     */
+    public TapListener(boolean yaml) {
+        super();
+        this.yaml = yaml;
+        this.type = Type.ALL;
+    }
+    
+    /**
+     * Default constructor.
+     */
+    public TapListener(Type type) {
+        super();
+        this.yaml = false;
+        this.type = type;
+    }
+    
+    /**
+     * @param yaml Whether output YAML or not.
+     * @param type Listener type.
+     */
+    public TapListener(boolean yaml, Type type) {
+        super();
+        this.yaml = yaml;
+        this.type = type;
+    }
+
+    /**
+     * @return <code>true</code> when output YAML is enabled.
+     */
+    public boolean isYaml() {
+        return yaml;
+    }
+    
+    public Type getType() {
+        return type;
+    }
 
     /**
      * Called right before any tests from a specific class are run.
-     * 
+     *
      * @see org.junit.runner.notification.RunListener#testRunStarted(org.junit.runner.Description)
      */
-    public void testRunStarted(Description description)
-        throws Exception {
+    public void testRunStarted(Description description) throws Exception {
         this.tapProducer = new TapProducer();
-
         this.testMethodsList = new LinkedList<JUnitTestData>();
-
-        this.isSuite = description.isSuite();
     }
 
     /**
@@ -75,30 +126,38 @@ public class JUnitTestTapReporter extends RunListener {
      * 
      * @see org.junit.runner.notification.RunListener#testRunFinished(org.junit.runner.Result)
      */
-    public void testRunFinished(Result result)
-        throws Exception {
+    public void testRunFinished(Result result) throws Exception {
         // Set Failed Status on Tests List
         this.setFailedTestsStatus(result);
-
-        // Generate TAP FILE for each method
-        this.generateTapPerMethod(result);
-
-        // Generate TAP FILE for each class
-        this.generateTapPerClass(result);
-
-        // Generate TAP FILE for each suite
-        if (this.isSuite) {
+        switch (getType()) {
+        case ALL:
+            // Generate TAP FILE for each method
+            this.generateTapPerMethod(result);
+            // Generate TAP FILE for each class
+            this.generateTapPerClass(result);
+            // Generate TAP FILE for each suite
             this.generateTapPerSuite(result);
+            break;
+        case METHOD:
+            // Generate TAP FILE for each method
+            this.generateTapPerMethod(result);
+            break;
+        case CLASS:
+            this.generateTapPerClass(result);
+            // Generate TAP FILE for each suite
+            break;
+        case SUITE:
+            this.generateTapPerSuite(result);
+            break;
         }
     }
 
     /**
      * Called when a specific test has been skipped (for whatever reason).
-     * 
+     *
      * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
      */
-    public void testIgnored(Description description)
-        throws Exception {
+    public void testIgnored(Description description) throws Exception {
         JUnitTestData testMethod = new JUnitTestData(false, false);
         testMethod.setDescription(description);
         testMethod.setIgnored(true);
@@ -107,30 +166,27 @@ public class JUnitTestTapReporter extends RunListener {
 
     /**
      * Called when a specific test has started.
-     * 
+     *
      * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
      */
-    public void testStarted(Description description)
-        throws Exception {
+    public void testStarted(Description description) throws Exception {
         this.setTestInfo(description);
     }
 
     /**
      * Called when a specific test has failed.
-     * 
+     *
      * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
      */
-    public void testFailure(Failure failure)
-        throws Exception {
+    public void testFailure(Failure failure) throws Exception {
     }
 
     /**
      * Called after a specific test has finished.
-     * 
+     *
      * @see org.junit.runner.notification.RunListener#testFinished(org.junit.runner.Description)
      */
-    public void testFinished(Description description)
-        throws Exception {
+    public void testFinished(Description description) throws Exception {
     }
 
     /**
@@ -139,20 +195,20 @@ public class JUnitTestTapReporter extends RunListener {
      * @param result
      */
     protected void generateTapPerMethod(Result result) {
-        for (JUnitTestData testMethod : testMethodsList) {
-            TestResult tapTestResult = JUnitTapUtils
-                .generateTAPTestResult(testMethod, 1);
+        for (final JUnitTestData testMethod : testMethodsList) {
+            final TestResult tapTestResult = TapJUnitUtil
+                .generateTAPTestResult(testMethod, 1, isYaml());
 
-            TestSet testSet = new TestSet();
+            final TestSet testSet = new TestSet();
             testSet.setPlan(new Plan(1));
             testSet.addTestResult(tapTestResult);
 
-            String className = JUnitYAMLishUtils.extractClassName(testMethod
+            final String className = TapJUnitUtil.extractClassName(testMethod
                 .getDescription());
-            String methodName = JUnitYAMLishUtils.extractMethodName(testMethod
+            final String methodName = TapJUnitUtil.extractMethodName(testMethod
                 .getDescription());
 
-            File output = new File("./", className + "#" + methodName + ".tap");
+            final File output = new File("./", className + "#" + methodName + ".tap");
             tapProducer.dump(testSet, output);
         }
     }
@@ -171,10 +227,10 @@ public class JUnitTestTapReporter extends RunListener {
         String lastClassName = "";
 
         for (JUnitTestData testMethod : testMethodsList) {
-            className = JUnitYAMLishUtils.extractClassName(testMethod
+            className = TapJUnitUtil.extractClassName(testMethod
                 .getDescription());
 
-            if (StringUtils.isNotBlank(lastClassName) &&
+            if (lastClassName != null && lastClassName.trim().length() > 0 &&
                 !lastClassName.equals(className)) {
                 testSet.setPlan(new Plan(methodsSizeList));
                 output = new File("./", lastClassName + ".tap");
@@ -183,8 +239,8 @@ public class JUnitTestTapReporter extends RunListener {
                 testSet = new TestSet();
                 methodsSizeList = 0;
             }
-            TestResult tapTestResult = JUnitTapUtils
-                .generateTAPTestResult(testMethod, 1);
+            TestResult tapTestResult = TapJUnitUtil
+                .generateTAPTestResult(testMethod, 1, isYaml());
             testSet.addTestResult(tapTestResult);
             methodsSizeList++;
 
@@ -207,11 +263,11 @@ public class JUnitTestTapReporter extends RunListener {
         String className = "";
 
         for (JUnitTestData testMethod : testMethodsList) {
-            className = JUnitYAMLishUtils.extractClassName(testMethod
+            className = TapJUnitUtil.extractClassName(testMethod
                 .getDescription());
 
-            TestResult tapTestResult = JUnitTapUtils
-                .generateTAPTestResult(testMethod, 1);
+            TestResult tapTestResult = TapJUnitUtil
+                .generateTAPTestResult(testMethod, 1, isYaml());
             testSet.addTestResult(tapTestResult);
         }
 
@@ -251,4 +307,5 @@ public class JUnitTestTapReporter extends RunListener {
             }
         }
     }
+    
 }

@@ -21,27 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.producer;
+package org.tap4j.ext.testng;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
+import org.testng.ITestContext;
+
 
 /**
- * Binds the required classes to have the integration test between Java and
- * Perl.
+ * A TestNG test reporter.
  * 
- * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
- * @since 1.4.6
+ * @since 1.0
  */
-public class TapPerlIntegrationModule
-    implements Module {
+public class TapTestNGListener extends AbstractTapTestNGListener {
+    @Override
+    public void onFinish(ITestContext testContext) {
+        this.generateTAPPerClass(testContext);
 
-    /*
-     * (non-Javadoc)
-     * @see com.google.inject.Module#configure(com.google.inject.Binder)
-     */
-    public void configure(Binder binder) {
-        binder.bind(Producer.class).to(TapProducer.class);
+        this.generateTAPPerMethod(testContext);
     }
-
 }

@@ -39,7 +39,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
 import org.testng.ITestResult;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlInclude;
@@ -47,8 +46,7 @@ import org.testng.xml.XmlPackage;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 import org.yaml.snakeyaml.DumperOptions.LineBreak;
-import org.yaml.snakeyaml.JavaBeanLoader;
-import org.yaml.snakeyaml.reader.UnicodeReader;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * TestNG YAMLish utility class.
@@ -56,7 +54,7 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
  * @since 1.0
  */
 @SuppressWarnings("unchecked") // TODO: explain why this can be unchecked
-public final class TestNGYAMLishUtils {
+public final class TapTestNGYamlUtil {
     //TODO: add javadoc
     /**
      * 
@@ -74,7 +72,7 @@ public final class TestNGYAMLishUtils {
     /**
      * Default hidden constructor.
      */
-    private TestNGYAMLishUtils() {
+    private TapTestNGYamlUtil() {
         super();
     }
 
@@ -284,7 +282,8 @@ public final class TestNGYAMLishUtils {
         String expected = getExpected(testNgTestResult);
         String actual = getActual(testNgTestResult);
 
-        if (StringUtils.isNotEmpty(expected) && StringUtils.isNotEmpty(actual)) {
+        if (expected != null && expected.trim().length() > 0
+                && actual != null && actual.trim().length() > 0) {
             int expectedLength = expected.length();
             int actualLength = actual.length();
 
@@ -524,17 +523,17 @@ public final class TestNGYAMLishUtils {
                                                                                // default
                                                                                // value?
 
-        toYaml(result, "parameters", sp2, t.getParameters());
+        toYaml(result, "parameters", sp2, t.getAllParameters());
 
         if (t.getIncludedGroups().size() > 0) {
             result.append(sp2).append("includedGroups: [ ")
-                .append(StringUtils.join(t.getIncludedGroups(), ","))
+                .append(join(t.getIncludedGroups()))
                 .append(" ]\n");
         }
 
         if (t.getExcludedGroups().size() > 0) {
             result.append(sp2).append("excludedGroups: [ ")
-                .append(StringUtils.join(t.getExcludedGroups(), ","))
+                .append(join(t.getExcludedGroups()))
                 .append(" ]\n");
         }
 
@@ -547,7 +546,8 @@ public final class TestNGYAMLishUtils {
                     result.append(", ");
                 }
                 result.append(group).append(": [ ")
-                    .append(StringUtils.join(mg.get(group), ",")).append(" ] ");
+                    .append(join(mg.get(group)))
+                    .append(" ] ");
                 first = false;
             }
             result.append(" }\n");
@@ -568,6 +568,17 @@ public final class TestNGYAMLishUtils {
         }
 
         result.append("\n");
+    }
+    
+    private static String join(List<String> strings) {
+        StringBuilder sb = new StringBuilder();
+        for (int i =0; i < strings.size(); i++) {
+            sb.append(strings.get(i));
+            if (i+1 < strings.size()) {
+                sb.append(',');
+            }
+        }
+        return sb.toString();
     }
 
     /**
@@ -740,16 +751,11 @@ public final class TestNGYAMLishUtils {
      * @return XMLSuite
      * @throws FileNotFoundException
      */
-    public static XmlSuite parse(String filePath, InputStream is)
-        throws FileNotFoundException {
-        JavaBeanLoader<XmlSuite> loader = new JavaBeanLoader<XmlSuite>(
-                                                                       XmlSuite.class);
+    public static XmlSuite parse(String filePath, InputStream is) throws FileNotFoundException {
         if (is == null) {
             is = new FileInputStream(new File(filePath));
         }
-        XmlSuite result = loader.load(new UnicodeReader(is)); // UnicodeReader
-                                                              // used to
-                                                              // respect BOM
+        XmlSuite result = new Yaml().loadAs(is, XmlSuite.class);
         result.setFileName(filePath);
         // DEBUG
         // System.out.println("[Yaml] " + result.toXml());

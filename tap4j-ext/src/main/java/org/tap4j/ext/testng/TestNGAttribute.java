@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * 
  * @since 1.0
  */
-public class TapAttribute implements Serializable {
+public class TestNGAttribute implements Serializable {
 
     /*
      * Serial Version UID.
@@ -56,7 +56,7 @@ public class TapAttribute implements Serializable {
      * @param method
      * @param value
      */
-    public TapAttribute(Method method, Object value) {
+    public TestNGAttribute(Method method, Object value) {
         super();
         this.method = method;
         this.value = value;

@@ -24,7 +24,6 @@
 
 package org.tap4j.ext.testng;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,6 +41,7 @@ import org.testng.IResultMap;
 import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
+import org.testng.internal.ConstructorOrMethod;
 import org.testng.internal.ResultMap;
 
 /**
@@ -49,12 +49,12 @@ import org.testng.internal.ResultMap;
  * 
  * @since 1.1
  */
-public final class TestNGTapUtils {
+public final class TapTestNGUtil {
 
     /**
      * Hidden constructor.
      */
-    private TestNGTapUtils() {
+    private TapTestNGUtil() {
         super();
     }
 
@@ -80,10 +80,10 @@ public final class TestNGTapUtils {
         String testResultDescription = generateTAPTestResultDescription(testResult);
         tapTestResult.setDescription(testResultDescription);
 
-        TestNGTapUtils.setTapTestResultStatus(tapTestResult,
+        TapTestNGUtil.setTapTestResultStatus(tapTestResult,
                                               testResult.getStatus());
 
-        TestNGTapUtils.createTestNGYAMLishData(tapTestResult, testResult);
+        TapTestNGUtil.createTestNGYAMLishData(tapTestResult, testResult);
 
         return tapTestResult;
     }
@@ -171,7 +171,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishMessage(Map<String, Object> yamlish,
                                             ITestResult testNgTestResult) {
-        String message = TestNGYAMLishUtils.getMessage(testNgTestResult);
+        String message = TapTestNGYamlUtil.getMessage(testNgTestResult);
         yamlish.put("message", message);
     }
 
@@ -181,7 +181,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishSeverity(Map<String, Object> yamlish,
                                              ITestResult testNgTestResult) {
-        String severity = TestNGYAMLishUtils.getSeverity(testNgTestResult);
+        String severity = TapTestNGYamlUtil.getSeverity(testNgTestResult);
         yamlish.put("severity", severity);
     }
 
@@ -191,7 +191,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishSource(Map<String, Object> yamlish,
                                            ITestResult testNgTestResult) {
-        String source = TestNGYAMLishUtils.getSource(testNgTestResult);
+        String source = TapTestNGYamlUtil.getSource(testNgTestResult);
         yamlish.put("source", source);
     }
 
@@ -201,7 +201,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishDatetime(Map<String, Object> yamlish,
                                              ITestResult testNgTestResult) {
-        String datetime = TestNGYAMLishUtils.getDatetime(testNgTestResult);
+        String datetime = TapTestNGYamlUtil.getDatetime(testNgTestResult);
         yamlish.put("datetime", datetime);
     }
 
@@ -211,7 +211,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishFile(Map<String, Object> yamlish,
                                          ITestResult testNgTestResult) {
-        String file = TestNGYAMLishUtils.getFile(testNgTestResult);
+        String file = TapTestNGYamlUtil.getFile(testNgTestResult);
         yamlish.put("file", file);
     }
 
@@ -221,7 +221,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishLine(Map<String, Object> yamlish,
                                          ITestResult testNgTestResult) {
-        String line = TestNGYAMLishUtils.getLine(testNgTestResult);
+        String line = TapTestNGYamlUtil.getLine(testNgTestResult);
         yamlish.put("line", line);
     }
 
@@ -231,7 +231,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishName(Map<String, Object> yamlish,
                                          ITestResult testNgTestResult) {
-        String name = TestNGYAMLishUtils.getName(testNgTestResult);
+        String name = TapTestNGYamlUtil.getName(testNgTestResult);
         yamlish.put("name", name);
     }
 
@@ -243,7 +243,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishExtensions(Map<String, Object> yamlish,
                                                ITestResult testNgTestResult) {
-        Object extensions = TestNGYAMLishUtils.getExtensions(testNgTestResult);
+        Object extensions = TapTestNGYamlUtil.getExtensions(testNgTestResult);
         yamlish.put("extensions", extensions);
     }
 
@@ -253,8 +253,8 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishActualAndExpected(Map<String, Object> yamlish,
                                                       ITestResult testNgTestResult) {
-        String expected = TestNGYAMLishUtils.getExpected(testNgTestResult);
-        String actual = TestNGYAMLishUtils.getActual(testNgTestResult);
+        String expected = TapTestNGYamlUtil.getExpected(testNgTestResult);
+        String actual = TapTestNGYamlUtil.getActual(testNgTestResult);
 
         if (expected == null) {
             expected = "~";
@@ -275,7 +275,7 @@ public final class TestNGTapUtils {
     public static void createYAMLishDisplay(Map<String, Object> yamlish,
                                             ITestResult testNgTestResult) {
 
-        String display = TestNGYAMLishUtils.getDisplay(testNgTestResult);
+        String display = TapTestNGYamlUtil.getDisplay(testNgTestResult);
         yamlish.put("display", display);
     }
 
@@ -285,7 +285,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishDump(Map<String, Object> yamlish,
                                          ITestResult testNgTestResult) {
-        Object dump = TestNGYAMLishUtils.getDump(testNgTestResult);
+        Object dump = TapTestNGYamlUtil.getDump(testNgTestResult);
         yamlish.put("dump", dump);
     }
 
@@ -295,7 +295,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishError(Map<String, Object> yamlish,
                                           ITestResult testNgTestResult) {
-        String error = TestNGYAMLishUtils.getError(testNgTestResult);
+        String error = TapTestNGYamlUtil.getError(testNgTestResult);
         yamlish.put("error", error);
     }
 
@@ -305,7 +305,7 @@ public final class TestNGTapUtils {
      */
     public static void createYAMLishBacktrace(Map<String, Object> yamlish,
                                               ITestResult testNgTestResult) {
-        Object backtrace = TestNGYAMLishUtils.getBacktrace(testNgTestResult);
+        Object backtrace = TapTestNGYamlUtil.getBacktrace(testNgTestResult);
         yamlish.put("backtrace", backtrace);
     }
 
@@ -341,15 +341,15 @@ public final class TestNGTapUtils {
             for (ITestNGMethod methodFound : allMethodsFound) {
                 if (methodInCtx.getTestClass().getName()
                     .equals(methodFound.getTestClass().getName()) &&
-                    methodInCtx.getMethod().getName()
-                        .equals(methodFound.getMethod().getName())) {
+                    methodInCtx.getConstructorOrMethod().getName()
+                        .equals(methodFound.getConstructorOrMethod().getName())) {
                     exists = true;
                 }
             }
             if (!exists) {
                 ITestResult skippedTestResult = 
                         new org.testng.internal.TestResult(methodInCtx.getTestClass(),
-                             methodInCtx.getInstances(), methodInCtx, null, 
+                             methodInCtx.getInstance(), methodInCtx, null, 
                              testContext.getStartDate().getTime(), testContext.getEndDate().getTime(), 
                              testContext);
                 skippedTestResult.setStatus(ITestResult.SKIP);
@@ -403,11 +403,11 @@ public final class TestNGTapUtils {
         final Set<String> attrsNames = ctx.getAttributeNames();
         for (String attr : attrsNames) {
             Object o = ctx.getAttribute(attr);
-            if (o instanceof TapAttribute) {
-                TapAttribute tapAttr = (TapAttribute) o;
+            if (o instanceof TestNGAttribute) {
+                TestNGAttribute tapAttr = (TestNGAttribute) o;
                 ITestNGMethod testNGMethod = tr.getMethod();
-                Method method = testNGMethod.getMethod();
-                if (method == tapAttr.getMethod()) {
+                ConstructorOrMethod constructorOrMethod = testNGMethod.getConstructorOrMethod();
+                if (constructorOrMethod.getMethod() == tapAttr.getMethod()) {
                     tr.setAttribute(attr, tapAttr.getValue());
                 }
             }

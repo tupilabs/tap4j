@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedHashMap;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.tap4j.model.BailOut;
@@ -271,11 +270,10 @@ public class TestTap13YamlProducer {
             writer = new FileWriter(tempFile);
             writer.close();
         } catch (IOException e) {
-            try {
-                FileUtils.forceDelete(tempFile);
-            } catch (IOException ioe) {
-                fail("Failed to delete temp file '" + tempFile + "': " +
-                            ioe.getMessage());
+            if (tempFile.exists()) {
+                if (!tempFile.delete()) {
+                    tempFile.deleteOnExit();
+                }
             }
 
             fail("Failed to create writer: " + e.getMessage());
@@ -284,11 +282,10 @@ public class TestTap13YamlProducer {
         try {
             tapProducer.dump(testSet, writer);
         } finally {
-            try {
-                FileUtils.forceDelete(tempFile);
-            } catch (IOException e) {
-                fail("Failed to delete temp file '" + tempFile + "': " +
-                            e.getMessage());
+            if (tempFile.exists()) {
+                if (!tempFile.delete()) {
+                    tempFile.deleteOnExit();
+                }
             }
         }
     }

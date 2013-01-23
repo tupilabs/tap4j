@@ -21,39 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package org.tap4j.ext.junit;
 
-import junit.framework.TestSuite;
-
-import org.junit.runner.JUnitCore;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.model.InitializationError;
 
 /**
- * Class for creating a JUnit suite runner and add the TAP listener
- * 
- * @author Cesar Fernandes de Almeida
- * @since 2.01
+ * JUnit 4 TAP runner that adds the TAP JUnit listener that outputs TAP with 
+ * YAMLish for classes, methods and suites.
+ *
+ * @since 4.0
  */
-public class RunJUnitSuiteWithListener {
+public class TapRunnerYaml extends BlockJUnit4ClassRunner {
+
+    public TapRunnerYaml(Class<?> klass) throws InitializationError {
+        super(klass);
+    }
 
     /**
-     * @param args
+     * Adds TAP listener to the notifier before calling the super run method.
      */
-    public static void main(String[] args) {
-        // Create a JUnit suite
-        TestSuite suite = new TestSuite();
-
-        // Add every test class you want to the suite
-        suite.addTestSuite(TestTap13JUnit1.class);
-        suite.addTestSuite(TestTap13JUnit2.class);
-
-        // Instantiate a JUniteCore object
-        JUnitCore core = new JUnitCore();
-
-        // Add TAP Reporter Listener to the core object executor
-        core.addListener(new TapListener());
-
-        // Run the test suite
-        core.run(suite);
+    @Override
+    public void run(RunNotifier notifier) {
+        notifier.addListener(new TapListener(/* yaml */ true));
+        super.run(notifier);
     }
+
 }

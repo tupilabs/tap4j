@@ -102,7 +102,7 @@
     </scm>
     <profiles>
         <profile>
-            <id>test-perl-integration</id>
+            <id>perl-integration</id>
             <modules>
                 <module>tap4j</module>
                 <module>tap4j-ext</module>

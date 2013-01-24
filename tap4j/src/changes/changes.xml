@@ -8,6 +8,12 @@
     <body>
         <release version="4.0" date="2013-01-??" description="4.0 release">
             <action dev="kinow" type="add">
+                Split the producers to have one that outputs only TAP 13 and another with YAMLish.
+            </action>
+            <action dev="kinow" type="add">
+                Updated web site. Removing the link to the book too, until it gets updated.
+            </action>
+            <action dev="kinow" type="add">
                 Separated project into multiple maven modules.
             </action>
             <action dev="kinow" type="add">

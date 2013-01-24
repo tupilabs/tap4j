@@ -16,6 +16,18 @@ Download
 </dependency>
 +---+
 
+** tap4j extensions
+
+  For using tap4j with JUnit or TestNG.
+
++---+
+<dependency>
+  <groupid>org.tap4j</groupid>
+  <artifactid>tap4j-ext</artifactid>
+  <version>${project.version}</version>
+</dependency>
++---+
+
 * tap4j jar
 
   Download tap4j's jar directly from {{{http://sourceforge.net/projects/tap4j/files/}SourceForge}} and add it to your project 

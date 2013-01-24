@@ -1,0 +1,45 @@
+YAMLish (diagnostics)
+
+ tap4j uses {{{http://www.yaml.org}YAML}}ish. It is a subset of YAML that can 
+ be used to extend your test results. 
+ 
+ For instance, the following test has extra information about an image 
+ attachment.
+ 
++---+
+  1..3
+  ok 1 - Running Selenium Login Test
+  ok 2 - Typing Values
+  ok 3 - Hitting Enter
+    ---
+    extensions:
+      Files:
+          login.jpg:
+            File-Title: login.jpg
+            File-Description: Login Screenshot
+            File-Size: 1612
+            File-Name: message.txt
+            File-Content: TuNvIGNvbn...6Y2lhIQ==
+            File-Type: image/png
+    ...
++---+
+
+ The File-Content entry holds the Base64 encoded file content. You don't have 
+ to use this entry, you can use File-Location too, and avoid attaching the file 
+ content. 
+ 
+ For producing TAP with YAMLish, you simply have to create java.util.Map and 
+ add it to a TestResult.
+ 
++---+
+TestResult testResult = new TestResult(StatusValues.OK, 1);
+testResult.setDescription("- no error");
+testSet.addTestResult(testResult);
+
+Map<String, Object> yamlish = new HashMap<String, Object>();
+yamlish.put("name", "neo");
+
+testResult.setDiagnostic(yamlish);
++---+
+ 
+ 

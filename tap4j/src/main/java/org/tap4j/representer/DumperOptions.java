@@ -38,7 +38,7 @@ public class DumperOptions {
     /**
      * Verbose diagnostics.
      */
-    private boolean printDiagnostics = Boolean.TRUE;
+    private boolean printDiagnostics = Boolean.FALSE;
 
     /**
      * Verbose subtests.

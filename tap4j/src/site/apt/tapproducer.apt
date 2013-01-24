@@ -6,7 +6,9 @@ TAP Producer
  are created using the class {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/producer/TapProducerFactory.html}TapProducerFactory}}.
  
 +---+
+TapProducer tapProducer = TapProducerFactory.makeTap13Producer();
 TapProducer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+TapProducer tapProducer = TapProducerFactory.makeTapJunitProducer();
 +---+
 
  The TAP Stream produced by a TAP Producer must be consumable by a {{{http://tap4j.sourceforge.net/tapconsumer.html}TAP Consumer}}.  

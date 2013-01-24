@@ -23,6 +23,8 @@
  */
 package org.tap4j.producer;
 
+import org.tap4j.representer.DumperOptions;
+import org.tap4j.representer.Tap13Representer;
 import org.tap4j.representer.TapJunitRepresenter;
 
 
@@ -47,6 +49,17 @@ public final class TapProducerFactory {
      */
     public static TapProducer makeTap13Producer() {
         return new TapProducer();
+    }
+
+    /**
+     * Create a TAP 13 producer with YAMLish.
+     *
+     * @return TapProducer
+     */
+    public static TapProducer makeTap13YamlProducer() {
+        DumperOptions options = new DumperOptions();
+        options.setPrintDiagnostics(true);
+        return new TapProducer(new Tap13Representer(options));
     }
 
     /**

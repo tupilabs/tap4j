@@ -1,13 +1,54 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+  The MIT License
+  
+  Copyright (c) 2010 tap4j team (see AUTHORS)
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ -->
 <project name="tap4j">
+
   <bannerLeft>
     <name>tap4j</name>
     <src>images/tap4j-project.png</src>
-    <href>http://sourceforge.net/projects/tap4j/</href>
+    <href>/index.html</href>
     <alt>tap4j</alt>
   </bannerLeft>
-  <body>
   
+  <publishDate format="dd-MM-yyyy" position="right" />
+  <version position="right" />
+  
+  <body>
+    <head>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37918719-1']);
+        _gaq.push(['_trackPageview']);
+      
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </head>
+    
   	<breadcrumbs>
   		<item name="Test Anything Protocol" href="http://www.testanything.org" />
   	</breadcrumbs>
@@ -26,16 +67,16 @@
     </menu>
     
     <menu name="Tutorial">
-      <item name="Using TAP with Java book" href="book/"/>
       <item name="TAP Consumer" href="tapconsumer.html"/>
       <item name="TAP Producer" href="tapproducer.html"/>
       <item name="TAP Directives" href="tapdirectives.html"/>
       <item name="Subtests" href="subtests.html"/>
+      <item name="YAMLish" href="yamlish.html"/>
     </menu>
     
-    <menu name="tap4j Extensions">
-    	<item name="TestNG support" href="testng_support.html"/>
-    	<item name="JUnit support" href="junit_support.html"/>
+    <menu name="JUnit and TestNG integration">
+    	<item name="Using TAP with TestNG" href="testng_support.html"/>
+    	<item name="Using TAP with JUnit" href="junit_support.html"/>
     </menu>
     
     <menu name="Perl Compatibility">

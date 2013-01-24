@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Test;
 import org.tap4j.model.BailOut;
@@ -62,6 +60,17 @@ public class TestTap13Representer {
     }
     
     @Test
+    public void testPrintTestResultWithDirectiveWithEmptyReason() {
+        Tap13Representer repr = new Tap13Representer();
+        TestResult testResult = new TestResult(StatusValues.OK, 1);
+        testResult.setDirective(new Directive(DirectiveValues.SKIP, ""));
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        repr.printTapLine(pw, testResult);
+        assertEquals("ok 1 # SKIP\n", sw.toString());
+    }
+    
+    @Test
     public void testPrintTestResultWithDirectiveWithoutReason() {
         Tap13Representer repr = new Tap13Representer();
         TestResult testResult = new TestResult(StatusValues.OK, 1);
@@ -81,6 +90,39 @@ public class TestTap13Representer {
         PrintWriter pw = new PrintWriter(sw);
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 # a comment\n", sw.toString());
+    }
+    
+    @Test
+    public void testPrintTestResultWithDescription() {
+        Tap13Representer repr = new Tap13Representer();
+        TestResult testResult = new TestResult(StatusValues.OK, 1);
+        testResult.setDescription("a description");
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        repr.printTapLine(pw, testResult);
+        assertEquals("ok 1 a description\n", sw.toString());
+    }
+    
+    @Test
+    public void testPrintTestResultWithEmptyDescription() {
+        Tap13Representer repr = new Tap13Representer();
+        TestResult testResult = new TestResult(StatusValues.OK, 1);
+        testResult.setDescription("");
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        repr.printTapLine(pw, testResult);
+        assertEquals("ok 1\n", sw.toString());
+    }
+    
+    @Test
+    public void testPrintTestResultWithoutDescription() {
+        Tap13Representer repr = new Tap13Representer();
+        TestResult testResult = new TestResult(StatusValues.OK, 1);
+        testResult.setDescription(null);
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        repr.printTapLine(pw, testResult);
+        assertEquals("ok 1\n", sw.toString());
     }
     
     @Test
@@ -197,43 +239,5 @@ public class TestTap13Representer {
         repr.printHeader(pw, header);
         assertEquals("TAP version 13 # my comment\n", sw.toString());
     }
-    
-    @Test
-    public void printDiagnosticNull() {
-        Map<String, Object> diagnostic = null;
-        Tap13Representer repr = new Tap13Representer();
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        TestResult tr = new TestResult(StatusValues.OK, 1);
-        tr.setDiagnostic(diagnostic);
-        repr.printDiagnostic(pw, tr);
-        assertEquals("", sw.toString());
-    }
-    
-    @Test
-    public void printDiagnosticEmpty() {
-        Map<String, Object> diagnostic = new HashMap<String, Object>();
-        Tap13Representer repr = new Tap13Representer();
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        TestResult tr = new TestResult(StatusValues.OK, 1);
-        tr.setDiagnostic(diagnostic);
-        repr.printDiagnostic(pw, tr);
-        assertEquals("", sw.toString());
-    }
-    
-    @Test
-    public void printDiagnostic() {
-        Map<String, Object> diagnostic = new HashMap<String, Object>();
-        diagnostic.put("name", "Ayrton");
-        diagnostic.put("surname", "Senna");
-        Tap13Representer repr = new Tap13Representer();
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        TestResult tr = new TestResult(StatusValues.OK, 1);
-        tr.setDiagnostic(diagnostic);
-        repr.printDiagnostic(pw, tr);
-        assertEquals("\n  ---\n  name: Ayrton\n  surname: Senna\n  ...\n", sw.toString());
-    }
-    
+
 }

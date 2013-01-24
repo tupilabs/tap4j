@@ -11,13 +11,12 @@ Perl Integration Tests
  TAP::Harness."
  
  If you are building tap4j from source you can execute the tests by running 
- <mvn -e clean test -Pperl-integration>. This command executes a TestNG 6.0 class 
+ <mvn -e clean test -Pperl-integration>. This command executes a TestNG class 
  that creates a TapProducer, dumps its contents to a temporary file and then 
  reads it with metatap.
  
- This test requires having "perl" in PATH, and was created in Windows running 
- Strawberry Perl. So there may have issues running it in different operational 
- systems.
+ This test requires having "perl" in PATH. We tested this in Windows with 
+ Perl Strawberry and in Linux with Perl 5.
  
  We are happy to announce that tap4j passed in all integration tests :)
  

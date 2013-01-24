@@ -61,7 +61,7 @@ public class Tap13Representer implements Representer {
     /**
      * YAML parser and emitter.
      */
-    private Yaml yaml;
+    private Yaml yaml = null;
 
     /**
      * Default constructor.
@@ -76,12 +76,14 @@ public class Tap13Representer implements Representer {
     public Tap13Representer(org.tap4j.representer.DumperOptions options) {
         super();
         this.options = options;
-        final DumperOptions yamlDumperOptions = new DumperOptions();
-        yamlDumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        yamlDumperOptions.setLineBreak(LineBreak.getPlatformLineBreak());
-        yamlDumperOptions.setExplicitStart(true);
-        yamlDumperOptions.setExplicitEnd(true);
-        yaml = new Yaml(yamlDumperOptions);
+        if (options.isPrintDiagnostics()) {
+            final DumperOptions yamlDumperOptions = new DumperOptions();
+            yamlDumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+            yamlDumperOptions.setLineBreak(LineBreak.getPlatformLineBreak());
+            yamlDumperOptions.setExplicitStart(true);
+            yamlDumperOptions.setExplicitEnd(true);
+            yaml = new Yaml(yamlDumperOptions);
+        }
     }
 
     /**
@@ -257,13 +259,15 @@ public class Tap13Representer implements Representer {
      * @param tapElement TAP element
      */
     protected void printDiagnostic(PrintWriter pw, TapElement tapElement) {
-        Map<String, Object> diagnostic = tapElement.getDiagnostic();
-        if (diagnostic != null && !diagnostic.isEmpty()) {
-            String diagnosticText = yaml.dump(diagnostic);
-            diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
-            pw.append(LINE_SEPARATOR);
-            printFiller(pw);
-            pw.append(diagnosticText);
+        if (this.yaml != null) {
+            Map<String, Object> diagnostic = tapElement.getDiagnostic();
+            if (diagnostic != null && !diagnostic.isEmpty()) {
+                String diagnosticText = yaml.dump(diagnostic);
+                diagnosticText = diagnosticText.replaceAll("((?m)^)", "  ");
+                pw.append(LINE_SEPARATOR);
+                printFiller(pw);
+                pw.append(diagnosticText);
+            }
         }
     }
 

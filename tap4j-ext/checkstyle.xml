@@ -85,12 +85,6 @@
         <property name="eachLine" value="true"/>
     </module>
 
-    <module name="RegexpSingleline">
-        <!-- \s matches whitespace character, $ matches end of line. -->
-        <property name="format" value="\s+$"/>
-        <property name="message" value="Line has trailing spaces."/>
-    </module>
-
     <module name="SuppressionCommentFilter"/>
 
     <module name="TreeWalker">
@@ -98,14 +92,6 @@
         <module name="FileContentsHolder"/>
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
-
-        <!-- Checks for Javadoc comments.                     -->
-        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
-
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
@@ -149,8 +135,6 @@
             <property name="max" value="120"/>
         </module>
         <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
-
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->

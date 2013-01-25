@@ -24,12 +24,11 @@
 
 package org.tap4j.ext.testng.issue3167058;
 
-import org.tap4j.ext.testng.TapTestNGYamlUtil;
+import org.tap4j.ext.testng.util.TapTestNGYamlUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
 public class TestGetLine {

@@ -292,7 +292,8 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * @return True if it has any Bail Out statement, false otherwise.
+     * @return <code>true</code> if it has any Bail Out statement,
+     *         <code>false</code> otherwise.
      */
     public boolean hasBailOut() {
         boolean isBailOut = false;
@@ -308,7 +309,8 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
+     * @return <code>true</code> if it contains OK status, <code>false</code>
+     *         otherwise.
      */
     public Boolean containsOk() {
         Boolean containsOk = false;
@@ -324,7 +326,8 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
+     * @return <code>true</code> if it contains NOT OK status,
+     *         <code>false</code> otherwise.
      */
     public Boolean containsNotOk() {
         Boolean containsNotOk = false;
@@ -340,14 +343,16 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * {@inheritDoc}
+     * @return <code>true</code> if it contains BAIL OUT!, <code>false</code>
+     *         otherwise.
      */
     public Boolean containsBailOut() {
         return this.bailOuts.size() > 0;
     }
 
     /**
-     * {@inheritDoc}
+     * @param testNumber test result number.
+     * @return Test Result with given number.
      */
     public TestResult getTestResult(Integer testNumber) {
         TestResult foundTestResult = null;

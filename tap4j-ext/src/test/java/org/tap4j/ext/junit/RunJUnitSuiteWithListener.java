@@ -27,11 +27,11 @@ package org.tap4j.ext.junit;
 import junit.framework.TestSuite;
 
 import org.junit.runner.JUnitCore;
+import org.tap4j.ext.junit.listener.TapListenerSuite;
 
 /**
  * Class for creating a JUnit suite runner and add the TAP listener
  * 
- * @author Cesar Fernandes de Almeida
  * @since 2.01
  */
 public class RunJUnitSuiteWithListener {
@@ -51,7 +51,7 @@ public class RunJUnitSuiteWithListener {
         JUnitCore core = new JUnitCore();
 
         // Add TAP Reporter Listener to the core object executor
-        core.addListener(new TapListener());
+        core.addListener(new TapListenerSuite());
 
         // Run the test suite
         core.run(suite);

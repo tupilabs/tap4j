@@ -25,11 +25,11 @@
 package org.tap4j.ext.junit;
 
 import org.junit.runner.JUnitCore;
+import org.tap4j.ext.junit.listener.TapListenerClass;
 
 /**
  * Class for creating a JUnit test runner and add the TAP listener
  * 
- * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
 public class RunJUnitTestWithListener {
@@ -39,7 +39,7 @@ public class RunJUnitTestWithListener {
      */
     public static void main(String[] args) {
         JUnitCore core = new JUnitCore();
-        core.addListener(new TapListener());
+        core.addListener(new TapListenerClass());
         core.run(TestTap13JUnit1.class);
     }
 }

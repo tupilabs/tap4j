@@ -129,7 +129,8 @@ public class Tap13Parser implements Parser {
     }
 
     /**
-     * {@inheritDoc}
+     * Get parser test set.
+     * @return Test Set
      */
     protected TestSet getTestSet() {
         return state.getTestSet();
@@ -190,7 +191,7 @@ public class Tap13Parser implements Parser {
         state = new Memento();
         Scanner scanner = null;
         try {
-            scanner = new Scanner(stream);
+            scanner = new Scanner(stream, this.encoding);
             String line = null;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
@@ -212,7 +213,9 @@ public class Tap13Parser implements Parser {
     }
 
     /**
-     * {@inheritDoc}
+     * Parse a TAP line.
+     *
+     * @param tapLine TAP line
      */
     public void parseLine(String tapLine) {
         Matcher matcher = null;

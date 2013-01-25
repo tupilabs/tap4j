@@ -32,7 +32,6 @@ import org.junit.Test;
 /**
  * Simple test class for testing the tap reporter listener
  * 
- * @author cesar.almeida
  * @since 2.01
  */
 public class TestTap13JUnit1

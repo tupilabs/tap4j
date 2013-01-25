@@ -24,46 +24,14 @@
  -->
 <project name="tap4j">
 
-  <bannerLeft>
-    <name>tap4j</name>
-    <src>images/tap4j-project.png</src>
-    <href>/index.html</href>
-    <alt>tap4j</alt>
-  </bannerLeft>
-  
-  <publishDate format="dd-MM-yyyy" position="right" />
-  <version position="right" />
-  
   <body>
-    <head>
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-37918719-1']);
-        _gaq.push(['_trackPageview']);
-      
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-    </head>
-    
-  	<breadcrumbs>
-  		<item name="Test Anything Protocol" href="http://www.testanything.org" />
-  	</breadcrumbs>
-  
-    <links>
-      <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
-      <item name="TupiLabs" href="http://www.tupilabs.com" />
-    </links>
 
     <menu name="Reference">
       <item name="Introduction" href="index.html"/>
-      <item name="Download" href="downloads.html"/>
       <item name="Roadmap" href="roadmap.html"/>
       <item name="FAQ" href="faq.html"/>
       <item name="Related projects" href="related_projects.html"/>
+      <item name="Download" href="download.html"/>
     </menu>
     
     <menu name="Tutorial">
@@ -73,24 +41,10 @@
       <item name="Subtests" href="subtests.html"/>
       <item name="YAMLish" href="yamlish.html"/>
     </menu>
-    
-    <menu name="JUnit and TestNG integration">
-    	<item name="Using TAP with TestNG" href="testng_support.html"/>
-    	<item name="Using TAP with JUnit" href="junit_support.html"/>
-    </menu>
-    
-    <menu name="Perl Compatibility">
-    	<item name="Perl Integration tests" href="perl_integration_tests.html"/>
-    </menu>
 
+    <menu ref="parent" />
+    <menu ref="modules" />
     <menu ref="reports" />
 
   </body>
-  
-  <skin>
-      <groupId>org.apache.maven.skins</groupId>
-      <artifactId>maven-fluido-skin</artifactId>
-      <version>1.3.0</version>
-  </skin>
-  
 </project>

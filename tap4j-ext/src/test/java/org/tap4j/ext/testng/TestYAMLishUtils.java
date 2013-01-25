@@ -24,6 +24,7 @@
 
 package org.tap4j.ext.testng;
 
+import org.tap4j.ext.testng.util.TapTestNGYamlUtil;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +34,6 @@ import org.testng.internal.TestResult;
 /**
  * Tests YAMLishUtils class.
  * 
- * @author Cesar Fernandes de Almeida
  * @since 1.4.3
  */
 public class TestYAMLishUtils {

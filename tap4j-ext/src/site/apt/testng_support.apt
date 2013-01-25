@@ -1,28 +1,49 @@
 TestNG support
 
- We introduced TestNG support in tap4j 1.1. The integration between tap4j and 
- TestNG is achieved through the use of a TestNG Test Listener 
- {{{http://testng.org/doc/documentation-main.html#testng-listeners}(TestNG Listeners)}}.
+ If you have tests written with TestNG, you can easily annotate your tests 
+ to run with one of the listeners from tap4j, or specify a listener in 
+ your project pom.
  
- In order to be able to produce tap files with TestNG you have to tell/  
- TestNG that you will be using a Listener. This can be done through command line, 
- suite xml file or Test class Listeners Annotation.
- 
- The classes for TestNG are inside org.tap4j.ext.testng package. The class 
- TestTAPReporter extends TestListenerAdapter and generates TAP per class and 
- per method. The class SuiteTAPReporter implements a IReporter and generates 
- TAP per Suite and Groups. They were done based on the existing HTML report for TestNG.
- 
-* Command line
- 
-+---+
-java -classpath %CLASSPATH%;testng.jar;jcommander-1.5.jar;commons-io-1.4.jar;
-guice-2.0.jar;commons-lang-2.5.jar;bsh-2.0b4.jar;snakeyaml-1.7.jar;
-aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG 
--listener org.tap4j.ext.testng.TestTAPReporter test\testng.xml
-+---+
+* TAP TestNG listeners
 
- Don't forget to check all the dependencies versions and directory location
+ The TAP TestNG listeners are organized under the 
+ <<org.tap4j.ext.testng.listener>> package.
+ 
+*-----------+-----------+
+|| Listener || Feature |
+*-----------+-----------+
+| TapListenerClass    | Outputs TAP per class |
+*-----------+-----------+
+| TapListenerClassYaml    | Outputs TAP per class with YAML |
+*-----------+-----------+
+| TapListenerMethod    | Outputs TAP per method |
+*-----------+-----------+
+| TapListenerMethodYaml    | Outputs TAP per method with YAML |
+*-----------+-----------+
+| TapListenerSuite    | Outputs TAP per suite |
+*-----------+-----------+
+| TapListenerSuiteYaml    | Outputs TAP per suite with YAML |
+*-----------+-----------+
+
++---+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.12.4</version>
+            <configuration>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>org.tap4j.ext.testng.listener.TapListenerMethod</value>
+                    </property>
+                </properties>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
++---+
 
 * TestNG suite xml
  
@@ -34,18 +55,8 @@ aopalliance-1.0.jar;tap4j-1.4.3.jar;. org.testng.TestNG
 <suite>
  
   <listeners>
-    <listener class-name="org.tap4j.ext.SuiteTAPReporter" />
+    <listener class-name="org.tap4j.ext.testng.listener.TapListenerSuite" />
   </listeners>
  
-...
-+---+
-
-* Listeners Annotation
- 
- Add the @Listeners annotation to your Test class.
- 
-+---+
-@Listeners(value={org.tap4j.ext.testng.TestTAPReporter.class})
-public class MyTestClass {
 ...
 +---+

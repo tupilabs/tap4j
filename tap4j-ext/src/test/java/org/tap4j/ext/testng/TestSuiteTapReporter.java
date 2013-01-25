@@ -29,11 +29,10 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 /**
- * @author Cesar Fernandes de Almeida
  * @since 18/03/2011
  */
 @Listeners({
-    org.tap4j.ext.testng.TapTestNGListenerSuite.class
+    org.tap4j.ext.testng.listener.TapListenerSuite.class
 })
 public class TestSuiteTapReporter {
 

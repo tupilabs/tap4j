@@ -24,10 +24,10 @@
 package org.tap4j.producer;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 import org.tap4j.model.TestSet;
 import org.tap4j.representer.Representer;
@@ -116,11 +116,14 @@ public class TapProducer implements Producer {
                                                 + re.getMessage(), re);
         }
 
-        FileOutputStream out = null;
         PrintStream printStream = null;
         try {
-            out = new FileOutputStream(output);
-            printStream = new PrintStream(out);
+            if (representer instanceof Tap13Representer) {
+                String charset = ((Tap13Representer) representer).getOptions().getCharset();
+                printStream = new PrintStream(output, charset);
+            } else {
+                printStream = new PrintStream(output, Charset.defaultCharset().toString());
+            }
             printStream.print(tapStream);
         } catch (IOException e) {
             throw new ProducerException("Failed to dump TAP Stream: "
@@ -128,13 +131,6 @@ public class TapProducer implements Producer {
         } finally {
             if (printStream != null) {
                 printStream.close();
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    throw new ProducerException("Failed to close TAP Stream", e);
-                }
             }
         }
     }

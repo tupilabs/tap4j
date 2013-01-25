@@ -25,6 +25,8 @@ package org.tap4j.representer;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.charset.Charset;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,6 +51,7 @@ public class TestDumperOptions {
         assertEquals(true, options.isAllowEmptyTestPlan());
         assertEquals(false, options.isPrintDiagnostics());
         assertEquals(true, options.isPrintSubtests());
+        assertEquals(Charset.defaultCharset().toString(), options.getCharset());
     }
     
     @Test
@@ -58,16 +61,19 @@ public class TestDumperOptions {
         boolean allowEmptyTestPlan = false;
         boolean printDiagnostics = true;
         boolean printSubtests = false;
+        String charset = "ISO-8859-1";
         options.setIndent(indent);
         options.setSpaces(spaces);
         options.setAllowEmptyTestPlan(allowEmptyTestPlan);
         options.setPrintDiagnostics(printDiagnostics);
         options.setPrintSubtests(printSubtests);
+        options.setCharset(charset);
         assertEquals(indent, options.getIndent());
         assertEquals(spaces, options.getSpaces());
         assertEquals(allowEmptyTestPlan, options.isAllowEmptyTestPlan());
         assertEquals(printDiagnostics, options.isPrintDiagnostics());
         assertEquals(printSubtests, options.isPrintSubtests());
+        assertEquals(charset, options.getCharset());
     }
     
 }

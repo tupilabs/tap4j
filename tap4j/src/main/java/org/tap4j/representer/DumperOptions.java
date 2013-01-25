@@ -23,6 +23,8 @@
  */
 package org.tap4j.representer;
 
+import java.nio.charset.Charset;
+
 /**
  * Options used by a representer.
  *
@@ -59,6 +61,11 @@ public class DumperOptions {
      * Number of spaces for a tab.
      */
     private int spaces = DEFAULT_SPACES;
+
+    /**
+     * Charset.
+     */
+    private String charset = Charset.defaultCharset().toString();
 
     /**
      * Default constructor.
@@ -136,4 +143,17 @@ public class DumperOptions {
         return allowEmptyTestPlan;
     }
 
+    /**
+     * @return the charset
+     */
+    public String getCharset() {
+        return charset;
+    }
+
+    /**
+     * @param charset the charset to set
+     */
+    public void setCharset(String charset) {
+        this.charset = charset;
+    }
 }

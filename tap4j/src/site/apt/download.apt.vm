@@ -1,0 +1,13 @@
+Download
+
+* Maven artifact
+
+  If you are using Maven then you can add a dependency to tap4j. 
+
++---+
+<dependency>
+  <groupid>org.tap4j</groupid>
+  <artifactid>tap4j</artifactid>
+  <version>${project.version}</version>
+</dependency>
++---+

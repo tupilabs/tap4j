@@ -26,8 +26,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tap4j-ext</artifactId>
-    <name>tap4j extension utilities</name>
-    <description>TAP extension utilities to support other test formats like TestNG and JUnit</description>
+    <name>tap4j extensions</name>
+    <description>TAP extensions to support JUnit and TestNG</description>
     <parent>
         <artifactId>tap4j-parent</artifactId>
         <relativePath>../pom.xml</relativePath>
@@ -45,24 +45,30 @@
             <artifactId>testng</artifactId>
             <version>6.8</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>3.0</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>

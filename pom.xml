@@ -38,6 +38,9 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <tap4j.site.cache>${user.home}/tap4j-sites</tap4j.site.cache>
+        <tap4j.siteFilePath>${tap4j.site.cache}/tap4j-parent-${project.version}</tap4j.siteFilePath>
+        <tap4j.siteUrlDeployment>file://${tap4j.siteFilePath}</tap4j.siteUrlDeployment>
     </properties>
     <modules>
         <module>tap4j</module>
@@ -51,7 +54,7 @@
     </organization>
     <developers>
         <developer>
-            <email>brunodepaulak@yahoo.com.br</email>
+            <email>kinow@apache.org</email>
             <id>kinow</id>
             <name>Bruno P. Kinoshita</name>
             <timezone>-3</timezone>
@@ -100,6 +103,12 @@
         <developerConnection>scm:git:git@github.com:tupilabs/tap4j-parent.git</developerConnection>
         <url>https://github.com/tupilabs/tap4j</url>
     </scm>
+    <distributionManagement>
+        <site>
+            <id>tap4j.website</id>
+            <url>${tap4j.siteUrlDeployment}</url>
+        </site>
+    </distributionManagement>
     <profiles>
         <profile>
             <id>perl-integration</id>
@@ -108,6 +117,9 @@
                 <module>tap4j-ext</module>
                 <module>perl-integration-tests</module>
             </modules>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
         </profile>
     </profiles>    
 </project>

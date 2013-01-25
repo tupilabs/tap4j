@@ -35,7 +35,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <dependencies>
-        <!-- commons -->
         <!-- yaml -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -54,6 +53,11 @@
     </dependencies>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>

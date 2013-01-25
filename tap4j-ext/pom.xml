@@ -22,8 +22,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tap4j-ext</artifactId>
     <name>tap4j extensions</name>
@@ -31,7 +30,7 @@
     <parent>
         <artifactId>tap4j-parent</artifactId>
         <relativePath>../pom.xml</relativePath>
-        <version>4.0-SNAPSHOT</version>
+        <version>4.0</version>
         <groupId>org.tap4j</groupId>
     </parent>
     <dependencies>

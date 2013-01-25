@@ -41,6 +41,7 @@
         <tap4j.site.cache>${user.home}/tap4j-sites</tap4j.site.cache>
         <tap4j.siteFilePath>${tap4j.site.cache}/tap4j-parent-${project.version}</tap4j.siteFilePath>
         <tap4j.siteUrlDeployment>file://${tap4j.siteFilePath}</tap4j.siteUrlDeployment>
+        <autoVersionSubmodules>true</autoVersionSubmodules>
     </properties>
     <modules>
         <module>tap4j</module>

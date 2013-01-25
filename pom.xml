@@ -101,7 +101,7 @@
     </issueManagement>
     <scm>
         <connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
-        <developerConnection>scm:git:git@github.com:tupilabs/tap4j-parent.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:tupilabs/tap4j.git</developerConnection>
         <url>https://github.com/tupilabs/tap4j</url>
     </scm>
     <distributionManagement>

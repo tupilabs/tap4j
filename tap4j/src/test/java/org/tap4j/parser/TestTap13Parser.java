@@ -141,7 +141,7 @@ public class TestTap13Parser {
     @Test
     public void testPlanSkip() {
         String tap = "TAP version 13 # a comment\n" +
-                "1..1 skip betsu ni\n" +
+                "1..1 # skip betsu ni\n" +
                 "ok 1";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("betsu ni", testSet.getPlan().getSkip().getReason());

@@ -292,8 +292,8 @@ public class Tap13Parser implements Parser {
         matcher = Constants.PLAN_PATTERN.matcher(tapLine);
         if (matcher.matches()) {
             onPlan(Integer.parseInt(matcher.group(1)),
-                    Integer.parseInt(matcher.group(3)), matcher.group(5),
-                    matcher.group(7));
+                    Integer.parseInt(matcher.group(3)), matcher.group(6),
+                    matcher.group(8));
             return;
         }
 

@@ -30,7 +30,7 @@ final class Constants {
     /**
      * TAP Plan Regex.
      */
-    static final String REGEX_PLAN = "\\s*(\\d+)(\\.{2})(\\d+)\\s*(skip\\s*([^#]+))?\\s*(#\\s*(.*))?";
+    static final String REGEX_PLAN = "\\s*(\\d+)(\\.{2})(\\d+)\\s*(#\\s*(SKIP|skip)\\s*([^#]+))?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Test Result Regex.

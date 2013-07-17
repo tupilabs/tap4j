@@ -254,12 +254,18 @@ public class Tap13Parser implements Parser {
                         // If we are in a different level, but it is not
                         // YAML,
                         // Then it must be a subtest! Yay!
-                        if (this.subtestsEnabled
-                                && state.getLastParsedElement() instanceof TestResult) {
-                            indentation = state.getBaseIndentationLevel();
-                            TestResult lastTestResult = (TestResult) state.getLastParsedElement();
-                            this.pushMemento();
-                            lastTestResult.setSubtest(state.getTestSet());
+                        if (this.subtestsEnabled) {
+                            if (state.getLastParsedElement() instanceof TestResult) {
+                                indentation = state.getBaseIndentationLevel();
+                                TestResult lastTestResult = (TestResult) state.getLastParsedElement();
+                                this.pushMemento();
+                                lastTestResult.setSubtest(state.getTestSet());
+                            } else if (state.getLastParsedElement() instanceof Plan) {
+                                indentation = state.getBaseIndentationLevel();
+                                Plan lastTestResult = (Plan) state.getLastParsedElement();
+                                this.pushMemento();
+                                lastTestResult.setSubtest(state.getTestSet());
+                            }
                         }
                     }
                 }
@@ -464,6 +470,9 @@ public class Tap13Parser implements Parser {
             throw new ParserException("Missing TAP Plan.");
         }
         parseDiagnostics();
+        while (!this.states.isEmpty()) {
+            this.popMemento();
+        }
     }
 
     /* -- Utility methods --*/

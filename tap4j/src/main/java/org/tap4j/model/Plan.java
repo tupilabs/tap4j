@@ -59,6 +59,11 @@ public class Plan extends AbstractTapElementDiagnostic {
     private SkipPlan skip;
 
     /**
+     * Child subtest.
+     */
+    private TestSet subtest;
+
+    /**
      * A comment.
      */
     private Comment comment;
@@ -73,6 +78,7 @@ public class Plan extends AbstractTapElementDiagnostic {
         super();
         this.initialTestNumber = initialTestNumber;
         this.lastTestNumber = lastTestNumber;
+        this.subtest = null;
     }
 
     /**
@@ -148,6 +154,20 @@ public class Plan extends AbstractTapElementDiagnostic {
      */
     public void setSkip(SkipPlan skip) {
         this.skip = skip;
+    }
+
+    /**
+     * @return the subtest
+     */
+    public TestSet getSubtest() {
+        return subtest;
+    }
+
+    /**
+     * @param subtest the subtest to set
+     */
+    public void setSubtest(TestSet subtest) {
+        this.subtest = subtest;
     }
 
     /**

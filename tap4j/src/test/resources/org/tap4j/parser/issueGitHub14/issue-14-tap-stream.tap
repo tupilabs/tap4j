@@ -1,0 +1,15 @@
+1..7
+ok 1 - S::test_1
+ok 2 - S::test_2
+not 3 44 - Failure: test_3
+  ---
+  message: 'Failed asserting that Y matches expected X.'
+  severity: fail
+  data:
+    got: Y
+    expected: X
+  ...
+ok 4 - S::test_4
+ok 5 - S::test_5
+ok 6 - S::test_6
+ok 7 - S::test_7

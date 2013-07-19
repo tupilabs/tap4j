@@ -428,9 +428,8 @@ public class Tap13Parser implements Parser {
      * @param reason Reason
      * @param comment Comment
      */
-    private void onTestResult(StatusValues status, int number,
-            String description, DirectiveValues directive, String reason,
-            String comment) {
+    private void onTestResult(StatusValues status, int number, String description, DirectiveValues directive, 
+            String reason, String comment) {
         setIndentationLevelIfNotDefined(state.getLastLine());
         final TestResult testResult = new TestResult(status, number);
         testResult.setDescription(description);
@@ -486,12 +485,11 @@ public class Tap13Parser implements Parser {
      * </p>
      */
     private void parseDiagnostics() {
-     // If we found any meta, then process it with SnakeYAML
+        // If we found any meta, then process it with SnakeYAML
         if (state.getDiagnosticBuffer().length() > 0) {
 
             if (state.getLastParsedElement() == null) {
-                throw new ParserException(
-                        "Found diagnostic information without a previous TAP element.");
+                throw new ParserException("Found diagnostic information without a previous TAP element.");
             }
 
             try {
@@ -504,6 +502,7 @@ public class Tap13Parser implements Parser {
                         + state.getDiagnosticBuffer().toString() + "]: "
                         + ex.getMessage(), ex);
             }
+            this.state.getDiagnosticBuffer().setLength(0);
         }
     }
 
@@ -515,8 +514,7 @@ public class Tap13Parser implements Parser {
      * @param diagnosticLine diagnostic line
      */
     private void appendTapLineToDiagnosticBuffer(String diagnosticLine) {
-        if (diagnosticLine.trim().equals("---")
-                || diagnosticLine.trim().equals("...")) {
+        if (diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...")) {
             return;
         }
         if (state.isCurrentlyInYaml()) {

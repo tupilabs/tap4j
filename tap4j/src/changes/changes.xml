@@ -6,6 +6,21 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
+        <release version="4.0.3" date="" description="4.0.3 release">
+            <action dev="kinow" type="fix" issue="14">
+                Diagnostics are added to all test cases, after one with diagnostics was found
+            </action>
+        </release>
+        <release version="4.0.2" date="" description="4.0.2 release">
+            <action dev="kinow" type="fix" issue="12">
+                subtest as first test causes ParserException (Duplicated TAP plan found)
+            </action>
+        </release>
+        <release version="4.0.1" date="" description="4.0.1 release">
+            <action dev="kinow" type="fix" issue="13">
+                Missing tests with skip_all
+            </action>
+        </release>
         <release version="4.0" date="2013-01-25" description="4.0 release">
             <action dev="kinow" type="add">
                 Split the producers to have one that outputs only TAP 13 and another with YAMLish.

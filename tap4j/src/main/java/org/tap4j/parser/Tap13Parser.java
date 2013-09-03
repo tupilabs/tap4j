@@ -306,8 +306,19 @@ public class Tap13Parser implements Parser {
         // Test Result
         matcher = Constants.TEST_RESULT_PATTERN.matcher(tapLine);
         if (matcher.matches()) {
+            String testNumberText = matcher.group(2);
+            int testNumber = 0;
+            if (testNumberText != null && testNumberText.trim().equals("") == false) { 
+                testNumber = Integer.parseInt(testNumberText);
+            } else {
+                if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false)
+                    return; // done testing mark
+                if (state.getTestSet().getPlan() !=null && state.getTestSet().getPlan().getLastTestNumber() == state.getTestSet().getTestResults().size())
+                    return; // done testing mark but plan before test result
+                testNumber = getTestSet().getNextTestNumber();
+            }
             onTestResult(StatusValues.get(matcher.group(1)),
-                    Integer.parseInt(matcher.group(2)), matcher.group(3),
+                    testNumber, matcher.group(3),
                     DirectiveValues.get(matcher.group(5)),
                     matcher.group(6), matcher.group(8));
             return;

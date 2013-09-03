@@ -59,7 +59,7 @@ public class TestDoneTesting {
                            + "ok 3 - document root ok\n" + "1..3\n" + "ok";
 
         TestSet testSet = consumer.load(tapStream);
-        assertEquals(testSet.getTestResults().size(), 3);
+        assertEquals(3, testSet.getTestResults().size());
     }
 
 }

@@ -61,7 +61,7 @@ public class Memento {
     private int baseIndentationLevel = -1;
 
     /**
-     * Helper indicator of in what indentantion level we are working at moment.
+     * Helper indicator of in what indentation level we are working at moment.
      * It is helpful specially when you have many nested elements, like a META
      * element with some multiline text.
      */

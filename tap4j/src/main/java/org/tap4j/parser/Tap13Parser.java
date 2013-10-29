@@ -233,7 +233,7 @@ public class Tap13Parser implements Parser {
         // If the line indentation level is greater than the pre-defined
         // one, than we know it is a) a META, b)
         if (state.getBaseIndentationLevel() > -1) {
-            matcher = Constants.INDENTANTION_PATTERN.matcher(tapLine);
+            matcher = Constants.INDENTATION_PATTERN.matcher(tapLine);
             if (matcher.matches()) {
                 int indentation = matcher.group(1).length();
                 state.setCurrentIndentationLevel(indentation);
@@ -555,7 +555,7 @@ public class Tap13Parser implements Parser {
     private int getIndentationLevel(String tapLine) {
         int indentationLevel = 0;
 
-        final Matcher indentMatcher = Constants.INDENTANTION_PATTERN.matcher(tapLine);
+        final Matcher indentMatcher = Constants.INDENTATION_PATTERN.matcher(tapLine);
 
         if (indentMatcher.matches()) {
             String spaces = indentMatcher.group(1);
@@ -580,7 +580,7 @@ public class Tap13Parser implements Parser {
                     this.popMemento();
                 }
             } else {
-                throw new ParserException("Invalid indentantion. "
+                throw new ParserException("Invalid indentation. "
                         + "Check your TAP Stream. Line: " + tapLine);
             }
         }

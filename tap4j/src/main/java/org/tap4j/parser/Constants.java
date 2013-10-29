@@ -19,7 +19,7 @@ final class Constants {
     /**
      * Pattern used for finding the indentation space in new lines.
      */
-    static final Pattern INDENTANTION_PATTERN = Pattern
+    static final Pattern INDENTATION_PATTERN = Pattern
             .compile("((\\s|\\t)*)?.*");
 
     /**

@@ -57,7 +57,7 @@ public class TestMemento {
         assertFalse(memento.isCurrentlyInSubtest());
         assertTrue(memento.getDiagnosticBuffer().toString().length() == 0);
         
-        int currentIndentantionLevel = 100;
+        int currentIndentationLevel = 100;
         int baseIndentationLevel = 50;
         boolean currentlyInSubtest = true;
         boolean currentlyInYaml = true;
@@ -66,7 +66,7 @@ public class TestMemento {
         TapElement lastParsedElement = new Text("nani nani");
         boolean planBeforeTestResult = true;
         
-        memento.setCurrentIndentationLevel(currentIndentantionLevel);
+        memento.setCurrentIndentationLevel(currentIndentationLevel);
         memento.setBaseIndentationLevel(baseIndentationLevel);
         memento.setCurrentlyInSubtest(currentlyInSubtest);
         memento.setCurrentlyInYaml(currentlyInYaml);
@@ -80,7 +80,7 @@ public class TestMemento {
         assertEquals(lastLine, memento.getLastLine());
         assertEquals(lastParsedElement, memento.getLastParsedElement());
         assertEquals(baseIndentationLevel, memento.getBaseIndentationLevel());
-        assertEquals(currentIndentantionLevel, memento.getCurrentIndentationLevel());
+        assertEquals(currentIndentationLevel, memento.getCurrentIndentationLevel());
         assertEquals(currentlyInYaml, memento.isCurrentlyInYaml());
         assertEquals(currentlyInSubtest, memento.isCurrentlyInSubtest());
     }

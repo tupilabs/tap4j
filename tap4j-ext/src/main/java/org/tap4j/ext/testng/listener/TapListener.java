@@ -176,6 +176,9 @@ abstract class TapListener extends TestListenerAdapter {
 
             File output = new File(testContext.getOutputDirectory(),
                     clazz.getName() + ".tap");
+            if (!output.getParentFile().exists()) {
+                output.getParentFile().mkdirs();
+            }
             tapProducer.dump(testSet, output);
         }
     }
@@ -222,6 +225,9 @@ abstract class TapListener extends TestListenerAdapter {
                     + "#"
                     + method.getMethodName()
                     + ".tap");
+            if (!output.getParentFile().exists()) {
+                output.getParentFile().mkdirs();
+            }
             tapProducer.dump(testSet, output);
         }
     }

@@ -119,6 +119,9 @@ public class TapListenerSuite implements IReporter {
             }
 
             File output = new File(outputDirectory, suite.getName() + ".tap");
+            if (!output.getParentFile().exists()) {
+                output.getParentFile().mkdirs();
+            }
             tapProducer.dump(testSet, output);
         }
     }
@@ -167,6 +170,9 @@ public class TapListenerSuite implements IReporter {
 
                             File output = new File(outputDirectory, group
                                     + ".tap");
+                            if (!output.getParentFile().exists()) {
+                                output.getParentFile().mkdirs();
+                            }
                             tapProducer.dump(testSet, output);
                         }
                     }

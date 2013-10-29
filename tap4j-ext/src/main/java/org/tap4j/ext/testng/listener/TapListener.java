@@ -36,7 +36,7 @@ import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.producer.Producer;
-import org.tap4j.producer.TapProducer;
+import org.tap4j.producer.TapProducerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
@@ -63,7 +63,7 @@ abstract class TapListener extends TestListenerAdapter {
     /**
      * TAP Producer.
      */
-    private Producer tapProducer = new TapProducer();
+    private Producer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 
     /*
      * (non-Javadoc)

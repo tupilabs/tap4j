@@ -255,6 +255,8 @@ public class Tap13Parser implements Parser {
                         // YAML,
                         // Then it must be a subtest! Yay!
                         if (this.subtestsEnabled) {
+                            // Check if we have some diagnostic set in the buffer
+                            this.parseDiagnostics();
                             if (state.getLastParsedElement() instanceof TestResult) {
                                 indentation = state.getBaseIndentationLevel();
                                 TestResult lastTestResult = (TestResult) state.getLastParsedElement();

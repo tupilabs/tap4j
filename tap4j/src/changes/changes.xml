@@ -6,6 +6,25 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
+        <release version="4.0.3" date="" description="4.0.5 release">
+            <action dev="kinow" type="fix" issue="19">
+                org.tap4j.ext.testng.listener.*Yaml wont output YAMLish
+            </action>
+            <action dev="kinow" type="fix" issue="17">
+                Stream with subtests chopping off last yaml diagnostic 
+            </action>
+            <action dev="kinow" type="fix" issue="18">
+                Unable to write tap output due folder structure not being created
+            </action>
+        </release>
+        <release version="4.0.4" date="" description="4.0.4 release">
+            <action dev="kinow" type="fix" issue="16">
+                Optional test numbers are not working
+            </action>
+            <action dev="kinow" type="fix" issue="1">
+                YAML parser isn't parsing correctly.
+            </action>
+        </release>
         <release version="4.0.3" date="" description="4.0.3 release">
             <action dev="kinow" type="fix" issue="14">
                 Diagnostics are added to all test cases, after one with diagnostics was found

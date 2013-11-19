@@ -243,8 +243,9 @@ public class Tap13Parser implements Parser {
                     // the --- or ...
                     if (tapLine.trim().equals("---")) {
                         state.setCurrentlyInYaml(true);
+                        state.setCurrentYamlIndentation(matcher.group(1));
                         return;
-                    } else if (tapLine.trim().equals("...")) {
+                    } else if (tapLine.equals(state.getCurrentYamlIndentation() + "...")) {
                         state.setCurrentlyInYaml(false);
                         return;
                     } else if (state.isCurrentlyInYaml()) {

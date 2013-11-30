@@ -73,6 +73,12 @@ public class Memento {
     private boolean currentlyInYaml = false;
 
     /**
+     * The indentation of the Yaml block.
+     */
+    private String currentYamlIndentation = "";
+
+
+    /**
      * If we are processing a subtest.
      */
     private boolean currentlyInSubtest = false;
@@ -220,4 +226,17 @@ public class Memento {
         return testSet;
     }
 
+    /**
+     * @return the currentYamlIndentation
+     */
+    public String getCurrentYamlIndentation() {
+        return currentYamlIndentation;
+    }
+
+    /**
+     * @param currentYamlIndentation the currentYamlIndentation to set
+     */
+    public void setCurrentYamlIndentation(String currentYamlIndentation) {
+        this.currentYamlIndentation = currentYamlIndentation;
+    }
 }

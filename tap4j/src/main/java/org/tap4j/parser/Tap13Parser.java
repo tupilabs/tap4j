@@ -84,6 +84,11 @@ public class Tap13Parser implements Parser {
      * Whether subtests are enabled or not.
      */
     private boolean subtestsEnabled = false;
+    
+    /**
+     * Require a TAP plan.
+     */
+    private boolean planRequired = true;
 
     /**
      * Parser Constructor.
@@ -92,9 +97,21 @@ public class Tap13Parser implements Parser {
      * @param enableSubtests Whether subtests are enabled or not
      */
     public Tap13Parser(String encoding, boolean enableSubtests) {
+        this(encoding, enableSubtests, true);
+    }
+    
+    /**
+     * Parser Constructor.
+     *
+     * @param encoding Encoding
+     * @param enableSubtests Whether subtests are enabled or not
+     * @param planRequired
+     */
+    public Tap13Parser(String encoding, boolean enableSubtests, boolean planRequired) {
         super();
         this.encoding = encoding;
         this.subtestsEnabled = enableSubtests;
+        this.planRequired = planRequired;
     }
 
     /**
@@ -479,8 +496,10 @@ public class Tap13Parser implements Parser {
      * Called after the rest of the stream has been processed.
      */
     private void onFinish() {
-        if (getTestSet().getPlan() == null) {
-            throw new ParserException("Missing TAP Plan.");
+        if (this.planRequired == true) {
+            if (getTestSet().getPlan() == null) {
+                throw new ParserException("Missing TAP Plan.");
+            }
         }
         parseDiagnostics();
         while (!this.states.isEmpty()) {

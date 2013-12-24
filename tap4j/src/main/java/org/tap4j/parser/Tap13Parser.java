@@ -528,9 +528,6 @@ public class Tap13Parser implements Parser {
      * @param diagnosticLine diagnostic line
      */
     private void appendTapLineToDiagnosticBuffer(String diagnosticLine) {
-        if (diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...")) {
-            return;
-        }
         if (state.isCurrentlyInYaml()) {
             state.getDiagnosticBuffer().append(diagnosticLine);
             state.getDiagnosticBuffer().append('\n');

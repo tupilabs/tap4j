@@ -10,11 +10,11 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 import java.io.File;
 import java.util.Map;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-
-import static org.hamcrest.core.StringContains.containsString;
 
 /*Somewhere near line 250 of Tap13Parser we see the following code:
 
@@ -75,7 +75,12 @@ public class TestYamlExitWithThreeDotsInYaml {
 
         String multiLineYaml = (String) yaml.get("raw_output");
 
-        assertThat(multiLineYaml, containsString("Done sometest"));
+        assertThat(multiLineYaml, is(equalTo("Running sometest\n" +
+                                                     "..........\n" +
+                                                     "..........\n" +
+                                                     "...\n" +
+                                                     "Done sometest\n" +
+                                                     "__________\n")));
     }
     
 }

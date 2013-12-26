@@ -23,10 +23,6 @@
  */
 package org.tap4j.ext.junit.listener;
 
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -41,6 +37,10 @@ import org.tap4j.producer.TapProducer;
 import org.tap4j.representer.DumperOptions;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Abstract listener that gathers all the test methods and provides methods for
@@ -149,6 +149,9 @@ abstract class TapListener extends RunListener {
      * @param result
      */
     protected void generateTapPerMethod(Result result) {
+        // Set Failed Status on Tests List
+        this.setFailedTestsStatus( result );
+
         for (final JUnitTestData testMethod : testMethodsList) {
             final TestResult tapTestResult = TapJUnitUtil
                     .generateTAPTestResult(testMethod, 1, isYaml());
@@ -175,6 +178,9 @@ abstract class TapListener extends RunListener {
      * @param result
      */
     protected void generateTapPerClass(Result result) {
+        // Set Failed Status on Tests List
+        this.setFailedTestsStatus( result );
+
         TestSet testSet = new TestSet();
         File output;
         Integer methodsSizeList = 0;
@@ -216,6 +222,9 @@ abstract class TapListener extends RunListener {
      * @param result
      */
     protected void generateTapPerSuite(Result result) {
+        // Set Failed Status on Tests List
+        this.setFailedTestsStatus( result );
+
         TestSet testSet = new TestSet();
         testSet.setPlan(new Plan(testMethodsList.size()));
         String className = "";

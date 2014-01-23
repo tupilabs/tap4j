@@ -266,7 +266,8 @@ public class Tap13Parser implements Parser {
                         state.setCurrentlyInYaml(false);
                         return;
                     } else if (state.isCurrentlyInYaml()) {
-                        this.appendTapLineToDiagnosticBuffer(tapLine);
+                        state.getDiagnosticBuffer().append(tapLine);
+                        state.getDiagnosticBuffer().append('\n');
                         return; // NOPMD by Bruno on 12/01/11 07:47
                     } else {
                         // If we are in a different level, but it is not
@@ -536,23 +537,6 @@ public class Tap13Parser implements Parser {
                         + ex.getMessage(), ex);
             }
             this.state.getDiagnosticBuffer().setLength(0);
-        }
-    }
-
-    /**
-     * Appends a diagnostic line to diagnostic buffer. If the diagnostic line
-     * contains --- or ... then it ignores this line. In the end of each line it
-     * appends a break line.
-     *
-     * @param diagnosticLine diagnostic line
-     */
-    private void appendTapLineToDiagnosticBuffer(String diagnosticLine) {
-        if (diagnosticLine.trim().equals("---") || diagnosticLine.trim().equals("...")) {
-            return;
-        }
-        if (state.isCurrentlyInYaml()) {
-            state.getDiagnosticBuffer().append(diagnosticLine);
-            state.getDiagnosticBuffer().append('\n');
         }
     }
 

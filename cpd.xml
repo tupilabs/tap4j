@@ -1,3 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
+<duplication lines="40" tokens="140">
+<file line="235" path="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
+<file line="145" path="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
+<codefragment>
+<![CDATA[
+            StackTraceElement[] els = testNGException.getStackTrace();
+
+            for (int i = 0; i < els.length; i++) {
+                StackTraceElement el = els[i];
+                line = getLineNumberFromExceptionTraceLine(el.toString(),
+                        lookFor.toString());
+                if (line.equals("") == Boolean.FALSE) {
+                    break;
+                }
+            }
+        }
+        return line;
+    }
+
+    /**
+     * Get the error line number from the exception stack trace
+     * 
+     * @param exceptionTraceLine
+     * @param substrToSearch
+     * @return error line number
+     */
+    public static String getLineNumberFromExceptionTraceLine(
+            String exceptionTraceLine, String substrToSearch) {
+        String lineNumber = "";
+        int index = exceptionTraceLine.indexOf(substrToSearch);
+        if (index >= 0) {
+            int length = substrToSearch.length() + index;
+            if (exceptionTraceLine.lastIndexOf(')') > length) {
+                lineNumber = exceptionTraceLine.substring(length,
+                        exceptionTraceLine.lastIndexOf(')'));
+            }
+        }
+        return lineNumber;
+    }
+
+    /**
+     * @param testNgTestResult
+     * @return Name value
+     */
+    public static String getName(ITestResult testNgTestResult) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="24" tokens="109">
+<file line="338" path="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
+<file line="397" path="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
+<codefragment>
+<![CDATA[
+        Throwable throwable = testNgTestResult.getThrowable();
+
+        if (throwable != null) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            throwable.printStackTrace(pw);
+            String stackTraceString = sw.toString();
+            stackTraceString = stackTraceString.trim().replaceAll("\\r\\n",
+                    "\n");
+
+            StringTokenizer st = new StringTokenizer(stackTraceString,
+                    LINE_SEPARATOR);
+            while (st.hasMoreTokens()) {
+                String stackTraceLine = st.nextToken();
+                stackTrace.append(stackTraceLine);
+                stackTrace.append(LINE_SEPARATOR);
+            }
+
+        } else {
+            stackTrace.append('~');
+        }
+
+        return stackTrace.toString();
+    }
+]]>
+</codefragment>
+</duplication>
 </pmd-cpd>

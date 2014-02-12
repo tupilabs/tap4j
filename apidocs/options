@@ -1,24 +1,26 @@
 -classpath
-'/home/kinow/java/tap/tap4j-parent/tap4j/target/classes:/home/kinow/.m2/repository/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar'
+'/home/kinow/java/tap/tap4j-parent/tap4j-ext/target/classes:/home/kinow/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/home/kinow/java/tap/tap4j-parent/tap4j/target/classes:/home/kinow/.m2/repository/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar:/home/kinow/.m2/repository/com/beust/jcommander/1.27/jcommander-1.27.jar:/home/kinow/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/home/kinow/.m2/repository/com/google/inject/guice/3.0/guice-3.0.jar:/home/kinow/.m2/repository/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar:/home/kinow/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/home/kinow/.m2/repository/org/testng/testng/6.8/testng-6.8.jar:/home/kinow/.m2/repository/junit/junit/4.10/junit-4.10.jar'
 -encoding
 'UTF-8'
 -protected
 -sourcepath
-'/home/kinow/java/tap/tap4j-parent/tap4j/src/main/java'
+'/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2010-2014 <a href="http://www.tupilabs.com">TupiLabs</a>. All Rights Reserved.'
 -charset
 'UTF-8'
 -d
-'/home/kinow/java/tap/tap4j-parent/tap4j/target/site/apidocs'
+'/home/kinow/java/tap/tap4j-parent/tap4j-ext/target/site/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
-'tap4j Test Anything Protocol for Java 4.0.9-SNAPSHOT API'
+'tap4j extensions 4.0.9-SNAPSHOT API'
 -linkoffline
-'http://docs.oracle.com/javase/1.5.0/docs/api' '/home/kinow/java/tap/tap4j-parent/tap4j/target/javadoc-bundle-options'
+'http://docs.oracle.com/javase/1.5.0/docs/api' '/home/kinow/java/tap/tap4j-parent/tap4j-ext/target/javadoc-bundle-options'
+-linkoffline
+'http://www.tap4j.org/tap4j/apidocs' '/home/kinow/java/tap/tap4j-parent/tap4j/target/site/apidocs'
 -use
 -version
 -windowtitle
-'tap4j Test Anything Protocol for Java 4.0.9-SNAPSHOT API'
+'tap4j extensions 4.0.9-SNAPSHOT API'

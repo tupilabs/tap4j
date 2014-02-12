@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20140211" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>tap4j - </title>
+    <title>tap4j extensions - </title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -60,36 +60,13 @@
                       <li>      <a href="index.html"  title="Introduction">Introduction</a>
 </li>
                   
-                      <li>      <a href="roadmap.html"  title="Roadmap">Roadmap</a>
+                      <li>      <a href="junit_support.html"  title="JUnit support">JUnit support</a>
 </li>
                   
-                      <li>      <a href="faq.html"  title="FAQ">FAQ</a>
+                      <li>      <a href="testng_support.html"  title="TestNG support">TestNG support</a>
 </li>
                   
-                      <li>      <a href="related_projects.html"  title="Related projects">Related projects</a>
-</li>
-                  
-                      <li>      <a href="download.html"  title="Download">Download</a>
-</li>
-                          </ul>
-      </li>
-                <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        
-                      <li>      <a href="tapconsumer.html"  title="TAP Consumer">TAP Consumer</a>
-</li>
-                  
-                      <li>      <a href="tapproducer.html"  title="TAP Producer">TAP Producer</a>
-</li>
-                  
-                      <li>      <a href="tapdirectives.html"  title="TAP Directives">TAP Directives</a>
-</li>
-                  
-                      <li>      <a href="subtests.html"  title="Subtests">Subtests</a>
-</li>
-                  
-                      <li>      <a href="yamlish.html"  title="YAMLish">YAMLish</a>
+                      <li>      <a href="downloads.html"  title="Download">Download</a>
 </li>
                           </ul>
       </li>
@@ -209,8 +186,8 @@
         </li>
       <li class="divider ">/</li>
                 <li class="">
-                    <a href="./" title="tap4j">
-        tap4j</a>
+                    <a href="./" title="tap4j extensions">
+        tap4j extensions</a>
         </li>
       <li class="divider ">/</li>
         <li class=""></li>
@@ -239,66 +216,23 @@
                   
       <li>
     
-                          <a href="roadmap.html" title="Roadmap">
+                          <a href="junit_support.html" title="JUnit support">
           <i class="none"></i>
-        Roadmap</a>
+        JUnit support</a>
             </li>
                   
       <li>
     
-                          <a href="faq.html" title="FAQ">
+                          <a href="testng_support.html" title="TestNG support">
           <i class="none"></i>
-        FAQ</a>
+        TestNG support</a>
             </li>
                   
       <li>
     
-                          <a href="related_projects.html" title="Related projects">
-          <i class="none"></i>
-        Related projects</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="download.html" title="Download">
+                          <a href="downloads.html" title="Download">
           <i class="none"></i>
         Download</a>
-            </li>
-                              <li class="nav-header">Tutorial</li>
-                                
-      <li>
-    
-                          <a href="tapconsumer.html" title="TAP Consumer">
-          <i class="none"></i>
-        TAP Consumer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapproducer.html" title="TAP Producer">
-          <i class="none"></i>
-        TAP Producer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapdirectives.html" title="TAP Directives">
-          <i class="none"></i>
-        TAP Directives</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="subtests.html" title="Subtests">
-          <i class="none"></i>
-        Subtests</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="yamlish.html" title="YAMLish">
-          <i class="none"></i>
-        YAMLish</a>
             </li>
                               <li class="nav-header">Parent Project</li>
                                 
@@ -448,18 +382,10 @@
         <div id="bodyColumn"  class="span9" >
                                   
             <div class="section">
-<h2>tap4j<a name="tap4j"></a></h2>
-<p>tap4j is an implementation of the TAP - <b>Test Anything Protocol</b> - for <b>Java</b>. TAP is a standard way to document test execution. There are two main roles in TAP, a producer and a consumer.</p>
-<p>The <b>TAP Producer</b> is responsible for producing a <i>TAP Stream</i>. Usually the TAP Stream is written to a file. The following is an example of a TAP Stream.</p>
-<div class="source">
-<pre>1..4
-ok 1 - Input file opened
-not ok 2
-ok 3 - Read the rest of the file
-# Yeah, you can comment your TAP Stream
-not ok 4 - Summarized correctly # TODO Not written yet</pre></div>
-<p>Test your TAP with <a class="externalLink" href="http://instanttap.appspot.com/">InstantTAP</a>.</p>
-<p>The <b>TAP Consumer</b> read and parses a TAP Stream. The user of the TAP Consumer can then utilize its data to build graphs, integrate systems, log tests executions or produce cool test reports.</p><img src="./images/drawing1.jpg" alt="tap4j producer and consumer" /></div>
+<h2>tap4j extensions<a name="tap4j_extensions"></a></h2>
+<p>This project extends tap4j, adding support to JUnit and TestNG. This way, you can output TAP from your JUnit or TestNG tests.</p>
+<p>This way you can even use existing Java projects and produce TAP, maybe even integrating your project with <a class="externalLink" href="http://www.jenkins-ci.org">Jenkins</a> using <a class="externalLink" href="https://wiki.jenkins-ci.org/display/JENKINS/TAP+Plugin">Jenkins TAP Plug-in</a>.</p>
+<p>By using TAP with your JUnit or TestNG projects, you can easily extend your test results, by adding attachments or other extra information wihtout having to hack pre defined XML schemas.</p></div>
                   </div>
             </div>
           </div>

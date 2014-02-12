@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20140211" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>tap4j - FindBugs Bug Detector Report</title>
+    <title>tap4j extensions - FindBugs Bug Detector Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -60,36 +60,13 @@
                       <li>      <a href="index.html"  title="Introduction">Introduction</a>
 </li>
                   
-                      <li>      <a href="roadmap.html"  title="Roadmap">Roadmap</a>
+                      <li>      <a href="junit_support.html"  title="JUnit support">JUnit support</a>
 </li>
                   
-                      <li>      <a href="faq.html"  title="FAQ">FAQ</a>
+                      <li>      <a href="testng_support.html"  title="TestNG support">TestNG support</a>
 </li>
                   
-                      <li>      <a href="related_projects.html"  title="Related projects">Related projects</a>
-</li>
-                  
-                      <li>      <a href="download.html"  title="Download">Download</a>
-</li>
-                          </ul>
-      </li>
-                <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        
-                      <li>      <a href="tapconsumer.html"  title="TAP Consumer">TAP Consumer</a>
-</li>
-                  
-                      <li>      <a href="tapproducer.html"  title="TAP Producer">TAP Producer</a>
-</li>
-                  
-                      <li>      <a href="tapdirectives.html"  title="TAP Directives">TAP Directives</a>
-</li>
-                  
-                      <li>      <a href="subtests.html"  title="Subtests">Subtests</a>
-</li>
-                  
-                      <li>      <a href="yamlish.html"  title="YAMLish">YAMLish</a>
+                      <li>      <a href="downloads.html"  title="Download">Download</a>
 </li>
                           </ul>
       </li>
@@ -209,8 +186,8 @@
         </li>
       <li class="divider ">/</li>
                 <li class="">
-                    <a href="./" title="tap4j">
-        tap4j</a>
+                    <a href="./" title="tap4j extensions">
+        tap4j extensions</a>
         </li>
       <li class="divider ">/</li>
         <li class="">FindBugs Bug Detector Report</li>
@@ -241,66 +218,23 @@
                   
       <li>
     
-                          <a href="roadmap.html" title="Roadmap">
+                          <a href="junit_support.html" title="JUnit support">
           <i class="none"></i>
-        Roadmap</a>
+        JUnit support</a>
             </li>
                   
       <li>
     
-                          <a href="faq.html" title="FAQ">
+                          <a href="testng_support.html" title="TestNG support">
           <i class="none"></i>
-        FAQ</a>
+        TestNG support</a>
             </li>
                   
       <li>
     
-                          <a href="related_projects.html" title="Related projects">
-          <i class="none"></i>
-        Related projects</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="download.html" title="Download">
+                          <a href="downloads.html" title="Download">
           <i class="none"></i>
         Download</a>
-            </li>
-                              <li class="nav-header">Tutorial</li>
-                                
-      <li>
-    
-                          <a href="tapconsumer.html" title="TAP Consumer">
-          <i class="none"></i>
-        TAP Consumer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapproducer.html" title="TAP Producer">
-          <i class="none"></i>
-        TAP Producer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapdirectives.html" title="TAP Directives">
-          <i class="none"></i>
-        TAP Directives</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="subtests.html" title="Subtests">
-          <i class="none"></i>
-        Subtests</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="yamlish.html" title="YAMLish">
-          <i class="none"></i>
-        YAMLish</a>
             </li>
                               <li class="nav-header">Parent Project</li>
                                 
@@ -429,8 +363,8 @@
 <th>Errors</th>
 <th>Missing Classes</th></tr>
 <tr class="b">
-<td>35</td>
-<td>0</td>
+<td>28</td>
+<td>12</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -438,7 +372,139 @@
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Class</th>
-<th>Bugs</th></tr></table></div>
+<th>Bugs</th></tr>
+<tr class="b">
+<td><a href="#org.tap4j.ext.junit.util.TapJUnitUtil">org.tap4j.ext.junit.util.TapJUnitUtil</a></td>
+<td>2</td></tr>
+<tr class="a">
+<td><a href="#org.tap4j.ext.testng.listener.TapListener">org.tap4j.ext.testng.listener.TapListener</a></td>
+<td>2</td></tr>
+<tr class="b">
+<td><a href="#org.tap4j.ext.testng.listener.TapListenerSuite">org.tap4j.ext.testng.listener.TapListenerSuite</a></td>
+<td>2</td></tr>
+<tr class="a">
+<td><a href="#org.tap4j.ext.testng.model.TestNGAttribute">org.tap4j.ext.testng.model.TestNGAttribute</a></td>
+<td>1</td></tr>
+<tr class="b">
+<td><a href="#org.tap4j.ext.testng.util.TapTestNGYamlUtil">org.tap4j.ext.testng.util.TapTestNGYamlUtil</a></td>
+<td>5</td></tr></table></div><a name="org.tap4j.ext.junit.util.TapJUnitUtil"></a>
+<div class="section">
+<h3>org.tap4j.ext.junit.util.TapJUnitUtil<a name="org.tap4j.ext.junit.util.TapJUnitUtil"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>Call to method of static java.text.DateFormat in org.tap4j.ext.junit.util.TapJUnitUtil.getDatetime()</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE">STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE</a></td>
+<td>326</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>org.tap4j.ext.junit.util.TapJUnitUtil.ISO_8061_DATE_FORMAT is a static field of type java.text.DateFormat, which isn't thread safe</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#STCAL_STATIC_SIMPLE_DATE_FORMAT_INSTANCE">STCAL_STATIC_SIMPLE_DATE_FORMAT_INSTANCE</a></td>
+<td></td>
+<td>High</td></tr></table></div><a name="org.tap4j.ext.testng.listener.TapListener"></a>
+<div class="section">
+<h3>org.tap4j.ext.testng.listener.TapListener<a name="org.tap4j.ext.testng.listener.TapListener"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>exceptional return value of java.io.File.mkdirs() ignored in org.tap4j.ext.testng.listener.TapListener.generateTAPPerClass(ITestContext)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>180</td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>exceptional return value of java.io.File.mkdirs() ignored in org.tap4j.ext.testng.listener.TapListener.generateTAPPerMethod(ITestContext)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>229</td>
+<td>Medium</td></tr></table></div><a name="org.tap4j.ext.testng.listener.TapListenerSuite"></a>
+<div class="section">
+<h3>org.tap4j.ext.testng.listener.TapListenerSuite<a name="org.tap4j.ext.testng.listener.TapListenerSuite"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>exceptional return value of java.io.File.mkdirs() ignored in org.tap4j.ext.testng.listener.TapListenerSuite.generateTAPPerGroup(List, List, String)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>174</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>exceptional return value of java.io.File.mkdirs() ignored in org.tap4j.ext.testng.listener.TapListenerSuite.generateTAPPerSuite(List, List, String)</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#RV_RETURN_VALUE_IGNORED_BAD_PRACTICE">RV_RETURN_VALUE_IGNORED_BAD_PRACTICE</a></td>
+<td>123</td>
+<td>Medium</td></tr></table></div><a name="org.tap4j.ext.testng.model.TestNGAttribute"></a>
+<div class="section">
+<h3>org.tap4j.ext.testng.model.TestNGAttribute<a name="org.tap4j.ext.testng.model.TestNGAttribute"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>Class org.tap4j.ext.testng.model.TestNGAttribute defines non-transient non-serializable instance field method</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SE_BAD_FIELD">SE_BAD_FIELD</a></td>
+<td></td>
+<td>High</td></tr></table></div><a name="org.tap4j.ext.testng.util.TapTestNGYamlUtil"></a>
+<div class="section">
+<h3>org.tap4j.ext.testng.util.TapTestNGYamlUtil<a name="org.tap4j.ext.testng.util.TapTestNGYamlUtil"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>Dead store to index in org.tap4j.ext.testng.util.TapTestNGYamlUtil.getExpected(ITestResult)</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DLS_DEAD_LOCAL_STORE">DLS_DEAD_LOCAL_STORE</a></td>
+<td>235</td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>org.tap4j.ext.testng.util.TapTestNGYamlUtil.parse(String, InputStream) may fail to clean up java.io.InputStream</td>
+<td>EXPERIMENTAL</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#OBL_UNSATISFIED_OBLIGATION">OBL_UNSATISFIED_OBLIGATION</a></td>
+<td>751</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>Call to method of static java.text.DateFormat in org.tap4j.ext.testng.util.TapTestNGYamlUtil.getDatetime(ITestResult)</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE">STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE</a></td>
+<td>117</td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>org.tap4j.ext.testng.util.TapTestNGYamlUtil.ISO_8061_DATE_FORMAT is a static field of type java.text.DateFormat, which isn't thread safe</td>
+<td>MT_CORRECTNESS</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#STCAL_STATIC_SIMPLE_DATE_FORMAT_INSTANCE">STCAL_STATIC_SIMPLE_DATE_FORMAT_INSTANCE</a></td>
+<td></td>
+<td>High</td></tr>
+<tr class="a">
+<td>org.tap4j.ext.testng.util.TapTestNGYamlUtil.toYaml(StringBuilder, String, XmlTest) makes inefficient use of keySet iterator instead of entrySet iterator</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR</a></td>
+<td>546</td>
+<td>Medium</td></tr></table></div>
                   </div>
             </div>
           </div>

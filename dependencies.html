@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20140211" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>tap4j - Project Dependencies</title>
+    <title>tap4j extensions - Project Dependencies</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -60,36 +60,13 @@
                       <li>      <a href="index.html"  title="Introduction">Introduction</a>
 </li>
                   
-                      <li>      <a href="roadmap.html"  title="Roadmap">Roadmap</a>
+                      <li>      <a href="junit_support.html"  title="JUnit support">JUnit support</a>
 </li>
                   
-                      <li>      <a href="faq.html"  title="FAQ">FAQ</a>
+                      <li>      <a href="testng_support.html"  title="TestNG support">TestNG support</a>
 </li>
                   
-                      <li>      <a href="related_projects.html"  title="Related projects">Related projects</a>
-</li>
-                  
-                      <li>      <a href="download.html"  title="Download">Download</a>
-</li>
-                          </ul>
-      </li>
-                <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        
-                      <li>      <a href="tapconsumer.html"  title="TAP Consumer">TAP Consumer</a>
-</li>
-                  
-                      <li>      <a href="tapproducer.html"  title="TAP Producer">TAP Producer</a>
-</li>
-                  
-                      <li>      <a href="tapdirectives.html"  title="TAP Directives">TAP Directives</a>
-</li>
-                  
-                      <li>      <a href="subtests.html"  title="Subtests">Subtests</a>
-</li>
-                  
-                      <li>      <a href="yamlish.html"  title="YAMLish">YAMLish</a>
+                      <li>      <a href="downloads.html"  title="Download">Download</a>
 </li>
                           </ul>
       </li>
@@ -209,8 +186,8 @@
         </li>
       <li class="divider ">/</li>
                 <li class="">
-                    <a href="./" title="tap4j">
-        tap4j</a>
+                    <a href="./" title="tap4j extensions">
+        tap4j extensions</a>
         </li>
       <li class="divider ">/</li>
         <li class="">Project Dependencies</li>
@@ -241,66 +218,23 @@
                   
       <li>
     
-                          <a href="roadmap.html" title="Roadmap">
+                          <a href="junit_support.html" title="JUnit support">
           <i class="none"></i>
-        Roadmap</a>
+        JUnit support</a>
             </li>
                   
       <li>
     
-                          <a href="faq.html" title="FAQ">
+                          <a href="testng_support.html" title="TestNG support">
           <i class="none"></i>
-        FAQ</a>
+        TestNG support</a>
             </li>
                   
       <li>
     
-                          <a href="related_projects.html" title="Related projects">
-          <i class="none"></i>
-        Related projects</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="download.html" title="Download">
+                          <a href="downloads.html" title="Download">
           <i class="none"></i>
         Download</a>
-            </li>
-                              <li class="nav-header">Tutorial</li>
-                                
-      <li>
-    
-                          <a href="tapconsumer.html" title="TAP Consumer">
-          <i class="none"></i>
-        TAP Consumer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapproducer.html" title="TAP Producer">
-          <i class="none"></i>
-        TAP Producer</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="tapdirectives.html" title="TAP Directives">
-          <i class="none"></i>
-        TAP Directives</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="subtests.html" title="Subtests">
-          <i class="none"></i>
-        Subtests</a>
-            </li>
-                  
-      <li>
-    
-                          <a href="yamlish.html" title="YAMLish">
-          <i class="none"></i>
-        YAMLish</a>
             </li>
                               <li class="nav-header">Parent Project</li>
                                 
@@ -463,14 +397,61 @@
 <th>Type</th>
 <th>License</th></tr>
 <tr class="b">
+<td>org.tap4j</td>
+<td><a class="externalLink" href="http://www.tap4j.org/tap4j">tap4j</a></td>
+<td>4.0.9-SNAPSHOT</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT</a></td></tr></table></div><a name="Project_Dependencies_provided"></a>
+<div class="section">
+<h3>provided<a name="provided"></a></h3>
+<p>The following is a list of provided dependencies for this project. These dependencies are required to compile the application, but should be provided by default when using the library:</p>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
+<tr class="b">
+<td>com.google.inject</td>
+<td><a class="externalLink" href="http://code.google.com/p/google-guice/guice/">guice</a></td>
+<td>3.0</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="a">
+<td>junit</td>
+<td><a class="externalLink" href="http://junit.org">junit</a></td>
+<td>4.10</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/cpl1.0.txt">Common Public License Version 1.0</a></td></tr>
+<tr class="b">
+<td>org.testng</td>
+<td><a class="externalLink" href="http://testng.org">testng</a></td>
+<td>6.8</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
+<div class="section">
+<h2>Project Transitive Dependencies<a name="Project_Transitive_Dependencies"></a></h2>
+<p>The following is a list of transitive dependencies for this project. Transitive dependencies are the dependencies of the project dependencies.</p><a name="Project_Transitive_Dependencies_compile"></a>
+<div class="section">
+<h3>compile<a name="compile"></a></h3>
+<p>The following is a list of compile dependencies for this project. These dependencies are required to compile and run the application:</p>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
+<tr class="b">
 <td>org.yaml</td>
 <td><a class="externalLink" href="http://www.snakeyaml.org">snakeyaml</a></td>
 <td>1.11</td>
 <td>jar</td>
-<td>LICENSE.txt</td></tr></table></div><a name="Project_Dependencies_test"></a>
+<td>LICENSE.txt</td></tr></table></div><a name="Project_Transitive_Dependencies_provided"></a>
 <div class="section">
-<h3>test<a name="test"></a></h3>
-<p>The following is a list of test dependencies for this project. These dependencies are only required to compile and run unit tests for the application:</p>
+<h3>provided<a name="provided"></a></h3>
+<p>The following is a list of provided dependencies for this project. These dependencies are required to compile the application, but should be provided by default when using the library:</p>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>GroupId</th>
@@ -479,30 +460,35 @@
 <th>Type</th>
 <th>License</th></tr>
 <tr class="b">
-<td>junit</td>
-<td><a class="externalLink" href="http://junit.org">junit</a></td>
-<td>4.11</td>
+<td>aopalliance</td>
+<td><a class="externalLink" href="http://aopalliance.sourceforge.net">aopalliance</a></td>
+<td>1.0</td>
 <td>jar</td>
-<td><a class="externalLink" href="http://www.opensource.org/licenses/cpl1.0.txt">Common Public License Version 1.0</a></td></tr></table></div></div><a name="Project_Transitive_Dependencies"></a>
-<div class="section">
-<h2>Project Transitive Dependencies<a name="Project_Transitive_Dependencies"></a></h2>
-<p>The following is a list of transitive dependencies for this project. Transitive dependencies are the dependencies of the project dependencies.</p><a name="Project_Transitive_Dependencies_test"></a>
-<div class="section">
-<h3>test<a name="test"></a></h3>
-<p>The following is a list of test dependencies for this project. These dependencies are only required to compile and run unit tests for the application:</p>
-<table border="0" class="table table-striped">
+<td>Public Domain</td></tr>
 <tr class="a">
-<th>GroupId</th>
-<th>ArtifactId</th>
-<th>Version</th>
-<th>Type</th>
-<th>License</th></tr>
+<td>com.beust</td>
+<td><a class="externalLink" href="http://beust.com/jcommander">jcommander</a></td>
+<td>1.27</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="b">
+<td>javax.inject</td>
+<td><a class="externalLink" href="http://code.google.com/p/atinject/">javax.inject</a></td>
+<td>1</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="a">
+<td>org.beanshell</td>
+<td>bsh</td>
+<td>2.0b4</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.gnu.org/licenses/lgpl.txt">GNU LESSER GENERAL PUBLIC LICENSE</a></td></tr>
 <tr class="b">
 <td>org.hamcrest</td>
-<td><a class="externalLink" href="https://github.com/hamcrest/JavaHamcrest/hamcrest-core">hamcrest-core</a></td>
-<td>1.3</td>
+<td>hamcrest-core</td>
+<td>1.1</td>
 <td>jar</td>
-<td><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a></td></tr></table></div></div><a name="Project_Dependency_Graph"></a>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">BSD style</a></td></tr></table></div></div><a name="Project_Dependency_Graph"></a>
 <div class="section">
 <h2>Project Dependency Graph<a name="Project_Dependency_Graph"></a></h2><script language="javascript" type="text/javascript">
       function toggleDependencyDetail( divId, imgId )
@@ -525,7 +511,17 @@
 <div class="section">
 <h3>Dependency Tree<a name="Dependency_Tree"></a></h3>
 <ul>
-<li>org.tap4j:tap4j:jar:4.0.9-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
+<li>org.tap4j:tap4j-ext:jar:4.0.9-SNAPSHOT <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>tap4j extensions</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>TAP extensions to support JUnit and TestNG</p>
+<p><b>URL: </b><a class="externalLink" href="http://www.tap4j.org/tap4j-ext">http://www.tap4j.org/tap4j-ext</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT</a></p></td></tr></table></div>
+<ul>
+<li>org.tap4j:tap4j:jar:4.0.9-SNAPSHOT (compile) <img id="_img3" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep2', '_img3' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep2" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>tap4j Test Anything Protocol for Java</th></tr>
@@ -535,7 +531,7 @@
 <p><b>URL: </b><a class="externalLink" href="http://www.tap4j.org/tap4j">http://www.tap4j.org/tap4j</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT</a></p></td></tr></table></div>
 <ul>
-<li>org.yaml:snakeyaml:jar:1.11 (compile) <img id="_img3" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep2', '_img3' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep2" style="display:none">
+<li>org.yaml:snakeyaml:jar:1.11 (compile) <img id="_img5" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep4', '_img5' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep4" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>SnakeYAML</th></tr>
@@ -543,8 +539,35 @@
 <td>
 <p><b>Description: </b>YAML 1.1 parser and emitter for Java</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.snakeyaml.org">http://www.snakeyaml.org</a></p>
-<p><b>Project License: </b><a href="LICENSE.txt">Apache License Version 2.0</a></p></td></tr></table></div></li>
-<li>junit:junit:jar:4.11 (test) <img id="_img5" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep4', '_img5' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep4" style="display:none">
+<p><b>Project License: </b><a href="LICENSE.txt">Apache License Version 2.0</a></p></td></tr></table></div></li></ul></li>
+<li>org.testng:testng:jar:6.8 (provided) <img id="_img7" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep6', '_img7' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep6" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>TestNG</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>TestNG is a testing framework.</p>
+<p><b>URL: </b><a class="externalLink" href="http://testng.org">http://testng.org</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>org.beanshell:bsh:jar:2.0b4 (provided) <img id="_img9" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep8', '_img9' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep8" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>BeanShell</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>BeanShell</p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.gnu.org/licenses/lgpl.txt">GNU LESSER GENERAL PUBLIC LICENSE</a></p></td></tr></table></div></li>
+<li>com.beust:jcommander:jar:1.27 (provided) <img id="_img11" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep10', '_img11' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep10" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>JCommander</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>A Java framework to parse command line options with annotations.</p>
+<p><b>URL: </b><a class="externalLink" href="http://beust.com/jcommander">http://beust.com/jcommander</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li></ul></li>
+<li>junit:junit:jar:4.10 (provided) <img id="_img13" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep12', '_img13' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep12" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>JUnit</th></tr>
@@ -555,20 +578,51 @@
 <p><b>URL: </b><a class="externalLink" href="http://junit.org">http://junit.org</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/cpl1.0.txt">Common Public License Version 1.0</a></p></td></tr></table></div>
 <ul>
-<li>org.hamcrest:hamcrest-core:jar:1.3 (test) <img id="_img7" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep6', '_img7' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep6" style="display:none">
+<li>org.hamcrest:hamcrest-core:jar:1.1 (provided) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
 <table border="0" class="table table-striped">
 <tr class="a">
 <th>Hamcrest Core</th></tr>
 <tr class="b">
 <td>
-<p><b>Description: </b>This is the core API of hamcrest matcher framework to be used by third-party framework providers. This includes the a foundation set of matcher implementations for common operations.</p>
-<p><b>URL: </b><a class="externalLink" href="https://github.com/hamcrest/JavaHamcrest/hamcrest-core">https://github.com/hamcrest/JavaHamcrest/hamcrest-core</a></p>
-<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a></p></td></tr></table></div></li></ul></li></ul></li></ul></div></div><a name="Licenses"></a>
+<p><b>Description: </b>There is currently no description associated with this project.</p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/bsd-license.php">BSD style</a></p></td></tr></table></div></li></ul></li>
+<li>com.google.inject:guice:jar:3.0 (provided) <img id="_img17" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep16', '_img17' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep16" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Google Guice - Core Library</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Guice is a lightweight dependency injection framework for Java 5 and above</p>
+<p><b>URL: </b><a class="externalLink" href="http://code.google.com/p/google-guice/guice/">http://code.google.com/p/google-guice/guice/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div>
+<ul>
+<li>javax.inject:javax.inject:jar:1 (provided) <img id="_img19" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep18', '_img19' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep18" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>javax.inject</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>The javax.inject API</p>
+<p><b>URL: </b><a class="externalLink" href="http://code.google.com/p/atinject/">http://code.google.com/p/atinject/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li>
+<li>aopalliance:aopalliance:jar:1.0 (provided) <img id="_img21" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep20', '_img21' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep20" style="display:none">
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>AOP alliance</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>AOP Alliance</p>
+<p><b>URL: </b><a class="externalLink" href="http://aopalliance.sourceforge.net">http://aopalliance.sourceforge.net</a></p>
+<p><b>Project License: </b>Public Domain</p></td></tr></table></div></li></ul></li></ul></li></ul></div></div><a name="Licenses"></a>
 <div class="section">
 <h2>Licenses<a name="Licenses"></a></h2>
-<p><b>New BSD License: </b>Hamcrest Core</p>
+<p><b>BSD style: </b>Hamcrest Core</p>
+<p><b>Public Domain: </b>AOP alliance</p>
+<p><b>GNU LESSER GENERAL PUBLIC LICENSE: </b>BeanShell</p>
+<p><b>Apache License, Version 2.0: </b>TestNG</p>
 <p><b>Common Public License Version 1.0: </b>JUnit</p>
-<p><b>MIT: </b>tap4j Test Anything Protocol for Java</p>
+<p><b>The Apache Software License, Version 2.0: </b>Google Guice - Core Library, JCommander, javax.inject</p>
+<p><b>MIT: </b>tap4j Test Anything Protocol for Java, tap4j extensions</p>
 <p><b>Apache License Version 2.0: </b>SnakeYAML</p></div><a name="Dependency_File_Details"></a>
 <div class="section">
 <h2>Dependency File Details<a name="Dependency_File_Details"></a></h2>
@@ -582,22 +636,78 @@
 <th>JDK Rev</th>
 <th>Debug</th></tr>
 <tr class="b">
-<td>junit-4.11.jar</td>
-<td>239.30 kB</td>
-<td>266</td>
-<td>233</td>
-<td>28</td>
-<td>1.5</td>
+<td>aopalliance-1.0.jar</td>
+<td>4.36 kB</td>
+<td>15</td>
+<td>9</td>
+<td>2</td>
+<td>1.3</td>
 <td>debug</td></tr>
 <tr class="a">
-<td>hamcrest-core-1.3.jar</td>
-<td>43.97 kB</td>
-<td>52</td>
+<td>jcommander-1.27.jar</td>
+<td>54.28 kB</td>
+<td>59</td>
 <td>45</td>
-<td>3</td>
+<td>5</td>
 <td>1.5</td>
 <td>debug</td></tr>
 <tr class="b">
+<td>guice-3.0.jar</td>
+<td>693.84 kB</td>
+<td>585</td>
+<td>565</td>
+<td>12</td>
+<td>1.5</td>
+<td>debug</td></tr>
+<tr class="a">
+<td>javax.inject-1.jar</td>
+<td>2.44 kB</td>
+<td>8</td>
+<td>6</td>
+<td>1</td>
+<td>1.5</td>
+<td>release</td></tr>
+<tr class="b">
+<td>junit-4.10.jar</td>
+<td>247.23 kB</td>
+<td>290</td>
+<td>252</td>
+<td>31</td>
+<td>1.5</td>
+<td>debug</td></tr>
+<tr class="a">
+<td>bsh-2.0b4.jar</td>
+<td>275.09 kB</td>
+<td>238</td>
+<td>158</td>
+<td>8</td>
+<td>1.2</td>
+<td>release</td></tr>
+<tr class="b">
+<td>hamcrest-core-1.1.jar</td>
+<td>74.85 kB</td>
+<td>54</td>
+<td>21</td>
+<td>3</td>
+<td>1.5</td>
+<td>debug</td></tr>
+<tr class="a">
+<td>tap4j/target/classes</td>
+<td>-</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>-</td>
+<td>release</td></tr>
+<tr class="b">
+<td>testng-6.8.jar</td>
+<td>794.33 kB</td>
+<td>584</td>
+<td>535</td>
+<td>26</td>
+<td>1.5</td>
+<td>debug</td></tr>
+<tr class="a">
 <td>snakeyaml-1.11.jar</td>
 <td>264.21 kB</td>
 <td>240</td>
@@ -605,7 +715,7 @@
 <td>19</td>
 <td>1.5</td>
 <td>debug</td></tr>
-<tr class="a">
+<tr class="b">
 <th>Total</th>
 <th>Size</th>
 <th>Entries</th>
@@ -613,30 +723,30 @@
 <th>Packages</th>
 <th>JDK Rev</th>
 <th>Debug</th></tr>
-<tr class="b">
-<td>3</td>
-<td>547.48 kB</td>
-<td>558</td>
-<td>482</td>
-<td>50</td>
-<td>1.5</td>
-<td>3</td></tr>
 <tr class="a">
-<td>compile: 1</td>
-<td>compile: 264.21 kB</td>
+<td>10</td>
+<td>2.36 MB</td>
+<td>2,073</td>
+<td>1,795</td>
+<td>107</td>
+<td>1.5</td>
+<td>7</td></tr>
+<tr class="b">
+<td>compile: 2</td>
+<td>compile: 268.21 kB</td>
 <td>compile: 240</td>
 <td>compile: 204</td>
 <td>compile: 19</td>
 <td>-</td>
 <td>compile: 1</td></tr>
-<tr class="b">
-<td>test: 2</td>
-<td>test: 283.26 kB</td>
-<td>test: 318</td>
-<td>test: 278</td>
-<td>test: 31</td>
+<tr class="a">
+<td>provided: 8</td>
+<td>provided: 2.10 MB</td>
+<td>provided: 1,833</td>
+<td>provided: 1,591</td>
+<td>provided: 88</td>
 <td>-</td>
-<td>test: 2</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
+<td>provided: 6</td></tr></table></div><a name="Dependency_Repository_Locations"></a>
 <div class="section">
 <h2>Dependency Repository Locations<a name="Dependency_Repository_Locations"></a></h2>
 <table border="0" class="table table-striped">
@@ -668,30 +778,65 @@
 <th>sonatype-nexus-snapshots</th>
 <th>central</th></tr>
 <tr class="b">
-<td>junit:junit:jar:4.11</td>
-<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//junit/junit/4.11/junit-4.11.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>aopalliance:aopalliance:jar:1.0</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//aopalliance/aopalliance/1.0/aopalliance-1.0.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
-<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="a">
-<td>org.hamcrest:hamcrest-core:jar:1.3</td>
-<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>com.beust:jcommander:jar:1.27</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//com/beust/jcommander/1.27/jcommander-1.27.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
-<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/com/beust/jcommander/1.27/jcommander-1.27.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
 <tr class="b">
+<td>com.google.inject:guice:jar:3.0</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//com/google/inject/guice/3.0/guice-3.0.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/com/google/inject/guice/3.0/guice-3.0.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>javax.inject:javax.inject:jar:1</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//javax/inject/javax.inject/1/javax.inject-1.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>junit:junit:jar:4.10</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//junit/junit/4.10/junit-4.10.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/junit/junit/4.10/junit-4.10.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>org.beanshell:bsh:jar:2.0b4</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="b">
+<td>org.hamcrest:hamcrest-core:jar:1.1</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
+<td>org.tap4j:tap4j:jar:4.0.9-SNAPSHOT</td>
+<td>-</td>
+<td>-</td>
+<td>-</td></tr>
+<tr class="b">
+<td>org.testng:testng:jar:6.8</td>
+<td><a class="externalLink" href="http://repo.jenkins-ci.org/public//org/testng/testng/6.8/testng-6.8.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
+<td>-</td>
+<td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/testng/testng/6.8/testng-6.8.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
+<tr class="a">
 <td>org.yaml:snakeyaml:jar:1.11</td>
 <td><a class="externalLink" href="http://repo.jenkins-ci.org/public//org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar"><img alt="Found at http://repo.jenkins-ci.org/public/" src="images/icon_success_sml.gif" /></a></td>
 <td>-</td>
 <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar"><img alt="Found at http://repo.maven.apache.org/maven2" src="images/icon_success_sml.gif" /></a></td></tr>
-<tr class="a">
+<tr class="b">
 <th>Total</th>
 <th>repo.jenkins-ci.org</th>
 <th>sonatype-nexus-snapshots</th>
 <th>central</th></tr>
-<tr class="b">
-<td>3 (compile: 1, test: 2)</td>
-<td>3</td>
+<tr class="a">
+<td>10 (compile: 2, provided: 8)</td>
+<td>9</td>
 <td>0</td>
-<td>3</td></tr></table></div>
+<td>9</td></tr></table></div>
                   </div>
             </div>
           </div>

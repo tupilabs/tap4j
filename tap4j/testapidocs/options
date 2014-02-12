@@ -1,0 +1,26 @@
+-classpath
+'/home/kinow/java/tap/tap4j-parent/tap4j/target/classes:/home/kinow/java/tap/tap4j-parent/tap4j/target/test-classes:/home/kinow/.m2/repository/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar:/home/kinow/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/kinow/.m2/repository/junit/junit/4.11/junit-4.11.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/kinow/java/tap/tap4j-parent/tap4j/src/test/java'
+-author
+-bottom
+'Copyright &#169; 2010-2014 <a href="http://www.tupilabs.com">TupiLabs</a>. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/home/kinow/java/tap/tap4j-parent/tap4j/target/site/testapidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'tap4j Test Anything Protocol for Java 4.0.9-SNAPSHOT Test API'
+-link
+'../apidocs'
+-linkoffline
+'http://docs.oracle.com/javase/1.5.0/docs/api' '/home/kinow/java/tap/tap4j-parent/tap4j/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'tap4j Test Anything Protocol for Java 4.0.9-SNAPSHOT Test API'

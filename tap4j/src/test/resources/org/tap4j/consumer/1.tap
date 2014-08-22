@@ -11,5 +11,5 @@
       results:
           have: ~
           want: foobar
-      ---
+      ...
    ok 3

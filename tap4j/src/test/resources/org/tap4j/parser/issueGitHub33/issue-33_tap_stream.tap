@@ -1,0 +1,45 @@
+TAP version 13
+1..1
+ok 1 - sometest
+  ---
+    datetime: 2013-11-14T15:42:54
+    raw_output: |
+      Running sometest
+      .....
+      ================================================================================
+      Verification failed.
+      
+          ---------------------
+          Framework Diagnostic:
+          ---------------------
+          ContainsSubstring failed.
+          --> The string must contain the substring.
+      
+          Actual String:
+              TAP version 13
+              1..2
+                ---
+                  datetime: 2013-09-12T08:35:14
+                ...
+              ok 1 - testcases.SingleSilentTest
+                ---
+                  datetime: 2013-09-12T08:35:15
+                  raw_output:
+                ...
+              not ok 2 - testcases.SimpleTestWithSharedFixture
+                ---
+                  datetime: 2013-09-12T08:35:16
+                  raw_output:
+                ...
+      
+          Expected Substring:
+      
+              ok 2 - testcases.SimpleTestWithSharedFixture
+                ---
+                  datetime: 2013-09-12T08:35:16
+                ...
+      
+      ================================================================================
+      Done sometest
+      __________
+  ...

@@ -28,15 +28,14 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.TestSet;
-import org.tap4j.parser.issue3409478.TestDoneTesting;
 
 /**
  * If there is random STDOUT after a tap plan at end, it fails.
  * <p>
  * This issue has been fixed, as consequence of fixing issue 3409478.
+ * <p>
  * 
  * @since 2.0.6
- * @see {@link TestDoneTesting}
  */
 public class TestRandomStdoutAfterTestPlanAtEnd extends BaseTapTest {
 

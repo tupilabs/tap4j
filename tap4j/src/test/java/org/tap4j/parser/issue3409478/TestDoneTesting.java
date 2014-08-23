@@ -31,13 +31,11 @@ import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
 
 /**
- * <p>
- * Test class for issue 3409478.</p
+ * <p>Test class for issue 3409478.</p>
  * <p>
  * Perl's Test::More supports a 'done_testing()', so you do not need to
  * predeclare how many tests you are running, this produces:
  * </p>
- * <p>
  * <ul>
  * <li>ok 1 - Test1;</li>
  * <li>ok 2 - got document root</li>
@@ -45,7 +43,6 @@ import org.tap4j.model.TestSet;
  * <li>1..3</li>
  * <li>ok</li>
  * </ul>
- * </p>
  * 
  * @since 2.0.6
  */

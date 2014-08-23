@@ -1,0 +1,4 @@
+1..3
+ok 1 - org.tap4j.ext.junit.TestTap13JUnit1#testFalse
+ok 2 - org.tap4j.ext.junit.TestTap13JUnit2#testTrue
+not ok 3 - org.tap4j.ext.junit.RunJUnitSuiteWithListener$FailingTest#testFail1

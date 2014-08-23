@@ -1,0 +1,2 @@
+1..1
+not ok 1 - org.tap4j.ext.junit.RunJUnitTestWithListener$FailingTest#org.tap4j.ext.junit.RunJUnitTestWithListener$FailingTest # SKIP JUnit test was skipped

@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
@@ -85,7 +86,7 @@ public class TestTap13YamlRepresenter {
     
     @Test
     public void printDiagnostic() {
-        Map<String, Object> diagnostic = new HashMap<String, Object>();
+        Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
         diagnostic.put("name", "Ayrton");
         diagnostic.put("surname", "Senna");
         DumperOptions options = new DumperOptions();

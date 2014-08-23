@@ -56,11 +56,11 @@ public class TestTapProducerFactory {
 
     @Test
     public void testTapProducerFactoryConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final Constructor<?> c = TapProducer.class
-            .getDeclaredConstructors()[0];
-        c.setAccessible(true);
-        final Object o = c.newInstance((Object[]) null);
-        assertNotNull(o);
+        TapProducer producer = new TapProducer();
+        assertNotNull(producer);
+        Representer representer = new Tap13Representer();
+        producer = new TapProducer(representer);
+        assertNotNull(producer);
     }
 
 }

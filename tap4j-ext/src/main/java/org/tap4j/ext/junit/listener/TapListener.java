@@ -107,6 +107,27 @@ abstract class TapListener extends RunListener {
     public abstract void testRunFinished(Result result) throws Exception;
 
     /**
+     * Called when a specific test has started.
+     * 
+     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
+     */
+    public void testStarted(Description description) throws Exception {
+        this.setTestInfo(description);
+    }
+    
+    /**
+     * Set test info
+     * 
+     * @param description
+     */
+    protected void setTestInfo(Description description) {
+        JUnitTestData testMethod = new JUnitTestData(false, false);
+        testMethod.setDescription(description);
+        if (!testMethodsList.contains(description))
+            testMethodsList.add(testMethod);
+    }
+    
+    /**
      * Called when a specific test has been skipped (for whatever reason).
      * 
      * @see org.junit.runner.notification.RunListener#testIgnored(org.junit.runner.Description)
@@ -114,17 +135,12 @@ abstract class TapListener extends RunListener {
     public void testIgnored(Description description) throws Exception {
         JUnitTestData testMethod = new JUnitTestData(false, false);
         testMethod.setDescription(description);
+        if (!testMethodsList.contains(testMethod)) {
+            testMethodsList.add(testMethod);
+        } else {
+            testMethod = testMethodsList.get(testMethodsList.indexOf(testMethod));
+        }
         testMethod.setIgnored(true);
-        testMethodsList.add(testMethod);
-    }
-
-    /**
-     * Called when a specific test has started.
-     * 
-     * @see org.junit.runner.notification.RunListener#testStarted(org.junit.runner.Description)
-     */
-    public void testStarted(Description description) throws Exception {
-        this.setTestInfo(description);
     }
 
     /**
@@ -133,6 +149,16 @@ abstract class TapListener extends RunListener {
      * @see org.junit.runner.notification.RunListener#testFailure(org.junit.runner.notification.Failure)
      */
     public void testFailure(Failure failure) throws Exception {
+        JUnitTestData testMethod = new JUnitTestData(false, true);
+        testMethod.setDescription(failure.getDescription());
+        if (!testMethodsList.contains(testMethod)) {
+            testMethodsList.add(testMethod);
+        } else {
+            testMethod = testMethodsList.get(testMethodsList.indexOf(testMethod));
+        }
+        testMethod.setFailed(true);
+        testMethod.setFailException(failure.getException());
+        testMethod.setDescription(failure.getDescription());
     }
 
     /**
@@ -232,17 +258,6 @@ abstract class TapListener extends RunListener {
         File output = new File(System.getProperty("tap.junit.results",
                 "target/"), className + "-SUITE.tap");
         tapProducer.dump(testSet, output);
-    }
-
-    /**
-     * Set test info
-     * 
-     * @param description
-     */
-    protected void setTestInfo(Description description) {
-        JUnitTestData testMethod = new JUnitTestData(false, false);
-        testMethod.setDescription(description);
-        testMethodsList.add(testMethod);
     }
 
     /**

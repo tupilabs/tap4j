@@ -49,7 +49,7 @@ public class JUnitTestData {
         this.ignored = ignored;
         this.failed = failed;
     }
-
+    
     public Description getDescription() {
         return description;
     }
@@ -96,5 +96,23 @@ public class JUnitTestData {
 
     public void setFailException(Throwable failException) {
         this.failException = failException;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JUnitTestData) {
+            if (this.getDescription() != null && ((JUnitTestData) obj).getDescription() != null) {
+                return this.getDescription().equals(((JUnitTestData) obj).getDescription());
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (this.description != null) {
+            return this.description.hashCode();
+        }
+        return 0;
     }
 }

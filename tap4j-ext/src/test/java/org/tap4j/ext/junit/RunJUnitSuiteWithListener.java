@@ -24,8 +24,11 @@
 
 package org.tap4j.ext.junit;
 
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.tap4j.ext.junit.listener.TapListenerSuite;
 
@@ -46,6 +49,7 @@ public class RunJUnitSuiteWithListener {
         // Add every test class you want to the suite
         suite.addTestSuite(TestTap13JUnit1.class);
         suite.addTestSuite(TestTap13JUnit2.class);
+        suite.addTestSuite(FailingTest.class);
 
         // Instantiate a JUniteCore object
         JUnitCore core = new JUnitCore();
@@ -55,5 +59,15 @@ public class RunJUnitSuiteWithListener {
 
         // Run the test suite
         core.run(suite);
+    }
+    
+    @Ignore
+    public static class FailingTest extends TestCase {
+        
+        @Test
+        public void testFail1() {
+            fail();
+        }
+        
     }
 }

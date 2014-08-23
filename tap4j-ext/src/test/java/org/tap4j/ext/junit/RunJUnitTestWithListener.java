@@ -24,6 +24,10 @@
 
 package org.tap4j.ext.junit;
 
+import junit.framework.TestCase;
+
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.tap4j.ext.junit.listener.TapListenerClass;
 
@@ -41,5 +45,16 @@ public class RunJUnitTestWithListener {
         JUnitCore core = new JUnitCore();
         core.addListener(new TapListenerClass());
         core.run(TestTap13JUnit1.class);
+        core.run(FailingTest.class);
+    }
+    
+    @Ignore
+    public static class FailingTest extends TestCase {
+        
+        @Test
+        public void testFail1() {
+            fail();
+        }
+        
     }
 }

@@ -212,7 +212,7 @@ public class Tap13Parser implements Parser {
             String line = null;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
-                if (line != null && line.trim().length() > 0) {
+                if (line != null && line.length() > 0) {
                     this.parseLine(line);
                 }
             }
@@ -258,17 +258,19 @@ public class Tap13Parser implements Parser {
                     // we are at the start of the meta tags, but we should
                     // ignore
                     // the --- or ...
-                    if (tapLine.trim().equals("---")) {
-                        state.setCurrentlyInYaml(true);
-                        state.setCurrentYamlIndentation(matcher.group(1));
-                        return;
-                    } else if (tapLine.equals(state.getCurrentYamlIndentation() + "...")) {
-                        state.setCurrentlyInYaml(false);
-                        return;
-                    } else if (state.isCurrentlyInYaml()) {
+
+                    if (state.isCurrentlyInYaml()) {
+                        if (tapLine.equals(state.getCurrentYamlIndentation() + "...")) {
+                            state.setCurrentlyInYaml(false);
+                            return;
+                        }
                         state.getDiagnosticBuffer().append(tapLine);
                         state.getDiagnosticBuffer().append('\n');
                         return; // NOPMD by Bruno on 12/01/11 07:47
+                    } else if (tapLine.trim().equals("---")) {
+                        state.setCurrentlyInYaml(true);
+                        state.setCurrentYamlIndentation(matcher.group(1));
+                        return;
                     } else {
                         // If we are in a different level, but it is not
                         // YAML,
@@ -329,7 +331,7 @@ public class Tap13Parser implements Parser {
         if (matcher.matches()) {
             String testNumberText = matcher.group(2);
             int testNumber = 0;
-            if (testNumberText != null && testNumberText.trim().equals("") == false) { 
+            if (testNumberText != null && testNumberText.trim().equals("") == false) {
                 testNumber = Integer.parseInt(testNumberText);
             } else {
                 if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false)
@@ -460,7 +462,7 @@ public class Tap13Parser implements Parser {
      * @param reason Reason
      * @param comment Comment
      */
-    private void onTestResult(StatusValues status, int number, String description, DirectiveValues directive, 
+    private void onTestResult(StatusValues status, int number, String description, DirectiveValues directive,
             String reason, String comment) {
         setIndentationLevelIfNotDefined(state.getLastLine());
         final TestResult testResult = new TestResult(status, number);

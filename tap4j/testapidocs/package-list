@@ -14,6 +14,7 @@ org.tap4j.parser.issueGitHub16
 org.tap4j.parser.issueGitHub17
 org.tap4j.parser.issueGitHub20
 org.tap4j.parser.issueGitHub22
+org.tap4j.parser.issueGitHub33
 org.tap4j.parser.issueGitHub5
 org.tap4j.parser.issueGitHub6
 org.tap4j.producer

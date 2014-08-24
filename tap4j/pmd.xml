@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2014-02-12T00:12:06.316">
-<file name="/home/kinow/java/tap/tap4j-parent/tap4j/src/main/java/org/tap4j/parser/Tap13Parser.java">
-<violation beginline="501" endline="503" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.parser" class="Tap13Parser" method="onFinish" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+<pmd version="4.2.5" timestamp="2014-08-24T00:45:24.886">
+<file name="/home/kinow/java/tupilabs/tap4j/target/checkout/tap4j/src/main/java/org/tap4j/parser/Tap13Parser.java">
+<violation beginline="503" endline="505" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.parser" class="Tap13Parser" method="onFinish" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>

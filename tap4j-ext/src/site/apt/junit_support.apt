@@ -48,22 +48,22 @@ public class SimpleTest {
 }
 +---+
 
-* test.SimpleTest#testA.tap* (produced with TapRunnerMethod)
+* test.SimpleTest:testA.tap* (produced with TapRunnerMethod)
 
 +---+
 1..1
-ok 1 - test.SimpleTest#testA
+ok 1 - test.SimpleTest:testA
 +---+
 
-* test.SimpleTest#testA.tap* (produced with TapRunnerMethodYaml)
+* test.SimpleTest:testA.tap* (produced with TapRunnerMethodYaml)
 
 +---+
 1..1
-ok 1 - test.SimpleTest#testA
+ok 1 - test.SimpleTest:testA
   ---
   message: JUnit 4.0 Test testA(test.SimpleTest)
   severity: '~'
-  source: test.SimpleTest#testA
+  source: test.SimpleTest:testA
   datetime: '2013-01-25T14:23:18'
   file: test.SimpleTest
   line: '~'

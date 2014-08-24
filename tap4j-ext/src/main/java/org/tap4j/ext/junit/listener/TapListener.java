@@ -189,7 +189,7 @@ abstract class TapListener extends RunListener {
                     .getDescription());
 
             final File output = new File(System.getProperty(
-                    "tap.junit.results", "target/"), className + "#"
+                    "tap.junit.results", "target/"), className + ":"
                     + methodName + ".tap");
             tapProducer.dump(testSet, output);
         }

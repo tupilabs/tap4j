@@ -101,7 +101,7 @@ public final class TapTestNGYamlUtil {
      * @return Source value
      */
     public static String getSource(ITestResult testNgTestResult) {
-        String source = testNgTestResult.getTestClass().getName() + "#"
+        String source = testNgTestResult.getTestClass().getName() + ":"
                 + testNgTestResult.getMethod().getMethodName();
         return source;
     }

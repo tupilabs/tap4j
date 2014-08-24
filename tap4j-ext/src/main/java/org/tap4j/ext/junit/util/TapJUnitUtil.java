@@ -109,7 +109,7 @@ public final class TapJUnitUtil {
         description.append("- ");
         description.append(extractClassName(testMethod
             .getDescription()));
-        description.append('#');
+        description.append(':');
         description.append(extractMethodName(testMethod
             .getDescription()));
 
@@ -312,7 +312,7 @@ public final class TapJUnitUtil {
      * @return test source
      */
     public static String getSource(String testMethod, String testClass) {
-        return testClass + "#" + testMethod;
+        return testClass + ":" + testMethod;
     }
 
     /**

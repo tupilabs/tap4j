@@ -95,7 +95,7 @@ public final class TapTestNGUtil {
 
     /**
      * Generates a TAP TestResult description with full qualified class name
-     * concatenated with the character '#' and the test method.
+     * concatenated with the character ':' and the test method.
      * 
      * @param testResult TestNG TestResult
      * @return Name of TAP Test Result
@@ -105,7 +105,7 @@ public final class TapTestNGUtil {
         description.append("- "); // An extra space is added before the
                                   // description by the TAP Representer
         description.append(testResult.getTestClass().getName());
-        description.append('#');
+        description.append(':');
         description.append(testResult.getMethod().getMethodName());
         return description.toString();
     }

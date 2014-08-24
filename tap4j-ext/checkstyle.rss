@@ -9,7 +9,7 @@
     <copyright>&#169;2010 - 2014 TupiLabs</copyright>
     <item>
       <title>File: 33,
-             Errors: 1,
+             Errors: 2,
              Warnings: 0,
              Infos: 0
       </title>
@@ -99,7 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerClassYaml.java">org/tap4j/ext/junit/runner/TapRunnerClassYaml.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.model.package-info.java">org/tap4j/ext/testng/model/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +113,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.model.package-info.java">org/tap4j/ext/testng/model/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerClassYaml.java">org/tap4j/ext/junit/runner/TapRunnerClassYaml.java</a>
                 </td>
                 <td>
                   0
@@ -155,20 +155,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.TapListenerSuiteYaml.java">org/tap4j/ext/testng/listener/TapListenerSuiteYaml.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.listener.TapListenerSuiteYaml.java">org/tap4j/ext/junit/listener/TapListenerSuiteYaml.java</a>
                 </td>
                 <td>
@@ -183,7 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.package-info.java">org/tap4j/ext/junit/runner/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.TapListenerSuiteYaml.java">org/tap4j/ext/testng/listener/TapListenerSuiteYaml.java</a>
                 </td>
                 <td>
                   0
@@ -207,6 +193,20 @@
                 </td>
                 <td>
                   1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.package-info.java">org/tap4j/ext/junit/runner/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -309,20 +309,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerClass.java">org/tap4j/ext/junit/runner/TapRunnerClass.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.listener.TapListenerMethodYaml.java">org/tap4j/ext/junit/listener/TapListenerMethodYaml.java</a>
                 </td>
                 <td>
@@ -337,7 +323,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.util.TapJUnitUtil.java">org/tap4j/ext/junit/util/TapJUnitUtil.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerClass.java">org/tap4j/ext/junit/runner/TapRunnerClass.java</a>
                 </td>
                 <td>
                   0
@@ -351,7 +337,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.TapListenerMethodYaml.java">org/tap4j/ext/testng/listener/TapListenerMethodYaml.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.util.TapJUnitUtil.java">org/tap4j/ext/junit/util/TapJUnitUtil.java</a>
                 </td>
                 <td>
                   0
@@ -380,6 +366,20 @@
                           <tr>
                 <td>
                   <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.listener.TapListener.java">org/tap4j/ext/junit/listener/TapListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.TapListenerMethodYaml.java">org/tap4j/ext/testng/listener/TapListenerMethodYaml.java</a>
                 </td>
                 <td>
                   0
@@ -449,7 +449,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerMethod.java">org/tap4j/ext/junit/runner/TapRunnerMethod.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.package-info.java">org/tap4j/ext/testng/listener/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -463,7 +463,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.testng.listener.package-info.java">org/tap4j/ext/testng/listener/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j-ext/checkstyle.html#org.tap4j.ext.junit.runner.TapRunnerMethod.java">org/tap4j/ext/junit/runner/TapRunnerMethod.java</a>
                 </td>
                 <td>
                   0

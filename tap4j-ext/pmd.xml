@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2014-02-12T00:14:00.376">
-<suppressedviolation filename="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToMap(Map,String,Map)'." usermsg=""/>
-<suppressedviolation filename="/home/kinow/java/tap/tap4j-parent/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToList(Map,String,List)'." usermsg=""/>
+<pmd version="4.2.5" timestamp="2014-08-24T00:51:20.357">
+<file name="/home/kinow/java/tupilabs/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/model/JUnitTestData.java">
+<violation beginline="104" endline="106" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.ext.junit.model" class="JUnitTestData" method="equals" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+</file>
+<suppressedviolation filename="/home/kinow/java/tupilabs/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToMap(Map,String,Map)'." usermsg=""/>
+<suppressedviolation filename="/home/kinow/java/tupilabs/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToList(Map,String,List)'." usermsg=""/>
 </pmd>

@@ -6,9 +6,43 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
-        <release version="4.0.7" date="2014-01-23" description="4.0.7 release">
+        <release version="4.1" date="2014-08-23" description="4.1 release">
+            <action dev="kinow" type="fix" issue="32">
+                Error parsing test result description with # symbol in TAP.
+            </action>
+            <action dev="ranford" type="fix" issue="34">
+                Fix issue when Yaml is contained in a diagnostic.
+            </action>
+            <action dev="kinow" type="fix" issue="26">
+                Incorrect issues link in the changes report.
+            </action>
+            <action dev="kinow" type="fix" issue="23">
+                JUnit TapListeners always report tests as passed on version 4.0.6.
+            </action>
+            <action dev="kinow" type="fix" issue="29">
+                Create examples for working with extensions (TestNG, JUnit, etc).
+            </action>
+            <action dev="kinow" type="update">
+                Updated ext project JUnit dependency version from 4.10 to 4.11.
+            </action>
+            <action dev="kinow" type="fix">
+                Fixed broken tests when using Java 8.
+            </action>
+            <action dev="kinow" type="update">
+                Fix wrong parent version in the perl-integration tests project.
+            </action>
+            <action dev="kinow" type="update" issue="31">
+                Migrate Maven site to GitHub pages
+            </action>
+        </release>
+        <release version="4.0.8" date="2014-01-23" description="4.0.8 release">
             <action dev="ranford" type="fix" issue="24">
                 Improving test and fixing issue #20 (again)
+            </action>
+        </release>
+        <release version="4.0.7" date="2013-12-24" description="4.0.7 release">
+            <action dev="kinow" type="fix" issue="22">
+                Allow TAP plan to be optional
             </action>
         </release>
         <release version="4.0.6" date="2013-11-30" description="4.0.6 release">

@@ -33,6 +33,29 @@
         <version>4.2-SNAPSHOT</version>
         <groupId>org.tap4j</groupId>
     </parent>
+    
+   	<build>
+    	<plugins>
+    		<plugin>
+    			<groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                	<execution>
+                		<id>xjc</id>
+	                    <goals>
+	                        <goal>xjc</goal>
+	                    </goals>	    				
+                	</execution>                	
+                </executions>
+                <configuration>
+                		<schemaFiles>jtl.xsd</schemaFiles>
+                		<packageName>org.tap4j.ext.jmeter.model</packageName>
+            	</configuration>
+    		</plugin>
+    	</plugins>
+   	</build>
+   
     <dependencies>
         <dependency>
             <groupId>org.tap4j</groupId>
@@ -59,7 +82,7 @@
             <version>3.0</version>
             <type>jar</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency>        
     </dependencies>
     <reporting>
         <plugins>

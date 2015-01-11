@@ -27,7 +27,7 @@ package org.tap4j.ext.jmeter;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.ext.jmeter.parser.JmeterResultParser;
@@ -45,6 +45,7 @@ import org.testng.annotations.Test;
  */
 public class TestJmeterResultParser {
 
+	private static final String UTF_8 = "UTF-8";
 	private static final String PATH_FILES = "/org/tap4j/ext/jmeter/";
 
 	@DataProvider(name = "testParseJmeter")
@@ -61,7 +62,7 @@ public class TestJmeterResultParser {
 		URL resourceUrl = getClass().getResource(PATH_FILES + filename);
 		File jMeterFile = new File(resourceUrl.toURI());
 
-		JmeterResultParser jmParse = new JmeterResultParser(StandardCharsets.UTF_8);
+		JmeterResultParser jmParse = new JmeterResultParser(Charset.forName(UTF_8));
 		TestSet testResult = jmParse.parseFile(jMeterFile, true);
 		Producer tapProducer = TapProducerFactory.makeTap13YamlProducer();
 		String tapActualDump = tapProducer.dump(testResult);

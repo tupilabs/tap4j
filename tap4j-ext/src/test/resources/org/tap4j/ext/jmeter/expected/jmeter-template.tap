@@ -1,0 +1,50 @@
+TAP version 13
+1..6
+not ok 1 009 - Op: consolidacion - [Validacin]  - 1AUT Nivel 2
+  ---
+  message: 200 - OK- FailureMessage:ppp
+  severity: 'failAssert '
+  dump: 'Warnning: url not registered'
+  ...
+
+not ok 2 010 - Op: consolidacion - [Consolidacin]  - 1AUT Nivel 2
+  ---
+  message: "200 - OK- FailureMessage:Test failed: text expected to equal /\n\t"
+  severity: 'failAssert '
+  dump: 'Warnning: url not registered'
+  ...
+
+not ok 3 TEST-SOAP-ABSIS - checkODB - UPLOAD - OK
+  ---
+  message: '200 - OK- FailureMessage:Content is not allowed in prolog.
+  
+    See log file for further details.- FailureMessage:Test failed: text expected to
+    contain /testCaseticket/'
+  severity: 'failAssert '
+  dump: Cannot bind to address "http://extcaast02.las2o.es:9014/ASECheckList/SOAPABSIS" No component registered on that endpoint
+  ...
+
+not ok 4 002 - TEST - Api Taux - OK - Cataln
+  ---
+  message: '200 - OK- FailureMessage:Test failed: text expected to contain /"00047":"ACCIO
+    ERRONIA"/'
+  severity: 'failAssert '
+  dump: 'Warnning: url not registered'
+  ...
+
+not ok 5 003 - TEST - Api Taux - KO - TauxNoExiste
+  ---
+  message: '200 - OK- FailureMessage:Test failed: code expected to equal- FailureMessage:Test
+    failed: '
+  severity: 'failAssert '
+  dump: 'Warnning: url not registered'
+  ...
+
+not ok 6 004 - TEST - Api Taux - KO - MetodoHttpIncorrecto
+  ---
+  message: '200 - OK- FailureMessage:Test failed: code expected to equal - FailureMessage:Test
+    failed: text expected to contain /An error ocurred during api flow execution/'
+  severity: 'failAssert '
+  dump: 'Warnning: url not registered'
+  ...
+

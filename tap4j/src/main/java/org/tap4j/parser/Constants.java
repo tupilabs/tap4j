@@ -36,7 +36,7 @@ final class Constants {
      * TAP Test Result Regex.
      */
     static final String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d*)\\s*([^#]*)?\\s*"
-            + "(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]+))?\\s*(#\\s*(.*))?";
+            + "(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]*))?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Bail Out! Regex.

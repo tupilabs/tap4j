@@ -21,10 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package org.tap4j.parser.issueGitHub37;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.tap4j.consumer.TapConsumer;
+import org.tap4j.consumer.TapConsumerImpl;
+import org.tap4j.model.TestSet;
+import org.tap4j.parser.Tap13Parser;
 
 /**
- * Tests for GitHub issue #33.
+ * Makes sure that a SKIP directive is not taken as a comment.
  *
- * tap4j trips over YAML/TAP output that is included in the diagnostics of its own YAML
+ * @author Bruno P. Kinoshita
+ * @since 4.1.1
  */
-package org.tap4j.parser.issueGitHub33;
+public class TestSkipDirective {
+
+	@Test
+	public void testSkipDirectivePresent() {
+		TapConsumer consumer = new TapConsumerImpl(new Tap13Parser("ISO-8859-1", false,  false));
+		TestSet ts = consumer.load("#cat /var/lib/jenkins/jobs/gh-mellanox-v1.8-PR/builds/137/tap-master-files/cov_stat.tap\n" + 
+				"not ok 1 #SKIP\n" + 
+				"ok 2 - coverity found no issues for oshmem\n" + 
+				"ok 3 - coverity found no issues for yalla\n" + 
+				"ok 4 - coverity found no issues for mxm\n" + 
+				"ok 5 - coverity found no issues for fca\n" + 
+				"ok 6 - coverity found no issues for hcoll");
+		assertTrue(ts.getTestResults().get(0).getDirective() != null);
+	}
+	
+}

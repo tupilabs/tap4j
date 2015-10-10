@@ -23,13 +23,15 @@
  */
 package org.tap4j.parser;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStreamReader;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Stack;
@@ -76,9 +78,11 @@ public class Tap13Parser implements Parser {
     private Memento state = null;
 
     /**
-     * Encoding used.
+     * Decoder used. This is only used when trying to parse something that is
+     * encoded (like a raw file or byte stream) and the encoding isn't otherwise
+     * known.
      */
-    private String encoding;
+    private CharsetDecoder decoder;
 
     /**
      * Whether subtests are enabled or not.
@@ -93,7 +97,13 @@ public class Tap13Parser implements Parser {
     /**
      * Parser Constructor.
      *
-     * @param encoding Encoding
+     * A parser constructed this way will enforce that any input should include
+     * a plan.
+     *
+     * @param encoding Encoding. This will not matter when parsing sources that
+     * are already decoded (e.g. {@link String} or {@link Readable}), but it
+     * will be used in the {@link #parseFile} method (whether or not it is the
+     * right encoding for the File being parsed).
      * @param enableSubtests Whether subtests are enabled or not
      */
     public Tap13Parser(String encoding, boolean enableSubtests) {
@@ -103,19 +113,40 @@ public class Tap13Parser implements Parser {
     /**
      * Parser Constructor.
      *
-     * @param encoding Encoding
+     * @param encoding Encoding. This will not matter when parsing sources that
+     * are already decoded (e.g. {@link String} or {@link Readable}), but it
+     * will be used in the {@link #parseFile} method (whether or not it is the
+     * right encoding for the File being parsed).
      * @param enableSubtests Whether subtests are enabled or not
      * @param planRequired
      */
     public Tap13Parser(String encoding, boolean enableSubtests, boolean planRequired) {
         super();
-        this.encoding = encoding;
+        /*
+         * Resolving the encoding name to a CharsetDecoder here has two
+         * benefits. First, if it isn't known or supported, the caller finds out
+         * as early as possible. Second, a decoder obtained this way will check
+         * the validity of its input and throw exceptions if it doesn't match
+         * the encoding. All the other ways to specify an encoding result in a
+         * default behavior to silently drop or change data ... not great in a
+         * testing tool.
+         */
+        try {
+            if (null != encoding) {
+                this.decoder = Charset.forName(encoding).newDecoder();
+            }
+        } catch (UnsupportedCharsetException uce) {
+            throw new ParserException("Invalid encoding: " + encoding, uce);
+        }
         this.subtestsEnabled = enableSubtests;
         this.planRequired = planRequired;
     }
 
     /**
      * Parser Constructor.
+     *
+     * A parser created with this constructor will assume that any input to the
+     * {@link #parseFile} method is encoded in {@code UTF-8}.
      *
      * @param enableSubtests Whether subtests are enabled or not
      */
@@ -125,6 +156,10 @@ public class Tap13Parser implements Parser {
 
     /**
      * Parser Constructor.
+     *
+     * A parser created with this constructor will assume that any input to the
+     * {@link #parseFile} method is encoded in {@code UTF-8}, and will not
+     * recognize subtests.
      */
     public Tap13Parser() {
         this("UTF-8", false);
@@ -156,23 +191,39 @@ public class Tap13Parser implements Parser {
     /**
      * {@inheritDoc}
      */
+    @Override
     public TestSet parseTapStream(String tapStream) {
-        ByteArrayInputStream is = null;
+        return parseTapStream(CharBuffer.wrap(tapStream));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TestSet parseFile(File tapFile) {
+        if (null == decoder) {
+            throw new ParserException(
+                "Must have encoding specified if using parseFile");
+        }
+        FileInputStream fis = null;
+        InputStreamReader isr = null;
         try {
-            is = new ByteArrayInputStream(tapStream.getBytes(encoding));
-            return parse(is);
-        } catch (UnsupportedEncodingException uee) {
-            throw new ParserException("Invalid encoding: " + encoding, uee);
+            fis = new FileInputStream(tapFile);
+            isr = new InputStreamReader(fis, decoder);
+            return parseTapStream(isr);
+        } catch (FileNotFoundException e) {
+            throw new ParserException("TAP file not found: " + tapFile, e);
         } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    LOGGER.log(
-                            Level.SEVERE,
-                            "Failed to close byte array stream: "
-                                    + e.getMessage(), e);
+            try  {
+                if (isr != null) {
+                    isr.close();
                 }
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Failed to close file stream: "
+                        + e.getMessage(), e);
             }
         }
     }
@@ -180,35 +231,12 @@ public class Tap13Parser implements Parser {
     /**
      * {@inheritDoc}
      */
-    public TestSet parseFile(File tapFile) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(tapFile);
-            return parse(fis);
-        } catch (FileNotFoundException e) {
-            throw new ParserException("TAP file not found: " + tapFile, e);
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    LOGGER.log(Level.SEVERE, "Failed to close file stream: "
-                            + e.getMessage(), e);
-                }
-            }
-        }
-    }
-
-    /**
-     * Internal parse routine.
-     * @param stream Input Stream
-     * @return Test Set
-     */
-    protected TestSet parse(InputStream stream) {
+    @Override
+    public TestSet parseTapStream(Readable tapStream) {
         state = new Memento();
         Scanner scanner = null;
         try {
-            scanner = new Scanner(stream, this.encoding);
+            scanner = new Scanner(tapStream);
             String line = null;
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();

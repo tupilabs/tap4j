@@ -68,6 +68,7 @@ public class TapConsumerImpl implements TapConsumer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public TestSet getTestSet() {
         return this.testSet;
     }
@@ -75,6 +76,7 @@ public class TapConsumerImpl implements TapConsumer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public TestSet load(File file) {
         try {
             this.testSet = this.parser.parseFile(file);
@@ -88,6 +90,21 @@ public class TapConsumerImpl implements TapConsumer {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public TestSet load(Readable tapStream) {
+        try {
+            this.testSet = this.parser.parseTapStream(tapStream);
+        } catch (ParserException e) {
+            throw new TapConsumerException("Failed to parse TAP Stream "
+                                            + tapStream + ": " + e.getMessage(), e);
+        }
+        return this.testSet;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TestSet load(String tapStream) {
         try {
             this.testSet = this.parser.parseTapStream(tapStream);
@@ -101,6 +118,7 @@ public class TapConsumerImpl implements TapConsumer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Parser getParser() {
         return this.parser;
     }

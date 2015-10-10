@@ -57,6 +57,14 @@ public interface Producer {
     /**
      * Writes the TAP Stream into an output File.
      *
+     * This will choose an encoding for the output written to the file, using
+     * the following rules. If this Producer's {@code Representer} is a
+     * {@code Tap13Representer}, the chosen encoding will be taken from its
+     * {@code Charset} option. In any other case, the chosen encoding will be
+     * the system's default encoding. If that is not the correct encoding for
+     * the file, the caller should wrap the file in a {@link Writer} for the
+     * correct encoding, and pass that to {@link #dump(TestSet,Writer)}.
+     *
      * @param testSet TestSet
      * @param output Output File
      * @throws ProducerException

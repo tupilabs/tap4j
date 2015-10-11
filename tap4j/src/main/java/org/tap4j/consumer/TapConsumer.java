@@ -24,6 +24,7 @@
 package org.tap4j.consumer;
 
 import java.io.File;
+import java.io.InputStreamReader; // referenced in JavaDoc
 
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Parser;
@@ -38,11 +39,29 @@ public interface TapConsumer {
     /**
      * Parses a TAP File.
      *
+     * Note: this method only works if the {@code TapConsumer} was constructed
+     * with an assumed character set encoding, <em>and</em> {@code file} really
+     * is encoded in that assumed encoding.
+     *
+     * For a more flexible approach, the caller (who should know best about the
+     * encoding of any given input file) should have already
+     * wrapped the file in an {@link InputStreamReader}, and should pass that to
+     * {@link #load(Readable)}.
+     *
      * @param file TAP File.
      * @return TestSet
      * @throws TapConsumerException
      */
     TestSet load(File file);
+
+    /**
+     * Parses a TAP Stream.
+     *
+     * @param tapStream TAP Stream
+     * @return TestSet
+     * @throws TapConsumerException
+     */
+    TestSet load(Readable tapStream);
 
     /**
      * Parses a TAP Stream.

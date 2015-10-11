@@ -24,6 +24,7 @@
 package org.tap4j.parser;
 
 import java.io.File;
+import java.io.InputStreamReader; // referenced in JavaDoc
 
 import org.tap4j.model.TestSet;
 
@@ -40,10 +41,25 @@ public interface Parser {
      * @param tapStream TAP Stream
      * @return Test Set
      */
+    TestSet parseTapStream(Readable tapStream);
+
+    /**
+     * Parses a TAP Stream.
+     *
+     * @param tapStream TAP Stream
+     * @return Test Set
+     */
     TestSet parseTapStream(String tapStream);
 
     /**
      * Parses a TAP File.
+     *
+     * Note: this method must only be used if this Parser was created with
+     * a specified character set encoding <em>and</em> {@code tapFile} is
+     * known to be written in that same encoding. Otherwise, the caller (which
+     * probably knows best the file's encoding) can wrap the file in an
+     * {@link InputStreamReader} and pass that to
+     * {@link #parseTapStream(Readable) parseTapStream(Readable)}.
      *
      * @param tapFile TAP File
      * @return Test Set

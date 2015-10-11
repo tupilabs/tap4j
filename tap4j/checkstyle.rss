@@ -9,7 +9,7 @@
     <copyright>&#169;2010 - 2015 TupiLabs</copyright>
     <item>
       <title>File: 40,
-             Errors: 21,
+             Errors: 23,
              Warnings: 0,
              Infos: 0
       </title>
@@ -80,7 +80,7 @@
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -388,7 +388,7 @@
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>

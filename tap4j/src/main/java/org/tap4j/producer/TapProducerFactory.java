@@ -63,16 +63,16 @@ public final class TapProducerFactory {
     }
 
     /**
-	 * Create a TAP 13 producer with YAMLish.
-	 *
-	 * @return TapProducer
-	 */
-	public static TapProducer makeTap13YamlProducer(DumperOptions options) {
-		return new TapProducer(new Tap13Representer(options));
-	}
+     * Create a TAP 13 producer with YAMLish.
+     *
+     * @return TapProducer
+     */
+    public static TapProducer makeTap13YamlProducer(DumperOptions options) {
+        return new TapProducer(new Tap13Representer(options));
+    }
 
-	
-	/**
+    
+    /**
      * Create a TAP JUnit producer.
      *
      * @param name JUnit file name

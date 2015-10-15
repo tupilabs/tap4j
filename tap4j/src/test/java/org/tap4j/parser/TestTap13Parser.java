@@ -73,8 +73,8 @@ public class TestTap13Parser {
     @Test
     public void testFooterWithComment() {
         String tap = "1..1\n" +
-        		"ok 1\n" +
-        		"TAP end # a comment";
+                "ok 1\n" +
+                "TAP end # a comment";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getFooter().getComment().getText());
     }
@@ -82,7 +82,7 @@ public class TestTap13Parser {
     @Test
     public void testHeader() {
         String tap = "TAP version 13\n" +
-        		"1..1\n" +
+                "1..1\n" +
                 "ok 1\n" +
                 "TAP end # a comment";
         TestSet testSet = parser.parseTapStream(tap);

@@ -45,36 +45,36 @@ import org.testng.annotations.Test;
  */
 public class TestJmeterResultParser {
 
-	private static final String UTF_8 = "UTF-8";
-	private static final String PATH_FILES = "/org/tap4j/ext/jmeter/";
+    private static final String UTF_8 = "UTF-8";
+    private static final String PATH_FILES = "/org/tap4j/ext/jmeter/";
 
-	@DataProvider(name = "testParseJmeter")
-	public Object[][] files() {
-		return new Object[][] {
-				{ "SI.MCA.ASECheckList-all.xml", "expected/SI.MCA.ASECheckList-all.tap" },
-				{ "jmeter-template.xml", "expected/jmeter-template.tap" } };
-	}
+    @DataProvider(name = "testParseJmeter")
+    public Object[][] files() {
+        return new Object[][] {
+                { "SI.MCA.ASECheckList-all.xml", "expected/SI.MCA.ASECheckList-all.tap" },
+                { "jmeter-template.xml", "expected/jmeter-template.tap" } };
+    }
 
-	//
-	@Test(dataProvider = "testParseJmeter")
-	public void testGetMessage(String filename, String tapFileNameOk) throws URISyntaxException {
+    //
+    @Test(dataProvider = "testParseJmeter")
+    public void testGetMessage(String filename, String tapFileNameOk) throws URISyntaxException {
 
-		URL resourceUrl = getClass().getResource(PATH_FILES + filename);
-		File jMeterFile = new File(resourceUrl.toURI());
+        URL resourceUrl = getClass().getResource(PATH_FILES + filename);
+        File jMeterFile = new File(resourceUrl.toURI());
 
-		JmeterResultParser jmParse = new JmeterResultParser(Charset.forName(UTF_8));
-		TestSet testResult = jmParse.parseFile(jMeterFile, true);
-		Producer tapProducer = TapProducerFactory.makeTap13YamlProducer();
-		String tapActualDump = tapProducer.dump(testResult);
+        JmeterResultParser jmParse = new JmeterResultParser(Charset.forName(UTF_8));
+        TestSet testResult = jmParse.parseFile(jMeterFile, true);
+        Producer tapProducer = TapProducerFactory.makeTap13YamlProducer();
+        String tapActualDump = tapProducer.dump(testResult);
 
-		resourceUrl = getClass().getResource(PATH_FILES + tapFileNameOk);
-		File tapFileOk = new File(resourceUrl.toURI());
-		TestSet tapOk = TapConsumerFactory.makeTap13YamlConsumer().load(tapFileOk);
-		tapProducer = TapProducerFactory.makeTap13YamlProducer();
-		String tapOkDump = tapProducer.dump(tapOk);
+        resourceUrl = getClass().getResource(PATH_FILES + tapFileNameOk);
+        File tapFileOk = new File(resourceUrl.toURI());
+        TestSet tapOk = TapConsumerFactory.makeTap13YamlConsumer().load(tapFileOk);
+        tapProducer = TapProducerFactory.makeTap13YamlProducer();
+        String tapOkDump = tapProducer.dump(tapOk);
 
-		Assert.assertEquals(tapOkDump, tapActualDump);
-	}
+        Assert.assertEquals(tapOkDump, tapActualDump);
+    }
 
 
 }

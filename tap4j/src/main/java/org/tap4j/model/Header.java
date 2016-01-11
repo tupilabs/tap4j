@@ -30,7 +30,7 @@ package org.tap4j.model;
  *
  * @since 1.0
  */
-public class Header extends AbstractTapElementDiagnostic {
+public class Header extends TapElement {
 
     /**
      * Serial Version UID.
@@ -41,11 +41,6 @@ public class Header extends AbstractTapElementDiagnostic {
      * TAP file version.
      */
     private Integer version;
-
-    /**
-     * Header optional comment.
-     */
-    private Comment comment;
 
     /**
      * Constructor with parameter.
@@ -63,21 +58,4 @@ public class Header extends AbstractTapElementDiagnostic {
     public Integer getVersion() {
         return this.version;
     }
-
-    /**
-     * @return Header comment.
-     */
-    public Comment getComment() {
-        return this.comment;
-    }
-
-    /**
-     * Sets a comment into the Header.
-     *
-     * @param comment Header comment.
-     */
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
 }

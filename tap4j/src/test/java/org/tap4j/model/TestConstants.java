@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.parser;
+package org.tap4j.model;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -31,13 +31,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.Test;
 
 /**
- * Tests for parser Constants.
+ * Tests for parser Patterns.
  */
 public class TestConstants {
 
     @Test
     public void testUtilConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final Constructor<?> c = Constants.class
+        final Constructor<?> c = Patterns.class
                 .getDeclaredConstructors()[0];
         c.setAccessible(true);
         final Object o = c.newInstance((Object[]) null);

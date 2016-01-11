@@ -41,6 +41,8 @@ public class Text extends TapResult {
      * Value of Text.
      */
     private final String value;
+    
+    private String indentationString;
 
     /**
      * Constructor with parameter.
@@ -57,6 +59,14 @@ public class Text extends TapResult {
      */
     public String getValue() {
         return this.value;
+    }
+    
+    public String getIndentationString() {
+        return indentationString;
+    }
+
+    public void setIndentationString(String indentationString) {
+        this.indentationString = indentationString;
     }
 
 }

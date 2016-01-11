@@ -24,13 +24,14 @@
 package org.tap4j.parser.issueGitHub12;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
-import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.issue3406964.TestDirectives;
@@ -55,13 +56,11 @@ public class TestSubtestAsFirstTest {
 
         assertNotNull(testSet);
         
-        Plan plan = testSet.getPlan();
+        final List<TestResult> testResults = testSet.getTestResults();
         
-        assertNotNull(plan.getSubtest());
+        assertEquals(2, testResults.size());
         
-        for (TestResult tr : testSet.getTestResults()) {
-            assertNotNull(tr.getSubtest());
-        }
+        assertEquals(1, testResults.get(0).getSubtest().getTestResults().size());
+        assertEquals(4, testResults.get(1).getSubtest().getTestResults().size());
     }
-
 }

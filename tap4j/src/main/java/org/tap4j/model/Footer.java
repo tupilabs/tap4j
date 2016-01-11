@@ -30,7 +30,7 @@ package org.tap4j.model;
  *
  * @since 1.0
  */
-public class Footer extends AbstractTapElementDiagnostic {
+public class Footer extends TapElement {
 
     /**
      * Serial Version UID.
@@ -43,39 +43,32 @@ public class Footer extends AbstractTapElementDiagnostic {
     private String text;
 
     /**
-     * Comment.
-     */
-    private Comment comment;
-
-    /**
      * Constructor that calls super class constructor.
      *
      * @param text Footer text
      */
     public Footer(String text) {
+        this(text, null);
+    }
+
+    /**
+     * Constructor that calls super class constructor.
+     *
+     * @param text Footer text
+     * @param comment Footer comment
+     */
+    public Footer(String text, String comment) {
         super();
         this.text = text;
+        if (comment != null) {
+            this.comment = new Comment(comment);
+        }
     }
 
     /**
      * @return Footer's text.
      */
     public String getText() {
-        return this.text;
+        return text;
     }
-
-    /**
-     * @param comment Comment.
-     */
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * @return Comment.
-     */
-    public Comment getComment() {
-        return this.comment;
-    }
-
 }

@@ -28,7 +28,7 @@ package org.tap4j.model;
  *
  * @since 1.0
  */
-public class Comment extends TapResult {
+public class Comment extends TapElement {
 
     /**
      * Serial Version UID.

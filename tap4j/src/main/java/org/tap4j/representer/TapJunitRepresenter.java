@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.tap4j.model.BailOut;
+import org.tap4j.model.TapElement;
 import org.tap4j.model.TapResult;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
@@ -71,7 +72,7 @@ public class TapJunitRepresenter implements Representer {
                 + statuses.getSkipped() + "\" tests=\"" + statuses.getTests()
                 + "\" " + "name=\"" + this.name + "\">");
         // TBD: output TAP header, TAP plan as properties
-        for (TapResult tapLine : testSet.getTapLines()) {
+        for (TapElement tapLine : testSet.getTapLines()) {
             if (tapLine instanceof TestResult) {
                 pw.println("<testcase time=\"0\" classname=\"" + this.name
                         + "\" name=\""

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.model;
+package org.tap4j.producer;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -43,9 +43,6 @@ import org.tap4j.model.Header;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
-import org.tap4j.producer.Producer;
-import org.tap4j.producer.ProducerException;
-import org.tap4j.producer.TapProducer;
 import org.tap4j.representer.DumperOptions;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;

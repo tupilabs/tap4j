@@ -1,0 +1,10 @@
+    ok 1 - subtest 1a
+    ok 2 - subtest 1b
+    1..2
+ok 1 - Subtest 1
+    ok 1 - subtest 2a
+    ok 2 - subtest 2b
+    1..2
+ok 2 - Subtest 2
+1..2
+ok

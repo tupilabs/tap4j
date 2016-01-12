@@ -15,7 +15,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-package org.tap4j.model;
+package org.tap4j;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

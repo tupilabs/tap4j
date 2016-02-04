@@ -33,50 +33,52 @@ import java.util.Map;
  * @since 1.0
  */
 public class TapElement implements Serializable {
-    
+
     /**
      * Serial Version UID.
      */
     private static final long serialVersionUID = 9108597596777603763L;
 
     /**
-     * input line indentation.
+     * Input line indentation.
      */
-    int indentation;
-    
+    protected int indentation;
+
     /**
-     * Iterable object returned by snakeyaml.
+     * Iterable object returned by SnakeYAML.
      */
     private Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
-    
+
     /**
      * Comment.
      */
-    Comment comment;
+    protected Comment comment;
 
     /**
-     * Get me indentation of the corresponding input line.
-     * 
+     * Get the indentation of the corresponding input line.
+     *
      * @return Indentation in the original stream
      */
     public int getIndentation() {
         return indentation;
     }
-    
+
     /**
-     * Yaml diagnostic information.
+     * YAML diagnostic information.
+     * @return the YAML diagnostic as a map
      */
     public Map<String, Object> getDiagnostic() {
         return this.diagnostic;
     }
 
     /**
-     * Yaml diagnostic information setter.
+     * YAML diagnostic information setter.
+     * @param diagnostic TAP element YAML diagnostic map
      */
     public void setDiagnostic(Map<String, Object> diagnostic) {
         this.diagnostic = diagnostic;
     }
-    
+
     /**
      * @param comment Comment.
      */

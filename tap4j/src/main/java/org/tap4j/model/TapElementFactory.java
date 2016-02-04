@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 TupiLabs.
+ * Copyright (c) 2016 tap4j team (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,33 +29,46 @@ import org.tap4j.util.StatusValues;
 
 /**
  * Factory to produce {@link TapElement}s from given textual source.
- * 
- * @author Jakub Podlesak (jakub.podlesak at oracle.com)
+ * @since 4.2.0
  */
-public class TapElementFactory {
-     
-    private TapElementFactory () {
+public final class TapElementFactory {
+
+    /**
+     * Hidden constructor.
+     */
+    private TapElementFactory() {
         // prevent instantiation
     }
-    
+
+    /**
+     * Create a text element. This element is created when none of the other elements have matched the TAP stream line.
+     * @param tapLine TAP stream line
+     * @return a {@Text} TAP element
+     */
     public static Text createTextElement(String tapLine) {
-        
+
         Matcher m = Patterns.TEXT_PATTERN.matcher(tapLine);
-        
+
         if (m.matches()) {
             Text result = new Text(tapLine);
             result.setIndentationString(m.group(1));
             result.indentation = m.group(1).length();
             return result;
         }
-        
+
         return null;
     }
-    
+
+    /**
+     * Create a {@link TapElement} given a TAP stream line. If any TAP element matches the line, it is returned,
+     * {@code null} is returned otherwise.
+     * @param tapLine TAP stream line
+     * @return a {@link TapElement} created with from the given TAP stream line, or {@code null} if not a valid token
+     */
     public static TapElement createTapElement(String tapLine) {
-        
+
         Matcher m;
-        
+
         m = Patterns.COMMENT_PATTERN.matcher(tapLine);
         if (m.matches()) {
             Comment comment = new Comment(m.group(3), false);
@@ -70,7 +83,7 @@ public class TapElementFactory {
             addComment(header, m.group(5));
             return header;
         }
-        
+
         m = Patterns.FOOTER_PATTERN.matcher(tapLine);
         if (m.matches()) {
             Footer footer = new Footer(m.group(3));
@@ -78,7 +91,7 @@ public class TapElementFactory {
             footer.indentation = m.group(1).length();
             return footer;
         }
-        
+
         m = Patterns.PLAN_PATTERN.matcher(tapLine);
         if (m.matches()) {
             String skip = m.group(8);
@@ -89,7 +102,7 @@ public class TapElementFactory {
             plan.indentation = m.group(1).length();
             return plan;
         }
-        
+
         m = Patterns.BAIL_OUT_PATTERN.matcher(tapLine);
         if (m.matches()) {
             String reason = m.group(3);
@@ -122,10 +135,15 @@ public class TapElementFactory {
             testResult.indentation = m.group(1).length();
             return testResult;
         }
-        
+
         return null;
     }
 
+    /**
+     * Add a comment to a {@link TapElement}, as long as the comment is not empty.
+     * @param element TAP element
+     * @param comment a comment
+     */
     public static void addComment(TapElement element, String comment) {
         if (comment != null && comment.trim().length() > 0) {
             element.setComment(new Comment(comment, true));

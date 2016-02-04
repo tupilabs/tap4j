@@ -39,8 +39,8 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 /**
  * TAP Streams with a subtest as first test fail, complaining about a duplicate
  * TAP plan found.
- * 
- * @since 4.1.3
+ *
+ * @since 4.2.0
  */
 public class TestSubtestAsFirstTestNoPlan {
 

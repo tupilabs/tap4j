@@ -28,7 +28,6 @@ import java.io.StringWriter;
 
 import org.tap4j.model.BailOut;
 import org.tap4j.model.TapElement;
-import org.tap4j.model.TapResult;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.DirectiveValues;

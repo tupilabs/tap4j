@@ -37,9 +37,7 @@ import org.tap4j.representer.DumperOptions;
 import org.tap4j.util.StatusValues;
 
 /**
- * Parses Jmeter xml
- * 
- * @author s2o
+ * Parses JMeter XML.
  */
 public class JmeterResultParser {
 
@@ -66,10 +64,10 @@ public class JmeterResultParser {
 
     /**
      * Parses jMeter result file into TestSet and optionally generates a Tap file with the same name of the parsed file
-     * 
-     * @param file
-     * @param generateTapFile
-     * @return
+     *
+     * @param file the file
+     * @param generateTapFile flag to generate a TAP file or not
+     * @return a not nullable {@TestSet}
      */
     public TestSet parseFile(File file, boolean generateTapFile) {
 

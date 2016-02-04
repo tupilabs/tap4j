@@ -84,11 +84,6 @@ public class Tap13Parser implements Parser {
     private CharsetDecoder decoder;
 
     /**
-     * Whether subtests are enabled or not.
-     */
-    private boolean subtestsEnabled = false;
-    
-    /**
      * Require a TAP plan.
      */
     private boolean planRequired = true;
@@ -108,7 +103,7 @@ public class Tap13Parser implements Parser {
     public Tap13Parser(String encoding, boolean enableSubtests) {
         this(encoding, enableSubtests, true);
     }
-    
+
     /**
      * Parser Constructor.
      *
@@ -117,7 +112,7 @@ public class Tap13Parser implements Parser {
      * will be used in the {@link #parseFile} method (whether or not it is the
      * right encoding for the File being parsed).
      * @param enableSubtests Whether subtests are enabled or not
-     * @param planRequired
+     * @param planRequired flag that defines whether a plan is required or not
      */
     public Tap13Parser(String encoding, boolean enableSubtests, boolean planRequired) {
         super();
@@ -137,7 +132,6 @@ public class Tap13Parser implements Parser {
         } catch (UnsupportedCharsetException uce) {
             throw new ParserException("Invalid encoding: " + encoding, uce);
         }
-        this.subtestsEnabled = enableSubtests;
         this.planRequired = planRequired;
     }
 
@@ -166,6 +160,7 @@ public class Tap13Parser implements Parser {
 
     /**
      * Saves the current state in the stack.
+     * @param indentation state indentation
      */
     private void pushState(int indentation) {
         states.push(state);
@@ -248,17 +243,17 @@ public class Tap13Parser implements Parser {
      * @param tapLine TAP line
      */
     public void parseLine(String tapLine) {
-        
+
         TapElement tapElement = TapElementFactory.createTapElement(tapLine);
-        
+
         if (tapElement == null || state.isInYaml()) {
-            
+
             String trimmedLine = tapLine.trim();
             Text text = TapElementFactory.createTextElement(tapLine);
-            
+
             if (state.isInYaml()) {
-                
-                boolean yamlEndMarkReached = trimmedLine.equals("...") && ( 
+
+                boolean yamlEndMarkReached = trimmedLine.equals("...") && (
                            tapLine.equals(state.getYamlIndentation() + "...") 
                         || text.getIndentation() < state.getYamlIndentation().length());
 
@@ -284,23 +279,22 @@ public class Tap13Parser implements Parser {
             }
             return;
         }
-        
-        
+
         int indentation = tapElement.getIndentation();
-        
+
         if (indentation < baseIndentation) {
             baseIndentation = indentation;
         }
-        
+
         if (indentation != state.getIndentationLevel()) { // indentation changed
-            
+
             if (indentation > state.getIndentationLevel()) {
                 StreamStatus parentState = state;
                 pushState(indentation); // make room for children
-                
+
                 TapElement lastParentElement = parentState.getLastParsedElement();
-                if (lastParentElement instanceof TestResult) { 
-                    final TestResult lastTestResult = (TestResult)lastParentElement;
+                if (lastParentElement instanceof TestResult) {
+                    final TestResult lastTestResult = (TestResult) lastParentElement;
                     // whatever test set comes should be attached to parent
                     if (lastTestResult.getSubtest() == null) {
                         lastTestResult.setSubtest(state.getTestSet());
@@ -312,16 +306,16 @@ public class Tap13Parser implements Parser {
                 do {
                     StreamStatus prevState = state;
                     state = states.pop();
-                    if(!prevState.attachedToParent) {
+                    if (!prevState.attachedToParent) {
                         state.looseSubtests = prevState.getTestSet();
                     }
                     // there could be more than one level diff
                 } while (indentation < state.getIndentationLevel());
             }
         }
-        
+
         if (tapElement instanceof Header) {
-            
+
             if (state.getTestSet().getHeader() != null) {
                 throw new ParserException("Duplicated TAP Header found.");
             }
@@ -331,9 +325,9 @@ public class Tap13Parser implements Parser {
                                 + "element (apart of Comments) in the TAP Stream.");
             }
             state.getTestSet().setHeader((Header) tapElement);
-            
+
         } else if (tapElement instanceof Plan) {
-            
+
             if (state.getTestSet().getPlan() != null) {
                 throw new ParserException("Duplicated TAP Plan found.");
             }
@@ -341,52 +335,55 @@ public class Tap13Parser implements Parser {
                 && state.getTestSet().getBailOuts().size() <= 0) {
                 state.setPlanBeforeTestResult(true);
             }
-            state.getTestSet().setPlan((Plan)tapElement);
-            
+            state.getTestSet().setPlan((Plan) tapElement);
+
         } else if (tapElement instanceof TestResult) {
-            
+
             parseDiagnostics();
-            
+
             final TestResult testResult = (TestResult) tapElement;
             if (testResult.getTestNumber() == 0) {
-                if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false)
+                if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false) {
                     return; // done testing mark
-                if (state.getTestSet().getPlan() !=null && state.getTestSet().getPlan().getLastTestNumber() == state.getTestSet().getTestResults().size())
+                }
+                if (state.getTestSet().getPlan() != null &&
+                    state.getTestSet().getPlan().getLastTestNumber() == state.getTestSet().getTestResults().size()) {
                     return; // done testing mark but plan before test result
+                }
                 testResult.setTestNumber(state.getTestSet().getNextTestNumber());
             }
-            
+
             state.getTestSet().addTestResult(testResult);
             if (state.looseSubtests != null) {
                 testResult.setSubtest(state.looseSubtests);
                 state.looseSubtests = null;
             }
-            
+
         } else if (tapElement instanceof Footer) {
-            
-            state.getTestSet().setFooter((Footer)tapElement);
-            
+
+            state.getTestSet().setFooter((Footer) tapElement);
+
         } else if (tapElement instanceof BailOut) {
-            
+
             state.getTestSet().addBailOut((BailOut) tapElement);
-            
+
         } else if (tapElement instanceof Comment) {
-            
+
             final Comment comment = (Comment) tapElement;
-            
+
             state.getTestSet().addComment(comment);
-            
+
             if (state.getLastParsedElement() instanceof TestResult) {
                 ((TestResult) state.getLastParsedElement()).addComment(comment);
             }
         }
-        
+
         state.setFirstLine(false);
         if (!(tapElement instanceof Comment)) {
             state.setLastParsedElement(tapElement);
         }
     }
-    
+
     /**
      * Called after the rest of the stream has been processed.
      */
@@ -397,7 +394,7 @@ public class Tap13Parser implements Parser {
             }
         }
         parseDiagnostics();
-        
+
         while (!states.isEmpty() && state.getIndentationLevel() > baseIndentation) {
             state = states.pop();
         }

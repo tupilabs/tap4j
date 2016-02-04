@@ -22,7 +22,8 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.tap4j</groupId>
     <artifactId>tap4j-parent</artifactId>
@@ -39,6 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <autoVersionSubmodules>true</autoVersionSubmodules>
         <java.version>1.6</java.version>
+        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
     <modules>
         <module>tap4j</module>
@@ -144,33 +146,40 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencyManagement>
         <dependencies>
-	        <dependency>
-	            <groupId>junit</groupId>
-	            <artifactId>junit</artifactId>
-	            <version>4.11</version>
-	            <scope>test</scope>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.testng</groupId>
-	            <artifactId>testng</artifactId>
-	            <version>6.8</version>
-	            <scope>test</scope>
-	        </dependency>
-	        <dependency>
-	            <groupId>com.google.inject</groupId>
-	            <artifactId>guice</artifactId>
-	            <version>3.0</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.yaml</groupId>
-	            <artifactId>snakeyaml</artifactId>
-	            <version>1.11</version>
-	        </dependency>
-	    </dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>6.8</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.11</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
     <profiles>
         <profile>
@@ -184,5 +193,5 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
         </profile>
-    </profiles>    
+    </profiles>
 </project>

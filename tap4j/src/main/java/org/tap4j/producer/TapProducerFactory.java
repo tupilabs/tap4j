@@ -65,12 +65,12 @@ public final class TapProducerFactory {
     /**
      * Create a TAP 13 producer with YAMLish.
      *
+     * @param options the {@link DumperOptions}
      * @return TapProducer
      */
     public static TapProducer makeTap13YamlProducer(DumperOptions options) {
         return new TapProducer(new Tap13Representer(options));
     }
-
     
     /**
      * Create a TAP JUnit producer.

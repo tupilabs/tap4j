@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20160204" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>tap4j extensions - PMD Results</title>
+    <title>tap4j extensions - Project Dependency Management</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.0.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -190,7 +190,7 @@
         tap4j extensions</a>
         </li>
       <li class="divider ">/</li>
-        <li class="">PMD Results</li>
+        <li class="">Project Dependency Management</li>
         
                 
                     
@@ -245,83 +245,118 @@
         tap4j parent</a>
             </li>
                                         <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                      
       <li>
     
                           <a href="project-info.html" title="Project Information">
-          <i class="icon-chevron-right"></i>
-        Project Information</a>
-                  </li>
-                                                                                                                                                                                                                              
-      <li>
-    
-                          <a href="project-reports.html" title="Project Reports">
           <i class="icon-chevron-down"></i>
-        Project Reports</a>
+        Project Information</a>
                     <ul class="nav nav-list">
                       
       <li>
     
-                          <a href="apidocs/index.html" title="JavaDocs">
+                          <a href="integration.html" title="Continuous Integration">
           <i class="none"></i>
-        JavaDocs</a>
+        Continuous Integration</a>
             </li>
                       
       <li>
     
-                          <a href="testapidocs/index.html" title="Test JavaDocs">
+                          <a href="dependencies.html" title="Dependencies">
           <i class="none"></i>
-        Test JavaDocs</a>
+        Dependencies</a>
+            </li>
+                      
+      <li>
+    
+                          <a href="dependency-convergence.html" title="Dependency Convergence">
+          <i class="none"></i>
+        Dependency Convergence</a>
+            </li>
+                      
+      <li>
+    
+                          <a href="dependency-info.html" title="Dependency Information">
+          <i class="none"></i>
+        Dependency Information</a>
             </li>
                       
       <li class="active">
     
-            <a href="#"><i class="none"></i>PMD Report</a>
+            <a href="#"><i class="none"></i>Dependency Management</a>
           </li>
                       
       <li>
     
-                          <a href="cpd.html" title="CPD Report">
+                          <a href="distribution-management.html" title="Distribution Management">
           <i class="none"></i>
-        CPD Report</a>
+        Distribution Management</a>
             </li>
                       
       <li>
     
-                          <a href="changes-report.html" title="Changes Report">
+                          <a href="index.html" title="About">
           <i class="none"></i>
-        Changes Report</a>
+        About</a>
             </li>
                       
       <li>
     
-                          <a href="findbugs.html" title="FindBugs">
+                          <a href="issue-tracking.html" title="Issue Tracking">
           <i class="none"></i>
-        FindBugs</a>
+        Issue Tracking</a>
             </li>
                       
       <li>
     
-                          <a href="checkstyle.html" title="Checkstyle">
+                          <a href="license.html" title="Project License">
           <i class="none"></i>
-        Checkstyle</a>
+        Project License</a>
             </li>
                       
       <li>
     
-                          <a href="cobertura/index.html" title="Cobertura Test Coverage">
+                          <a href="plugin-management.html" title="Plugin Management">
           <i class="none"></i>
-        Cobertura Test Coverage</a>
+        Plugin Management</a>
             </li>
                       
       <li>
     
-                          <a href="clirr-report.html" title="Clirr">
+                          <a href="plugins.html" title="Project Plugins">
           <i class="none"></i>
-        Clirr</a>
+        Project Plugins</a>
+            </li>
+                      
+      <li>
+    
+                          <a href="team-list.html" title="Project Team">
+          <i class="none"></i>
+        Project Team</a>
+            </li>
+                      
+      <li>
+    
+                          <a href="source-repository.html" title="Source Repository">
+          <i class="none"></i>
+        Source Repository</a>
+            </li>
+                      
+      <li>
+    
+                          <a href="project-summary.html" title="Project Summary">
+          <i class="none"></i>
+        Project Summary</a>
             </li>
               </ul>
         </li>
+                                                                                                                                                                                                                    
+      <li>
+    
+                          <a href="project-reports.html" title="Project Reports">
+          <i class="icon-chevron-right"></i>
+        Project Reports</a>
+                  </li>
             </ul>
                 
                     
@@ -349,28 +384,51 @@
         <div id="bodyColumn"  class="span9" >
                                   
             <div class="section">
-<h2>PMD Results<a name="PMD_Results"></a></h2>
-<p>The following document contains the results of <a class="externalLink" href="http://pmd.sourceforge.net/">PMD</a> 4.2.5.</p></div>
+<h2>Project Dependency Management<a name="Project_Dependency_Management"></a></h2><a name="Project_Dependency_Management"></a>
 <div class="section">
-<h2>Files<a name="Files"></a></h2>
-<div class="section">
-<h3>org/tap4j/ext/jmeter/parser/JmeterResultParser.java<a name="orgtap4jextjmeterparserJmeterResultParser.java"></a></h3>
+<h3>compile<a name="compile"></a></h3><a name="compile"></a>
+<p>The following is a list of compile dependencies in the DependencyManagement of this project. These dependencies can be included in the submodules to compile and run the submodule:</p>
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>Violation</th>
-<th>Line</th></tr>
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
 <tr class="b">
-<td>Avoid unused imports such as 'java.io.UnsupportedEncodingException'</td>
-<td>13</td></tr></table></div>
+<td>com.google.inject</td>
+<td><a class="externalLink" href="http://code.google.com/p/google-guice/guice/">guice</a></td>
+<td>3.0</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="a">
+<td>org.yaml</td>
+<td><a class="externalLink" href="http://www.snakeyaml.org">snakeyaml</a></td>
+<td>1.11</td>
+<td>jar</td>
+<td>LICENSE.txt</td></tr></table></div>
 <div class="section">
-<h3>org/tap4j/ext/junit/model/JUnitTestData.java<a name="orgtap4jextjunitmodelJUnitTestData.java"></a></h3>
+<h3>test<a name="test"></a></h3><a name="test"></a>
+<p>The following is a list of test dependencies in the DependencyManagement of this project. These dependencies can be included in the submodules to compile and run unit tests for the submodule:</p>
 <table border="0" class="table table-striped">
 <tr class="a">
-<th>Violation</th>
-<th>Line</th></tr>
+<th>GroupId</th>
+<th>ArtifactId</th>
+<th>Version</th>
+<th>Type</th>
+<th>License</th></tr>
 <tr class="b">
-<td>These nested if statements could be combined</td>
-<td>104 - 106</td></tr></table></div></div>
+<td>junit</td>
+<td><a class="externalLink" href="http://junit.org">junit</a></td>
+<td>4.11</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.opensource.org/licenses/cpl1.0.txt">Common Public License Version 1.0</a></td></tr>
+<tr class="a">
+<td>org.testng</td>
+<td><a class="externalLink" href="http://testng.org">testng</a></td>
+<td>6.8</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></td></tr></table></div></div>
                   </div>
             </div>
           </div>

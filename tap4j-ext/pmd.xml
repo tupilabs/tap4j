@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2015-10-11T16:52:24.066">
-<file name="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/jmeter/parser/JmeterResultParser.java">
+<pmd version="4.2.5" timestamp="2016-02-04T22:58:14.417">
+<file name="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/jmeter/parser/JmeterResultParser.java">
 <violation beginline="13" endline="13" begincolumn="1" endcolumn="44" rule="UnusedImports" ruleset="Import Statement Rules" package="org.tap4j.ext.jmeter.parser" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.io.UnsupportedEncodingException'
 </violation>
 </file>
-<file name="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/model/JUnitTestData.java">
+<file name="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/model/JUnitTestData.java">
 <violation beginline="104" endline="106" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.ext.junit.model" class="JUnitTestData" method="equals" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<suppressedviolation filename="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToMap(Map,String,Map)'." usermsg=""/>
-<suppressedviolation filename="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToList(Map,String,List)'." usermsg=""/>
+<suppressedviolation filename="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToList(Map,String,List)'." usermsg=""/>
+<suppressedviolation filename="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java" suppressiontype="annotation" msg="Avoid unused private methods such as 'addToMap(Map,String,Map)'." usermsg=""/>
 </pmd>

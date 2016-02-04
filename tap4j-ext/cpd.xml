@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="40" tokens="140">
-<file line="235" path="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
-<file line="145" path="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
+<file line="235" path="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
+<file line="145" path="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
 <codefragment>
 <![CDATA[
             StackTraceElement[] els = testNGException.getStackTrace();
@@ -49,8 +49,8 @@
 </codefragment>
 </duplication>
 <duplication lines="24" tokens="109">
-<file line="338" path="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
-<file line="397" path="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
+<file line="338" path="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/junit/util/TapJUnitUtil.java"/>
+<file line="397" path="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/testng/util/TapTestNGYamlUtil.java"/>
 <codefragment>
 <![CDATA[
         Throwable throwable = testNgTestResult.getThrowable();

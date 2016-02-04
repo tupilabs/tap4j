@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2016-02-04T23:17:15.174">
+<pmd version="4.2.5" timestamp="2016-02-04T23:29:10.055">
 <file name="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j-ext/src/main/java/org/tap4j/ext/jmeter/parser/JmeterResultParser.java">
 <violation beginline="13" endline="13" begincolumn="1" endcolumn="44" rule="UnusedImports" ruleset="Import Statement Rules" package="org.tap4j.ext.jmeter.parser" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.io.UnsupportedEncodingException'

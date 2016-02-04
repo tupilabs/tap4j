@@ -1,6 +1,6 @@
-org.tap4j.parser
-org.tap4j.util
 org.tap4j.producer
-org.tap4j.model
-org.tap4j.consumer
 org.tap4j.representer
+org.tap4j.parser
+org.tap4j.model
+org.tap4j.util
+org.tap4j.consumer

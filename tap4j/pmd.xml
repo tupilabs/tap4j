@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2015-10-11T16:50:30.214">
-<file name="/home/kinow/Development/java/jenkins/tap4j/target/checkout/tap4j/src/main/java/org/tap4j/parser/Tap13Parser.java">
-<violation beginline="531" endline="533" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.parser" class="Tap13Parser" method="onFinish" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+<pmd version="4.2.5" timestamp="2016-02-04T22:56:19.014">
+<file name="/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/src/main/java/org/tap4j/parser/Tap13Parser.java">
+<violation beginline="117" endline="136" begincolumn="12" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.tap4j.parser" class="Tap13Parser" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'enableSubtests'.
+</violation>
+<violation beginline="392" endline="394" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.tap4j.parser" class="Tap13Parser" method="onFinish" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>

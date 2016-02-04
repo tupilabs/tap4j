@@ -6,10 +6,10 @@
     <link>http://www.tap4j.org/tap4j</link>
     <description>tap4j Test Anything Protocol for Java - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2015 TupiLabs</copyright>
+    <copyright>&#169;2010 - 2016 TupiLabs</copyright>
     <item>
       <title>File: 40,
-             Errors: 23,
+             Errors: 31,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,7 +29,35 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.AbstractTapElementDiagnostic.java">org/tap4j/model/AbstractTapElementDiagnostic.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.Representer.java">org/tap4j/representer/Representer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Comment.java">org/tap4j/model/Comment.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.DirectiveValues.java">org/tap4j/util/DirectiveValues.java</a>
                 </td>
                 <td>
                   0
@@ -57,7 +85,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.SkipPlan.java">org/tap4j/model/SkipPlan.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.package-info.java">org/tap4j/producer/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -71,21 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumer.java">org/tap4j/consumer/TapConsumer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TapElement.java">org/tap4j/model/TapElement.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.StatusValues.java">org/tap4j/util/StatusValues.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +113,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.Constants.java">org/tap4j/parser/Constants.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.Tap13Representer.java">org/tap4j/representer/Tap13Representer.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +127,21 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerException.java">org/tap4j/consumer/TapConsumerException.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Plan.java">org/tap4j/model/Plan.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Directive.java">org/tap4j/model/Directive.java</a>
                 </td>
                 <td>
                   0
@@ -141,35 +169,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Footer.java">org/tap4j/model/Footer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.package-info.java">org/tap4j/representer/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TapResult.java">org/tap4j/model/TapResult.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.package-info.java">org/tap4j/util/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -211,76 +211,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TestResult.java">org/tap4j/model/TestResult.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.Memento.java">org/tap4j/parser/Memento.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Directive.java">org/tap4j/model/Directive.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.Producer.java">org/tap4j/producer/Producer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Comment.java">org/tap4j/model/Comment.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.TapProducer.java">org/tap4j/producer/TapProducer.java</a>
                 </td>
                 <td>
@@ -295,7 +225,21 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.Representer.java">org/tap4j/representer/Representer.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TapElementFactory.java">org/tap4j/model/TapElementFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerFactory.java">org/tap4j/consumer/TapConsumerFactory.java</a>
                 </td>
                 <td>
                   0
@@ -323,7 +267,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.DirectiveValues.java">org/tap4j/util/DirectiveValues.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Patterns.java">org/tap4j/model/Patterns.java</a>
                 </td>
                 <td>
                   0
@@ -337,35 +281,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Plan.java">org/tap4j/model/Plan.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.Tap13Parser.java">org/tap4j/parser/Tap13Parser.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.package-info.java">org/tap4j/model/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.package-info.java">org/tap4j/representer/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -393,62 +309,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.StatusValues.java">org/tap4j/util/StatusValues.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.BailOut.java">org/tap4j/model/BailOut.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.DumperOptions.java">org/tap4j/representer/DumperOptions.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerFactory.java">org/tap4j/consumer/TapConsumerFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Text.java">org/tap4j/model/Text.java</a>
                 </td>
                 <td>
@@ -458,40 +318,12 @@
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.util.package-info.java">org/tap4j/util/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.Tap13Representer.java">org/tap4j/representer/Tap13Representer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.package-info.java">org/tap4j/producer/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerException.java">org/tap4j/consumer/TapConsumerException.java</a>
                 </td>
                 <td>
                   0
@@ -519,7 +351,133 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TestResult.java">org/tap4j/model/TestResult.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.package-info.java">org/tap4j/consumer/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TapElement.java">org/tap4j/model/TapElement.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.BailOut.java">org/tap4j/model/BailOut.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.TapProducerFactory.java">org/tap4j/producer/TapProducerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.Footer.java">org/tap4j/model/Footer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.StreamStatus.java">org/tap4j/parser/StreamStatus.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.ParserException.java">org/tap4j/parser/ParserException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.representer.DumperOptions.java">org/tap4j/representer/DumperOptions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.TapResult.java">org/tap4j/model/TapResult.java</a>
                 </td>
                 <td>
                   0
@@ -547,7 +505,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.TapProducerFactory.java">org/tap4j/producer/TapProducerFactory.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.package-info.java">org/tap4j/model/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -556,7 +514,49 @@
                   0
                 </td>
                 <td>
-                  11
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.producer.Producer.java">org/tap4j/producer/Producer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.model.SkipPlan.java">org/tap4j/model/SkipPlan.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumer.java">org/tap4j/consumer/TapConsumer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>
@@ -575,7 +575,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.consumer.package-info.java">org/tap4j/consumer/package-info.java</a>
+                  <a href="http://www.tap4j.org/tap4j/checkstyle.html#org.tap4j.parser.Tap13Parser.java">org/tap4j/parser/Tap13Parser.java</a>
                 </td>
                 <td>
                   0
@@ -584,7 +584,7 @@
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
               </tr>
                       </tbody>

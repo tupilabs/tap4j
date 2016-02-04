@@ -16,10 +16,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'tap4j Test Anything Protocol for Java 4.2.0-SNAPSHOT API'
+'tap4j Test Anything Protocol for Java 4.2.0 API'
 -linkoffline
 'http://docs.oracle.com/javase/6/docs/api' '/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'tap4j Test Anything Protocol for Java 4.2.0-SNAPSHOT API'
+'tap4j Test Anything Protocol for Java 4.2.0 API'

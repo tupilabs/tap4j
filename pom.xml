@@ -26,18 +26,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.tap4j</groupId>
     <artifactId>tap4j-parent</artifactId>
-    <version>4.1.3-SNAPSHOT</version>
+    <version>4.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>tap4j parent</name>
     <description>tap4j parent</description>
     <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <groupId>com.tupilabs</groupId>
+        <artifactId>parent-oss</artifactId>
+        <version>0.1</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <autoVersionSubmodules>true</autoVersionSubmodules>
+        <java.version>1.6</java.version>
     </properties>
     <modules>
         <module>tap4j</module>
@@ -79,6 +80,14 @@
                 <role>contributor</role>
             </roles>
         </contributor>
+        <contributor>
+            <email>jakub.podlesak@oracle.com</email>
+            <name>Jakub Podlesak</name>
+            <timezone>0</timezone>
+            <roles>
+                <role>contributor</role>
+            </roles>
+        </contributor>
     </contributors>
     <licenses>
         <license>
@@ -99,31 +108,31 @@
         <connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
         <developerConnection>scm:git:git@github.com:tupilabs/tap4j.git</developerConnection>
         <url>https://github.com/tupilabs/tap4j</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <distributionManagement>
         <site>
-          <id>tap4j-github-site</id>
-          <url>gitsite:git@github.com/tupilabs/tap4j.git</url>
+            <id>tap4j-github-site</id>
+            <url>gitsite:git@github.com/tupilabs/tap4j.git</url>
         </site>
     </distributionManagement>
     <build>
         <extensions>
-          <extension>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-gitexe</artifactId>
-            <version>1.9</version>
-          </extension>
-          <extension>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-manager-plexus</artifactId>
-            <version>1.9</version>
-          </extension>
-          <extension>
-            <groupId>com.github.stephenc.wagon</groupId>
-            <artifactId>wagon-gitsite</artifactId>
-            <version>0.4</version>
-          </extension>
+            <extension>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-provider-gitexe</artifactId>
+                <version>1.9</version>
+            </extension>
+            <extension>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-manager-plexus</artifactId>
+                <version>1.9</version>
+            </extension>
+            <extension>
+                <groupId>com.github.stephenc.wagon</groupId>
+                <artifactId>wagon-gitsite</artifactId>
+                <version>0.4</version>
+            </extension>
         </extensions>
         <plugins>
             <plugin>
@@ -131,12 +140,38 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <dependencyManagement>
+        <dependencies>
+	        <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>4.11</version>
+	            <scope>test</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.testng</groupId>
+	            <artifactId>testng</artifactId>
+	            <version>6.8</version>
+	            <scope>test</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>com.google.inject</groupId>
+	            <artifactId>guice</artifactId>
+	            <version>3.0</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.yaml</groupId>
+	            <artifactId>snakeyaml</artifactId>
+	            <version>1.11</version>
+	        </dependency>
+	    </dependencies>
+    </dependencyManagement>
     <profiles>
         <profile>
             <id>perl-integration</id>

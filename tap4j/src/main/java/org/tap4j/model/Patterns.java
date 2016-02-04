@@ -1,59 +1,63 @@
-package org.tap4j.parser;
+package org.tap4j.model;
 
 import java.util.regex.Pattern;
 
 /**
- * Constants.
+ * Patterns.
  */
-final class Constants {
+final public class Patterns {
 
     /**
      * Hidden constructor, since this class is not supposed to be used.
      */
-    private Constants() { // hidden as this is a final utility class
+    private Patterns() { // hidden as this is a final utility class
         super();
     }
 
     /* -- Regular expressions -- */
 
     /**
-     * Pattern used for finding the indentation space in new lines.
+     * TAP Text Regex.
      */
-    static final Pattern INDENTATION_PATTERN = Pattern
-            .compile("((\\s|\\t)*)?.*");
-
+    static final String REGEX_TEXT = "((\\s|\\t)*)(.*)";
+    
     /**
      * TAP Header Regex.
      */
-    static final String REGEX_HEADER = "\\s*TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
+    static final String REGEX_HEADER = "((\\s|\\t)*)?TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
 
     /**
      * TAP Plan Regex.
      */
-    static final String REGEX_PLAN = "\\s*(\\d+)(\\.{2})(\\d+)\\s*(#\\s*(SKIP|skip)\\s*([^#]+))?\\s*(#\\s*(.*))?";
+    static final String REGEX_PLAN = "((\\s|\\t)*)?(\\d+)(\\.{2})(\\d+)\\s*(#\\s*(SKIP|skip)\\s*([^#]+))?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Test Result Regex.
      */
-    static final String REGEX_TEST_RESULT = "\\s*(ok|not ok)\\s*(\\d*)\\s*([^#]*)?\\s*"
+    static final String REGEX_TEST_RESULT = "((\\s|\\t)*)?(ok|not ok)\\s*(\\d*)\\s*([^#]*)?\\s*"
             + "(#\\s*(SKIP|skip|TODO|todo)\\s*([^#]*))?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Bail Out! Regex.
      */
-    static final String REGEX_BAIL_OUT = "\\s*Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
+    static final String REGEX_BAIL_OUT = "((\\s|\\t)*)?Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Comment Regex.
      */
-    static final String REGEX_COMMENT = "\\s*#\\s*(.*)";
+    static final String REGEX_COMMENT = "((\\s|\\t)*)?#\\s*(.*)";
 
     /**
      * TAP Footer Regex.
      */
-    static final String REGEX_FOOTER = "\\s*TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
+    static final String REGEX_FOOTER = "((\\s|\\t)*)?TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
 
     /* -- Patterns -- */
+
+    /**
+     * TAP Text Regex Pattern.
+     */
+    static final Pattern TEXT_PATTERN = Pattern.compile(REGEX_TEXT);
 
     /**
      * TAP Header Regex Pattern.

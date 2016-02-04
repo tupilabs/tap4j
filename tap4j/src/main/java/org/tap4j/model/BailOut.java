@@ -42,11 +42,6 @@ public class BailOut extends TapResult {
     private String reason;
 
     /**
-     * Optional comment.
-     */
-    private Comment comment;
-
-    /**
      * Constructor with parameter.
      *
      * @param reason Reason to Bail Out.
@@ -64,23 +59,4 @@ public class BailOut extends TapResult {
     public String getReason() {
         return this.reason;
     }
-
-    /**
-     * Get the comment.
-     *
-     * @return Bail Out comment.
-     */
-    public Comment getComment() {
-        return this.comment;
-    }
-
-    /**
-     * Set the comment.
-     *
-     * @param comment Bail Out comment.
-     */
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
 }

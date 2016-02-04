@@ -55,7 +55,7 @@ public class TestSet implements Serializable {
     /**
      * List of TAP Lines.
      */
-    private List<TapResult> tapLines = new LinkedList<TapResult>();
+    private List<TapElement> tapLines = new LinkedList<TapElement>();
 
     /**
      * List of Test Results.
@@ -116,8 +116,8 @@ public class TestSet implements Serializable {
      * @return List of TAP Lines. These lines may be either a TestResult or a
      *         BailOut.
      */
-    public List<TapResult> getTapLines() {
-        return this.tapLines;
+    public List<TapElement> getTapLines() {
+        return tapLines;
     }
 
     /**
@@ -189,8 +189,8 @@ public class TestSet implements Serializable {
      * @return True if could successfully add the comment.
      */
     public boolean addComment(Comment comment) {
-        this.comments.add(comment);
-        return this.tapLines.add(comment);
+        comments.add(comment);
+        return tapLines.add(comment);
     }
 
     /**
@@ -298,7 +298,7 @@ public class TestSet implements Serializable {
     public boolean hasBailOut() {
         boolean isBailOut = false;
 
-        for (TapResult tapLine : tapLines) {
+        for (TapElement tapLine : tapLines) {
             if (tapLine instanceof BailOut) {
                 isBailOut = true;
                 break;

@@ -93,8 +93,7 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         Map<String, Object> diagnostic = testSet.getTestResult(1)
                 .getDiagnostic();
         assertNotNull(diagnostic);
-        assertEquals(diagnostic.get("file"),
-                "org.tap4j.testng.konobi.java");
+        assertEquals("org.tap4j.testng.konobi.java", diagnostic.get("file"));
         assertNotNull(diagnostic.get("stack"));
     }
 

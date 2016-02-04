@@ -37,20 +37,18 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
-import org.tap4j.model.Directive;
 import org.tap4j.model.Footer;
 import org.tap4j.model.Header;
 import org.tap4j.model.Plan;
-import org.tap4j.model.SkipPlan;
+import org.tap4j.model.TapElement;
+import org.tap4j.model.TapElementFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.model.Text;
-import org.tap4j.util.DirectiveValues;
-import org.tap4j.util.StatusValues;
+
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -67,16 +65,17 @@ public class Tap13Parser implements Parser {
             .getCanonicalName());
 
     /**
-     * Stack of mementos. Each memento stores a current state of the parser.
-     * When a new
+     * Stack of stream status information bags. Every bag stores state of the parser
+     * related to certain indentation level. This is to support subtest feature.
      */
-    private Stack<Memento> states = new Stack<Memento>();
+    private Stack<StreamStatus> states = new Stack<StreamStatus>();
 
     /**
      * The current state.
      */
-    private Memento state = null;
+    private StreamStatus state = null;
 
+    private int baseIndentation;
     /**
      * Decoder used. This is only used when trying to parse something that is
      * encoded (like a raw file or byte stream) and the encoding isn't otherwise
@@ -168,24 +167,10 @@ public class Tap13Parser implements Parser {
     /**
      * Saves the current state in the stack.
      */
-    protected void pushMemento() {
-        this.states.push(state);
-        state = new Memento();
-    }
-
-    /**
-     * Loads the previous state from the stack.
-     */
-    protected void popMemento() {
-        this.state = this.states.pop();
-    }
-
-    /**
-     * Get parser test set.
-     * @return Test Set
-     */
-    protected TestSet getTestSet() {
-        return state.getTestSet();
+    private void pushState(int indentation) {
+        states.push(state);
+        state = new StreamStatus();
+        state.setIndentationLevel(indentation);
     }
 
     /**
@@ -233,18 +218,18 @@ public class Tap13Parser implements Parser {
      */
     @Override
     public TestSet parseTapStream(Readable tapStream) {
-        state = new Memento();
+        state = new StreamStatus();
+        baseIndentation = Integer.MAX_VALUE;
         Scanner scanner = null;
         try {
             scanner = new Scanner(tapStream);
-            String line = null;
             while (scanner.hasNextLine()) {
-                line = scanner.nextLine();
+                String line = scanner.nextLine();
                 if (line != null && line.length() > 0) {
-                    this.parseLine(line);
+                    parseLine(line);
                 }
             }
-            this.onFinish();
+            onFinish();
         } catch (Exception e) {
             throw new ParserException("Error parsing TAP Stream: "
                     + e.getMessage(), e);
@@ -254,7 +239,7 @@ public class Tap13Parser implements Parser {
             }
         }
 
-        return this.getTestSet();
+        return state.getTestSet();
     }
 
     /**
@@ -263,278 +248,158 @@ public class Tap13Parser implements Parser {
      * @param tapLine TAP line
      */
     public void parseLine(String tapLine) {
-        Matcher matcher = null;
+        
+        TapElement tapElement = TapElementFactory.createTapElement(tapLine);
+        
+        if (tapElement == null || state.isInYaml()) {
+            
+            String trimmedLine = tapLine.trim();
+            Text text = TapElementFactory.createTextElement(tapLine);
+            
+            if (state.isInYaml()) {
+                
+                boolean yamlEndMarkReached = trimmedLine.equals("...") && ( 
+                           tapLine.equals(state.getYamlIndentation() + "...") 
+                        || text.getIndentation() < state.getYamlIndentation().length());
 
-        // Comment
-        matcher = Constants.COMMENT_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            onComment(matcher.group(1));
+                if (yamlEndMarkReached) {
+                    state.setInYaml(false);
+                    parseDiagnostics();
+                } else {
+                    state.getDiagnosticBuffer().append(tapLine);
+                    state.getDiagnosticBuffer().append('\n');
+                }
+            } else {
+                if (trimmedLine.equals("---")) {
+                    if (text.getIndentation() < baseIndentation) {
+                        throw new ParserException("Invalid indentation. "
+                                    + "Check your TAP Stream. Line: " + tapLine);
+                    }
+                    state.setInYaml(true);
+                    state.setYamlIndentation(text.getIndentationString());
+                } else {
+                    state.getTestSet().getTapLines().add(text);
+                    state.setLastParsedElement(text);
+                }
+            }
             return;
         }
-
-        // Check if we already know the indentation level... if so, try to
-        // find
-        // out the indentation level of the current line in the TAP Stream.
-        // If the line indentation level is greater than the pre-defined
-        // one, than we know it is a) a META, b)
-        if (state.getBaseIndentationLevel() > -1) {
-            matcher = Constants.INDENTATION_PATTERN.matcher(tapLine);
-            if (matcher.matches()) {
-                int indentation = matcher.group(1).length();
-                state.setCurrentIndentationLevel(indentation);
-                if (indentation > state.getBaseIndentationLevel()) {
-                    // we are at the start of the meta tags, but we should
-                    // ignore
-                    // the --- or ...
-
-                    if (state.isCurrentlyInYaml()) {
-                        if (tapLine.equals(state.getCurrentYamlIndentation() + "...")) {
-                            state.setCurrentlyInYaml(false);
-                            return;
-                        }
-                        state.getDiagnosticBuffer().append(tapLine);
-                        state.getDiagnosticBuffer().append('\n');
-                        return; // NOPMD by Bruno on 12/01/11 07:47
-                    } else if (tapLine.trim().equals("---")) {
-                        state.setCurrentlyInYaml(true);
-                        state.setCurrentYamlIndentation(matcher.group(1));
-                        return;
-                    } else {
-                        // If we are in a different level, but it is not
-                        // YAML,
-                        // Then it must be a subtest! Yay!
-                        if (this.subtestsEnabled) {
-                            // Check if we have some diagnostic set in the buffer
-                            this.parseDiagnostics();
-                            if (state.getLastParsedElement() instanceof TestResult) {
-                                indentation = state.getBaseIndentationLevel();
-                                TestResult lastTestResult = (TestResult) state.getLastParsedElement();
-                                this.pushMemento();
-                                lastTestResult.setSubtest(state.getTestSet());
-                            } else if (state.getLastParsedElement() instanceof Plan) {
-                                indentation = state.getBaseIndentationLevel();
-                                Plan lastTestResult = (Plan) state.getLastParsedElement();
-                                this.pushMemento();
-                                lastTestResult.setSubtest(state.getTestSet());
-                            }
-                        }
+        
+        
+        int indentation = tapElement.getIndentation();
+        
+        if (indentation < baseIndentation) {
+            baseIndentation = indentation;
+        }
+        
+        if (indentation != state.getIndentationLevel()) { // indentation changed
+            
+            if (indentation > state.getIndentationLevel()) {
+                StreamStatus parentState = state;
+                pushState(indentation); // make room for children
+                
+                TapElement lastParentElement = parentState.getLastParsedElement();
+                if (lastParentElement instanceof TestResult) { 
+                    final TestResult lastTestResult = (TestResult)lastParentElement;
+                    // whatever test set comes should be attached to parent
+                    if (lastTestResult.getSubtest() == null) {
+                        lastTestResult.setSubtest(state.getTestSet());
+                        state.attachedToParent = true;
                     }
                 }
-
-                // indentation cannot be less then the base indentation
-                // level
-                this.checkIndentationLevel(indentation, tapLine);
+            } else {
+                // going down
+                do {
+                    StreamStatus prevState = state;
+                    state = states.pop();
+                    if(!prevState.attachedToParent) {
+                        state.looseSubtests = prevState.getTestSet();
+                    }
+                    // there could be more than one level diff
+                } while (indentation < state.getIndentationLevel());
             }
         }
-
-        // Check if we have some diagnostic set in the buffer
-        this.parseDiagnostics();
-        state.setLastLine(tapLine);
-
-        // Bail Out
-        matcher = Constants.BAIL_OUT_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            onBailOut(matcher.group(1), matcher.group(3));
-            return;
-        }
-
-        // Header
-        matcher = Constants.HEADER_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            onHeader(Integer.parseInt(matcher.group(1)), matcher.group(3));
-            return;
-        }
-
-        // Plan
-        matcher = Constants.PLAN_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            onPlan(Integer.parseInt(matcher.group(1)),
-                    Integer.parseInt(matcher.group(3)), matcher.group(6),
-                    matcher.group(8));
-            return;
-        }
-
-        // Test Result
-        matcher = Constants.TEST_RESULT_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            String testNumberText = matcher.group(2);
-            int testNumber = 0;
-            if (testNumberText != null && testNumberText.trim().equals("") == false) {
-                testNumber = Integer.parseInt(testNumberText);
-            } else {
+        
+        if (tapElement instanceof Header) {
+            
+            if (state.getTestSet().getHeader() != null) {
+                throw new ParserException("Duplicated TAP Header found.");
+            }
+            if (!state.isFirstLine()) {
+                throw new ParserException(
+                        "Invalid position of TAP Header. It must be the first "
+                                + "element (apart of Comments) in the TAP Stream.");
+            }
+            state.getTestSet().setHeader((Header) tapElement);
+            
+        } else if (tapElement instanceof Plan) {
+            
+            if (state.getTestSet().getPlan() != null) {
+                throw new ParserException("Duplicated TAP Plan found.");
+            }
+            if (state.getTestSet().getTestResults().size() <= 0
+                && state.getTestSet().getBailOuts().size() <= 0) {
+                state.setPlanBeforeTestResult(true);
+            }
+            state.getTestSet().setPlan((Plan)tapElement);
+            
+        } else if (tapElement instanceof TestResult) {
+            
+            parseDiagnostics();
+            
+            final TestResult testResult = (TestResult) tapElement;
+            if (testResult.getTestNumber() == 0) {
                 if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false)
                     return; // done testing mark
                 if (state.getTestSet().getPlan() !=null && state.getTestSet().getPlan().getLastTestNumber() == state.getTestSet().getTestResults().size())
                     return; // done testing mark but plan before test result
-                testNumber = getTestSet().getNextTestNumber();
+                testResult.setTestNumber(state.getTestSet().getNextTestNumber());
             }
-            onTestResult(StatusValues.get(matcher.group(1)),
-                    testNumber, matcher.group(3),
-                    DirectiveValues.get(matcher.group(5)),
-                    matcher.group(6), matcher.group(8));
-            return;
+            
+            state.getTestSet().addTestResult(testResult);
+            if (state.looseSubtests != null) {
+                testResult.setSubtest(state.looseSubtests);
+                state.looseSubtests = null;
+            }
+            
+        } else if (tapElement instanceof Footer) {
+            
+            state.getTestSet().setFooter((Footer)tapElement);
+            
+        } else if (tapElement instanceof BailOut) {
+            
+            state.getTestSet().addBailOut((BailOut) tapElement);
+            
+        } else if (tapElement instanceof Comment) {
+            
+            final Comment comment = (Comment) tapElement;
+            
+            state.getTestSet().addComment(comment);
+            
+            if (state.getLastParsedElement() instanceof TestResult) {
+                ((TestResult) state.getLastParsedElement()).addComment(comment);
+            }
         }
-
-        // Footer
-        matcher = Constants.FOOTER_PATTERN.matcher(tapLine);
-        if (matcher.matches()) {
-            onFooter(matcher.group(1), matcher.group(3));
-            return;
-        }
-
-        // Any text. It should not be parsed by the consumer.
-        final Text text = new Text(tapLine);
-        getTestSet().getTapLines().add(text);
-        state.setLastParsedElement(text);
-    }
-
-    /* -- Event handling -- */
-
-    /**
-     * Handles comments.
-     *
-     * @param text Comment
-     */
-    private void onComment(String text) {
-        final Comment comment = new Comment(text);
-        getTestSet().addComment(comment);
-
-        if (state.getLastParsedElement() instanceof TestResult) {
-            TestResult lastTestResult = (TestResult) state
-                    .getLastParsedElement();
-            lastTestResult.addComment(comment);
-        }
-    }
-
-    /**
-     * Handles Bail Out!s.
-     *
-     * @param reason Reason
-     * @param comment Comment
-     */
-    private void onBailOut(String reason, String comment) {
-        setIndentationLevelIfNotDefined(state.getLastLine());
-        final BailOut bailOut = new BailOut(reason);
-        if (comment != null && comment.trim().length() > 0) {
-            bailOut.setComment(new Comment(comment, true));
-        }
-        getTestSet().addBailOut(bailOut);
-        state.setLastParsedElement(getTestSet().getTapLines().get(
-                (getTestSet().getTapLines().size() - 1)));
-    }
-
-    /**
-     * Handles Headers.
-     *
-     * @param version Version
-     * @param comment Comment
-     */
-    private void onHeader(int version, String comment) {
-        if (getTestSet().getHeader() != null) {
-            throw new ParserException("Duplicated TAP Header found.");
-        }
-        if (!state.isFirstLine()) {
-            throw new ParserException(
-                    "Invalid position of TAP Header. It must be the first "
-                            + "element (apart of Comments) in the TAP Stream.");
-        }
-        setIndentationLevelIfNotDefined(state.getLastLine());
-        state.setCurrentIndentationLevel(state.getBaseIndentationLevel());
-        final Header header = new Header(version);
-        if (comment != null && comment.trim().length() > 0) {
-            header.setComment(new Comment(comment));
-        }
-        getTestSet().setHeader(header);
+        
         state.setFirstLine(false);
-        state.setLastParsedElement(header);
+        if (!(tapElement instanceof Comment)) {
+            state.setLastParsedElement(tapElement);
+        }
     }
-
-    /**
-     * Handles Plans.
-     *
-     * @param begin Plan begin
-     * @param end Plan end
-     * @param skip Skip
-     * @param comment Comment
-     */
-    private void onPlan(int begin, int end, String skip, String comment) {
-        if (getTestSet().getPlan() != null) {
-            throw new ParserException("Duplicated TAP Plan found.");
-        }
-        if (getTestSet().getTestResults().size() <= 0
-                && getTestSet().getBailOuts().size() <= 0) {
-            state.setPlanBeforeTestResult(true);
-        }
-        setIndentationLevelIfNotDefined(state.getLastLine());
-        Plan plan = new Plan(begin, end);
-
-        if (skip != null && skip.trim().length() > 0) {
-            plan.setSkip(new SkipPlan(skip));
-        }
-
-        if (comment != null && comment.trim().length() > 0) {
-            plan.setComment(new Comment(comment));
-        }
-        getTestSet().setPlan(plan);
-        state.setFirstLine(false);
-        state.setLastParsedElement(plan);
-    }
-
-    /**
-     * Handles Test Results.
-     *
-     * @param status Test Status
-     * @param number Test Number
-     * @param description Description
-     * @param directive Directive
-     * @param reason Reason
-     * @param comment Comment
-     */
-    private void onTestResult(StatusValues status, int number, String description, DirectiveValues directive,
-            String reason, String comment) {
-        setIndentationLevelIfNotDefined(state.getLastLine());
-        final TestResult testResult = new TestResult(status, number);
-        testResult.setDescription(description);
-
-        if (directive != null) {
-            testResult.setDirective(new Directive(directive, reason));
-        }
-
-        if (comment != null && comment.trim().length() > 0) {
-            testResult.addComment(new Comment(comment));
-        }
-        getTestSet().addTestResult(testResult);
-        state.setFirstLine(false);
-        state.setLastParsedElement(testResult);
-    }
-
-    /**
-     * Handles Footer.
-     *
-     * @param text Footer text
-     * @param comment Comment
-     */
-    private void onFooter(String text, String comment) {
-        final Footer footer = new Footer(text);
-        if (comment != null && comment.trim().length() > 0) {
-            footer.setComment(new Comment(comment, true));
-        }
-        getTestSet().setFooter(footer);
-        state.setFirstLine(false);
-    }
-
+    
     /**
      * Called after the rest of the stream has been processed.
      */
     private void onFinish() {
-        if (this.planRequired == true) {
-            if (getTestSet().getPlan() == null) {
+        if (planRequired) {
+            if (state.getTestSet().getPlan() == null) {
                 throw new ParserException("Missing TAP Plan.");
             }
         }
         parseDiagnostics();
-        while (!this.states.isEmpty()) {
-            this.popMemento();
+        
+        while (!states.isEmpty() && state.getIndentationLevel() > baseIndentation) {
+            state = states.pop();
         }
     }
 
@@ -567,56 +432,6 @@ public class Tap13Parser implements Parser {
                         + ex.getMessage(), ex);
             }
             this.state.getDiagnosticBuffer().setLength(0);
-        }
-    }
-
-    /**
-     * Set the indentation level, only if not defined yet.
-     * @param tapLine TAP Line
-     */
-    private void setIndentationLevelIfNotDefined(String tapLine) {
-        if (state.getBaseIndentationLevel() < 0) {
-            state.setBaseIndentationLevel(this.getIndentationLevel(tapLine));
-        }
-    }
-
-    /**
-     * Get the indentation level of a line.
-     *
-     * @param tapLine line.
-     * @return indentation level of a line.
-     */
-    private int getIndentationLevel(String tapLine) {
-        int indentationLevel = 0;
-
-        final Matcher indentMatcher = Constants.INDENTATION_PATTERN.matcher(tapLine);
-
-        if (indentMatcher.matches()) {
-            String spaces = indentMatcher.group(1);
-            indentationLevel = spaces.length();
-        }
-        return indentationLevel;
-    }
-
-    /**
-     * Checks if the indentation is greater than the
-     * {@link #baseIndentationLevel}.
-     *
-     * @param indentation indentation level
-     * @param tapLine TAP Line
-     */
-    private void checkIndentationLevel(int indentation, String tapLine) {
-        if (indentation < state.getBaseIndentationLevel()) {
-            if (!state.isCurrentlyInYaml()
-                    && this.states.isEmpty() == Boolean.FALSE) {
-                while (!this.states.isEmpty()
-                        && indentation < state.getBaseIndentationLevel()) {
-                    this.popMemento();
-                }
-            } else {
-                throw new ParserException("Invalid indentation. "
-                        + "Check your TAP Stream. Line: " + tapLine);
-            }
         }
     }
 }

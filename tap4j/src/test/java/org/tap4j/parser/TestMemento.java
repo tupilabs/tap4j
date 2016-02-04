@@ -38,11 +38,11 @@ import org.tap4j.model.Text;
  */
 public class TestMemento {
 
-    private static Memento memento = null;
+    private static StreamStatus memento = null;
     
     @BeforeClass
     public static void setUp() {
-        memento = new Memento();
+        memento = new StreamStatus();
     }
     
     @Test
@@ -51,10 +51,8 @@ public class TestMemento {
         assertFalse(memento.isPlanBeforeTestResult());
         assertNull(memento.getLastLine());
         assertNull(memento.getLastParsedElement());
-        assertEquals(-1, memento.getBaseIndentationLevel());
-        assertEquals(-1, memento.getCurrentIndentationLevel());
-        assertFalse(memento.isCurrentlyInYaml());
-        assertFalse(memento.isCurrentlyInSubtest());
+        assertEquals(0, memento.getIndentationLevel());
+        assertFalse(memento.isInYaml());
         assertTrue(memento.getDiagnosticBuffer().toString().length() == 0);
         
         int currentIndentationLevel = 100;
@@ -66,10 +64,8 @@ public class TestMemento {
         TapElement lastParsedElement = new Text("nani nani");
         boolean planBeforeTestResult = true;
         
-        memento.setCurrentIndentationLevel(currentIndentationLevel);
-        memento.setBaseIndentationLevel(baseIndentationLevel);
-        memento.setCurrentlyInSubtest(currentlyInSubtest);
-        memento.setCurrentlyInYaml(currentlyInYaml);
+        memento.setIndentationLevel(baseIndentationLevel);
+        memento.setInYaml(currentlyInYaml);
         memento.setFirstLine(firstLine);
         memento.setLastLine(lastLine);
         memento.setLastParsedElement(lastParsedElement);
@@ -79,10 +75,7 @@ public class TestMemento {
         assertEquals(planBeforeTestResult, memento.isPlanBeforeTestResult());
         assertEquals(lastLine, memento.getLastLine());
         assertEquals(lastParsedElement, memento.getLastParsedElement());
-        assertEquals(baseIndentationLevel, memento.getBaseIndentationLevel());
-        assertEquals(currentIndentationLevel, memento.getCurrentIndentationLevel());
-        assertEquals(currentlyInYaml, memento.isCurrentlyInYaml());
-        assertEquals(currentlyInSubtest, memento.isCurrentlyInSubtest());
+        assertEquals(baseIndentationLevel, memento.getIndentationLevel());
+        assertEquals(currentlyInYaml, memento.isInYaml());
     }
-    
 }

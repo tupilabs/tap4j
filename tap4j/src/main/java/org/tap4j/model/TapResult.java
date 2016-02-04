@@ -28,7 +28,7 @@ package org.tap4j.model;
  *
  * @since 1.0
  */
-public abstract class TapResult extends AbstractTapElementDiagnostic {
+public class TapResult extends TapElement {
 
     /**
      * Serial Version UID.

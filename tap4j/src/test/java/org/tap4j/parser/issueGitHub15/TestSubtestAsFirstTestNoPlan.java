@@ -21,28 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.parser;
+package org.tap4j.parser.issueGitHub15;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.io.File;
+import java.util.List;
 
 import org.junit.Test;
-import org.tap4j.model.Patterns;
+import org.tap4j.consumer.TapConsumer;
+import org.tap4j.consumer.TapConsumerFactory;
+import org.tap4j.model.TestResult;
+import org.tap4j.model.TestSet;
+import org.tap4j.parser.issue3406964.TestDirectives;
 
 /**
- * Tests for parser Patterns.
+ * TAP Streams with a subtest as first test fail, complaining about a duplicate
+ * TAP plan found.
+ * 
+ * @since 4.1.3
  */
-public class TestConstants {
+public class TestSubtestAsFirstTestNoPlan {
 
+    /**
+     * Tests sub-tests as first tests in a TAP Stream with no plan provided up front.
+     */
     @Test
-    public void testUtilConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final Constructor<?> c = Patterns.class
-                .getDeclaredConstructors()[0];
-        c.setAccessible(true);
-        final Object o = c.newInstance((Object[]) null);
-        assertNotNull(o);
+    public void testSubtestAsFirstTest() {
+        TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
+        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
+            .getResource("/org/tap4j/parser/issueGitHub15/issue-15-tap-stream.tap")
+            .getFile()));
+
+        assertNotNull(testSet);
+        
+        final List<TestResult> testResults = testSet.getTestResults();
+        
+        assertEquals(2, testResults.size());
+        
+        assertEquals(2, testResults.get(0).getSubtest().getTestResults().size());
+        assertEquals(2, testResults.get(1).getSubtest().getTestResults().size());
     }
-    
 }

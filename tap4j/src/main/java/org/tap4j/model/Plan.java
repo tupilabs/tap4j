@@ -30,7 +30,7 @@ package org.tap4j.model;
  *
  * @since 1.0
  */
-public class Plan extends AbstractTapElementDiagnostic {
+public class Plan extends TapElement {
 
     /**
      * Serial Version UID.
@@ -62,11 +62,6 @@ public class Plan extends AbstractTapElementDiagnostic {
      * Child subtest.
      */
     private TestSet subtest;
-
-    /**
-     * A comment.
-     */
-    private Comment comment;
 
     /**
      * Constructor with parameters.
@@ -169,21 +164,4 @@ public class Plan extends AbstractTapElementDiagnostic {
     public void setSubtest(TestSet subtest) {
         this.subtest = subtest;
     }
-
-    /**
-     * @return Optional Plan comment.
-     */
-    public Comment getComment() {
-        return this.comment;
-    }
-
-    /**
-     * Sets a comment into the Plan.
-     *
-     * @param comment Plan comment.
-     */
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
 }

@@ -55,16 +55,21 @@ public class TestIssue3504508 extends BaseTapTest {
 
     @Test
     public void testProducingSubtests() {
-        final String expected = "1..3\n" + "ok 1 - First test\n" + "    1..2\n"
-                + "    ok 1 - This is a subtest\n" + "    ok 2 - So is this\n"
-                + "        1..2\n" + "        ok 1 - This is a subtest\n"
-                + "        ok 2 - So is this\n" + "ok 2 - An example subtest\n"
+        final String expected = "1..3\n"
+                + "ok 1 - First test\n"
+                + "    1..2\n"
+                + "    ok 1 - This is a subtest\n"
+                + "    ok 2 - So is this\n"
+                + "        1..2\n" 
+                + "        ok 1 - This is a subtest\n"
+                + "        ok 2 - So is this\n" 
+                + "ok 2 - An example subtest\n"
                 + "ok 3 - Third test\n";
         final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
         final TestSet testSet = consumer.load(new File(TestIssue3504508.class
                 .getResource("/org/tap4j/consumer/issue3504508/sample.tap").getFile()));
         final Producer producer = new TapProducer();
-        assertEquals(producer.dump(testSet), expected);
+        assertEquals(expected, producer.dump(testSet));
     }
 
 }

@@ -24,6 +24,7 @@
 package org.tap4j.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -31,16 +32,62 @@ import java.util.Map;
  *
  * @since 1.0
  */
-public interface TapElement extends Serializable {
+public class TapElement implements Serializable {
+    
+    /**
+     * Serial Version UID.
+     */
+    private static final long serialVersionUID = 9108597596777603763L;
 
     /**
-     * @return yaml diagnostic information.
+     * input line indentation.
      */
-    Map<String, Object> getDiagnostic();
+    int indentation;
+    
+    /**
+     * Iterable object returned by snakeyaml.
+     */
+    private Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+    
+    /**
+     * Comment.
+     */
+    Comment comment;
 
     /**
-     * @param meta yaml diagnostic information.
+     * Get me indentation of the corresponding input line.
+     * 
+     * @return Indentation in the original stream
      */
-    void setDiagnostic(Map<String, Object> meta);
+    public int getIndentation() {
+        return indentation;
+    }
+    
+    /**
+     * Yaml diagnostic information.
+     */
+    public Map<String, Object> getDiagnostic() {
+        return this.diagnostic;
+    }
 
+    /**
+     * Yaml diagnostic information setter.
+     */
+    public void setDiagnostic(Map<String, Object> diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+    
+    /**
+     * @param comment Comment.
+     */
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    /**
+     * @return Comment.
+     */
+    public Comment getComment() {
+        return this.comment;
+    }
 }

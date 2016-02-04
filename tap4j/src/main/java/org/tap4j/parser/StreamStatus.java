@@ -27,12 +27,12 @@ import org.tap4j.model.TapElement;
 import org.tap4j.model.TestSet;
 
 /**
- * Memento for parsers. Stores information about a parser in certain moment
+ * StreamStatus for parsers. Stores information about a parser in certain moment
  * of the parsing method.
  *
  * @since 3.0
  */
-public class Memento {
+public class StreamStatus {
 
     /**
      * If it processed only the first line.
@@ -58,14 +58,7 @@ public class Memento {
      * Indicator of the base indentation level. Usually defined by the TAP
      * Header.
      */
-    private int baseIndentationLevel = -1;
-
-    /**
-     * Helper indicator of in what indentation level we are working at moment.
-     * It is helpful specially when you have many nested elements, like a META
-     * element with some multiline text.
-     */
-    private int currentIndentationLevel = -1;
+    private int indentationLevel = 0;
 
     /**
      * If we are processing a YAMLish block.
@@ -75,16 +68,11 @@ public class Memento {
     /**
      * The indentation of the Yaml block.
      */
-    private String currentYamlIndentation = "";
+    private String yamlIndentation = "";
 
 
     /**
-     * If we are processing a subtest.
-     */
-    private boolean currentlyInSubtest = false;
-
-    /**
-     * Tje diagnostics buffer.
+     * Diagnostics buffer.
      */
     private final StringBuilder diagnosticBuffer = new StringBuilder();
 
@@ -92,11 +80,19 @@ public class Memento {
      * The immutable test set.
      */
     private final TestSet testSet = new TestSet();
+    
+    /**
+     * In case sub-tests could not have been attached to parent (as the sub-tests came first)
+     * we need to make sure we make the link as the parent test comes
+     */
+    boolean attachedToParent;
+    
+    TestSet looseSubtests; 
 
     /**
      * Default constructor.
      */
-    public Memento() {
+    public StreamStatus() {
         super();
     }
 
@@ -159,57 +155,29 @@ public class Memento {
     /**
      * @return the baseIndentationLevel
      */
-    public int getBaseIndentationLevel() {
-        return baseIndentationLevel;
+    public int getIndentationLevel() {
+        return indentationLevel;
     }
 
     /**
-     * @param baseIndentationLevel the baseIndentationLevel to set
+     * @param indentationLevel the baseIndentationLevel to set
      */
-    public void setBaseIndentationLevel(int baseIndentationLevel) {
-        this.baseIndentationLevel = baseIndentationLevel;
-    }
-
-    /**
-     * @return the currentIndentationLevel
-     */
-    public int getCurrentIndentationLevel() {
-        return currentIndentationLevel;
-    }
-
-    /**
-     * @param currentIndentationLevel the currentIndentationLevel to set
-     */
-    public void setCurrentIndentationLevel(int currentIndentationLevel) {
-        this.currentIndentationLevel = currentIndentationLevel;
+    public void setIndentationLevel(int indentationLevel) {
+        this.indentationLevel = indentationLevel;
     }
 
     /**
      * @return the currentlyInYaml
      */
-    public boolean isCurrentlyInYaml() {
+    public boolean isInYaml() {
         return currentlyInYaml;
     }
 
     /**
      * @param currentlyInYaml the currentlyInYaml to set
      */
-    public void setCurrentlyInYaml(boolean currentlyInYaml) {
+    public void setInYaml(boolean currentlyInYaml) {
         this.currentlyInYaml = currentlyInYaml;
-    }
-
-    /**
-     * @return the currentlyInSubtest
-     */
-    public boolean isCurrentlyInSubtest() {
-        return currentlyInSubtest;
-    }
-
-    /**
-     * @param currentlyInSubtest the currentlyInSubtest to set
-     */
-    public void setCurrentlyInSubtest(boolean currentlyInSubtest) {
-        this.currentlyInSubtest = currentlyInSubtest;
     }
 
     /**
@@ -227,16 +195,16 @@ public class Memento {
     }
 
     /**
-     * @return the currentYamlIndentation
+     * @return the yamlIndentation
      */
-    public String getCurrentYamlIndentation() {
-        return currentYamlIndentation;
+    public String getYamlIndentation() {
+        return yamlIndentation;
     }
 
     /**
-     * @param currentYamlIndentation the currentYamlIndentation to set
+     * @param yamlIndentation the yamlIndentation to set
      */
-    public void setCurrentYamlIndentation(String currentYamlIndentation) {
-        this.currentYamlIndentation = currentYamlIndentation;
+    public void setYamlIndentation(String yamlIndentation) {
+        this.yamlIndentation = yamlIndentation;
     }
 }

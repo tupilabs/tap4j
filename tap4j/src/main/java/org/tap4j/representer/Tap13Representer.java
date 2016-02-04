@@ -34,7 +34,6 @@ import org.tap4j.model.Footer;
 import org.tap4j.model.Header;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TapElement;
-import org.tap4j.model.TapResult;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.yaml.snakeyaml.DumperOptions;
@@ -101,7 +100,7 @@ public class Tap13Representer implements Representer {
         PrintWriter pw = new PrintWriter(sw);
         printHeader(pw, testSet.getHeader());
         printPlan(pw, testSet.getPlan());
-        for (TapResult tapLine : testSet.getTapLines()) {
+        for (TapElement tapLine : testSet.getTapLines()) {
             printTapLine(pw, tapLine);
         }
         printFooter(pw, testSet.getFooter());
@@ -112,7 +111,7 @@ public class Tap13Representer implements Representer {
      * @param pw Print Writer
      * @param tapResult TAP test result
      */
-    protected void printTapLine(PrintWriter pw, TapResult tapResult) {
+    protected void printTapLine(PrintWriter pw, TapElement tapResult) {
         if (tapResult instanceof BailOut) {
             printBailOut(pw, (BailOut) tapResult);
         } else if (tapResult instanceof Comment) {

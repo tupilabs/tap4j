@@ -1,0 +1,722 @@
+
+> tape@4.6.2 test /workdir/npm-module
+> tap test/*.js
+
+TAP version 13
+# Subtest: test/add-subtest-async.js
+    # parent
+    ok 1 parent
+    # child
+    ok 2 child
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 1 - test/add-subtest-async.js # time=232.837ms
+
+# Subtest: test/array.js
+    # Subtest: array test
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - array test # time=42.746ms
+
+    1..1
+    # time=75.966ms
+ok 2 - test/array.js # time=395.477ms
+
+# Subtest: test/bound.js
+    # bind works
+    ok 1 should be equal
+    ok 2 should be equivalent
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 3 - test/bound.js # time=113.535ms
+
+# Subtest: test/child_ordering.js
+    # parent
+    # child
+    ok 1 child ran
+    # uncle
+    ok 2 Child should run before next top-level test
+    # grandparent
+    ok 3 grand parent ran twice
+    ok 4 grandparent ran
+    # parent
+    ok 5 parent ran twice
+    ok 6 parent ran
+    # grandchild
+    ok 7 grand child ran twice
+    ok 8 grand child ran
+    # other parent
+    ok 9 first parent runs before second parent
+    ok 10 grandchild runs before second parent
+    # second grandparent
+    ok 11 grandparent ran
+    ok 12 parent ran
+    ok 13 grandchild ran
+    ok 14 other grandparent ran
+
+    1..14
+    # tests 14
+    # pass  14
+
+    # ok
+
+ok 4 - test/child_ordering.js # time=129.565ms
+
+# Subtest: test/circular-things.js
+    # Subtest: circular test
+        1..1
+        ok 1 - should be equal
+    ok 1 - circular test # time=25.342ms
+
+    1..1
+    # time=57.808ms
+ok 5 - test/circular-things.js # time=288.002ms
+
+# Subtest: test/comment.js
+    # Subtest: no comment
+        1..1
+        ok 1 - should be equal
+    ok 1 - no comment # time=18.858ms
+
+    # Subtest: missing argument
+        1..1
+        ok 1 - should be equal
+    ok 2 - missing argument # time=3.453ms
+
+    # Subtest: null argument
+        1..1
+        ok 1 - should be equal
+    ok 3 - null argument # time=2.762ms
+
+    # Subtest: whitespace
+        1..1
+        ok 1 - should be equal
+    ok 4 - whitespace # time=5.407ms
+
+    # Subtest: non-string types
+        1..1
+        ok 1 - should be equal
+    ok 5 - non-string types # time=2.695ms
+
+    # Subtest: multiline string
+        1..1
+        ok 1 - should be equal
+    ok 6 - multiline string # time=2.002ms
+
+    1..6
+    # time=89.954ms
+ok 6 - test/comment.js # time=403.768ms
+
+# Subtest: test/deep-equal-failure.js
+    # Subtest: deep equal failure
+        1..3
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+        ok 3 - should be equivalent
+    ok 1 - deep equal failure # time=36.363ms
+
+    # Subtest: deep equal failure, depth 6, with option
+        1..3
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+        ok 3 - should be equivalent
+    ok 2 - deep equal failure, depth 6, with option # time=8.035ms
+
+    # Subtest: deep equal failure, depth 6, without option
+        1..3
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+        ok 3 - should be equivalent
+    ok 3 - deep equal failure, depth 6, without option # time=5.898ms
+
+    1..3
+    # time=83.367ms
+ok 7 - test/deep-equal-failure.js # time=340.483ms
+
+# Subtest: test/deep.js
+    # deep strict equal
+    ok 1 should not be equivalent
+    # deep loose equal
+    ok 2 should be equivalent
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 8 - test/deep.js # time=121.307ms
+
+# Subtest: test/default-messages.js
+    # Subtest: default messages
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - default messages # time=141.408ms
+
+    1..1
+    # time=177.359ms
+ok 9 - test/default-messages.js # time=384.327ms
+
+# Subtest: test/double_end.js
+    # Subtest: (unnamed test)
+        1..2
+        ok 1 - should be equal
+        ok 2 - should be equal
+    ok 1 - (unnamed test) # time=144.496ms
+
+    1..1
+    # time=179.086ms
+ok 10 - test/double_end.js # time=395.009ms
+
+# Subtest: test/end-as-callback.js
+    # Subtest: tape assert.end as callback
+        ok 1 - should be equal
+        1..1
+    ok 1 - tape assert.end as callback # time=31.3ms
+
+    1..1
+    # time=86.546ms
+ok 11 - test/end-as-callback.js # time=299.713ms
+
+# Subtest: test/exit.js
+    # Subtest: exit ok
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+    ok 1 - exit ok # time=168.952ms
+
+    # Subtest: exit fail
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should not be equal
+    ok 2 - exit fail # time=178.559ms
+
+    # Subtest: too few exit
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should not be equal
+    ok 3 - too few exit # time=168.801ms
+
+    # Subtest: more planned in a second test
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should not be equal
+    ok 4 - more planned in a second test # time=131.598ms
+
+    1..4
+    # time=684.354ms
+ok 12 - test/exit.js # time=901.222ms
+
+# Subtest: test/exposed-harness.js
+    # Subtest: main harness object is exposed
+        ok 1 - tape.getHarness is a function
+        ok 2 - should be equal
+        1..2
+    ok 1 - main harness object is exposed # time=15.769ms
+
+    1..1
+    # time=41.539ms
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 13 - test/exposed-harness.js # time=264.253ms
+
+# Subtest: test/fail.js
+    # Subtest: array test
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - array test # time=44.137ms
+
+    1..1
+    # time=75.264ms
+ok 14 - test/fail.js # time=323.701ms
+
+# Subtest: test/many.js
+    # many tests
+    ok 1 (unnamed assert)
+    ok 2 (unnamed assert)
+    ok 3 (unnamed assert)
+    ok 4 (unnamed assert)
+    ok 5 (unnamed assert)
+    ok 6 (unnamed assert)
+    ok 7 (unnamed assert)
+    ok 8 (unnamed assert)
+    ok 9 (unnamed assert)
+    ok 10 (unnamed assert)
+    ok 11 (unnamed assert)
+    ok 12 (unnamed assert)
+    ok 13 (unnamed assert)
+    ok 14 (unnamed assert)
+    ok 15 (unnamed assert)
+    ok 16 (unnamed assert)
+    ok 17 (unnamed assert)
+    ok 18 (unnamed assert)
+    ok 19 (unnamed assert)
+    ok 20 (unnamed assert)
+    ok 21 (unnamed assert)
+    ok 22 (unnamed assert)
+    ok 23 (unnamed assert)
+    ok 24 (unnamed assert)
+    ok 25 (unnamed assert)
+    ok 26 (unnamed assert)
+    ok 27 (unnamed assert)
+    ok 28 (unnamed assert)
+    ok 29 (unnamed assert)
+    ok 30 (unnamed assert)
+    ok 31 (unnamed assert)
+    ok 32 (unnamed assert)
+    ok 33 (unnamed assert)
+    ok 34 (unnamed assert)
+    ok 35 (unnamed assert)
+    ok 36 (unnamed assert)
+    ok 37 (unnamed assert)
+    ok 38 (unnamed assert)
+    ok 39 (unnamed assert)
+    ok 40 (unnamed assert)
+    ok 41 (unnamed assert)
+    ok 42 (unnamed assert)
+    ok 43 (unnamed assert)
+    ok 44 (unnamed assert)
+    ok 45 (unnamed assert)
+    ok 46 (unnamed assert)
+    ok 47 (unnamed assert)
+    ok 48 (unnamed assert)
+    ok 49 (unnamed assert)
+    ok 50 (unnamed assert)
+    ok 51 (unnamed assert)
+    ok 52 (unnamed assert)
+    ok 53 (unnamed assert)
+    ok 54 (unnamed assert)
+    ok 55 (unnamed assert)
+    ok 56 (unnamed assert)
+    ok 57 (unnamed assert)
+    ok 58 (unnamed assert)
+    ok 59 (unnamed assert)
+    ok 60 (unnamed assert)
+    ok 61 (unnamed assert)
+    ok 62 (unnamed assert)
+    ok 63 (unnamed assert)
+    ok 64 (unnamed assert)
+    ok 65 (unnamed assert)
+    ok 66 (unnamed assert)
+    ok 67 (unnamed assert)
+    ok 68 (unnamed assert)
+    ok 69 (unnamed assert)
+    ok 70 (unnamed assert)
+    ok 71 (unnamed assert)
+    ok 72 (unnamed assert)
+    ok 73 (unnamed assert)
+    ok 74 (unnamed assert)
+    ok 75 (unnamed assert)
+    ok 76 (unnamed assert)
+    ok 77 (unnamed assert)
+    ok 78 (unnamed assert)
+    ok 79 (unnamed assert)
+    ok 80 (unnamed assert)
+    ok 81 (unnamed assert)
+    ok 82 (unnamed assert)
+    ok 83 (unnamed assert)
+    ok 84 (unnamed assert)
+    ok 85 (unnamed assert)
+    ok 86 (unnamed assert)
+    ok 87 (unnamed assert)
+    ok 88 (unnamed assert)
+    ok 89 (unnamed assert)
+    ok 90 (unnamed assert)
+    ok 91 (unnamed assert)
+    ok 92 (unnamed assert)
+    ok 93 (unnamed assert)
+    ok 94 (unnamed assert)
+    ok 95 (unnamed assert)
+    ok 96 (unnamed assert)
+    ok 97 (unnamed assert)
+    ok 98 (unnamed assert)
+    ok 99 (unnamed assert)
+    ok 100 (unnamed assert)
+
+    1..100
+    # tests 100
+    # pass  100
+
+    # ok
+
+ok 15 - test/many.js # time=178.435ms
+
+# Subtest: test/max_listeners.js
+    # (anonymous)
+    ok 1 true is truthy
+    # (anonymous)
+    ok 2 true is truthy
+    # (anonymous)
+    ok 3 true is truthy
+    # (anonymous)
+    ok 4 true is truthy
+    # (anonymous)
+    ok 5 true is truthy
+    # (anonymous)
+    ok 6 true is truthy
+    # (anonymous)
+    ok 7 true is truthy
+    # (anonymous)
+    ok 8 true is truthy
+    # (anonymous)
+    ok 9 true is truthy
+    # (anonymous)
+    ok 10 true is truthy
+    # (anonymous)
+    ok 11 true is truthy
+
+    1..11
+    # tests 11
+    # pass  11
+
+    # ok
+
+ok 16 - test/max_listeners.js # time=237.815ms
+
+# Subtest: test/nested-async-plan-noend.js
+    # Harness async test support
+    ok 1 sync child A
+    # sync child B
+    # async grandchild A
+    ok 2 should be truthy
+    # async grandchild B
+    ok 3 should be truthy
+    # async child
+    ok 4 sync grandchild in async child A
+    # sync grandchild in async child B
+    ok 5 should be truthy
+
+    1..5
+    # tests 5
+    # pass  5
+
+    # ok
+
+ok 17 - test/nested-async-plan-noend.js # time=442.177ms
+
+# Subtest: test/nested-sync-noplan-noend.js
+    # Subtest: nested sync test without plan or end
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - nested sync test without plan or end # time=48.122ms
+
+    1..1
+    # time=78.235ms
+ok 18 - test/nested-sync-noplan-noend.js # time=348.216ms
+
+# Subtest: test/nested.js
+    # Subtest: array test
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - array test # time=196.585ms
+
+    1..1
+    # time=228.53ms
+ok 19 - test/nested.js # time=464.169ms
+
+# Subtest: test/nested2.js
+    # (anonymous)
+    # setup
+    ok 1 called once
+    # teardown
+
+    1..1
+    # tests 1
+    # pass  1
+
+    # ok
+
+ok 20 - test/nested2.js # time=157.486ms
+
+# Subtest: test/no_callback.js
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 21 - test/no_callback.js # SKIP No tests found
+
+# Subtest: test/onFinish.js
+    # Subtest: on finish
+        1..1
+    # dummy test
+        ok 1 - tape ended
+    ok 1 - on finish # time=20.362ms
+
+    1..1
+    # time=60.283ms
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 22 - test/onFinish.js # time=259.238ms
+
+# Subtest: test/only-twice.js
+    # Subtest: only twice error
+        ok 1 - expected to throw
+        1..1
+    ok 1 - only twice error # time=13.876ms
+
+    1..1
+    # time=39.147ms
+ok 23 - test/only-twice.js # time=271.637ms
+
+# Subtest: test/only.js
+    # Subtest: tape only test
+        ok 1 - should be equivalent
+        ok 2 - should be equivalent
+        1..2
+    ok 1 - tape only test # time=23.303ms
+
+    1..1
+    # time=74.23ms
+ok 24 - test/only.js # time=270.522ms
+
+# Subtest: test/only2.js
+    # only2 test 2
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 25 - test/only2.js # SKIP No tests found
+
+# Subtest: test/only3.js
+    # only3 test 2
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 26 - test/only3.js # SKIP No tests found
+
+# Subtest: test/only4.js
+    # only4 duplicate test name
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 27 - test/only4.js # SKIP No tests found
+
+# Subtest: test/only5.js
+    # only5 duplicate test name
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 28 - test/only5.js # SKIP No tests found
+
+# Subtest: test/order.js
+    # (anonymous)
+    ok 1 should be equal
+    # (anonymous)
+    ok 2 should be equal
+    # (anonymous)
+    ok 3 should be equal
+
+    1..3
+    # tests 3
+    # pass  3
+
+    # ok
+
+ok 29 - test/order.js # time=241.46ms
+
+# Subtest: test/plan_optional.js
+    # plan should be optional
+    ok 1 no plan here
+    # no plan async
+    ok 2 ok
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 30 - test/plan_optional.js # time=220.947ms
+
+# Subtest: test/require.js
+    # Subtest: requiring a single module
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+    ok 1 - requiring a single module # time=159.154ms
+
+    # Subtest: requiring multiple modules
+        1..2
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+    ok 2 - requiring multiple modules # time=153.988ms
+
+    1..2
+    # time=347.293ms
+ok 31 - test/require.js # time=551.608ms
+
+# Subtest: test/skip.js
+    # Subtest: test SKIP comment
+        1..1
+    # SKIP skip this
+    # skip subtest
+    # SKIP skip this
+        ok 1 - should be equal
+    ok 1 - test SKIP comment # time=27.318ms
+
+    1..1
+    # time=50.314ms
+
+    1..0
+    # tests 0
+    # pass  0
+
+    # ok
+
+ok 32 - test/skip.js # time=284.009ms
+
+# Subtest: test/stackTrace.js
+    # Subtest: preserves stack trace with newlines
+        1..3
+        ok 1 - should be equivalent
+        ok 2 - should be equal
+        ok 3 - should be equivalent
+    ok 1 - preserves stack trace with newlines # time=37.446ms
+
+    1..1
+    # time=69.597ms
+ok 33 - test/stackTrace.js # time=284.495ms
+
+# Subtest: test/subcount.js
+    # parent test
+    # first child
+    ok 1 pass first child
+    # (anonymous)
+    ok 2 pass second child
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 34 - test/subcount.js # time=119.133ms
+
+# Subtest: test/subtest_and_async.js
+    # master test
+    # subtest 1
+    ok 1 subtest 1 before async call
+    ok 2 subtest 1 in async callback
+    # subtest 2
+    ok 3 subtest 2 before async call
+    ok 4 subtest 2 in async callback
+
+    1..4
+    # tests 4
+    # pass  4
+
+    # ok
+
+ok 35 - test/subtest_and_async.js # time=120.817ms
+
+# Subtest: test/subtest_plan.js
+    # parent
+    ok 1 assertion in parent
+    # first child
+    ok 2 pass first child
+    # second child
+    ok 3 first child ran first
+    ok 4 pass second child
+
+    1..4
+    # tests 4
+    # pass  4
+
+    # ok
+
+ok 36 - test/subtest_plan.js # time=118.73ms
+
+# Subtest: test/throws.js
+    # Subtest: failures
+        1..1
+        ok 1 - should be equal
+    ok 1 - failures # time=34.252ms
+
+    1..1
+    # time=64.447ms
+ok 37 - test/throws.js # time=308.954ms
+
+# Subtest: test/timeout.js
+    # timeout
+    ok 1 this should run
+    # should still run
+    ok 2 should be equal
+
+    1..2
+    # tests 2
+    # pass  2
+
+    # ok
+
+ok 38 - test/timeout.js # time=214.439ms
+
+# Subtest: test/timeoutAfter.js
+    # Subtest: timeoutAfter test
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - timeoutAfter test # time=27.089ms
+
+    1..1
+    # time=61.747ms
+ok 39 - test/timeoutAfter.js # time=294.595ms
+
+# Subtest: test/too_many.js
+    # Subtest: array test
+        1..1
+        ok 1 - should be equivalent
+    ok 1 - array test # time=48.833ms
+
+    1..1
+    # time=83.975ms
+ok 40 - test/too_many.js # time=341.775ms
+
+# Subtest: test/undef.js
+    # Subtest: array test
+        1..1
+        ok 1 - should be equal
+    ok 1 - array test # time=24.491ms
+
+    1..1
+    # time=54.789ms
+ok 41 - test/undef.js # time=267.757ms
+
+1..41
+# time=11199.738ms

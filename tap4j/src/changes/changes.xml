@@ -10,6 +10,9 @@
             <action dev="kinow" type="fix" issue="41" due-to="Jakub Podlesak">
                 An empty plan, 1..0, causes parser error when it occurs right after another plan
             </action>
+            <action dev="kinow" type="add" issue="43">
+                 Update dependencies before the next release
+            </action>
         </release>
         <release version="4.1.2" date="2015-10-11" description="4.1.2 release">
             <action dev="kinow" type="add" issue="38" due-to="Chapman Flack">

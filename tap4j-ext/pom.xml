@@ -30,7 +30,7 @@
     <parent>
         <artifactId>tap4j-parent</artifactId>
         <relativePath>../pom.xml</relativePath>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.2.1</version>
         <groupId>org.tap4j</groupId>
     </parent>
     

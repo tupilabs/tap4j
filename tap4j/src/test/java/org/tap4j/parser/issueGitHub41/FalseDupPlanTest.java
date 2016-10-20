@@ -40,7 +40,7 @@ import org.tap4j.parser.issue3406964.TestDirectives;
  * TAP Streams with a 1..0 plan could fail, complaining about a duplicate
  * TAP plan found.
  *
- * @since 4.1.3
+ * @since 4.2.1
  */
 public class FalseDupPlanTest {
 

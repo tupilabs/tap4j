@@ -23,31 +23,74 @@
   THE SOFTWARE.
 -->
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
-<!-- commons lang customization of default Checkstyle behavior -->
+<!--
+
+  Checkstyle configuration that checks the sun coding conventions from:
+
+    - the Java Language Specification at
+      http://java.sun.com/docs/books/jls/second_edition/html/index.html
+
+    - the Sun Code Conventions at http://java.sun.com/docs/codeconv/
+
+    - the Javadoc guidelines at
+      http://java.sun.com/j2se/javadoc/writingdoccomments/index.html
+
+    - the JDK Api documentation http://java.sun.com/j2se/docs/api/index.html
+
+    - some best practices
+
+  Checkstyle is very configurable. Be sure to read the documentation at
+  http://checkstyle.sf.net (or in your downloaded distribution).
+
+  Most Checks are configurable, be sure to consult the documentation.
+
+  To completely disable a check, just comment it out or delete it from the file.
+
+  Finally, it is worth reading the documentation.
+
+-->
+
 <module name="Checker">
-  <property name="localeLanguage" value="en"/>
-  <module name="JavadocPackage">
-    <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
-    <property name="allowLegacy" value="true"/>
-  </module>
-  <module name="FileTabCharacter">
-    <property name="fileExtensions" value="java,xml"/>
-  </module>
-  <module name="TreeWalker">
-    <property name="cacheFile" value="target/cachefile"/>
-    <module name="AvoidStarImport"/>
-    <module name="RedundantImport"/>
-    <module name="UnusedImports"/>
-    <module name="NeedBraces"/>
-    <module name="RedundantThrows">
-      <property name="allowUnchecked" value="true"/>
-    </module>
-    <module name="JavadocMethod">
-      <property name="allowUndeclaredRTE" value="true"/>
-    </module>
- </module>
-</module>
+    <!--
+        If you set the basedir property below, then all reported file
+        names will be relative to the specified directory. See
+        http://checkstyle.sourceforge.net/5.x/config.html#Checker
 
+        <property name="basedir" value="${basedir}"/>
+    -->
+
+    <!-- Checks that each Java package has a Javadoc file used for commenting. -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage       -->
+    <module name="JavadocPackage">
+      <property name="allowLegacy" value="true"/>
+    </module>
+
+    <!-- Checks whether files end with a new line.                        -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- Checks that property files contain the same keys.         -->
+    <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
+    <module name="Translation"/>
+
+    <module name="FileLength"/>
+
+    <!-- Following interprets the header file as regular expressions. -->
+    <!-- <module name="RegexpHeader"/>                                -->
+
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line. -->
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="SuppressionCommentFilter"/>
+
+</module>

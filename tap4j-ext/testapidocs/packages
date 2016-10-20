@@ -1,4 +1,4 @@
 org.tap4j.ext.junit
-org.tap4j.ext.jmeter
 org.tap4j.ext.testng
 org.tap4j.ext.testng.issue3167058
+org.tap4j.ext.jmeter

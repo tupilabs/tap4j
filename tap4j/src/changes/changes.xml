@@ -6,16 +6,16 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
-		<release version="4.1.2" date="2015-10-11" description="4.1.2 release">
-    		<action dev="jcflack" type="add" issue="38">
-    			Clear up handling of character encodings in Consumer and Producer.
-    		</action>
-    	</release>
-    	<release version="4.1.1" date="2015-09-30" description="4.1.1 bugfix release">
-    		<action dev="kinow" type="fix" issue="37">
-    			Not able to find SKIP directive
-    		</action>
-    	</release>
+        <release version="4.1.2" date="2015-10-11" description="4.1.2 release">
+            <action dev="jcflack" type="add" issue="38">
+                Clear up handling of character encodings in Consumer and Producer.
+            </action>
+        </release>
+        <release version="4.1.1" date="2015-09-30" description="4.1.1 bugfix release">
+            <action dev="kinow" type="fix" issue="37">
+                Not able to find SKIP directive
+            </action>
+        </release>
         <release version="4.1" date="2014-08-23" description="4.1 release">
             <action dev="kinow" type="fix" issue="32">
                 Error parsing test result description with # symbol in TAP.

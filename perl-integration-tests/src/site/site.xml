@@ -27,7 +27,7 @@
   <body>
 
     <menu name="Perl Compatibility">
-    	<item name="Introduction" href="index.html"/>
+        <item name="Introduction" href="index.html"/>
     </menu>
 
     <menu ref="parent" />

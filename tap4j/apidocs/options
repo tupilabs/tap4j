@@ -1,14 +1,14 @@
 -classpath
-'/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/target/classes:/home/kinow/.m2/repository/org/yaml/snakeyaml/1.11/snakeyaml-1.11.jar'
+'/home/kinow/.m2/repository/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar'
 -encoding
 'UTF-8'
 -protected
 -sourcepath
-'/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/src/main/java'
+'/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/src/main/java:/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/target/generated-sources/annotations'
 -Xdoclint:none
 -author
 -bottom
-'Copyright &#169; 2010-2016 <a href="http://www.tupilabs.com">TupiLabs</a>. All Rights Reserved.'
+'Copyright &#169; 2010&#x2013;2016 <a href="http://www.tupilabs.com">TupiLabs</a>. All rights reserved.'
 -charset
 'UTF-8'
 -d
@@ -16,10 +16,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'tap4j Test Anything Protocol for Java 4.2.0 API'
+'tap4j Test Anything Protocol for Java 4.2.1 API'
 -linkoffline
 'http://docs.oracle.com/javase/6/docs/api' '/home/kinow/Development/java/workspace/tap4j/target/checkout/tap4j/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'tap4j Test Anything Protocol for Java 4.2.0 API'
+'tap4j Test Anything Protocol for Java 4.2.1 API'

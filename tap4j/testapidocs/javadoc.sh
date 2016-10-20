@@ -1,1 +1,1 @@
-/home/kinow/Development/java/jdk1.8.0_66/jre/../bin/javadoc @options @packages
+/usr/lib/jvm/java-8-oracle/jre/../bin/javadoc @options @packages

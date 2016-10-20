@@ -254,7 +254,7 @@ public class Tap13Parser implements Parser {
             if (state.isInYaml()) {
 
                 boolean yamlEndMarkReached = trimmedLine.equals("...") && (
-                           tapLine.equals(state.getYamlIndentation() + "...") 
+                           tapLine.equals(state.getYamlIndentation() + "...")
                         || text.getIndentation() < state.getYamlIndentation().length());
 
                 if (yamlEndMarkReached) {
@@ -328,14 +328,20 @@ public class Tap13Parser implements Parser {
 
         } else if (tapElement instanceof Plan) {
 
+            Plan currentPlan = (Plan) tapElement;
+
             if (state.getTestSet().getPlan() != null) {
-                throw new ParserException("Duplicated TAP Plan found.");
+                if (currentPlan.getInitialTestNumber() != 1 || currentPlan.getLastTestNumber() != 0) {
+                    throw new ParserException("Duplicated TAP Plan found.");
+                }
+            } else {
+                state.getTestSet().setPlan(currentPlan);
             }
+
             if (state.getTestSet().getTestResults().size() <= 0
-                && state.getTestSet().getBailOuts().size() <= 0) {
+                    && state.getTestSet().getBailOuts().size() <= 0) {
                 state.setPlanBeforeTestResult(true);
             }
-            state.getTestSet().setPlan((Plan) tapElement);
 
         } else if (tapElement instanceof TestResult) {
 

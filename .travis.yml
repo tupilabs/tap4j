@@ -4,8 +4,7 @@ jdk:
   - oraclejdk7
   - openjdk7
 
-script:
-- mvn clean test
+install: "mvn clean test"
 
 after_success:
 - mvn clean cobertura:cobertura coveralls:report

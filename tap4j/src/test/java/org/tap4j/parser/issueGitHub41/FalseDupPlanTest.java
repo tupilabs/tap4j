@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.parser.issueFalseDupPlan;
+package org.tap4j.parser.issueGitHub41;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;

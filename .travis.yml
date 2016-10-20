@@ -7,4 +7,4 @@ jdk:
 install: "mvn clean test"
 
 after_success:
-- mvn clean cobertura:cobertura coveralls:report
+- mvn clean cobertura:cobertura org.eluder.coveralls:coveralls-maven-plugin:report

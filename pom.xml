@@ -38,7 +38,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <autoVersionSubmodules>true</autoVersionSubmodules>
-        <java.version>1.6</java.version>
+        <java.version>1.8</java.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
     <modules>

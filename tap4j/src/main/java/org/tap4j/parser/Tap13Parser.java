@@ -48,7 +48,6 @@ import org.tap4j.model.TapElementFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.model.Text;
-
 import org.yaml.snakeyaml.Yaml;
 
 /**
@@ -185,26 +184,16 @@ public class Tap13Parser implements Parser {
             throw new ParserException(
                 "Must have encoding specified if using parseFile");
         }
-        FileInputStream fis = null;
-        InputStreamReader isr = null;
-        try {
-            fis = new FileInputStream(tapFile);
-            isr = new InputStreamReader(fis, decoder);
+        try (
+                FileInputStream fis = new FileInputStream(tapFile);
+                InputStreamReader isr = new InputStreamReader(fis, decoder);
+                ) {
             return parseTapStream(isr);
         } catch (FileNotFoundException e) {
             throw new ParserException("TAP file not found: " + tapFile, e);
-        } finally {
-            try  {
-                if (isr != null) {
-                    isr.close();
-                }
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Failed to close file stream: "
-                        + e.getMessage(), e);
-            }
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Failed to close file stream: " + e.getMessage(), e);
+            throw new ParserException(String.format("Failed to close file stream for file %s: %s: ", tapFile, e.getMessage()), e);
         }
     }
 
@@ -215,9 +204,7 @@ public class Tap13Parser implements Parser {
     public TestSet parseTapStream(Readable tapStream) {
         state = new StreamStatus();
         baseIndentation = Integer.MAX_VALUE;
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(tapStream);
+        try (Scanner scanner = new Scanner(tapStream)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line != null && line.length() > 0) {
@@ -228,10 +215,6 @@ public class Tap13Parser implements Parser {
         } catch (Exception e) {
             throw new ParserException("Error parsing TAP Stream: "
                     + e.getMessage(), e);
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
         }
 
         return state.getTestSet();

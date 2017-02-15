@@ -29,8 +29,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.tap4j.model.TestSet;
 import org.tap4j.representer.Representer;
@@ -43,12 +41,6 @@ import org.tap4j.representer.Tap13Representer;
  * @since 1.0
  */
 public class TapProducer implements Producer {
-
-    /**
-     * Logger.
-     */
-    private static final Logger LOGGER = Logger.getLogger(TapProducer.class
-            .getCanonicalName());
 
     /**
      * Represents the TAP Stream.
@@ -77,16 +69,11 @@ public class TapProducer implements Producer {
      */
     @Override
     public String dump(TestSet testSet) {
-        String dumpData = null;
-
         try {
-            dumpData = this.representer.representData(testSet);
+            return this.representer.representData(testSet);
         } catch (RepresenterException re) {
-            throw new ProducerException("Failed to produce test set dump: "
-                    + re.getMessage(), re);
+            throw new ProducerException(String.format("Failed to produce test set dump: %s", re.getMessage()), re);
         }
-
-        return dumpData;
     }
 
     /**
@@ -95,19 +82,13 @@ public class TapProducer implements Producer {
     @Override
     public void dump(TestSet testSet, Writer writer) {
         String tapStream = null;
-
         try {
             tapStream = this.dump(testSet);
-        } catch (RepresenterException re) {
-            throw new ProducerException("Failed to dump Test Set to writer: "
-                    + re.getMessage(), re);
-        }
-
-        try {
             writer.append(tapStream);
+        } catch (RepresenterException re) {
+            throw new ProducerException(String.format("Failed to dump Test Set to writer: %s", re.getMessage()), re);
         } catch (IOException e) {
-            throw new ProducerException("Failed to dump TAP Stream: "
-                    + e.getMessage(), e);
+            throw new ProducerException(String.format("Failed to dump TAP Stream: %s", e.getMessage()), e);
         }
     }
 
@@ -116,34 +97,17 @@ public class TapProducer implements Producer {
      */
     @Override
     public void dump(TestSet testSet, File output) {
-        FileOutputStream outputStream = null;
-        OutputStreamWriter writer = null;
-        try {
-            Charset charset = null;
-            if (representer instanceof Tap13Representer) {
-                charset = Charset.forName(
-                    ((Tap13Representer) representer).getOptions().getCharset());
-            } else {
-                charset = Charset.defaultCharset();
-            }
-            outputStream = new FileOutputStream(output);
-            writer = new OutputStreamWriter(outputStream, charset.newEncoder());
+        Charset charset = null;
+        if (representer instanceof Tap13Representer) {
+            charset = Charset.forName(((Tap13Representer) representer).getOptions().getCharset());
+        } else {
+            charset = Charset.defaultCharset();
+        }
+
+        try (FileOutputStream outputStream = new FileOutputStream(output); OutputStreamWriter writer = new OutputStreamWriter(outputStream, charset.newEncoder())) {
             this.dump(testSet, writer);
         } catch (IOException e) {
-            throw new ProducerException("Failed to dump TAP Stream: "
-                    + e.getMessage(), e);
-        } finally {
-            try {
-                if (writer != null) {
-                    writer.close();
-                }
-                if (outputStream != null) {
-                    outputStream.close();
-                }
-            } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Failed to close file stream: "
-                        + e.getMessage(), e);
-            }
+            throw new ProducerException(String.format("Failed to dump TAP Stream: %s", e.getMessage()), e);
         }
     }
 

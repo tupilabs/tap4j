@@ -93,6 +93,11 @@ public class Tap13Parser implements Parser {
     private boolean planRequired = true;
 
     /**
+     * Enable subtests.
+     */
+    private boolean enableSubtests = true;
+
+    /**
      * Parser Constructor.
      *
      * A parser constructed this way will enforce that any input should include
@@ -136,6 +141,7 @@ public class Tap13Parser implements Parser {
         } catch (UnsupportedCharsetException uce) {
             throw new ParserException(String.format("Invalid encoding: %s", encoding), uce);
         }
+        this.enableSubtests = enableSubtests;
         this.planRequired = planRequired;
     }
 
@@ -284,7 +290,7 @@ public class Tap13Parser implements Parser {
                 if (lastParentElement instanceof TestResult) {
                     final TestResult lastTestResult = (TestResult) lastParentElement;
                     // whatever test set comes should be attached to parent
-                    if (lastTestResult.getSubtest() == null) {
+                    if (lastTestResult.getSubtest() == null && this.enableSubtests) {
                         lastTestResult.setSubtest(state.getTestSet());
                         state.attachedToParent = true;
                     }
@@ -294,7 +300,7 @@ public class Tap13Parser implements Parser {
                 do {
                     StreamStatus prevState = state;
                     state = states.pop();
-                    if (!prevState.attachedToParent) {
+                    if (!prevState.attachedToParent && this.enableSubtests) {
                         state.looseSubtests = prevState.getTestSet();
                     }
                     // there could be more than one level diff
@@ -348,7 +354,7 @@ public class Tap13Parser implements Parser {
             }
 
             state.getTestSet().addTestResult(testResult);
-            if (state.looseSubtests != null) {
+            if (state.looseSubtests != null && this.enableSubtests) {
                 testResult.setSubtest(state.looseSubtests);
                 state.looseSubtests = null;
             }

@@ -232,7 +232,7 @@ public final class TapTestNGYamlUtil {
                 expected = stringException.substring(
                         index + expectedToken.length(),
                         stringException.lastIndexOf(butWasToken));
-                index = stringException.indexOf(butWasToken);
+                // index = stringException.indexOf(butWasToken);
             }
         }
         return expected;
@@ -889,10 +889,6 @@ public final class TapTestNGYamlUtil {
 
         if (expected == null) {
             expected = "~";
-        }
-
-        if (actual == null) {
-            actual = "~";
         }
 
         yamlish.put("got", actual);

@@ -388,10 +388,8 @@ public class Tap13Parser implements Parser {
      * Called after the rest of the stream has been processed.
      */
     private void onFinish() {
-        if (planRequired) {
-            if (state.getTestSet().getPlan() == null) {
-                throw new ParserException("Missing TAP Plan.");
-            }
+        if (planRequired && state.getTestSet().getPlan() == null) {
+            throw new ParserException("Missing TAP Plan.");
         }
         parseDiagnostics();
 

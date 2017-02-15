@@ -131,7 +131,7 @@ public class TestSet implements Serializable {
      * @return Next test number.
      */
     public int getNextTestNumber() {
-        return (this.testResults.size() + 1);
+        return this.testResults.size() + 1;
     }
 
     /**

@@ -96,7 +96,7 @@ public final class TapElementFactory {
         if (m.matches()) {
             String skip = m.group(8);
             String comment = m.group(10);
-            SkipPlan skipPlan = (skip != null && skip.trim().length() > 0) ? new SkipPlan(skip) : null;
+            SkipPlan skipPlan = skip != null && skip.trim().length() > 0 ? new SkipPlan(skip) : null;
             Plan plan = new Plan(Integer.parseInt(m.group(3)), Integer.parseInt(m.group(5)), skipPlan);
             addComment(plan, comment);
             plan.indentation = m.group(1).length();

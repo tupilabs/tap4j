@@ -64,6 +64,11 @@ public class Tap13Parser implements Parser {
             .getCanonicalName());
 
     /**
+     * UTF-8 encoding constant.
+     */
+    private static final String UTF8_ENCODING = "UTF-8";
+
+    /**
      * Stack of stream status information bags. Every bag stores state of the parser
      * related to certain indentation level. This is to support subtest feature.
      */
@@ -129,7 +134,7 @@ public class Tap13Parser implements Parser {
                 this.decoder = Charset.forName(encoding).newDecoder();
             }
         } catch (UnsupportedCharsetException uce) {
-            throw new ParserException("Invalid encoding: " + encoding, uce);
+            throw new ParserException(String.format("Invalid encoding: %s", encoding), uce);
         }
         this.planRequired = planRequired;
     }
@@ -143,7 +148,7 @@ public class Tap13Parser implements Parser {
      * @param enableSubtests Whether subtests are enabled or not
      */
     public Tap13Parser(boolean enableSubtests) {
-        this("UTF-8", enableSubtests);
+        this(UTF8_ENCODING, enableSubtests);
     }
 
     /**
@@ -154,7 +159,7 @@ public class Tap13Parser implements Parser {
      * recognize subtests.
      */
     public Tap13Parser() {
-        this("UTF-8", false);
+        this(UTF8_ENCODING, false);
     }
 
     /**
@@ -192,8 +197,9 @@ public class Tap13Parser implements Parser {
         } catch (FileNotFoundException e) {
             throw new ParserException("TAP file not found: " + tapFile, e);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to close file stream: " + e.getMessage(), e);
-            throw new ParserException(String.format("Failed to close file stream for file %s: %s: ", tapFile, e.getMessage()), e);
+            LOGGER.log(Level.SEVERE, String.format("Failed to close file stream: %s", e.getMessage()), e);
+            throw new ParserException(String.format("Failed to close file stream for file %s: %s: ",
+                    tapFile, e.getMessage()), e);
         }
     }
 
@@ -213,8 +219,7 @@ public class Tap13Parser implements Parser {
             }
             onFinish();
         } catch (Exception e) {
-            throw new ParserException("Error parsing TAP Stream: "
-                    + e.getMessage(), e);
+            throw new ParserException(String.format("Error parsing TAP Stream: %s", e.getMessage()), e);
         }
 
         return state.getTestSet();
@@ -250,8 +255,8 @@ public class Tap13Parser implements Parser {
             } else {
                 if (trimmedLine.equals("---")) {
                     if (text.getIndentation() < baseIndentation) {
-                        throw new ParserException("Invalid indentation. "
-                                    + "Check your TAP Stream. Line: " + tapLine);
+                        throw new ParserException(String.format("Invalid indentation. Check your TAP Stream. Line: %s",
+                                tapLine));
                     }
                     state.setInYaml(true);
                     state.setYamlIndentation(text.getIndentationString());
@@ -413,9 +418,8 @@ public class Tap13Parser implements Parser {
                         .load(state.getDiagnosticBuffer().toString());
                 state.getLastParsedElement().setDiagnostic(metaIterable);
             } catch (Exception ex) {
-                throw new ParserException("Error parsing YAML ["
-                        + state.getDiagnosticBuffer().toString() + "]: "
-                        + ex.getMessage(), ex);
+                throw new ParserException(String.format("Error parsing YAML [%s]: %s",
+                        state.getDiagnosticBuffer().toString(), ex.getMessage()), ex);
             }
             this.state.getDiagnosticBuffer().setLength(0);
         }

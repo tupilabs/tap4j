@@ -13,7 +13,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -122,54 +122,33 @@ public class JmeterResultParser {
     }
 
     /**
-     * @param file
-     * @return
+     * @param file xml file
+     * @return the list of results
      * @throws FileNotFoundException
      * @throws JAXBException
      * @throws IOException
      */
     private List<AbstractSample> getResultList(File file) {
-        TestResults results = new TestResults();
-        InputStream inputStream = null;
-        Reader reader = null;
-        try {
-            inputStream = new FileInputStream(file);
-            reader = new InputStreamReader(inputStream, charset);
-
-            JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            results = (TestResults) unmarshaller.unmarshal(reader);
-
+        try (InputStream inputStream = new FileInputStream(file); Reader reader = new InputStreamReader(inputStream, charset)) {
+            final JAXBContext jc = JAXBContext.newInstance(ObjectFactory.class);
+            final Unmarshaller unmarshaller = jc.createUnmarshaller();
+            final TestResults results = (TestResults) unmarshaller.unmarshal(reader);
+            if (results == null) {
+                return Collections.emptyList();
+            }
+            return results.getHttpSampleOrSample();
         } catch (JAXBException jAXBException) {
             throw new ParserException("Exception on parse xml", jAXBException);
         } catch (FileNotFoundException fileNotFoundException) {
-            throw new ParserException("XML file not found: " + file, fileNotFoundException);
-        }
-
-        try {
-            if (reader != null) {
-                reader.close();
-            }
-            if (inputStream != null) {
-                inputStream.close();
-            }
+            throw new ParserException(String.format("XML file not found: %s", file.getAbsolutePath()), fileNotFoundException);
         } catch (IOException e) {
-            throw new ParserException("Error IOException: " + e.getMessage(), e);
+            throw new ParserException(String.format("Error IOException: %s", e.getMessage()), e);
         }
-
-        List<AbstractSample> sampleResultList = null;
-        if (results == null) {
-            sampleResultList = new ArrayList<AbstractSample>();
-        } else {
-            sampleResultList = results.getHttpSampleOrSample();
-        }
-
-        return sampleResultList;
     }
 
     /**
-     * @param file
-     * @param testSet
+     * @param file xml file
+     * @param testSet TAP Test Set
      * @throws UnsupportedEncodingException
      * @throws FileNotFoundException
      * @throws IOException
@@ -188,9 +167,9 @@ public class JmeterResultParser {
             tapProducer.dump(testSet, out);
             out.close();
         } catch (FileNotFoundException fileNotFoundException) {
-            throw new ParserException("TAP file not found: " + tapFileName, fileNotFoundException);
+            throw new ParserException(String.format("TAP file not found: %s", tapFileName), fileNotFoundException);
         } catch (IOException e) {
-            throw new ParserException("Error IOException: " + e.getMessage(), e);
+            throw new ParserException(String.format("Error IOException: %s", e.getMessage()), e);
         }
 
     }

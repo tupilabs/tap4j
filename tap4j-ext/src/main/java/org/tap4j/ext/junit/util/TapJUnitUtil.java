@@ -46,12 +46,6 @@ import org.yaml.snakeyaml.DumperOptions.LineBreak;
  */
 public final class TapJUnitUtil {
     
-    /**
-     * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
-     */
-    public static final SimpleDateFormat ISO_8061_DATE_FORMAT = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss");
-
     public static final String LINE_SEPARATOR = LineBreak.UNIX.getString();
 
     /**
@@ -322,8 +316,9 @@ public final class TapJUnitUtil {
      */
     public static String getDatetime() {
         long currentTimeMillis = System.currentTimeMillis();
-        Date date = new Date(currentTimeMillis);
-        return ISO_8061_DATE_FORMAT.format(date);
+        final Date date = new Date(currentTimeMillis);
+        // ISO-8061 for YAMLish diagnostic
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
     }
 
     /**

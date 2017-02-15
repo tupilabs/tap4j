@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -60,12 +61,6 @@ public final class TapTestNGYamlUtil {
      * Default number of spaces.
      */
     private static final int EXTRA_SPACE = 3;
-
-    /**
-     * Date Format used to format a datetime in ISO-8061 for YAMLish diagnostic.
-     */
-    public static final SimpleDateFormat ISO_8061_DATE_FORMAT = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss");
 
     public static final String LINE_SEPARATOR = LineBreak.UNIX.getString();
 
@@ -114,7 +109,8 @@ public final class TapTestNGYamlUtil {
     public static String getDatetime(ITestResult testNgTestResult) {
         long ms = testNgTestResult.getStartMillis();
         Date date = new Date(ms);
-        return ISO_8061_DATE_FORMAT.format(date);
+        // ISO-8061 for YAMLish diagnostic
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
     }
 
     /**
@@ -539,11 +535,12 @@ public final class TapTestNGYamlUtil {
         if (mg.size() > 0) {
             result.append(sp2).append("metaGroups: { ");
             boolean first = true;
-            for (String group : mg.keySet()) {
+            for (Entry<String, List<String>> entry : mg.entrySet()) {
+                String group = entry.getKey();
                 if (!first) {
                     result.append(", ");
                 }
-                result.append(group).append(": [ ").append(join(mg.get(group)))
+                result.append(group).append(": [ ").append(join(entry.getValue()))
                         .append(" ] ");
                 first = false;
             }

@@ -29,7 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import org.tap4j.ext.testng.util.TapTestNGUtil;
 import org.tap4j.model.Plan;
@@ -158,12 +158,10 @@ abstract class TapListener extends TestListenerAdapter {
             testResultsForThisClass.add(testResult);
         }
 
-        Set<Class<?>> keySet = testResultsPerClass.keySet();
-
-        for (Class<?> clazz : keySet) {
+        for (Entry<Class<?>, List<ITestResult>> entry : testResultsPerClass.entrySet()) {
             TestSet testSet = new TestSet();
 
-            List<ITestResult> testResults = testResultsPerClass.get(clazz);
+            List<ITestResult> testResults = entry.getValue();
 
             testSet.setPlan(new Plan(testResults.size()));
 
@@ -175,7 +173,7 @@ abstract class TapListener extends TestListenerAdapter {
             }
 
             File output = new File(testContext.getOutputDirectory(),
-                    clazz.getName() + ".tap");
+                    entry.getKey().getName() + ".tap");
             if (!output.getParentFile().exists()) {
                 output.getParentFile().mkdirs();
             }
@@ -205,12 +203,10 @@ abstract class TapListener extends TestListenerAdapter {
             testResultsForThisMethod.add(testResult);
         }
 
-        Set<ITestNGMethod> keySet = testResultsPerMethod.keySet();
-
-        for (ITestNGMethod method : keySet) {
+        for (Entry<ITestNGMethod, List<ITestResult>> entry : testResultsPerMethod.entrySet()) {
             TestSet testSet = new TestSet();
 
-            List<ITestResult> testResults = testResultsPerMethod.get(method);
+            List<ITestResult> testResults = entry.getValue();
             testSet.setPlan(new Plan(testResults.size()));
 
             for (ITestResult testResult : testResults) {
@@ -220,10 +216,10 @@ abstract class TapListener extends TestListenerAdapter {
                 testSet.addTestResult(tapTestResult);
             }
 
-            File output = new File(testContext.getOutputDirectory(), method
+            File output = new File(testContext.getOutputDirectory(), entry.getKey()
                     .getTestClass().getName()
                     + "#"
-                    + method.getMethodName()
+                    + entry.getKey().getMethodName()
                     + ".tap");
             if (!output.getParentFile().exists()) {
                 output.getParentFile().mkdirs();

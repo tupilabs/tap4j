@@ -239,9 +239,12 @@ public class Tap13Parser implements Parser {
     /**
      * Parse a TAP line.
      *
-     * @param tapLine TAP line
+     * @param tapLineOrig TAP line
      */
-    public void parseLine(String tapLine) {
+    public void parseLine(String tapLineOrig) {
+
+        // filter out cursor related control sequences ESC[25?l and ESC[25?h
+        String tapLine = tapLineOrig.replaceAll("\u001B\\[\\?25[lh]", "");
 
         TapElement tapElement = TapElementFactory.createTapElement(tapLine);
 

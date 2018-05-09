@@ -343,7 +343,7 @@ public class Tap13Parser implements Parser {
 
             final TestResult testResult = (TestResult) tapElement;
             if (testResult.getTestNumber() == 0) {
-                if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false) {
+                if (state.getTestSet().getPlan() != null && !state.isPlanBeforeTestResult()) {
                     return; // done testing mark
                 }
                 if (state.getTestSet().getPlan() != null &&

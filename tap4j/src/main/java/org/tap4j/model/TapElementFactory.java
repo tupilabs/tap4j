@@ -115,22 +115,22 @@ public final class TapElementFactory {
 
         m = Patterns.TEST_RESULT_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            String testNumberText = m.group(4);
+            String testNumberText = m.group(3);
             int testNumber = 0;
-            if (testNumberText != null && testNumberText.trim().equals("") == false) {
+            if (testNumberText != null && !testNumberText.trim().equals("")) {
                 testNumber = Integer.parseInt(testNumberText);
             }
-            TestResult testResult = new TestResult(StatusValues.get(m.group(3)), testNumber);
-            String comment = m.group(10);
+            TestResult testResult = new TestResult(StatusValues.get(m.group(2)), testNumber);
+            String comment = m.group(9);
             if (comment != null && comment.trim().length() > 0) {
                 final Comment c = new Comment(comment, true);
                 testResult.setComment(c);
                 testResult.addComment(c);
             }
-            testResult.setDescription(m.group(5));
-            DirectiveValues directive = DirectiveValues.get(m.group(7));
+            testResult.setDescription(m.group(4));
+            DirectiveValues directive = DirectiveValues.get(m.group(6));
             if (directive != null) {
-                testResult.setDirective(new Directive(directive, m.group(8)));
+                testResult.setDirective(new Directive(directive, m.group(7)));
             }
             testResult.indentation = m.group(1).length();
             return testResult;

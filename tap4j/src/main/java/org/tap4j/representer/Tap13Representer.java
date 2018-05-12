@@ -127,6 +127,13 @@ public class Tap13Representer implements Representer {
      * @param testResult TAP test result
      */
     protected void printTestResult(PrintWriter pw, TestResult testResult) {
+        if (testResult.getSubtest() != null) {
+            int indent = this.options.getIndent();
+            int spaces = this.options.getSpaces();
+            this.options.setIndent(indent + spaces);
+            pw.append(this.representData(testResult.getSubtest()));
+            this.options.setIndent(indent);
+        }
         printFiller(pw);
         pw.append(testResult.getStatus().toString());
         pw.append(' ' + Integer.toString(testResult.getTestNumber()));
@@ -155,13 +162,6 @@ public class Tap13Representer implements Representer {
         }
         printDiagnostic(pw, testResult);
         pw.append(LINE_SEPARATOR);
-        if (testResult.getSubtest() != null) {
-            int indent = this.options.getIndent();
-            int spaces = this.options.getSpaces();
-            this.options.setIndent(indent + spaces);
-            pw.append(this.representData(testResult.getSubtest()));
-            this.options.setIndent(indent);
-        }
     }
 
     /**

@@ -1,10 +1,6 @@
 TAP version 13
 1..2
   ---
-    datetime: 20100101T000000
-  ...
-ok 1 - someDummyTest
-  ---
     datetime: 20100101T000002
   ...
   1..5
@@ -13,9 +9,13 @@ ok 1 - someDummyTest
   ok
   ok
   ok
-ok 2 - anotherDummyTest
+ok 1 - someDummyTest
   ---
     datetime: 20100101T000005
   ...
   1..1
   ok
+ok 2 - anotherDummyTest
+---
+  datetime: 20100101T000000
+...

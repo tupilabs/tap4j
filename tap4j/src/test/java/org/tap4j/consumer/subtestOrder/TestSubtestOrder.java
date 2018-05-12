@@ -21,55 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.consumer.issue3504508;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
+package org.tap4j.consumer.subtestOrder;
 
 import org.junit.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
-import org.tap4j.parser.Tap13Parser;
-import org.tap4j.producer.Producer;
-import org.tap4j.producer.TapProducer;
+import org.tap4j.producer.TapProducerFactory;
+
+import java.io.File;
+
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for subtests.
+ * Tests for correct subtests order.
  *
  * @since 0.1
  */
-public class TestIssue3504508 extends BaseTapTest {
-
-    @Test
-    public void testTapConsumer() {
-        final TestSet testSet = getTestSet(new Tap13Parser(/* enable subtests*/ true), "/org/tap4j/consumer/issue3504508/sample.tap");
-        assertTrue(testSet.getTestResult(1).getSubtest() == null);
-        assertTrue(testSet.getTestResult(2).getSubtest()
-                .getTestResult(2).getSubtest() != null);
-        assertTrue(testSet.getTestResults().size() == 3);
-    }
-
+public class TestSubtestOrder extends BaseTapTest {
     @Test
     public void testProducingSubtests() {
-        final String expected = "1..3\n"
-                + "ok 1 - First test\n"
-                + "    1..2\n"
-                + "    ok 1 - This is a subtest\n"
-                + "        1..2\n"
-                + "        ok 1 - This is a subtest\n"
-                + "        ok 2 - So is this\n"
-                + "    ok 2 - So is this\n"
-                + "ok 2 - An example subtest\n"
-                + "ok 3 - Third test\n";
         final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
-        final TestSet testSet = consumer.load(new File(TestIssue3504508.class
-                .getResource("/org/tap4j/consumer/issue3504508/sample.tap").getFile()));
-        final Producer producer = new TapProducer();
-        assertEquals(expected, producer.dump(testSet));
+        final TestSet testSet = consumer.load(new File(TestSubtestOrder.class
+                .getResource("/org/tap4j/consumer/subtestOrder/subtest.tap").getFile()));
+        String expected = "1..2\n"
+                + "ok 1 - First test\n"
+                + "    1..1\n"
+                + "        1..1\n"
+                + "        ok 1 - Internal subtest subtest\n"
+                + "    ok 1 - Internal subtest\n"
+                + "ok 2 - Some subtest\n";
+        assertEquals(expected, TapProducerFactory.makeTap13Producer().dump(testSet));
+        assertNotNull(testSet.getTestResult(2).getSubtest());
+        assertNotNull(testSet.getTestResult(2).getSubtest()
+                .getTestResult(1).getSubtest());
     }
 
 }

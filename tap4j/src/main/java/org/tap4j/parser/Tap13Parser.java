@@ -23,6 +23,18 @@
  */
 package org.tap4j.parser;
 
+import org.tap4j.model.BailOut;
+import org.tap4j.model.Comment;
+import org.tap4j.model.Footer;
+import org.tap4j.model.Header;
+import org.tap4j.model.Plan;
+import org.tap4j.model.TapElement;
+import org.tap4j.model.TapElementFactory;
+import org.tap4j.model.TestResult;
+import org.tap4j.model.TestSet;
+import org.tap4j.model.Text;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,12 +44,11 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.UnsupportedCharsetException;
-import java.util.*;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.tap4j.model.*;
-import org.yaml.snakeyaml.Yaml;
 
 /**
  * TAP 13 parser.

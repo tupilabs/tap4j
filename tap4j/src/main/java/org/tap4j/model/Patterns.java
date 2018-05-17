@@ -42,17 +42,17 @@ public final class Patterns {
     /**
      * TAP Text Regex.
      */
-    static final String REGEX_TEXT = "((\\s|\\t)*)(.*)";
+    static final String REGEX_TEXT = "(\\s*)(.*)";
 
     /**
      * TAP Header Regex.
      */
-    static final String REGEX_HEADER = "((\\s|\\t)*)?TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
+    static final String REGEX_HEADER = "(\\s*)TAP\\s*version\\s*(\\d+)\\s*(#\\s*(.*))?";
 
     /**
      * TAP Plan Regex.
      */
-    static final String REGEX_PLAN = "((\\s|\\t)*)?(\\d+)(\\.{2})(\\d+)"
+    static final String REGEX_PLAN = "(\\s*)(\\d+)(\\.{2})(\\d+)"
             + "\\s*(#\\s*(SKIP|skip)\\s*([^#]+))?\\s*(#\\s*(.*))?";
 
     /**
@@ -64,17 +64,17 @@ public final class Patterns {
     /**
      * TAP Bail Out! Regex.
      */
-    static final String REGEX_BAIL_OUT = "((\\s|\\t)*)?Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
+    static final String REGEX_BAIL_OUT = "(\\s*)Bail out!\\s*([^#]+)?\\s*(#\\s*(.*))?";
 
     /**
      * TAP Comment Regex.
      */
-    static final String REGEX_COMMENT = "((\\s|\\t)*)?#\\s*(.*)";
+    static final String REGEX_COMMENT = "(\\s*)#\\s*(.*)";
 
     /**
      * TAP Footer Regex.
      */
-    static final String REGEX_FOOTER = "((\\s|\\t)*)?TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
+    static final String REGEX_FOOTER = "(\\s*)TAP\\s*([^#]*)?\\s*(#\\s*(.*))?";
 
     /* -- Patterns -- */
 

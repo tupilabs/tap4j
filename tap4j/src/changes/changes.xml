@@ -6,20 +6,25 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
-        <release version="4.1.4" date="20??-??-??" description="4.1.4 release">
+        <release version="4.3" date="2017-05-19" description="4.3 release">
+            <action dev="kinow" type="fix" issue="50" due-to="Altai-man">
+                Correct subtest placement
+            </action>
+        </release>
+        <release version="4.2.1" date="2016-10-21" description="4.2.1 release">
             <action dev="kinow" type="add" issue="46">
                 Add CNAME
             </action>
+            <action dev="kinow" type="add" issue="44">
+                 Add Travis CI
+            </action>
         </release>
-        <release version="4.1.3" date="2016-10-20" description="4.1.3 release">
+        <release version="4.2.0" date="2016-10-20" description="4.2.0 release">
             <action dev="kinow" type="fix" issue="41" due-to="Jakub Podlesak">
                 An empty plan, 1..0, causes parser error when it occurs right after another plan
             </action>
             <action dev="kinow" type="add" issue="43">
                  Update dependencies before the next release
-            </action>
-            <action dev="kinow" type="add" issue="44">
-                 Add Travis CI
             </action>
         </release>
         <release version="4.1.2" date="2015-10-11" description="4.1.2 release">

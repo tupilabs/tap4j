@@ -18,7 +18,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tap4j</groupId>
 	<artifactId>tap4j-parent</artifactId>
-	<version>4.3</version>
+	<version>4.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>tap4j parent</name>
 	<description>tap4j parent</description>
@@ -101,7 +101,7 @@
 		<connection>scm:git:git://github.com/tupilabs/tap4j.git</connection>
 		<developerConnection>scm:git:git@github.com:tupilabs/tap4j.git</developerConnection>
 		<url>https://github.com/tupilabs/tap4j</url>
-		<tag>tap4j-parent-4.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<site>

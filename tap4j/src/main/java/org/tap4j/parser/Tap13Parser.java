@@ -23,6 +23,18 @@
  */
 package org.tap4j.parser;
 
+import org.tap4j.model.BailOut;
+import org.tap4j.model.Comment;
+import org.tap4j.model.Footer;
+import org.tap4j.model.Header;
+import org.tap4j.model.Plan;
+import org.tap4j.model.TapElement;
+import org.tap4j.model.TapElementFactory;
+import org.tap4j.model.TestResult;
+import org.tap4j.model.TestSet;
+import org.tap4j.model.Text;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,18 +49,6 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.tap4j.model.BailOut;
-import org.tap4j.model.Comment;
-import org.tap4j.model.Footer;
-import org.tap4j.model.Header;
-import org.tap4j.model.Plan;
-import org.tap4j.model.TapElement;
-import org.tap4j.model.TapElementFactory;
-import org.tap4j.model.TestResult;
-import org.tap4j.model.TestSet;
-import org.tap4j.model.Text;
-import org.yaml.snakeyaml.Yaml;
 
 /**
  * TAP 13 parser.
@@ -72,7 +72,7 @@ public class Tap13Parser implements Parser {
      * Stack of stream status information bags. Every bag stores state of the parser
      * related to certain indentation level. This is to support subtest feature.
      */
-    private Stack<StreamStatus> states = new Stack<StreamStatus>();
+    private Stack<StreamStatus> states = new Stack<>();
 
     /**
      * The current state.
@@ -96,6 +96,11 @@ public class Tap13Parser implements Parser {
      * Enable subtests.
      */
     private boolean enableSubtests = true;
+
+    /**
+     * A stack that holds subtests for which we don't know exact parent yet.
+     */
+    private Stack<StreamStatus> subStack = new Stack<>();
 
     /**
      * Parser Constructor.
@@ -280,31 +285,24 @@ public class Tap13Parser implements Parser {
             baseIndentation = indentation;
         }
 
-        if (indentation != state.getIndentationLevel()) { // indentation changed
+        StreamStatus prevState = null;
+        if (indentation != state.getIndentationLevel() && enableSubtests) { // indentation changed
 
             if (indentation > state.getIndentationLevel()) {
-                StreamStatus parentState = state;
+                int prevIndent = state.getIndentationLevel();
                 pushState(indentation); // make room for children
-
-                TapElement lastParentElement = parentState.getLastParsedElement();
-                if (lastParentElement instanceof TestResult) {
-                    final TestResult lastTestResult = (TestResult) lastParentElement;
-                    // whatever test set comes should be attached to parent
-                    if (lastTestResult.getSubtest() == null && this.enableSubtests) {
-                        lastTestResult.setSubtest(state.getTestSet());
-                        state.attachedToParent = true;
-                    }
-                }
+                if (indentation - prevIndent > 4)
+                    subStack.push(state);
             } else {
                 // going down
-                do {
-                    StreamStatus prevState = state;
+                if (states.peek().getIndentationLevel() == indentation) {
+                    prevState = state;
                     state = states.pop();
-                    if (!prevState.attachedToParent && this.enableSubtests) {
-                        state.looseSubtests = prevState.getTestSet();
-                    }
-                    // there could be more than one level diff
-                } while (indentation < state.getIndentationLevel());
+                } else {
+                    state = new StreamStatus();
+                    state.setIndentationLevel(indentation);
+                    subStack.push(state);
+                }
             }
         }
 
@@ -343,7 +341,7 @@ public class Tap13Parser implements Parser {
 
             final TestResult testResult = (TestResult) tapElement;
             if (testResult.getTestNumber() == 0) {
-                if (state.getTestSet().getPlan() != null && state.isPlanBeforeTestResult() == false) {
+                if (state.getTestSet().getPlan() != null && !state.isPlanBeforeTestResult()) {
                     return; // done testing mark
                 }
                 if (state.getTestSet().getPlan() != null &&
@@ -354,9 +352,21 @@ public class Tap13Parser implements Parser {
             }
 
             state.getTestSet().addTestResult(testResult);
-            if (state.looseSubtests != null && this.enableSubtests) {
-                testResult.setSubtest(state.looseSubtests);
-                state.looseSubtests = null;
+
+            if (prevState != null && enableSubtests) {
+                state.getTestSet().getTestResults().get(
+                        state.getTestSet().getNumberOfTestResults() - 1)
+                        .setSubtest(prevState.getTestSet());
+            }
+
+            if (indentation == 0 && enableSubtests) {
+                TestResult currLast = state.getTestSet().getTestResults().get(
+                            state.getTestSet().getNumberOfTestResults() - 1);
+                while (!subStack.empty()) {
+                    StreamStatus nextLevel = subStack.pop();
+                    currLast.setSubtest(nextLevel.getTestSet());
+                    currLast = nextLevel.getTestSet().getTestResults().get(0);
+                }
             }
 
         } else if (tapElement instanceof Footer) {

@@ -1,0 +1,7 @@
+ok 1 - First test
+        ok 1 - Internal subtest subtest
+        1..1
+    ok 1 - Internal subtest
+    1..1
+ok 2 - Some subtest
+1..2

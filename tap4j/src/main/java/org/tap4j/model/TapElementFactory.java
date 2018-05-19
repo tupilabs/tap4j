@@ -71,33 +71,33 @@ public final class TapElementFactory {
 
         m = Patterns.COMMENT_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            Comment comment = new Comment(m.group(3), false);
+            Comment comment = new Comment(m.group(2), false);
             comment.indentation = m.group(1).length();
             return comment;
         }
 
         m = Patterns.HEADER_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            Header header = new Header(Integer.parseInt(m.group(3)));
+            Header header = new Header(Integer.parseInt(m.group(2)));
             header.indentation = m.group(1).length();
-            addComment(header, m.group(5));
+            addComment(header, m.group(4));
             return header;
         }
 
         m = Patterns.FOOTER_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            Footer footer = new Footer(m.group(3));
-            addComment(footer, m.group(5));
+            Footer footer = new Footer(m.group(2));
+            addComment(footer, m.group(4));
             footer.indentation = m.group(1).length();
             return footer;
         }
 
         m = Patterns.PLAN_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            String skip = m.group(8);
-            String comment = m.group(10);
+            String skip = m.group(7);
+            String comment = m.group(9);
             SkipPlan skipPlan = skip != null && skip.trim().length() > 0 ? new SkipPlan(skip) : null;
-            Plan plan = new Plan(Integer.parseInt(m.group(3)), Integer.parseInt(m.group(5)), skipPlan);
+            Plan plan = new Plan(Integer.parseInt(m.group(2)), Integer.parseInt(m.group(4)), skipPlan);
             addComment(plan, comment);
             plan.indentation = m.group(1).length();
             return plan;
@@ -105,8 +105,8 @@ public final class TapElementFactory {
 
         m = Patterns.BAIL_OUT_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            String reason = m.group(3);
-            String comment = m.group(5);
+            String reason = m.group(2);
+            String comment = m.group(4);
             BailOut bailOut = new BailOut(reason);
             addComment(bailOut, comment);
             bailOut.indentation = m.group(1).length();
@@ -115,22 +115,22 @@ public final class TapElementFactory {
 
         m = Patterns.TEST_RESULT_PATTERN.matcher(tapLine);
         if (m.matches()) {
-            String testNumberText = m.group(4);
+            String testNumberText = m.group(3);
             int testNumber = 0;
-            if (testNumberText != null && testNumberText.trim().equals("") == false) {
+            if (testNumberText != null && !testNumberText.trim().equals("")) {
                 testNumber = Integer.parseInt(testNumberText);
             }
-            TestResult testResult = new TestResult(StatusValues.get(m.group(3)), testNumber);
-            String comment = m.group(10);
+            TestResult testResult = new TestResult(StatusValues.get(m.group(2)), testNumber);
+            String comment = m.group(9);
             if (comment != null && comment.trim().length() > 0) {
                 final Comment c = new Comment(comment, true);
                 testResult.setComment(c);
                 testResult.addComment(c);
             }
-            testResult.setDescription(m.group(5));
-            DirectiveValues directive = DirectiveValues.get(m.group(7));
+            testResult.setDescription(m.group(4));
+            DirectiveValues directive = DirectiveValues.get(m.group(6));
             if (directive != null) {
-                testResult.setDirective(new Directive(directive, m.group(8)));
+                testResult.setDirective(new Directive(directive, m.group(7)));
             }
             testResult.indentation = m.group(1).length();
             return testResult;

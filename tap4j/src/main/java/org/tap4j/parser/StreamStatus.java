@@ -82,17 +82,6 @@ public class StreamStatus {
     private final TestSet testSet = new TestSet();
 
     /**
-     * In case sub-tests could not have been attached to parent (as the sub-tests came first)
-     * we need to make sure we make the link as the parent test comes.
-     */
-    protected boolean attachedToParent;
-
-    /**
-     * Stream status test set.
-     */
-    protected TestSet looseSubtests; 
-
-    /**
      * Default constructor.
      */
     public StreamStatus() {

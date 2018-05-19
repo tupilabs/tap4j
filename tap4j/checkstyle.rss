@@ -23,10 +23,10 @@ under the License.
     <link>http://tupilabs.github.io/tap4j/tap4j</link>
     <description>tap4j Test Anything Protocol for Java - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2017 TupiLabs</copyright>
+    <copyright>&#169;2010 - 2018 TupiLabs</copyright>
     <item>
       <title>File: 40,
-             Errors: 2,
+             Errors: 1,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.Representer.java">org/tap4j/representer/Representer.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Comment.java">org/tap4j/model/Comment.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Comment.java">org/tap4j/model/Comment.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.Representer.java">org/tap4j/representer/Representer.java</a>
                 </td>
                 <td>
                   0
@@ -158,6 +158,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Directive.java">org/tap4j/model/Directive.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.util.package-info.java">org/tap4j/util/package-info.java</a>
                 </td>
                 <td>
@@ -186,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Directive.java">org/tap4j/model/Directive.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerImpl.java">org/tap4j/consumer/TapConsumerImpl.java</a>
                 </td>
                 <td>
                   0
@@ -201,20 +215,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.TapJunitRepresenter.java">org/tap4j/representer/TapJunitRepresenter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.consumer.TapConsumerImpl.java">org/tap4j/consumer/TapConsumerImpl.java</a>
                 </td>
                 <td>
                   0
@@ -270,7 +270,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.RepresenterException.java">org/tap4j/representer/RepresenterException.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Patterns.java">org/tap4j/model/Patterns.java</a>
                 </td>
                 <td>
                   0
@@ -284,7 +284,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.Patterns.java">org/tap4j/model/Patterns.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.RepresenterException.java">org/tap4j/representer/RepresenterException.java</a>
                 </td>
                 <td>
                   0
@@ -461,7 +461,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -480,7 +480,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.DumperOptions.java">org/tap4j/representer/DumperOptions.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.TapResult.java">org/tap4j/model/TapResult.java</a>
                 </td>
                 <td>
                   0
@@ -494,7 +494,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.model.TapResult.java">org/tap4j/model/TapResult.java</a>
+                  <a href="http://tupilabs.github.io/tap4j/tap4j/checkstyle.html#org.tap4j.representer.DumperOptions.java">org/tap4j/representer/DumperOptions.java</a>
                 </td>
                 <td>
                   0

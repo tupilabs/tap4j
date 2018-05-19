@@ -2,6 +2,7 @@ org.tap4j
 org.tap4j.consumer
 org.tap4j.consumer.issue3311330
 org.tap4j.consumer.issue3504508
+org.tap4j.consumer.subtestOrder
 org.tap4j.model
 org.tap4j.parser
 org.tap4j.parser.issue3406964

@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests for correct subtests order.
  *
- * @since 0.1
+ * @since 4.2.2
  */
 public class TestSubtestOrder extends BaseTapTest {
     @Test

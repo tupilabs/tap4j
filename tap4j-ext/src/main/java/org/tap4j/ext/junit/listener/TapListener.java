@@ -24,8 +24,11 @@
 package org.tap4j.ext.junit.listener;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -201,39 +204,30 @@ abstract class TapListener extends RunListener {
      * @param result
      */
     protected void generateTapPerClass(Result result) {
-        TestSet testSet = new TestSet();
-        File output;
-        Integer methodsSizeList = 0;
 
-        String className = "";
-        String lastClassName = "";
+        Map<String, List<JUnitTestData>> testsByClass = new HashMap<>();
 
         for (JUnitTestData testMethod : testMethodsList) {
-            className = TapJUnitUtil.extractClassName(testMethod
+            String className = TapJUnitUtil.extractClassName(testMethod
                     .getDescription());
-
-            if (lastClassName != null && lastClassName.trim().length() > 0
-                    && !lastClassName.equals(className)) {
-                testSet.setPlan(new Plan(methodsSizeList));
-                output = new File(System.getProperty("tap.junit.results",
-                        "target/"), lastClassName + ".tap");
-                tapProducer.dump(testSet, output);
-
-                testSet = new TestSet();
-                methodsSizeList = 0;
-            }
-            TestResult tapTestResult = TapJUnitUtil.generateTAPTestResult(
-                    testMethod, 1, isYaml());
-            testSet.addTestResult(tapTestResult);
-            methodsSizeList++;
-
-            lastClassName = className;
+            testsByClass.computeIfAbsent(className, k -> new ArrayList<>())
+                    .add(testMethod);
         }
 
-        testSet.setPlan(new Plan(methodsSizeList));
-        output = new File(System.getProperty("tap.junit.results", "target/"),
-                className + ".tap");
-        tapProducer.dump(testSet, output);
+        testsByClass.forEach((className, testMethods) -> {
+            final TestSet testSet = new TestSet();
+            testSet.setPlan(new Plan(testMethods.size()));
+
+            testMethods.forEach(testMethod -> {
+                TestResult tapTestResult = TapJUnitUtil.generateTAPTestResult(
+                        testMethod, 1, isYaml());
+                testSet.addTestResult(tapTestResult);
+            });
+
+            File output = new File(System.getProperty("tap.junit.results",
+                    "target/"), className + ".tap");
+            tapProducer.dump(testSet, output);
+        });
     }
 
     /**

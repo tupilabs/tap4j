@@ -123,7 +123,7 @@ abstract class TapListener extends RunListener {
     protected void setTestInfo(Description description) {
         JUnitTestData testMethod = new JUnitTestData(false, false);
         testMethod.setDescription(description);
-        if (!testMethodsList.contains(description))
+        if (!testMethodsList.contains(testMethod))
             testMethodsList.add(testMethod);
     }
     

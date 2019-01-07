@@ -55,9 +55,7 @@ public class TestMemento {
         assertFalse(memento.isInYaml());
         assertTrue(memento.getDiagnosticBuffer().toString().length() == 0);
         
-        int currentIndentationLevel = 100;
         int baseIndentationLevel = 50;
-        boolean currentlyInSubtest = true;
         boolean currentlyInYaml = true;
         boolean firstLine = false;
         String lastLine = "nani";

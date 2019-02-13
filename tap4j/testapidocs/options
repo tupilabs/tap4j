@@ -8,7 +8,7 @@
 -Xdoclint:none
 -author
 -bottom
-'Copyright &#169; 2010&#x2013;2018 <a href="http://www.tupilabs.com">TupiLabs</a>. All rights reserved.'
+'Copyright &#169; 2010&#x2013;2019 <a href="http://www.tupilabs.com">TupiLabs</a>. All rights reserved.'
 -charset
 'UTF-8'
 -d
@@ -16,7 +16,7 @@
 -docencoding
 'UTF-8'
 -doctitle
-'tap4j Test Anything Protocol for Java 4.3 Test API'
+'tap4j Test Anything Protocol for Java 4.4.1 Test API'
 -link
 '../apidocs'
 -linkoffline
@@ -24,4 +24,4 @@
 -use
 -version
 -windowtitle
-'tap4j Test Anything Protocol for Java 4.3 Test API'
+'tap4j Test Anything Protocol for Java 4.4.1 Test API'

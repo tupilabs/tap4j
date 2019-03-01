@@ -41,7 +41,7 @@ public interface Producer {
      *
      * @param testSet TestSet
      * @return TAP Stream
-     * @throws ProducerException
+     * @throws ProducerException error writing
      */
     String dump(TestSet testSet);
 
@@ -50,7 +50,7 @@ public interface Producer {
      *
      * @param testSet TestSet
      * @param writer Writer
-     * @throws ProducerException
+     * @throws ProducerException error writing
      */
     void dump(TestSet testSet, Writer writer);
 
@@ -67,7 +67,7 @@ public interface Producer {
      *
      * @param testSet TestSet
      * @param output Output File
-     * @throws ProducerException
+     * @throws ProducerException error writing
      */
     void dump(TestSet testSet, File output);
 

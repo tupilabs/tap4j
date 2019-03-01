@@ -43,7 +43,7 @@ public final class TapElementFactory {
     /**
      * Create a text element. This element is created when none of the other elements have matched the TAP stream line.
      * @param tapLine TAP stream line
-     * @return a {@Text} TAP element
+     * @return a {@link Text} TAP element
      */
     public static Text createTextElement(String tapLine) {
 

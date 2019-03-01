@@ -37,7 +37,7 @@ public interface Representer {
      *
      * @param testSet TestSet
      * @return TestSet represented as String
-     * @throws RepresenterException
+     * @throws RepresenterException error producing representation of a TestSet
      */
     String representData(TestSet testSet);
 

@@ -50,7 +50,7 @@ public interface TapConsumer {
      *
      * @param file TAP File.
      * @return TestSet
-     * @throws TapConsumerException
+     * @throws TapConsumerException error reading
      */
     TestSet load(File file);
 
@@ -59,7 +59,7 @@ public interface TapConsumer {
      *
      * @param tapStream TAP Stream
      * @return TestSet
-     * @throws TapConsumerException
+     * @throws TapConsumerException error reading
      */
     TestSet load(Readable tapStream);
 
@@ -68,7 +68,7 @@ public interface TapConsumer {
      *
      * @param tapStream TAP Stream
      * @return TestSet
-     * @throws TapConsumerException
+     * @throws TapConsumerException error reading
      */
     TestSet load(String tapStream);
 

@@ -36,6 +36,7 @@
 	<modules>
 		<module>tap4j</module>
 		<module>tap4j-ext</module>
+                <module>perl-integration-tests</module>
 	</modules>
 	<url>http://tupilabs.github.io/tap4j</url>
 	<inceptionYear>2010</inceptionYear>

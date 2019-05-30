@@ -291,7 +291,7 @@ public class Tap13Parser implements Parser {
                     state.getDiagnosticBuffer().append('\n');
                 }
             } else {
-                if (trimmedLine.equals("---")) {
+                if (trimmedLine.equals("---") && state.getTestSet().getTestResults().size() > 0) {
                     if (text.getIndentation() < baseIndentation) {
                         throw new ParserException(String.format("Invalid indentation. Check your TAP Stream. Line: %s",
                                 tapLine));

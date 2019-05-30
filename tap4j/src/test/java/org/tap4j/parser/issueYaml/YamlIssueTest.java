@@ -56,4 +56,29 @@ public class YamlIssueTest {
         final List<TestResult> testResults = testSet.getTestResults();
         assertEquals(5823, testResults.size());
     }
+
+
+
+    /**
+     * this one is from https://github.com/tupilabs/tap4j/issues/47
+     */
+    public void testPhantomJsYamlWithoutPrecedingTestLine() {
+        tryPhantomJsYamlWithoutPrecedingTestLine(true);
+        tryPhantomJsYamlWithoutPrecedingTestLine(false);
+    }
+
+    private void tryPhantomJsYamlWithoutPrecedingTestLine(boolean disregardYamlErrors) {
+
+        Tap13Parser tapParser = new Tap13Parser("UTF-8", true, true, disregardYamlErrors);
+
+        TestSet testSet = tapParser.parseFile(new File(YamlIssueTest.class
+                .getResource("/org/tap4j/parser/issueYaml/phantomjs.tap")
+                .getFile()));
+
+        assertNotNull(testSet);
+
+        final List<TestResult> testResults = testSet.getTestResults();
+        assertEquals(3, testResults.size());
+    }
+
 }

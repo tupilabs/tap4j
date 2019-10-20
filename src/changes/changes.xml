@@ -1,5 +1,4 @@
-<document xmlns="http://maven.apache.org/changes/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
     <properties>
         <title>Changes tap4j</title>
@@ -18,7 +17,8 @@
         </release>
         <release version="4.4.1" date="2019-02-13" description="4.4.1 release">
             <action dev="kinow" type="fix" issue="55" due-to="cburroughs">
-                Re-publishing 4.4 due to missing artefacts from Maven central
+                Re-publishing 4.4 due to missing artefacts from
+                Maven central
             </action>
         </release>
         <release version="4.4" date="2018-08-07" description="4.4 release">
@@ -26,10 +26,12 @@
                 Junit TapListener method list bug
             </action>
             <action dev="kinow" type="fix" due-to="benhyland">
-                pull request #53: allow generateTapPerClass to handle out-of-order test methods
+                pull request #53: allow generateTapPerClass to handle
+                out-of-order test methods
             </action>
             <action dev="kinow" type="fix" due-to="benhyland">
-                pull request #52: Fix bug using wrong contains() check in TapListener
+                pull request #52: Fix bug using wrong contains() check in
+                TapListener
             </action>
         </release>
         <release version="4.3" date="2017-05-19" description="4.3 release">
@@ -42,20 +44,22 @@
                 Add CNAME
             </action>
             <action dev="kinow" type="add" issue="44">
-                 Add Travis CI
+                Add Travis CI
             </action>
         </release>
         <release version="4.2.0" date="2016-10-20" description="4.2.0 release">
             <action dev="kinow" type="fix" issue="41" due-to="Jakub Podlesak">
-                An empty plan, 1..0, causes parser error when it occurs right after another plan
+                An empty plan, 1..0, causes parser error when it
+                occurs right after another plan
             </action>
             <action dev="kinow" type="add" issue="43">
-                 Update dependencies before the next release
+                Update dependencies before the next release
             </action>
         </release>
         <release version="4.1.2" date="2015-10-11" description="4.1.2 release">
             <action dev="kinow" type="add" issue="38" due-to="Chapman Flack">
-                Clear up handling of character encodings in Consumer and Producer.
+                Clear up handling of character encodings in Consumer
+                and Producer.
             </action>
         </release>
         <release version="4.1.1" date="2015-09-30" description="4.1.1 bugfix release">
@@ -74,10 +78,12 @@
                 Incorrect issues link in the changes report.
             </action>
             <action dev="kinow" type="fix" issue="23">
-                JUnit TapListeners always report tests as passed on version 4.0.6.
+                JUnit TapListeners always report tests as passed on version
+                4.0.6.
             </action>
             <action dev="kinow" type="fix" issue="29">
-                Create examples for working with extensions (TestNG, JUnit, etc).
+                Create examples for working with extensions (TestNG, JUnit,
+                etc).
             </action>
             <action dev="kinow" type="update">
                 Updated ext project JUnit dependency version from 4.10 to 4.11.
@@ -104,7 +110,8 @@
         </release>
         <release version="4.0.6" date="2013-11-30" description="4.0.6 release">
             <action dev="kinow" type="fix" issue="20" due-to="Andy Campbell">
-                Issue 20 quick fix: Exiting from the YAML block by looking at indentation correctly.
+                Issue 20 quick fix: Exiting from the YAML block by
+                looking at indentation correctly.
             </action>
         </release>
         <release version="4.0.5" date="2013-10-30" description="4.0.5 release">
@@ -112,10 +119,11 @@
                 org.tap4j.ext.testng.listener.*Yaml wont output YAMLish
             </action>
             <action dev="kinow" type="fix" issue="17">
-                Stream with subtests chopping off last yaml diagnostic 
+                Stream with subtests chopping off last yaml diagnostic
             </action>
             <action dev="kinow" type="fix" issue="18">
-                Unable to write tap output due folder structure not being created
+                Unable to write tap output due folder structure not being
+                created
             </action>
         </release>
         <release version="4.0.4" date="2013-09-03" description="4.0.4 release">
@@ -128,12 +136,14 @@
         </release>
         <release version="4.0.3" date="2013-07-20" description="4.0.3 release">
             <action dev="kinow" type="fix" issue="14">
-                Diagnostics are added to all test cases, after one with diagnostics was found
+                Diagnostics are added to all test cases, after one with
+                diagnostics was found
             </action>
         </release>
         <release version="4.0.2" date="2013-07-19" description="4.0.2 release">
             <action dev="kinow" type="fix" issue="12">
-                subtest as first test causes ParserException (Duplicated TAP plan found)
+                subtest as first test causes ParserException (Duplicated TAP
+                plan found)
             </action>
         </release>
         <release version="4.0.1" date="2013-03-16" description="4.0.1 release">
@@ -143,7 +153,8 @@
         </release>
         <release version="4.0" date="2013-01-25" description="4.0 release">
             <action dev="kinow" type="add">
-                Split the producers to have one that outputs only TAP 13 and another with YAMLish.
+                Split the producers to have one that outputs only TAP 13 and another with
+                YAMLish.
             </action>
             <action dev="kinow" type="add">
                 Updated web site. Removing the link to the book too, until it gets updated.
@@ -176,7 +187,7 @@
                 Updated integration with TestNG and JUnit.
             </action>
             <action dev="kinow" type="add">
-                Created specific JUnit runners and listeners to class, 
+                Created specific JUnit runners and listeners to class,
                 method and suite.
             </action>
             <action dev="kinow" type="add">
@@ -186,8 +197,8 @@
                 Split TestNG listeners in class, method and suite listeners.
             </action>
             <action dev="kinow" type="remove">
-                Removed JUnit and TestNG listeners that generated all kinds of 
-                results (class, method and suite). This can be achieved by 
+                Removed JUnit and TestNG listeners that generated all kinds of
+                results (class, method and suite). This can be achieved by
                 combining the other listeners.
             </action>
             <action dev="kinow" type="add">
@@ -220,7 +231,8 @@
                 Added support to comment diagnostics
             </action>
             <action dev="kinow" type="fix" issue="3525603">
-                Bug fix. Whenever the parser found a simple 'ok', like the one added
+                Bug fix. Whenever the parser found a simple 'ok', like the one
+                added
                 by done_testing, it would increase the test number by 1
             </action>
             <action dev="kinow" type="fix" issue="3504508">
@@ -228,7 +240,8 @@
             </action>
             <action dev="kinow" type="add">
                 Code clean up, increasing the quality index measured by Sonar (from 91,
-                to 98.5, FWIW)
+                to
+                98.5, FWIW)
             </action>
         </release>
         <release version="2.0.7" date="2012-03-12" description="First release">

@@ -1,0 +1,7 @@
+   TAP version 13
+   1..2
+   ok 1 
+     ---
+     ok: 1   # the key "ok" is used here just to illustrate there is no ambiguity
+     ...
+   ok 2

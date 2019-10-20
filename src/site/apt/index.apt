@@ -1,13 +1,19 @@
-tap4j-parent
- 
- tap4j is a TAP (<<Test Anything Protocol>>) implementation for Java. It 
- supports JUnit and TestNG too.
+tap4j
+
+ tap4j is an implementation of the TAP - <<Test Anything Protocol>> - for <<Java>>. 
+ TAP is a standard way to document test execution. There are two main roles in 
+ TAP, a producer and a consumer.
+
+ The <<TAP Producer>> is responsible for producing a <TAP Stream>. Usually the TAP Stream is written to a file.
+ The following is an example of a TAP Stream.
 
 +---+
-1..3
+1..4
 ok 1 - Input file opened
-not ok 2 - Parse error
-ok 3 - Read the rest of the file # SKIP due to parse errors
+not ok 2
+ok 3 - Read the rest of the file
+# Yeah, you can comment your TAP Stream
+not ok 4 - Summarized correctly # TODO Not written yet
 +---+
 
  Test your TAP with {{{http://instanttap.appspot.com/}InstantTAP}}.
@@ -33,4 +39,3 @@ ok 3 - Read the rest of the file # SKIP due to parse errors
 
  {{{http://www.jcertif.com}JCertif}} - Make your tests speak TAP, by Bruno P. 
  Kinoshita. September, 2011 - Brazzaville/Congo. 
- 

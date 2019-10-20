@@ -22,47 +22,29 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
  -->
-<project name="tap4j-parent">
-    <bannerLeft>
-        <name>${project.name}</name>
-        <src>images/tap4j-project.png</src>
-        <href>/index.html</href>
-        <alt>tap4j-parent</alt>
-    </bannerLeft>
+<project name="tap4j">
 
-    <publishDate format="dd-MM-yyyy" position="right" />
-    <version position="right" />
+  <body>
 
-    <skin>
-        <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-fluido-skin</artifactId>
-        <version>1.7</version>
-    </skin>
+    <menu name="Reference">
+      <item name="Introduction" href="index.html"/>
+      <item name="Roadmap" href="roadmap.html"/>
+      <item name="FAQ" href="faq.html"/>
+      <item name="Related projects" href="related_projects.html"/>
+      <item name="Download" href="download.html"/>
+    </menu>
+    
+    <menu name="Tutorial">
+      <item name="TAP Consumer" href="tapconsumer.html"/>
+      <item name="TAP Producer" href="tapproducer.html"/>
+      <item name="TAP Directives" href="tapdirectives.html"/>
+      <item name="Subtests" href="subtests.html"/>
+      <item name="YAMLish" href="yamlish.html"/>
+    </menu>
 
-    <custom>
-        <fluidoSkin>
-            <topBarEnabled>true</topBarEnabled>
-            <sideBarEnabled>true</sideBarEnabled>
-            <googleSearch>
-                <sitesearch>${project.url}</sitesearch>
-            </googleSearch>
-        </fluidoSkin>
-    </custom>
+    <menu ref="parent" />
+    <menu ref="modules" />
+    <menu ref="reports" />
 
-    <body>
-        <breadcrumbs>
-            <item name="tupilabs.github.io/tap4j" href="/index.html" />
-        </breadcrumbs>
-
-        <links>
-            <item name="Test Anything Protocol" href="http://www.testanything.org" />
-            <item name="Bruno P. Kinoshita" href="http://www.kinoshita.eti.br" />
-            <item name="TupiLabs" href="http://www.tupilabs.com" />
-        </links>
-
-        <menu ref="modules" />
-        <menu ref="reports" inherit="bottom" />
-
-    </body>
-
+  </body>
 </project>

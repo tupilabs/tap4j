@@ -1,0 +1,260 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>Changes tap4j</title>
+        <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
+    </properties>
+    <body>
+        <release version="5.0" date="2019-10-??" description="5.0 release">
+            <action dev="kinow" type="add" issue="60">
+                Move from multi-module to single-module Maven project
+            </action>
+        </release>
+        <release version="4.4.2" date="2019-05-01" description="4.4.2 release">
+            <action dev="japod" type="fix" issue="47">
+                Error parsing TAP Stream: Invalid indentation
+            </action>
+        </release>
+        <release version="4.4.1" date="2019-02-13" description="4.4.1 release">
+            <action dev="kinow" type="fix" issue="55" due-to="cburroughs">
+                Re-publishing 4.4 due to missing artefacts from
+                Maven central
+            </action>
+        </release>
+        <release version="4.4" date="2018-08-07" description="4.4 release">
+            <action dev="kinow" type="fix" due-to="benhyland">
+                Junit TapListener method list bug
+            </action>
+            <action dev="kinow" type="fix" due-to="benhyland">
+                pull request #53: allow generateTapPerClass to handle
+                out-of-order test methods
+            </action>
+            <action dev="kinow" type="fix" due-to="benhyland">
+                pull request #52: Fix bug using wrong contains() check in
+                TapListener
+            </action>
+        </release>
+        <release version="4.3" date="2017-05-19" description="4.3 release">
+            <action dev="kinow" type="fix" issue="50" due-to="Altai-man">
+                Correct subtest placement
+            </action>
+        </release>
+        <release version="4.2.1" date="2016-10-21" description="4.2.1 release">
+            <action dev="kinow" type="add" issue="46">
+                Add CNAME
+            </action>
+            <action dev="kinow" type="add" issue="44">
+                Add Travis CI
+            </action>
+        </release>
+        <release version="4.2.0" date="2016-10-20" description="4.2.0 release">
+            <action dev="kinow" type="fix" issue="41" due-to="Jakub Podlesak">
+                An empty plan, 1..0, causes parser error when it
+                occurs right after another plan
+            </action>
+            <action dev="kinow" type="add" issue="43">
+                Update dependencies before the next release
+            </action>
+        </release>
+        <release version="4.1.2" date="2015-10-11" description="4.1.2 release">
+            <action dev="kinow" type="add" issue="38" due-to="Chapman Flack">
+                Clear up handling of character encodings in Consumer
+                and Producer.
+            </action>
+        </release>
+        <release version="4.1.1" date="2015-09-30" description="4.1.1 bugfix release">
+            <action dev="kinow" type="fix" issue="37">
+                Not able to find SKIP directive
+            </action>
+        </release>
+        <release version="4.1" date="2014-08-23" description="4.1 release">
+            <action dev="kinow" type="fix" issue="32">
+                Error parsing test result description with # symbol in TAP.
+            </action>
+            <action dev="kinow" type="fix" issue="34" due-to="Andy Campbell">
+                Fix issue when Yaml is contained in a diagnostic.
+            </action>
+            <action dev="kinow" type="fix" issue="26">
+                Incorrect issues link in the changes report.
+            </action>
+            <action dev="kinow" type="fix" issue="23">
+                JUnit TapListeners always report tests as passed on version
+                4.0.6.
+            </action>
+            <action dev="kinow" type="fix" issue="29">
+                Create examples for working with extensions (TestNG, JUnit,
+                etc).
+            </action>
+            <action dev="kinow" type="update">
+                Updated ext project JUnit dependency version from 4.10 to 4.11.
+            </action>
+            <action dev="kinow" type="fix">
+                Fixed broken tests when using Java 8.
+            </action>
+            <action dev="kinow" type="update">
+                Fix wrong parent version in the perl-integration tests project.
+            </action>
+            <action dev="kinow" type="update" issue="31">
+                Migrate Maven site to GitHub pages
+            </action>
+        </release>
+        <release version="4.0.8" date="2014-01-23" description="4.0.8 release">
+            <action dev="kinow" type="fix" issue="24" due-to="Andy Campbell">
+                Improving test and fixing issue #20 (again)
+            </action>
+        </release>
+        <release version="4.0.7" date="2013-12-24" description="4.0.7 release">
+            <action dev="kinow" type="fix" issue="22">
+                Allow TAP plan to be optional
+            </action>
+        </release>
+        <release version="4.0.6" date="2013-11-30" description="4.0.6 release">
+            <action dev="kinow" type="fix" issue="20" due-to="Andy Campbell">
+                Issue 20 quick fix: Exiting from the YAML block by
+                looking at indentation correctly.
+            </action>
+        </release>
+        <release version="4.0.5" date="2013-10-30" description="4.0.5 release">
+            <action dev="kinow" type="fix" issue="19">
+                org.tap4j.ext.testng.listener.*Yaml wont output YAMLish
+            </action>
+            <action dev="kinow" type="fix" issue="17">
+                Stream with subtests chopping off last yaml diagnostic
+            </action>
+            <action dev="kinow" type="fix" issue="18">
+                Unable to write tap output due folder structure not being
+                created
+            </action>
+        </release>
+        <release version="4.0.4" date="2013-09-03" description="4.0.4 release">
+            <action dev="kinow" type="fix" issue="16">
+                Optional test numbers are not working
+            </action>
+            <action dev="kinow" type="fix" issue="1">
+                YAML parser isn't parsing correctly.
+            </action>
+        </release>
+        <release version="4.0.3" date="2013-07-20" description="4.0.3 release">
+            <action dev="kinow" type="fix" issue="14">
+                Diagnostics are added to all test cases, after one with
+                diagnostics was found
+            </action>
+        </release>
+        <release version="4.0.2" date="2013-07-19" description="4.0.2 release">
+            <action dev="kinow" type="fix" issue="12">
+                subtest as first test causes ParserException (Duplicated TAP
+                plan found)
+            </action>
+        </release>
+        <release version="4.0.1" date="2013-03-16" description="4.0.1 release">
+            <action dev="kinow" type="fix" issue="13">
+                Missing tests with skip_all
+            </action>
+        </release>
+        <release version="4.0" date="2013-01-25" description="4.0 release">
+            <action dev="kinow" type="add">
+                Split the producers to have one that outputs only TAP 13 and another with
+                YAMLish.
+            </action>
+            <action dev="kinow" type="add">
+                Updated web site. Removing the link to the book too, until it gets updated.
+            </action>
+            <action dev="kinow" type="add">
+                Separated project into multiple maven modules.
+            </action>
+            <action dev="kinow" type="add">
+                Increased test coverage.
+            </action>
+            <action dev="kinow" type="fix">
+                Simplified parsers with OO and options by constructor.
+            </action>
+            <action dev="kinow" type="add">
+                Organized test resources packages.
+            </action>
+            <action dev="kinow" type="remove">
+                Removed author tags.
+            </action>
+            <action dev="kinow" type="fix">
+                Fixed code license headers.
+            </action>
+            <action dev="kinow" type="fix">
+                Formatted code.
+            </action>
+            <action dev="kinow" type="add">
+                Updated project web site with more examples.
+            </action>
+            <action dev="kinow" type="add">
+                Updated integration with TestNG and JUnit.
+            </action>
+            <action dev="kinow" type="add">
+                Created specific JUnit runners and listeners to class,
+                method and suite.
+            </action>
+            <action dev="kinow" type="add">
+                Split JUnit listeners in class, method and suite listeners.
+            </action>
+            <action dev="kinow" type="add">
+                Split TestNG listeners in class, method and suite listeners.
+            </action>
+            <action dev="kinow" type="remove">
+                Removed JUnit and TestNG listeners that generated all kinds of
+                results (class, method and suite). This can be achieved by
+                combining the other listeners.
+            </action>
+            <action dev="kinow" type="add">
+                New project created only for tap4j extensions.
+            </action>
+        </release>
+        <release version="3.3" date="2012-11-24" description="3.3 release">
+            <action dev="kinow" type="fix">
+                Fixing subtests bug.
+            </action>
+        </release>
+        <release version="3.2" date="2012-11-24" description="3.3 release">
+            <action dev="kinow" type="add">
+                Add subtests.
+            </action>
+        </release>
+        <release version="3.2" date="2012-10-20" description="3.2 release">
+            <action dev="kinow" type="add">
+                Minor code clean up.
+            </action>
+        </release>
+        <release version="3.1" date="2012-06-26" description="3.1 release">
+            <action dev="kinow" type="add">
+                Added a JUnit TAP Representer and a factory for TAP Producers.
+            </action>
+        </release>
+        <!-- the issues prior to this release were in SourceForge.net. Now we are using GitHub. -->
+        <release version="3.0" date="2012-05-10" description="3.0 release">
+            <action dev="kinow" type="fix" issue="3525607">
+                Added support to comment diagnostics
+            </action>
+            <action dev="kinow" type="fix" issue="3525603">
+                Bug fix. Whenever the parser found a simple 'ok', like the one
+                added
+                by done_testing, it would increase the test number by 1
+            </action>
+            <action dev="kinow" type="fix" issue="3504508">
+                Added support to subtests
+            </action>
+            <action dev="kinow" type="add">
+                Code clean up, increasing the quality index measured by Sonar (from 91,
+                to
+                98.5, FWIW)
+            </action>
+        </release>
+        <release version="2.0.7" date="2012-03-12" description="First release">
+            <action dev="kinow" type="add">
+                Added maven changes plug-in.
+            </action>
+            <action dev="kinow" type="remove">
+                Removed the code that verified if TAP Plan has been set either at the
+                beginning or at the end of the TAP Stream.
+            </action>
+            <action dev="kinow" type="add">
+                Added code to verify if TAP Plan has been set. Added unit tests.
+            </action>
+        </release>
+    </body>
+</document>

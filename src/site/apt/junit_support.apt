@@ -1,0 +1,121 @@
+JUnit support
+
+ If you have tests written with JUnit, you can easily annotate your tests 
+ to run with one of the test runners from tap4j, or specify a listener in 
+ your project pom.
+ 
+* TAP JUnit runners
+
+ The TAP Junit runners simply add a listener to the list of notifiers. They are 
+ organized under the <<org.tap4j.ext.junit.runner>> package.
+ 
+*-----------+-----------+
+|| Runner || Feature |
+*-----------+-----------+
+| TapRunnerClass    | Outputs TAP per class |
+*-----------+-----------+
+| TapRunnerClassYaml    | Outputs TAP per class with YAML |
+*-----------+-----------+
+| TapRunnerMethod    | Outputs TAP per method |
+*-----------+-----------+
+| TapRunnerMethodYaml    | Outputs TAP per method with YAML |
+*-----------+-----------+
+| TapRunnerSuite    | Outputs TAP per suite |
+*-----------+-----------+
+| TapRunnerSuiteYaml    | Outputs TAP per suite with YAML |
+*-----------+-----------+
+
+ Here is a sample of how to use one of the runners above with your tests. It 
+ will create two TAP files, one for each method. If you used the YAML version, 
+ it would have extra information appended to your test results.
+ 
++---+
+@RunWith(TapRunnerMethod.class)
+public class SimpleTest {
+
+    @Test
+    public void testA() {
+        String a = "abc";
+        assertEquals("abc", a);
+    }
+    
+    @Test
+    public void testB() {
+        String b = "ccc";
+        assertEquals("ccc", b);
+    }
+    
+}
++---+
+
+* test.SimpleTest:testA.tap* (produced with TapRunnerMethod)
+
++---+
+1..1
+ok 1 - test.SimpleTest:testA
++---+
+
+* test.SimpleTest:testA.tap* (produced with TapRunnerMethodYaml)
+
++---+
+1..1
+ok 1 - test.SimpleTest:testA
+  ---
+  message: JUnit 4.0 Test testA(test.SimpleTest)
+  severity: '~'
+  source: test.SimpleTest:testA
+  datetime: '2013-01-25T14:23:18'
+  file: test.SimpleTest
+  line: '~'
+  name: testA
+  error: '~'
+  backtrace: '~'
+  ...
++---+
+
+* TAP JUnit listeners
+
+ You can also use tap4j extensions in your JUnit project using Maven. They are 
+ organized underthe <<org.tap4j.ext.junit.listener>> package.
+
+*-----------+-----------+
+|| Listener || Feature |
+*-----------+-----------+
+| TapListenerClass    | Outputs TAP per class |
+*-----------+-----------+
+| TapListenerClassYaml    | Outputs TAP per class with YAML |
+*-----------+-----------+
+| TapListenerMethod    | Outputs TAP per method |
+*-----------+-----------+
+| TapListenerMethodYaml    | Outputs TAP per method with YAML |
+*-----------+-----------+
+| TapListenerSuite    | Outputs TAP per suite |
+*-----------+-----------+
+| TapListenerSuiteYaml    | Outputs TAP per suite with YAML |
+*-----------+-----------+
+
++---+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.12.4</version>
+            <configuration>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>org.tap4j.ext.junit.listener.TapListenerMethod</value>
+                    </property>
+                </properties>
+                <systemPropertyVariables>
+                    <tap.junit.results>target/tap4j</tap.junit.results>
+                </systemPropertyVariables>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
++---+
+
+ The <<tap.junit.results>> system property is optional. By default all listeners 
+ output to target/.

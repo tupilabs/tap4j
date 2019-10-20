@@ -1,0 +1,5 @@
+# http://svn.hexten.net/tapx/tap-tests/t/source/simple.yaml
+    TAP version 13
+    1..1
+    ok 1
+    TAP done

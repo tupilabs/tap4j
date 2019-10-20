@@ -7,11 +7,6 @@
 	<packaging>jar</packaging>
 	<name>tap4j</name>
 	<description>tap4j</description>
-	<parent>
-		<groupId>com.tupilabs</groupId>
-		<artifactId>parent-oss</artifactId>
-		<version>0.1</version>
-	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
@@ -101,18 +96,16 @@
             <artifactId>guice</artifactId>
             <version>4.1.0</version>
         </dependency>
-        <!-- testing -->
+        <!-- testing but also dependency for ext -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.10</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 	<build>
@@ -218,6 +211,23 @@
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaFiles>jtl.xsd</schemaFiles>
+                    <packageName>org.tap4j.ext.jmeter.model</packageName>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>

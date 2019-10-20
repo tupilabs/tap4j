@@ -6,6 +6,11 @@
         <author email="brunodepaulak AT yahoo DOT com DOT br">Bruno P. Kinoshita</author>
     </properties>
     <body>
+        <release version="5.0" date="2019-10-??" description="5.0 release">
+            <action dev="kinow" type="add" issue="60">
+                Move from multi-module to single-module Maven project
+            </action>
+        </release>
         <release version="4.4.2" date="2019-05-01" description="4.4.2 release">
             <action dev="japod" type="fix" issue="47">
                 Error parsing TAP Stream: Invalid indentation

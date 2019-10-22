@@ -124,9 +124,7 @@
                 <artifactId>apache-rat-plugin</artifactId>
                 <version>0.13</version>
                 <configuration>
-                    <excludes>
-                        <exclude>src/site/.*</exclude>
-                    </excludes>
+                    <ignoreErrors>true</ignoreErrors>
                 </configuration>
             </plugin>
             <plugin>
@@ -135,6 +133,17 @@
                 <version>3.1.12.2</version>
                 <configuration>
                     <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <configLocation>${basedir}/checkstyle.xml</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <enableRulesSummary>false</enableRulesSummary>
+                    <failOnViolation>false</failOnViolation>
+                    <failsOnError>false</failsOnError>
                 </configuration>
             </plugin>
             <plugin>

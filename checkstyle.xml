@@ -35,6 +35,4 @@
         <property name="message" value="Line has trailing spaces." />
     </module>
 
-    <module name="SuppressionCommentFilter" />
-
 </module>

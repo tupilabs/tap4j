@@ -92,21 +92,12 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.17</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>4.1.0</version>
-        </dependency>
-        <!-- testing but also dependency for ext -->
+        <!-- testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -211,32 +202,6 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <properties>
-                        <property>
-                            <name>junit</name>
-                            <value>false</value>
-                        </property>
-                    </properties>
-                    <threadCount>1</threadCount>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit47</artifactId>
-                        <version>3.0.0-M3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-testng</artifactId>
-                        <version>3.0.0-M3</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

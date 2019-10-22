@@ -5,6 +5,9 @@ sudo: false
 jdk:
   - oraclejdk8
   - oraclejdk9
+  - openjdk11
+  - openjdk13
+  - openjdk-ea
 
 install: "mvn clean test"
 

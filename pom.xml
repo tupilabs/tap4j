@@ -117,6 +117,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <additionalparam>-Xdoclint:none</additionalparam>
+                    <source>${java.version}</source>
                 </configuration>
             </plugin>
             <plugin>
@@ -132,7 +133,7 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>3.1.12.2</version>
                 <configuration>
-                    <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile>
+                    <!-- <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile> -->
                 </configuration>
             </plugin>
             <plugin>

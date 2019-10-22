@@ -9,6 +9,12 @@
             <action dev="kinow" type="add" issue="60">
                 Move from multi-module to single-module Maven project
             </action>
+            <action dev="kinow" type="add">
+                Remove jmeter parser
+            </action>
+            <action dev="kinow" type="add">
+                Remove JUnit and TestNG .ext packages
+            </action>
         </release>
         <release version="4.4.2" date="2019-05-01" description="4.4.2 release">
             <action dev="japod" type="fix" issue="47">

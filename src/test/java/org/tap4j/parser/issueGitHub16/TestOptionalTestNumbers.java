@@ -12,7 +12,7 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 
 /**
  * Optional test numbers are not working
- * 
+ *
  * @since 4.0.4
  */
 public class TestOptionalTestNumbers {

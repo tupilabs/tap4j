@@ -47,10 +47,10 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     public void testConsumerPlanskipall() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/comment_planskipall.tap");
         assertTrue(testSet.getNumberOfTestResults() == 0);
-        
+
         final Footer footer = testSet.getFooter();
         assertNull(footer);
-        
+
         final SkipPlan skip = testSet.getPlan().getSkip();
         assertNotNull(skip);
         assertTrue(skip.getReason().equals("Not implemented yet."));

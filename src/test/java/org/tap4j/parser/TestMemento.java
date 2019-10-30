@@ -39,12 +39,12 @@ import org.tap4j.model.Text;
 public class TestMemento {
 
     private static StreamStatus memento = null;
-    
+
     @BeforeClass
     public static void setUp() {
         memento = new StreamStatus();
     }
-    
+
     @Test
     public void testMemento() {
         assertTrue(memento.isFirstLine());
@@ -54,21 +54,21 @@ public class TestMemento {
         assertEquals(0, memento.getIndentationLevel());
         assertFalse(memento.isInYaml());
         assertTrue(memento.getDiagnosticBuffer().toString().length() == 0);
-        
+
         int baseIndentationLevel = 50;
         boolean currentlyInYaml = true;
         boolean firstLine = false;
         String lastLine = "nani";
         TapElement lastParsedElement = new Text("nani nani");
         boolean planBeforeTestResult = true;
-        
+
         memento.setIndentationLevel(baseIndentationLevel);
         memento.setInYaml(currentlyInYaml);
         memento.setFirstLine(firstLine);
         memento.setLastLine(lastLine);
         memento.setLastParsedElement(lastParsedElement);
         memento.setPlanBeforeTestResult(planBeforeTestResult);
-        
+
         assertEquals(firstLine, memento.isFirstLine());
         assertEquals(planBeforeTestResult, memento.isPlanBeforeTestResult());
         assertEquals(lastLine, memento.getLastLine());

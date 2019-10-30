@@ -55,7 +55,7 @@ public class TestTap13YamlRepresenter {
         assertEquals(100, options.getIndent());
         assertTrue(options.isPrintDiagnostics());
     }
-    
+
     @Test
     public void printDiagnosticNull() {
         Map<String, Object> diagnostic = null;
@@ -69,7 +69,7 @@ public class TestTap13YamlRepresenter {
         repr.printDiagnostic(pw, tr);
         assertEquals("", sw.toString());
     }
-    
+
     @Test
     public void printDiagnosticEmpty() {
         Map<String, Object> diagnostic = new HashMap<String, Object>();
@@ -83,7 +83,7 @@ public class TestTap13YamlRepresenter {
         repr.printDiagnostic(pw, tr);
         assertEquals("", sw.toString());
     }
-    
+
     @Test
     public void printDiagnostic() {
         Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
@@ -99,5 +99,5 @@ public class TestTap13YamlRepresenter {
         repr.printDiagnostic(pw, tr);
         assertEquals("\n  ---\n  name: Ayrton\n  surname: Senna\n  ...\n", sw.toString());
     }
-    
+
 }

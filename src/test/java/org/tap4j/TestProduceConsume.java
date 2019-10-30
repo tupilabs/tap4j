@@ -47,7 +47,7 @@ import org.tap4j.util.StatusValues;
  * checks if the values are correct. For example, you create a test with a Test
  * Result with a String there. Then you use the consumer to read the tap file
  * created and check if the consumer can read the String. Voila.
- * 
+ *
  * @since 1.0
  */
 public class TestProduceConsume {
@@ -105,16 +105,16 @@ public class TestProduceConsume {
     @Test
     public void testTapProducerConsumer() {
         assertTrue(testSet.getTapLines().size() > 0);
-        
+
         // testProducer
         try {
             tapProducer.dump(testSet, tempFile);
         } catch (Exception e) {
             fail("Failed to print TAP Stream into file.");
         }
-        
+
         // testConsumer
-        { 
+        {
             TestSet testSet = tapConsumer.load(tempFile);
             assertNotNull(testSet.getHeader());
             assertNotNull(testSet.getPlan());

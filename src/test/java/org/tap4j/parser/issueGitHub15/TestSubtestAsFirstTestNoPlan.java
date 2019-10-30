@@ -55,11 +55,11 @@ public class TestSubtestAsFirstTestNoPlan {
             .getFile()));
 
         assertNotNull(testSet);
-        
+
         final List<TestResult> testResults = testSet.getTestResults();
-        
+
         assertEquals(2, testResults.size());
-        
+
         assertEquals(2, testResults.get(0).getSubtest().getTestResults().size());
         assertEquals(2, testResults.get(1).getSubtest().getTestResults().size());
     }

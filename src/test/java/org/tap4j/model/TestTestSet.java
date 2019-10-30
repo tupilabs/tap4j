@@ -79,17 +79,17 @@ public class TestTestSet {
         assertTrue(this.testSet.getComments().size() == 1);
         assertTrue(this.testSet.getNumberOfComments() == 1);
         assertTrue(this.testSet.getNumberOfTapLines() == this.testSet
-            .getTapLines().size());
+                .getTapLines().size());
         assertTrue(this.testSet.getNumberOfTapLines() == 4);
         assertTrue(this.testSet.getNumberOfTestResults() == this.testSet
-            .getTestResults().size());
+                .getTestResults().size());
         assertTrue(this.testSet.getNumberOfTestResults() == 1);
         assertTrue(this.testSet.getNextTestNumber() == 2);
         assertTrue(this.testSet.hasBailOut());
         assertTrue(this.testSet.getBailOuts().size() == 1);
         assertTrue(this.testSet.getNumberOfBailOuts() == 1);
         assertNotNull(this.testSet.getFooter());
-        
+
         // intrusive tests
         {
             this.testSet.removeBailOut(bailOut);
@@ -154,7 +154,7 @@ public class TestTestSet {
         assertTrue(testSet.containsNotOk());
         assertFalse(testSet.containsOk());
     }
-    
+
     @Test
     public void testEmptyTestSet() {
         final TestSet testSet = new TestSet();

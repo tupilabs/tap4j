@@ -39,12 +39,12 @@ import org.tap4j.model.TestSet;
 public class TestTap13Parser {
 
     private Tap13Parser parser;
-    
+
     @Before
     public void setUp() {
         parser = new Tap13Parser();
     }
-    
+
     @Test
     public void testTestResultWithEmptyComment() {
         String tap = "1..1\n" +
@@ -52,7 +52,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(0, testSet.getTestResult(1).getComments().size());
     }
-    
+
     @Test
     public void testTestResultWithComment() {
         String tap = "1..1\n" +
@@ -60,7 +60,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getTestResult(1).getComments().get(0).getText());
     }
-    
+
     @Test
     public void testFooterWithAnEmptyComment() {
         String tap = "1..1\n" +
@@ -69,7 +69,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(null, testSet.getFooter().getComment());
     }
-    
+
     @Test
     public void testFooterWithComment() {
         String tap = "1..1\n" +
@@ -78,7 +78,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getFooter().getComment().getText());
     }
-    
+
     @Test
     public void testHeader() {
         String tap = "TAP version 13\n" +
@@ -88,7 +88,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(new Integer(13), testSet.getHeader().getVersion());
     }
-    
+
     @Test(expected=ParserException.class)
     public void testHeaderDuplicated() {
         String tap = "TAP version 13\n" +
@@ -99,7 +99,7 @@ public class TestTap13Parser {
         parser.parseTapStream(tap);
         fail("Not supposed to get here");
     }
-    
+
     @Test
     public void testHeaderWithEmptyComment() {
         String tap = "TAP version 13 #\n" +
@@ -108,7 +108,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(null, testSet.getHeader().getComment());
     }
-    
+
     @Test
     public void testHeaderWithComment() {
         String tap = "TAP version 13 # a comment\n" +
@@ -118,7 +118,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getHeader().getComment().getText());
     }
-    
+
     @Test
     public void testPlan() {
         String tap = "TAP version 13 # a comment\n" +
@@ -127,7 +127,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(new Integer(1), testSet.getPlan().getInitialTestNumber());
     }
-    
+
     @Test(expected=ParserException.class)
     public void testPlanDuplicated() {
         String tap = "TAP version 13 # a comment\n" +
@@ -137,7 +137,7 @@ public class TestTap13Parser {
         parser.parseTapStream(tap);
         fail("Not supposed to get here");
     }
-    
+
     @Test
     public void testPlanSkip() {
         String tap = "TAP version 13 # a comment\n" +
@@ -146,7 +146,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("betsu ni", testSet.getPlan().getSkip().getReason());
     }
-    
+
     @Test
     public void testPlanWithEmptyComment() {
         String tap = "TAP version 13 # a comment\n" +
@@ -155,7 +155,7 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(null, testSet.getPlan().getComment());
     }
-    
+
     @Test
     public void testPlanWithComment() {
         String tap = "TAP version 13 # a comment\n" +
@@ -164,10 +164,10 @@ public class TestTap13Parser {
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getPlan().getComment().getText());
     }
-    
+
     @Test(expected=ParserException.class)
     public void notExistentFile() {
         parser.parseFile(new File(""+System.currentTimeMillis()+System.nanoTime()));
     }
-    
+
 }

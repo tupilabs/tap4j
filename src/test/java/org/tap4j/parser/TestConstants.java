@@ -44,5 +44,5 @@ public class TestConstants {
         final Object o = c.newInstance((Object[]) null);
         assertNotNull(o);
     }
-    
+
 }

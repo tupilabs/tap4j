@@ -47,7 +47,7 @@ public class TestIssue3525607 extends BaseTapTest {
                 + "# Missing end transmission signal\n"
                 + "# Aborting mission!\n" + "ok";
         final TestSet testSet = getConsumer().load(tap);
-        assertEquals("No errors found", 
+        assertEquals("No errors found",
                 testSet.getTestResult(1).getComments().get(0).getText());
         final String expected = "Invalid stream character\n"
                 + "Missing end transmission signal\n" + "Aborting mission!\n";

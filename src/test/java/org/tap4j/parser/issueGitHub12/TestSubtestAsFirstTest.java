@@ -39,7 +39,7 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 /**
  * TAP Streams with a subtest as first test fail, complaining about a duplicate
  * TAP plan found.
- * 
+ *
  * @since 4.0.2
  */
 public class TestSubtestAsFirstTest {
@@ -51,15 +51,15 @@ public class TestSubtestAsFirstTest {
     public void testSubtestAsFirstTest() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
         TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub12/issue-12-tap-stream.tap")
-            .getFile()));
+                .getResource("/org/tap4j/parser/issueGitHub12/issue-12-tap-stream.tap")
+                .getFile()));
 
         assertNotNull(testSet);
-        
+
         final List<TestResult> testResults = testSet.getTestResults();
-        
+
         assertEquals(2, testResults.size());
-        
+
         assertEquals(1, testResults.get(0).getSubtest().getTestResults().size());
         assertEquals(4, testResults.get(1).getSubtest().getTestResults().size());
     }

@@ -31,7 +31,7 @@ public class TestTap13Representer {
         assertEquals(options, repr.getOptions());
         assertEquals(100, options.getIndent());
     }
-    
+
     @Test
     public void testPrintTapLines() {
         Tap13Representer repr = new Tap13Representer();
@@ -40,14 +40,14 @@ public class TestTap13Representer {
         PrintWriter pw = new PrintWriter(sw);
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1\n", sw.toString());
-        
+
         TapResult text = new Text("yo");
         sw = new StringWriter();
         pw = new PrintWriter(sw);
         repr.printTapLine(pw, text);
         assertEquals("", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithDirective() {
         Tap13Representer repr = new Tap13Representer();
@@ -58,7 +58,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 # SKIP skip me\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithDirectiveWithEmptyReason() {
         Tap13Representer repr = new Tap13Representer();
@@ -69,7 +69,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 # SKIP\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithDirectiveWithoutReason() {
         Tap13Representer repr = new Tap13Representer();
@@ -80,7 +80,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 # SKIP\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithComment() {
         Tap13Representer repr = new Tap13Representer();
@@ -91,7 +91,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 # a comment\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithDescription() {
         Tap13Representer repr = new Tap13Representer();
@@ -102,7 +102,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1 a description\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithEmptyDescription() {
         Tap13Representer repr = new Tap13Representer();
@@ -113,7 +113,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1\n", sw.toString());
     }
-    
+
     @Test
     public void testPrintTestResultWithoutDescription() {
         Tap13Representer repr = new Tap13Representer();
@@ -124,7 +124,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, testResult);
         assertEquals("ok 1\n", sw.toString());
     }
-    
+
     @Test
     public void printBailOut() {
         Tap13Representer repr = new Tap13Representer();
@@ -134,7 +134,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, bailtOut);
         assertEquals("Bail out! a reason\n", sw.toString());
     }
-    
+
     @Test
     public void printBailOutWithoutReason() {
         Tap13Representer repr = new Tap13Representer();
@@ -144,7 +144,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, bailtOut);
         assertEquals("Bail out!\n", sw.toString());
     }
-    
+
     @Test
     public void printBailOutWithComment() {
         Tap13Representer repr = new Tap13Representer();
@@ -155,7 +155,7 @@ public class TestTap13Representer {
         repr.printTapLine(pw, bailOut);
         assertEquals("Bail out! # some comment\n", sw.toString());
     }
-    
+
     @Test
     public void printFooter() {
         Tap13Representer repr = new Tap13Representer();
@@ -165,7 +165,7 @@ public class TestTap13Representer {
         repr.printFooter(pw, footer);
         assertEquals("TAP footer text\n", sw.toString());
     }
-    
+
     @Test
     public void printFooterWithComment() {
         Tap13Representer repr = new Tap13Representer();
@@ -176,7 +176,7 @@ public class TestTap13Representer {
         repr.printFooter(pw, footer);
         assertEquals("TAP footer text # some comment\n", sw.toString());
     }
-    
+
     @Test
     public void printPlan() {
         Tap13Representer repr = new Tap13Representer();
@@ -186,7 +186,7 @@ public class TestTap13Representer {
         repr.printPlan(pw, plan);
         assertEquals("1..10\n", sw.toString());
     }
-    
+
     @Test
     public void printPlanSkipAll() {
         Tap13Representer repr = new Tap13Representer();
@@ -197,7 +197,7 @@ public class TestTap13Representer {
         repr.printPlan(pw, plan);
         assertEquals("1..10 skip Any reason\n", sw.toString());
     }
-    
+
     @Test(expected = RepresenterException.class)
     public void printPlanEmptyAllowed() {
         DumperOptions options = new DumperOptions();
@@ -207,7 +207,7 @@ public class TestTap13Representer {
         PrintWriter pw = new PrintWriter(sw);
         repr.printPlan(pw, null);
     }
-    
+
     @Test
     public void printPlanEmptyDisallowed() {
         DumperOptions options = new DumperOptions();
@@ -218,7 +218,7 @@ public class TestTap13Representer {
         repr.printPlan(pw, null);
         assertEquals("", sw.toString());
     }
-    
+
     @Test
     public void printHeader() {
         Header header = new Header(13);
@@ -228,7 +228,7 @@ public class TestTap13Representer {
         repr.printHeader(pw, header);
         assertEquals("TAP version 13\n", sw.toString());
     }
-    
+
     @Test
     public void printHeaderWithComment() {
         Header header = new Header(13);

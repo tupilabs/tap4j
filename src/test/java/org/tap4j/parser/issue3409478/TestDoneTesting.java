@@ -43,7 +43,7 @@ import org.tap4j.model.TestSet;
  * <li>1..3</li>
  * <li>ok</li>
  * </ul>
- * 
+ *
  * @since 2.0.6
  */
 public class TestDoneTesting {

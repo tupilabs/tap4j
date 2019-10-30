@@ -161,5 +161,5 @@ public class TapElementFactoryTest {
         comment = (Comment) TapElementFactory.createTapElement("  #one two");
         assertEquals(2, comment.getIndentation());
         assertEquals("one two", comment.getText());
-    }    
+    }
 }

@@ -31,7 +31,7 @@ import org.junit.Test;
 
 /**
  * Tests TAP Footer.
- * 
+ *
  * @since 1.0
  */
 public class TestTAPFooter {
@@ -58,7 +58,7 @@ public class TestTAPFooter {
         footer.setComment(new Comment("Footer's comment."));
         assertNotNull(this.footer.getComment());
         assertEquals(this.footer.getComment().getText(),
-                            "Footer's comment.");
+                "Footer's comment.");
     }
 
 }

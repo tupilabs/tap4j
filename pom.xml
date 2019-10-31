@@ -144,8 +144,6 @@
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <!--<consoleOutput>true</consoleOutput>-->
                     <enableRulesSummary>false</enableRulesSummary>
-                    <failOnViolation>false</failOnViolation>
-                    <failsOnError>false</failsOnError>
                 </configuration>
             </plugin>
             <plugin>

@@ -34,7 +34,7 @@ import org.tap4j.model.TestSet;
  * <p>
  * This issue has been fixed, as consequence of fixing issue 3409478.
  * <p>
- * 
+ *
  * @since 2.0.6
  */
 public class TestRandomStdoutAfterTestPlanAtEnd extends BaseTapTest {

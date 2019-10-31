@@ -68,7 +68,7 @@ public class TestYamlExitWithThreeDotsInYaml {
             .getFile()));
 
         assertEquals(1, testSet.getTestResults().size());
-        
+
         TestResult tr1 = testSet.getTestResult(1);
         Map<String, Object> yaml = tr1.getDiagnostic();
         assertNotNull(yaml);
@@ -82,5 +82,5 @@ public class TestYamlExitWithThreeDotsInYaml {
                                                      "Done sometest\n" +
                                                      "__________\n")));
     }
-    
+
 }

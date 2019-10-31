@@ -13,7 +13,7 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 
 /**
  * Diagnostics are added to all test cases, after one with diagnostics was found.
- * 
+ *
  * @since 4.0.3
  */
 public class TestDiagnostics {

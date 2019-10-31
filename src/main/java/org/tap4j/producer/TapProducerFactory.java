@@ -71,7 +71,7 @@ public final class TapProducerFactory {
     public static TapProducer makeTap13YamlProducer(DumperOptions options) {
         return new TapProducer(new Tap13Representer(options));
     }
-    
+
     /**
      * Create a TAP JUnit producer.
      *

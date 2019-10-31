@@ -36,7 +36,7 @@ ok 2 - anotherDummyTest
   1..1
   ok*/
 /**
- * Stream with subtests chopping off last yaml diagnostic 
+ * Stream with subtests chopping off last yaml diagnostic
  * @since 4.0.5
  */
 public class TestLastYamlishBeingCut {
@@ -49,21 +49,21 @@ public class TestLastYamlishBeingCut {
             .getFile()));
 
         assertEquals(2, testSet.getTestResults().size());
-        
+
         TestResult tr1 = testSet.getTestResult(1);
         TestSet tr1Subtest = tr1.getSubtest();
         assertNotNull(tr1Subtest);
         assertEquals(5, tr1Subtest.getTestResults().size());
-        
+
         TestResult tr2 = testSet.getTestResult(2);
         TestSet tr2Subtest = tr2.getSubtest();
         assertNotNull(tr2Subtest);
         assertEquals(1, tr2Subtest.getTestResults().size());
-        
+
         assertEquals(1, tr2.getDiagnostic().size());
-        
+
         TestResult tr2_1 = tr2Subtest.getTestResult(1);
         assertNotNull(tr2_1);
     }
-    
+
 }

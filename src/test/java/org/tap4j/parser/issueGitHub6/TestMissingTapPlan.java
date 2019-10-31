@@ -37,7 +37,7 @@ import org.tap4j.parser.issue3406964.TestDirectives;
  * The parser keeps complaining about a missing plan in a stream that does have
  * a tap plan.
  * <p>
- * 
+ *
  * @since 3.3
  */
 public class TestMissingTapPlan {

@@ -38,12 +38,12 @@ import org.junit.Test;
 public class TestDumperOptions {
 
     private DumperOptions options = null;
-    
+
     @Before
     public void setUp() {
         options = new DumperOptions();
     }
-    
+
     @Test
     public void testDefaultOptions() {
         assertEquals(0, options.getIndent());
@@ -53,7 +53,7 @@ public class TestDumperOptions {
         assertEquals(true, options.isPrintSubtests());
         assertEquals(Charset.defaultCharset().toString(), options.getCharset());
     }
-    
+
     @Test
     public void testChangingOptions() {
         int indent = 1;
@@ -75,5 +75,5 @@ public class TestDumperOptions {
         assertEquals(printSubtests, options.isPrintSubtests());
         assertEquals(charset, options.getCharset());
     }
-    
+
 }

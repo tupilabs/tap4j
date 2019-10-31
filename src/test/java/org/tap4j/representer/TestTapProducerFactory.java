@@ -40,12 +40,12 @@ public class TestTapProducerFactory {
     public void testTap13Producer() {
         assertNotNull(TapProducerFactory.makeTap13Producer());
     }
-    
+
     @Test
     public void testTapJUnitProducer() {
         assertNotNull(TapProducerFactory.makeTapJunitProducer("any-name"));
     }
-    
+
     @Test(expected=Throwable.class)
     public void testPrivateConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         final Constructor<?> c = TapProducerFactory.class
@@ -54,5 +54,5 @@ public class TestTapProducerFactory {
         final Object o = c.newInstance((Object[]) null);
         assertNotNull(o);
     }
-    
+
 }

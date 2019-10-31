@@ -32,7 +32,7 @@ import org.junit.Test;
 
 /**
  * Test class for ParserException.
- * 
+ *
  * @since 1.0
  */
 public class TestParserExceptionTest {

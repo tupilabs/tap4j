@@ -38,12 +38,12 @@ public class TestDirectiveValues {
         assertEquals("SKIP",  DirectiveValues.SKIP.toString());
         assertEquals("TODO",  DirectiveValues.TODO.toString());
     }
-    
+
     @Test
     public void testGetStatusValues() {
         assertNull(StatusValues.get(null));
         assertEquals(DirectiveValues.SKIP, DirectiveValues.get("SKIP"));
         assertEquals(DirectiveValues.TODO, DirectiveValues.get("TODO"));
     }
-    
+
 }

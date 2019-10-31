@@ -38,12 +38,12 @@ public class TestStatusValues {
         assertEquals("ok",  StatusValues.OK.toString());
         assertEquals("not ok",  StatusValues.NOT_OK.toString());
     }
-    
+
     @Test
     public void testGetStatusValues() {
         assertNull(StatusValues.get(null));
         assertEquals(StatusValues.OK, StatusValues.get("ok"));
         assertEquals(StatusValues.NOT_OK, StatusValues.get("not ok"));
     }
-    
+
 }

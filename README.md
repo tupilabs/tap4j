@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/tupilabs/tap4j.svg?branch=master)](https://travis-ci.org/tupilabs/tap4j) [![Coverage Status](https://coveralls.io/repos/github/tupilabs/tap4j/badge.svg?branch=master)](https://coveralls.io/github/tupilabs/tap4j?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.tap4j/tap4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.tap4j/tap4j/)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X1618T2)
+
 tap4j - Simple implementation of the 
 [Test Anything Protocol](http://www.testanything.org) (TAP) for Java.
 

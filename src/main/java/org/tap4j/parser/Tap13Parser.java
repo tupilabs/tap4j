@@ -270,14 +270,12 @@ public class Tap13Parser implements Parser {
         // filter out cursor related control sequences ESC[25?l and ESC[25?h
         String tapLine = tapLineOrig.replaceAll("\u001B\\[\\?25[lh]", "");
 
-        TapElement tapElement = TapElementFactory.createTapElement(tapLine);
-        if (tapElement == null) {
-            return;
-        }
+        final TapElement tapElement = TapElementFactory.createTapElement(tapLine);
+        final boolean invalidTapElement = tapElement == null;
 
         final Text text = TapElementFactory.createTextElement(tapLine);
 
-        if (text != null && state.isInYaml()) {
+        if (text != null && (invalidTapElement || state.isInYaml())) {
 
             String trimmedLine = tapLine.trim();
 
@@ -310,6 +308,9 @@ public class Tap13Parser implements Parser {
             return;
         }
 
+        if (invalidTapElement) {
+            return;
+        }
         int indentation = tapElement.getIndentation();
 
         if (indentation < baseIndentation) {

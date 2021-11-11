@@ -35,7 +35,6 @@ import org.tap4j.util.StatusValues;
  *
  * @since 1.0
  */
-@SuppressWarnings("ALL")
 public class TestSet implements Serializable {
 
     /**

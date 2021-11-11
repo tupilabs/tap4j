@@ -40,7 +40,7 @@ public class Header extends TapElement {
     /**
      * TAP file version.
      */
-    private Integer version;
+    private final Integer version;
 
     /**
      * Constructor with parameter.

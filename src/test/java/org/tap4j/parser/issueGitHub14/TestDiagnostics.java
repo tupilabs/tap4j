@@ -1,5 +1,6 @@
 package org.tap4j.parser.issueGitHub14;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class TestDiagnostics {
             if (tr.getTestNumber() == 3) {
                 assertTrue(tr.getDiagnostic().size() > 0);
             } else {
-                assertTrue(tr.getDiagnostic().size() == 0);
+                assertEquals(0, tr.getDiagnostic().size());
             }
         }
     }

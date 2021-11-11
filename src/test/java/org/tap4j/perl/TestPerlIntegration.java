@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,8 +54,8 @@ import org.tap4j.util.StatusValues;
  */
 public class TestPerlIntegration {
 
-    private static final Integer SUCCESS_EXIT_CODE = Integer.valueOf(0);
-    private static boolean isWindows = System.getProperty("os.name")
+    private static final Integer SUCCESS_EXIT_CODE = 0;
+    private static final boolean isWindows = System.getProperty("os.name")
         .contains("Windows");
 
     private TapProducer tapProducer = null;
@@ -374,10 +375,10 @@ public class TestPerlIntegration {
     private Integer executePerlCommand(String[] args, File tapFile) {
         final File metatap = this.getMetatap();
 
-        Integer errorLevel = Integer.valueOf(1);
+        int errorLevel;
 
         try {
-            List<String> commands = new LinkedList<String>();
+            List<String> commands = new LinkedList<>();
 
             if (TestPerlIntegration.isWindows) {
                 commands.add("cmd");
@@ -389,14 +390,14 @@ public class TestPerlIntegration {
 
             StringBuilder perlcommand = new StringBuilder();
             perlcommand.append("perl ");
-            perlcommand.append(metatap.getCanonicalPath().toString());
+            perlcommand.append(metatap.getCanonicalPath());
             for (int i = 0; args != null && i < args.length; ++i) {
-                perlcommand.append(" " + args[i]);
+                perlcommand.append(" ").append(args[i]);
             }
 
             perlcommand.append(" < ");
 
-            perlcommand.append(tapFile.getCanonicalPath().toString());
+            perlcommand.append(tapFile.getCanonicalPath());
 
             if (TestPerlIntegration.isWindows) {
                 perlcommand.append(" && exit %%ERRORLEVEL%%");
@@ -419,11 +420,11 @@ public class TestPerlIntegration {
      * Retrieves Perl metatap script.
      *
      * @return Perl metatap script.
-     * @throws RuntimeException
+     * @throws RuntimeException if the metatap does not exist
      */
     private File getMetatap() {
         URL url = ClassLoader.getSystemClassLoader().getResource(".");
-        File classLoaderRoot = new File(url.getFile());
+        File classLoaderRoot = new File(Objects.requireNonNull(url).getFile());
         File metatap = new File(classLoaderRoot, "/../../src/test/perl/metatap.pl");
         if (!metatap.exists()) {
             throw new RuntimeException("Missing metatap Perl file: " +

@@ -58,21 +58,20 @@ public class TestTap13YamlRepresenter {
 
     @Test
     public void printDiagnosticNull() {
-        Map<String, Object> diagnostic = null;
         DumperOptions options = new DumperOptions();
         options.setPrintDiagnostics(true);
         Tap13Representer repr = new Tap13Representer(options);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         TestResult tr = new TestResult(StatusValues.OK, 1);
-        tr.setDiagnostic(diagnostic);
+        tr.setDiagnostic(null);
         repr.printDiagnostic(pw, tr);
         assertEquals("", sw.toString());
     }
 
     @Test
     public void printDiagnosticEmpty() {
-        Map<String, Object> diagnostic = new HashMap<String, Object>();
+        Map<String, Object> diagnostic = new HashMap<>();
         DumperOptions options = new DumperOptions();
         options.setPrintDiagnostics(true);
         Tap13Representer repr = new Tap13Representer(options);
@@ -86,7 +85,7 @@ public class TestTap13YamlRepresenter {
 
     @Test
     public void printDiagnostic() {
-        Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+        Map<String, Object> diagnostic = new LinkedHashMap<>();
         diagnostic.put("name", "Ayrton");
         diagnostic.put("surname", "Senna");
         DumperOptions options = new DumperOptions();

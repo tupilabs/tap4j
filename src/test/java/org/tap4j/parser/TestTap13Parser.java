@@ -24,6 +24,7 @@
 package org.tap4j.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -67,7 +68,7 @@ public class TestTap13Parser {
                 "ok 1\n" +
                 "TAP end #";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals(null, testSet.getFooter().getComment());
+        assertNull(testSet.getFooter().getComment());
     }
 
     @Test
@@ -86,7 +87,7 @@ public class TestTap13Parser {
                 "ok 1\n" +
                 "TAP end # a comment";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals(new Integer(13), testSet.getHeader().getVersion());
+        assertEquals(Integer.valueOf(13), testSet.getHeader().getVersion());
     }
 
     @Test(expected=ParserException.class)
@@ -106,7 +107,7 @@ public class TestTap13Parser {
                 "1..1\n" +
                 "ok 1";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals(null, testSet.getHeader().getComment());
+        assertNull(testSet.getHeader().getComment());
     }
 
     @Test
@@ -125,7 +126,7 @@ public class TestTap13Parser {
                 "1..1\n" +
                 "ok 1";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals(new Integer(1), testSet.getPlan().getInitialTestNumber());
+        assertEquals(Integer.valueOf(1), testSet.getPlan().getInitialTestNumber());
     }
 
     @Test(expected=ParserException.class)
@@ -153,7 +154,7 @@ public class TestTap13Parser {
                 "1..1 #\n" +
                 "ok 1";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals(null, testSet.getPlan().getComment());
+        assertNull(testSet.getPlan().getComment());
     }
 
     @Test

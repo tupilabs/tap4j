@@ -25,7 +25,7 @@ package org.tap4j.parser.issue3406964;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 import java.io.File;
 
@@ -56,24 +56,24 @@ public class TestDirectives {
                 .getResource("/org/tap4j/parser/issue3406964/ihaveskips.tap")
                 .getFile()));
         assertNotNull("Empty Test Set", testSet);
-        assertTrue("Wrong number of tests", testSet.getTestResults().size() == 3);
+        assertEquals("Wrong number of tests", 3, testSet.getTestResults().size());
 
         TestResult tr1 = testSet.getTestResult(1);
         Directive directive = tr1.getDirective();
 
-        assertTrue(directive.getDirectiveValue() == DirectiveValues.SKIP);
+        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
 
         TestResult tr2 = testSet.getTestResult(2);
         directive = tr2.getDirective();
 
-        assertTrue(directive.getDirectiveValue() == DirectiveValues.SKIP);
+        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
         assertEquals(directive.getReason(), "me too");
         assertEquals(tr2.getDescription(), "- Wrong version in path ");
 
         TestResult tr3 = testSet.getTestResult(3);
         directive = tr3.getDirective();
 
-        assertTrue(directive.getDirectiveValue() == DirectiveValues.SKIP);
+        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
         assertEquals(directive.getReason(), "well, then...");
     }
 
@@ -85,17 +85,17 @@ public class TestDirectives {
                 .getResource("/org/tap4j/parser/issue3406964/ihavetodoes.tap")
                 .getFile()));
         assertNotNull("Empty Test Set", testSet);
-        assertTrue("Wrong number of tests", testSet.getTestResults().size() == 2);
+        assertEquals("Wrong number of tests", 2, testSet.getTestResults().size());
 
         TestResult tr1 = testSet.getTestResult(1);
         Directive directive = tr1.getDirective();
 
-        assertTrue(directive.getDirectiveValue() == DirectiveValues.TODO);
+        assertSame(directive.getDirectiveValue(), DirectiveValues.TODO);
 
         TestResult tr2 = testSet.getTestResult(2);
         directive = tr2.getDirective();
 
-        assertTrue(directive.getDirectiveValue() == DirectiveValues.TODO);
+        assertSame(directive.getDirectiveValue(), DirectiveValues.TODO);
         assertEquals(directive.getReason(), "configure tail");
         assertEquals(tr2.getDescription(), "");
 

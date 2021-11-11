@@ -48,7 +48,7 @@ import org.tap4j.model.TestSet;
  */
 public class TestDoneTesting {
 
-    TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
+    final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
 
     @Test
     public void testDoneTesting() {

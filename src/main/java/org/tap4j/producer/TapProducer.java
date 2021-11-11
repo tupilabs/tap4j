@@ -45,7 +45,7 @@ public class TapProducer implements Producer {
     /**
      * Represents the TAP Stream.
      */
-    private Representer representer;
+    private final Representer representer;
 
     /**
      * Default constructor.
@@ -81,7 +81,7 @@ public class TapProducer implements Producer {
      */
     @Override
     public void dump(TestSet testSet, Writer writer) {
-        String tapStream = null;
+        String tapStream;
         try {
             tapStream = this.dump(testSet);
             writer.append(tapStream);
@@ -97,7 +97,7 @@ public class TapProducer implements Producer {
      */
     @Override
     public void dump(TestSet testSet, File output) {
-        Charset charset = null;
+        Charset charset;
         if (representer instanceof Tap13Representer) {
             charset = Charset.forName(((Tap13Representer) representer).getOptions().getCharset());
         } else {

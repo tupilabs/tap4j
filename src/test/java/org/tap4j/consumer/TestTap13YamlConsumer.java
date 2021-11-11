@@ -25,7 +25,7 @@ package org.tap4j.consumer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 import java.util.Map;
 
@@ -45,20 +45,19 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/1.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getHeader().getVersion());
-        assertTrue(testSet.getHeader().getVersion()
-                .equals(TapVersionValues.TAP_13.getValue()));
+        assertEquals(testSet.getHeader().getVersion(), TapVersionValues.TAP_13.getValue());
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getPlan().getInitialTestNumber() == 1);
-        assertTrue(testSet.getPlan().getLastTestNumber() == 3);
-        assertTrue(testSet.getTestResults().size() == 3);
-        assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.OK);
+        assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
+        assertEquals(3, (int) testSet.getPlan().getLastTestNumber());
+        assertEquals(3, testSet.getTestResults().size());
+        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.OK);
         assertNotNull(testSet.getTestResult(2).getDiagnostic());
-        assertTrue(testSet.getTestResult(2).getStatus() == StatusValues.NOT_OK);
+        assertSame(testSet.getTestResult(2).getStatus(), StatusValues.NOT_OK);
         final Map<String, Object> diagnostic = testSet.getTestResult(2)
                 .getDiagnostic();
         assertNotNull(diagnostic);
         assertEquals(diagnostic.get("file"), "t/something.t");
-        assertTrue(testSet.getTestResult(3).getStatus() == StatusValues.OK);
+        assertSame(testSet.getTestResult(3).getStatus(), StatusValues.OK);
     }
 
     @Test
@@ -66,13 +65,12 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/org.tap4j.testng.TestGoogleBrunoKinoshita.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getHeader().getVersion());
-        assertTrue(testSet.getHeader().getVersion()
-                .equals(TapVersionValues.TAP_13.getValue()));
+        assertEquals(testSet.getHeader().getVersion(), TapVersionValues.TAP_13.getValue());
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getPlan().getInitialTestNumber() == 1);
-        assertTrue(testSet.getPlan().getLastTestNumber() == 1);
-        assertTrue(testSet.getTestResults().size() == 1);
-        assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
+        assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
+        assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
+        assertEquals(1, testSet.getTestResults().size());
+        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.NOT_OK);
         assertNotNull(testSet.getTestResult(1).getDiagnostic());
         Map<String, Object> diagnostic = testSet.getTestResult(1)
                 .getDiagnostic();
@@ -85,10 +83,10 @@ public class TestTap13YamlConsumer extends BaseTapTest {
     public void test3() {
         TestSet testSet = getTestSet("/org/tap4j/consumer/org.tap4j.testng.konobi.tap");
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getPlan().getInitialTestNumber() == 1);
-        assertTrue(testSet.getPlan().getLastTestNumber() == 1);
-        assertTrue(testSet.getTestResults().size() == 1);
-        assertTrue(testSet.getTestResult(1).getStatus() == StatusValues.NOT_OK);
+        assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
+        assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
+        assertEquals(1, testSet.getTestResults().size());
+        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.NOT_OK);
         assertNotNull(testSet.getTestResult(1).getDiagnostic());
         Map<String, Object> diagnostic = testSet.getTestResult(1)
                 .getDiagnostic();

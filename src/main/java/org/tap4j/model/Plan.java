@@ -45,13 +45,13 @@ public class Plan extends TapElement {
     /**
      * TAP Plan initial test number.
      */
-    private Integer initialTestNumber;
+    private final Integer initialTestNumber;
 
     /**
      * TAP Plan last test number.
      */
 
-    private Integer lastTestNumber;
+    private final Integer lastTestNumber;
 
     /**
      * TAP Plan skip. If present the tests should not be executed.

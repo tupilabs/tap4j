@@ -47,10 +47,9 @@ public class TestTAPFooter {
 
     @Test
     public void testFooter() {
-        String expectedValue = FOOTER_TEXT;
         assertNotNull(footer);
         assertNotNull(footer.getText());
-        assertEquals(footer.getText(), expectedValue);
+        assertEquals(footer.getText(), FOOTER_TEXT);
     }
 
     @Test

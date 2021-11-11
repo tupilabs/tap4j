@@ -23,7 +23,7 @@
  */
 package org.tap4j.parser.issueGitHub37;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.tap4j.consumer.TapConsumer;
@@ -49,7 +49,7 @@ public class TestSkipDirective {
                 "ok 4 - coverity found no issues for mxm\n" +
                 "ok 5 - coverity found no issues for fca\n" +
                 "ok 6 - coverity found no issues for hcoll");
-        assertTrue(ts.getTestResults().get(0).getDirective() != null);
+        assertNotNull(ts.getTestResults().get(0).getDirective());
     }
 
 }

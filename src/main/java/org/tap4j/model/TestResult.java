@@ -78,7 +78,7 @@ public class TestResult extends TapResult {
         this.status = StatusValues.NOT_OK;
         this.testNumber = -1;
         this.subtest = null;
-        this.comments = new LinkedList<Comment>();
+        this.comments = new LinkedList<>();
     }
 
     /**
@@ -91,7 +91,7 @@ public class TestResult extends TapResult {
         super();
         this.status = testStatus;
         this.testNumber = testNumber;
-        this.comments = new LinkedList<Comment>();
+        this.comments = new LinkedList<>();
     }
 
     /**

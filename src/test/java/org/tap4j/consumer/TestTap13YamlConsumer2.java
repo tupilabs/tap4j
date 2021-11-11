@@ -23,7 +23,9 @@
  */
 package org.tap4j.consumer;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -44,16 +46,15 @@ public class TestTap13YamlConsumer2 extends BaseTapTest {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/tap_with_yaml_comments_bailout_directives.tap");
         assertNotNull(testSet);
         final Plan plan = testSet.getPlan();
-        assertTrue(plan.getInitialTestNumber() == 1);
-        assertTrue(plan.getLastTestNumber() == 3);
-        assertTrue(testSet.getNumberOfTestResults() == 3);
+        assertEquals(1, (int) plan.getInitialTestNumber());
+        assertEquals(3, (int) plan.getLastTestNumber());
+        assertEquals(3, testSet.getNumberOfTestResults());
         assertTrue(testSet.containsBailOut());
-        final TestResult testNumber2WithSkipDirective = testSet.getTestResult(Integer
-                .valueOf(2));
+        final TestResult testNumber2WithSkipDirective = testSet.getTestResult(2);
         assertNotNull(testNumber2WithSkipDirective);
         final Directive skipDirective = testNumber2WithSkipDirective.getDirective();
-        assertTrue(skipDirective.getDirectiveValue() == DirectiveValues.SKIP);
-        assertTrue(skipDirective.getReason().equals("not implemented yet"));
+        assertSame(skipDirective.getDirectiveValue(), DirectiveValues.SKIP);
+        assertEquals("not implemented yet", skipDirective.getReason());
         assertNotNull(testSet.getFooter());
     }
 

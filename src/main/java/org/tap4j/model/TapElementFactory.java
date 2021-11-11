@@ -24,6 +24,7 @@
 package org.tap4j.model;
 
 import java.util.regex.Matcher;
+
 import org.tap4j.util.DirectiveValues;
 import org.tap4j.util.StatusValues;
 
@@ -38,25 +39,6 @@ public final class TapElementFactory {
      */
     private TapElementFactory() {
         // prevent instantiation
-    }
-
-    /**
-     * Create a text element. This element is created when none of the other elements have matched the TAP stream line.
-     * @param tapLine TAP stream line
-     * @return a {@link Text} TAP element
-     */
-    public static Text createTextElement(String tapLine) {
-
-        Matcher m = Patterns.TEXT_PATTERN.matcher(tapLine);
-
-        if (m.matches()) {
-            Text result = new Text(tapLine);
-            result.setIndentationString(m.group(1));
-            result.indentation = m.group(1).length();
-            return result;
-        }
-
-        return null;
     }
 
     /**
@@ -134,6 +116,25 @@ public final class TapElementFactory {
             }
             testResult.indentation = m.group(1).length();
             return testResult;
+        }
+
+        return null;
+    }
+
+    /**
+     * Create a text element. This element is created when none of the other elements have matched the TAP stream line.
+     * @param tapLine TAP stream line
+     * @return a {@link Text} TAP element
+     */
+    public static Text createTextElement(String tapLine) {
+
+        Matcher m = Patterns.TEXT_PATTERN.matcher(tapLine);
+
+        if (m.matches()) {
+            Text result = new Text(tapLine);
+            result.setIndentationString(m.group(1));
+            result.indentation = m.group(1).length();
+            return result;
         }
 
         return null;

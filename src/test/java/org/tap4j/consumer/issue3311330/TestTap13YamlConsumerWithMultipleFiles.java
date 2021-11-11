@@ -23,8 +23,8 @@
  */
 package org.tap4j.consumer.issue3311330;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.tap4j.BaseTapTest;
@@ -39,15 +39,15 @@ public class TestTap13YamlConsumerWithMultipleFiles extends BaseTapTest {
     public void testConsumerWithMultipleFiles() {
         TestSet testSet = getTestSet("/org/tap4j/consumer/issue3311330/1.tap");
         assertNotNull("Empty Test Set", testSet);
-        assertTrue("Wrong number of tests", testSet.getTestResults().size() == 2);
+        assertEquals("Wrong number of tests", 2, testSet.getTestResults().size());
 
         testSet = getTestSet("/org/tap4j/consumer/issue3311330/fala.tap");
         assertNotNull("Empty Test Set", testSet);
-        assertTrue("Wrong number of tests", testSet.getTestResults().size() == 3);
+        assertEquals("Wrong number of tests", 3, testSet.getTestResults().size());
 
         testSet = getTestSet("/org/tap4j/consumer/issue3311330/oi.tap");
         assertNotNull("Empty Test Set", testSet);
-        assertTrue("Wrong number of tests", testSet.getTestResults().size() == 1);
+        assertEquals("Wrong number of tests", 1, testSet.getTestResults().size());
     }
 
 }

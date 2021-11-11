@@ -55,7 +55,7 @@ public class Tap13Representer implements Representer {
     /**
      * Dumper options.
      */
-    private org.tap4j.representer.DumperOptions options;
+    private final org.tap4j.representer.DumperOptions options;
 
     /**
      * YAML parser and emitter.
@@ -136,16 +136,15 @@ public class Tap13Representer implements Representer {
         }
         printFiller(pw);
         pw.append(testResult.getStatus().toString());
-        pw.append(' ' + Integer.toString(testResult.getTestNumber()));
+        pw.append(String.valueOf(' ')).append(Integer.toString(testResult.getTestNumber()));
         if (testResult.getDescription() != null && testResult.getDescription().trim().length() > 0) {
-            pw.append(' ' + testResult.getDescription());
+            pw.append(String.valueOf(' ')).append(testResult.getDescription());
         }
         if (testResult.getDirective() != null) {
-            pw.append(" # "
-                    + testResult.getDirective().getDirectiveValue().toString());
+            pw.append(" # ").append(testResult.getDirective().getDirectiveValue().toString());
             String reason = testResult.getDirective().getReason();
             if (reason != null && reason.trim().length() > 0) {
-                pw.append(' ' + testResult.getDirective().getReason());
+                pw.append(String.valueOf(' ')).append(testResult.getDirective().getReason());
             }
         }
         List<Comment> comments = testResult.getComments();
@@ -153,11 +152,10 @@ public class Tap13Representer implements Representer {
             for (Comment comment : comments) {
                 if (comment.isInline()) {
                     pw.append(' ');
-                    printComment(pw, comment);
                 } else {
                     pw.append(LINE_SEPARATOR);
-                    printComment(pw, comment);
                 }
+                printComment(pw, comment);
             }
         }
         printDiagnostic(pw, testResult);
@@ -172,7 +170,7 @@ public class Tap13Representer implements Representer {
         printFiller(pw);
         pw.append("Bail out!");
         if (bailOut.getReason() != null) {
-            pw.append(' ' + bailOut.getReason());
+            pw.append(String.valueOf(' ')).append(bailOut.getReason());
         }
         if (bailOut.getComment() != null) {
             pw.append(' ');
@@ -189,7 +187,7 @@ public class Tap13Representer implements Representer {
     protected void printFooter(PrintWriter pw, Footer footer) {
         if (footer != null) {
             printFiller(pw);
-            pw.append("TAP " + footer.getText());
+            pw.append("TAP ").append(footer.getText());
             if (footer.getComment() != null) {
                 pw.append(' ');
                 printComment(pw, footer.getComment());
@@ -206,9 +204,7 @@ public class Tap13Representer implements Representer {
     protected void printPlan(PrintWriter pw, Plan plan) {
         if (plan != null) {
             printFiller(pw);
-            pw.append(plan.getInitialTestNumber()
-                    + ".."
-                    + plan.getLastTestNumber());
+            pw.append(String.valueOf(plan.getInitialTestNumber())).append("..").append(String.valueOf(plan.getLastTestNumber()));
             if (plan.getSkip() != null) {
                 pw.append(" skip ");
                 pw.append(plan.getSkip().getReason());
@@ -233,7 +229,7 @@ public class Tap13Representer implements Representer {
     protected void printHeader(PrintWriter pw, Header header) {
         if (header != null) {
             printFiller(pw);
-            pw.append("TAP version " + header.getVersion());
+            pw.append("TAP version ").append(String.valueOf(header.getVersion()));
             if (header.getComment() != null) {
                 pw.append(' ');
                 this.printComment(pw, header.getComment());
@@ -248,7 +244,7 @@ public class Tap13Representer implements Representer {
      * @param comment Comment
      */
     protected void printComment(PrintWriter pw, Comment comment) {
-        pw.append("# " + comment.getText());
+        pw.append("# ").append(comment.getText());
     }
 
     /**

@@ -24,7 +24,8 @@
 package org.tap4j.consumer.issue3504508;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
@@ -47,10 +48,10 @@ public class TestIssue3504508 extends BaseTapTest {
     @Test
     public void testTapConsumer() {
         final TestSet testSet = getTestSet(new Tap13Parser(/* enable subtests*/ true), "/org/tap4j/consumer/issue3504508/sample.tap");
-        assertTrue(testSet.getTestResult(1).getSubtest() == null);
-        assertTrue(testSet.getTestResult(2).getSubtest()
-                .getTestResult(2).getSubtest() != null);
-        assertTrue(testSet.getTestResults().size() == 3);
+        assertNull(testSet.getTestResult(1).getSubtest());
+        assertNotNull(testSet.getTestResult(2).getSubtest()
+                .getTestResult(2).getSubtest());
+        assertEquals(3, testSet.getTestResults().size());
     }
 
     @Test

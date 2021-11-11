@@ -41,7 +41,7 @@ public class TestTap13YamlConsumerWithMoreThanTenResults {
         TestSet testSet = consumer.load("1..20");
 
         assertEquals(testSet.getPlan().getLastTestNumber(),
-                            new Integer(20));
+                Integer.valueOf(20));
     }
 
 }

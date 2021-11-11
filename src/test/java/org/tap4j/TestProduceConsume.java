@@ -118,7 +118,7 @@ public class TestProduceConsume {
             TestSet testSet = tapConsumer.load(tempFile);
             assertNotNull(testSet.getHeader());
             assertNotNull(testSet.getPlan());
-            assertTrue(testSet.getNumberOfTestResults() == 3);
+            assertEquals(3, testSet.getNumberOfTestResults());
             assertNotNull(testSet.getFooter());
             assertTrue(testSet.getTapLines().size() > 0);
             assertTrue(testSet.getNumberOfTapLines() > 0);
@@ -127,8 +127,8 @@ public class TestProduceConsume {
             assertTrue(testSet.containsNotOk());
             assertTrue(testSet.getComments().size() > 0);
             assertTrue(testSet.getNumberOfComments() > 0);
-            assertTrue(testSet.getComments().size() == testSet
-                .getNumberOfComments());
+            assertEquals(testSet.getComments().size(), testSet
+                    .getNumberOfComments());
             assertNotNull(tapConsumer.getTestSet());
             assertEquals(testSet.getTestResult(1).getStatus(),
                                 StatusValues.OK);

@@ -53,7 +53,7 @@ public class TestMemento {
         assertNull(memento.getLastParsedElement());
         assertEquals(0, memento.getIndentationLevel());
         assertFalse(memento.isInYaml());
-        assertTrue(memento.getDiagnosticBuffer().toString().length() == 0);
+        assertEquals(0, memento.getDiagnosticBuffer().toString().length());
 
         int baseIndentationLevel = 50;
         boolean currentlyInYaml = true;

@@ -40,7 +40,7 @@ public enum DirectiveValues {
     /**
      * The text of the directive.
      */
-    private String textValue;
+    private final String textValue;
 
     /**
      * Constructor with parameter.

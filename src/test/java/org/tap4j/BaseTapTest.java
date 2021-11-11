@@ -54,11 +54,10 @@ public class BaseTapTest {
      */
     protected TestSet getTestSet(Parser parser, String name) {
         TapConsumer consumer = getConsumer(parser);
-        TestSet testSet = consumer
+        return consumer
                 .load(new File(getClass()
                     .getResource(name)
                     .getFile()));
-        return testSet;
     }
 
     /**
@@ -75,8 +74,7 @@ public class BaseTapTest {
      * @return TAP Consumer.
      */
     protected TapConsumer getConsumer(Parser parser) {
-        TapConsumer consumer = new TapConsumerImpl(parser);
-        return consumer;
+        return new TapConsumerImpl(parser);
     }
 
 }

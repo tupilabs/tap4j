@@ -41,7 +41,6 @@ public class TestTAPPlan {
     protected Plan skipAllPlan;
     protected final static Integer INITIAL_TEST_NUMBER = 1;
     protected final static Integer LAST_TEST_NUMBER = 3;
-    protected final static String EXPECTED_OUTPUT = "1..3 # Plan's comment.";
     protected final static String REASON = "Function not yet implemented.";
 
     @Before
@@ -54,7 +53,7 @@ public class TestTAPPlan {
 
     @Test
     public void testSimplePlan() {
-        assertTrue(simplePlan != null);
+        assertNotNull(simplePlan);
         assertEquals(simplePlan.getInitialTestNumber(), INITIAL_TEST_NUMBER);
         assertEquals(simplePlan.getLastTestNumber(), LAST_TEST_NUMBER);
         assertNull(simplePlan.getSkip());
@@ -64,7 +63,7 @@ public class TestTAPPlan {
 
     @Test
     public void testSkipAllPlan() {
-        assertTrue(skipAllPlan != null);
+        assertNotNull(skipAllPlan);
         assertEquals(skipAllPlan.getInitialTestNumber(), INITIAL_TEST_NUMBER);
         assertEquals(skipAllPlan.getLastTestNumber(), LAST_TEST_NUMBER);
         assertTrue(skipAllPlan.isSkip());

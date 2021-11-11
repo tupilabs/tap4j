@@ -23,7 +23,7 @@
  */
 package org.tap4j.util;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -35,8 +35,8 @@ public class TestTapVersion {
     @Test
     public void testTapVersionToString() {
         TapVersionValues version = TapVersionValues.TAP_13;
-        assertTrue(version.getValue().equals(Integer.valueOf(13)));
-        assertTrue(version.toString().equals("13"));
+        assertEquals(13, (int) version.getValue());
+        assertEquals("13", version.toString());
     }
 
 }

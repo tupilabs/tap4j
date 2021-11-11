@@ -24,6 +24,8 @@
 package org.tap4j.representer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.Charset;
 
@@ -48,9 +50,9 @@ public class TestDumperOptions {
     public void testDefaultOptions() {
         assertEquals(0, options.getIndent());
         assertEquals(4, options.getSpaces());
-        assertEquals(true, options.isAllowEmptyTestPlan());
-        assertEquals(false, options.isPrintDiagnostics());
-        assertEquals(true, options.isPrintSubtests());
+        assertTrue(options.isAllowEmptyTestPlan());
+        assertFalse(options.isPrintDiagnostics());
+        assertTrue(options.isPrintSubtests());
         assertEquals(Charset.defaultCharset().toString(), options.getCharset());
     }
 

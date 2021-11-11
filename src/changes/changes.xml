@@ -6,6 +6,10 @@
     </properties>
     <body>
         <release version="5.0" date="2021-10-??" description="5.0 release">
+            <action dev="kinow" type="update" issue="71">
+                Use GitHub Actions #71
+                Update junit, snakeyaml, and maven markdown plug-in.
+            </action>
             <action dev="kinow" type="update" issue="69" due-to="Dependabot">
                  Bump snakeyaml from 1.17 to 1.26 #69
             </action>

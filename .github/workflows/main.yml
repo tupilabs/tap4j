@@ -34,8 +34,12 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        java: [ 8, 11, 17 ]
+        java: [ 8, 11 ]
         experimental: [ false ]
+        include:
+          - java: 17
+            os: ubuntu-latest
+            experimental: true
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Set up JDK ${{ matrix.java }}

@@ -42,7 +42,7 @@ ok 1 - sometest
       Done sometest
       __________
   ...
-Note that using pipe the "|" character to produce formatted text is fully supported by YAML, YAMLish, and SankeYAML.
+Note that using pipe the "|" character to produce formatted text is fully supported by YAML, YAMLish, and SnakeYAML.
 However, as you can see from the stream above tap4j trips on the "..." which is included in the raw_output field instead
 of the real one that closes the yaml block. Really, when we setCurrently in YAML we need to record the indentation at
 that time as the "YAML indentation" and probably store that in the memento. Then, instead of trimming the "..." we need

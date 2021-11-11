@@ -53,7 +53,7 @@ public class DumperOptions {
     private boolean allowEmptyTestPlan = Boolean.TRUE;
 
     /**
-     * Indententation.
+     * Indentation.
      */
     private int indent = 0;
 

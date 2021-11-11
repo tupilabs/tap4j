@@ -61,7 +61,7 @@ public class TapConsumerException extends RuntimeException {
     }
 
     /**
-     * Constructor with paramters.
+     * Constructor with parameters.
      *
      * @param message Exception message.
      * @param cause Exception cause.

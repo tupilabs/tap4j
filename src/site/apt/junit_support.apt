@@ -76,7 +76,7 @@ ok 1 - test.SimpleTest:testA
 * TAP JUnit listeners
 
  You can also use tap4j extensions in your JUnit project using Maven. They are 
- organized underthe <<org.tap4j.ext.junit.listener>> package.
+ organized under the <<org.tap4j.ext.junit.listener>> package.
 
 *-----------+-----------+
 || Listener || Feature |

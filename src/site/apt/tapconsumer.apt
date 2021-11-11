@@ -1,7 +1,7 @@
 TAP Consumer
 
  A TAP Consumer can interpret the output of a TAP Producer to determine how 
- many tests were run, which tests succeedded, and which dianostic information 
+ many tests were run, which tests succeeded, and which diagnostic information
  might be usefully reported to the user. In tap4j the consumers are created 
  using the class {{{http://tap4j.sourceforge.net/apidocs/org/tap4j/consumer/TapConsumerFactory.html}TapConsumerFactory}}.
 

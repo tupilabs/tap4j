@@ -43,7 +43,7 @@ public class Text extends TapResult {
     private final String value;
 
     /**
-     * Indentantion string.
+     * Indentation string.
      */
     protected String indentationString;
 
@@ -72,7 +72,7 @@ public class Text extends TapResult {
     }
 
     /**
-     * @param indentationString the new indentantion string
+     * @param indentationString the new indentation string
      */
     public void setIndentationString(String indentationString) {
         this.indentationString = indentationString;

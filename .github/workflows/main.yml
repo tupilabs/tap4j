@@ -34,12 +34,15 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         java: [ 8, 11 ]
         experimental: [ false ]
         include:
           - java: 17
             os: ubuntu-latest
+            experimental: true
+          - java: 8
+            os: windows-latest
             experimental: true
     steps:
       - uses: actions/checkout@v2.4.0

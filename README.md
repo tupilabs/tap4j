@@ -1,6 +1,7 @@
 # tap4j
 
 [![Build status](https://github.com/tupilabs/tap4j/actions/workflows/main.yml/badge.svg)](https://github.com/tupilabs/tap4j/actions/workflows/main.yml)
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X1618T2)
 
 tap4j - Simple implementation of the 

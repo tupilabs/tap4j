@@ -6,6 +6,9 @@
     </properties>
     <body>
         <release version="5.0" date="2021-10-??" description="5.0 release">
+            <action dev="kinow" type="update" issue="73">
+                Fix several typos in javadocs, source code, and documentation #73.
+            </action>
             <action dev="kinow" type="update" issue="71">
                 Use GitHub Actions #71
                 Update junit, snakeyaml, and maven markdown plug-in.

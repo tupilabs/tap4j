@@ -73,7 +73,7 @@ public class Tap13Parser implements Parser {
      * Stack of stream status information bags. Every bag stores state of the parser
      * related to certain indentation level. This is to support subtest feature.
      */
-    private Stack<StreamStatus> states = new Stack<>();
+    private final Stack<StreamStatus> states = new Stack<>();
 
     /**
      * The current state.
@@ -91,24 +91,24 @@ public class Tap13Parser implements Parser {
     /**
      * Require a TAP plan.
      */
-    private boolean planRequired = true;
+    private final boolean planRequired;
 
     /**
      * Enable subtests.
      */
-    private boolean enableSubtests = true;
+    private final boolean enableSubtests;
 
     /**
      * A stack that holds subtests for which we don't know exact parent yet.
      */
-    private Stack<StreamStatus> subStack = new Stack<>();
+    private final Stack<StreamStatus> subStack = new Stack<>();
 
     /**
      * Remove corrupted YAML. YAML parser error should not cause TAP parser error.
      * The content that failed to be parsed as YAML will be just removed from the TAP diagnostic data.
      * Switched off by default.
      */
-    private boolean removeYamlIfCorrupted = false;
+    private final boolean removeYamlIfCorrupted;
 
     /**
      * Parser Constructor.
@@ -226,7 +226,7 @@ public class Tap13Parser implements Parser {
         }
         try (
                 FileInputStream fis = new FileInputStream(tapFile);
-                InputStreamReader isr = new InputStreamReader(fis, decoder);
+                InputStreamReader isr = new InputStreamReader(fis, decoder)
                 ) {
             return parseTapStream(isr);
         } catch (FileNotFoundException e) {
@@ -271,11 +271,15 @@ public class Tap13Parser implements Parser {
         String tapLine = tapLineOrig.replaceAll("\u001B\\[\\?25[lh]", "");
 
         TapElement tapElement = TapElementFactory.createTapElement(tapLine);
+        if (tapElement == null) {
+            return;
+        }
 
-        if (tapElement == null || state.isInYaml()) {
+        final Text text = TapElementFactory.createTextElement(tapLine);
+
+        if (text != null && state.isInYaml()) {
 
             String trimmedLine = tapLine.trim();
-            Text text = TapElementFactory.createTextElement(tapLine);
 
             if (state.isInYaml()) {
 

@@ -40,7 +40,7 @@ public class Footer extends TapElement {
     /**
      * Footer text.
      */
-    private String text;
+    private final String text;
 
     /**
      * Constructor that calls super class constructor.

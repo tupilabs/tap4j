@@ -47,7 +47,7 @@ public class TapElement implements Serializable {
     /**
      * Iterable object returned by SnakeYAML.
      */
-    private Map<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+    private Map<String, Object> diagnostic = new LinkedHashMap<>();
 
     /**
      * Comment.

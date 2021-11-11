@@ -23,6 +23,7 @@
  */
 package org.tap4j.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -76,35 +77,35 @@ public class TestTestSet {
         assertNotNull(this.testSet);
         assertNotNull(this.testSet.getHeader());
         assertNotNull(this.testSet.getPlan());
-        assertTrue(this.testSet.getComments().size() == 1);
-        assertTrue(this.testSet.getNumberOfComments() == 1);
-        assertTrue(this.testSet.getNumberOfTapLines() == this.testSet
+        assertEquals(1, this.testSet.getComments().size());
+        assertEquals(1, this.testSet.getNumberOfComments());
+        assertEquals(this.testSet.getNumberOfTapLines(), this.testSet
                 .getTapLines().size());
-        assertTrue(this.testSet.getNumberOfTapLines() == 4);
-        assertTrue(this.testSet.getNumberOfTestResults() == this.testSet
+        assertEquals(4, this.testSet.getNumberOfTapLines());
+        assertEquals(this.testSet.getNumberOfTestResults(), this.testSet
                 .getTestResults().size());
-        assertTrue(this.testSet.getNumberOfTestResults() == 1);
-        assertTrue(this.testSet.getNextTestNumber() == 2);
+        assertEquals(1, this.testSet.getNumberOfTestResults());
+        assertEquals(2, this.testSet.getNextTestNumber());
         assertTrue(this.testSet.hasBailOut());
-        assertTrue(this.testSet.getBailOuts().size() == 1);
-        assertTrue(this.testSet.getNumberOfBailOuts() == 1);
+        assertEquals(1, this.testSet.getBailOuts().size());
+        assertEquals(1, this.testSet.getNumberOfBailOuts());
         assertNotNull(this.testSet.getFooter());
 
         // intrusive tests
         {
             this.testSet.removeBailOut(bailOut);
-            assertTrue(this.testSet.getNumberOfBailOuts() == 0);
+            assertEquals(0, this.testSet.getNumberOfBailOuts());
 
             this.testSet.removeComment(comment);
-            assertTrue(this.testSet.getNumberOfComments() == 0);
+            assertEquals(0, this.testSet.getNumberOfComments());
             assertFalse(this.testSet.removeComment(comment));
 
             this.testSet.removeTestResult(tr1);
-            assertTrue(this.testSet.getTestResults().size() == 0);
+            assertEquals(0, this.testSet.getTestResults().size());
             assertFalse(this.testSet.removeTestResult(tr1));
 
             this.testSet.removeTapLine(text);
-            assertTrue(this.testSet.getTapLines().size() == 0);
+            assertEquals(0, this.testSet.getTapLines().size());
         }
     }
 
@@ -135,11 +136,11 @@ public class TestTestSet {
         okTestResult.setTestNumber(null);
         assertTrue(testSet.addTestResult(okTestResult));
         assertTrue(testSet.containsOk());
-        TestResult testResult = testSet.getTestResult(Integer.valueOf(1));
+        TestResult testResult = testSet.getTestResult(1);
         assertNotNull(testResult);
-        okTestResult.setTestNumber(Integer.valueOf(1));
+        okTestResult.setTestNumber(1);
         assertTrue(testSet.addTestResult(okTestResult));
-        testResult = testSet.getTestResult(Integer.valueOf(1));
+        testResult = testSet.getTestResult(1);
         assertNotNull(testResult);
     }
 

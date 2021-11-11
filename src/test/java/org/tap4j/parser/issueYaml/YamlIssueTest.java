@@ -23,16 +23,16 @@
  */
 package org.tap4j.parser.issueYaml;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.util.List;
-
 import org.junit.Test;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Tap13Parser;
+
+import java.io.File;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * TAP Streams that contain corrupted YAML should be possible to parse using an extra option.
@@ -59,26 +59,29 @@ public class YamlIssueTest {
 
 
 
-    /**
+    /*
      * this one is from https://github.com/tupilabs/tap4j/issues/47
      */
-    public void testPhantomJsYamlWithoutPrecedingTestLine() {
-        tryPhantomJsYamlWithoutPrecedingTestLine(true);
-        tryPhantomJsYamlWithoutPrecedingTestLine(false);
-    }
-
-    private void tryPhantomJsYamlWithoutPrecedingTestLine(boolean disregardYamlErrors) {
-
-        Tap13Parser tapParser = new Tap13Parser("UTF-8", true, true, disregardYamlErrors);
-
-        TestSet testSet = tapParser.parseFile(new File(YamlIssueTest.class
-                .getResource("/org/tap4j/parser/issueYaml/phantomjs.tap")
-                .getFile()));
-
-        assertNotNull(testSet);
-
-        final List<TestResult> testResults = testSet.getTestResults();
-        assertEquals(3, testResults.size());
-    }
+    // FIXME: fix this test
+//    @Test
+//    @Ignore
+//    public void testPhantomJsYamlWithoutPrecedingTestLine() {
+//        tryPhantomJsYamlWithoutPrecedingTestLine(true);
+//        tryPhantomJsYamlWithoutPrecedingTestLine(false);
+//    }
+//
+//    private void tryPhantomJsYamlWithoutPrecedingTestLine(boolean disregardYamlErrors) {
+//
+//        Tap13Parser tapParser = new Tap13Parser("UTF-8", true, true, disregardYamlErrors);
+//
+//        TestSet testSet = tapParser.parseFile(new File(YamlIssueTest.class
+//                .getResource("/org/tap4j/parser/issueYaml/phantomjs.tap")
+//                .getFile()));
+//
+//        assertNotNull(testSet);
+//
+//        final List<TestResult> testResults = testSet.getTestResults();
+//        assertEquals(3, testResults.size());
+//    }
 
 }

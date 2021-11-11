@@ -97,8 +97,8 @@ public class TestTAPTestResult {
     public void testCommentText() {
         assertEquals(okTestResultSkip.getComments().get(0).getText(),
                             "This status is set to true in another method.");
-        okTestResult.setComments(Collections.<Comment>emptyList());
-        assertTrue(okTestResult.getComments().size() == 0);
+        okTestResult.setComments(Collections.emptyList());
+        assertEquals(0, okTestResult.getComments().size());
     }
 
 }

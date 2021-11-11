@@ -39,7 +39,7 @@ public class BailOut extends TapResult {
     /**
      * Reason to Bail Out.
      */
-    private String reason;
+    private final String reason;
 
     /**
      * Constructor with parameter.

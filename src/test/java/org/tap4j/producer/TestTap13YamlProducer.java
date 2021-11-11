@@ -23,6 +23,7 @@
  */
 package org.tap4j.producer;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -75,11 +76,11 @@ public class TestTap13YamlProducer {
         testSet.addComment(singleComment);
 
         TestResult tr1 = new TestResult(StatusValues.OK, 1);
-        LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<String, Object>();
+        LinkedHashMap<String, Object> diagnostic = new LinkedHashMap<>();
         diagnostic.put("file", "testingproducer.txt");
         diagnostic.put("time", System.currentTimeMillis());
         diagnostic.put("Tester", "Bruno P. Kinoshita");
-        LinkedHashMap<String, Object> map2 = new LinkedHashMap<String, Object>();
+        LinkedHashMap<String, Object> map2 = new LinkedHashMap<>();
         map2.put("EHCTA", 1233);
         map2.put("TRANSACTION", 3434);
         diagnostic.put("Audit", map2);
@@ -110,11 +111,11 @@ public class TestTap13YamlProducer {
     public void testTapProducer() {
         assertTrue(testSet.getTapLines().size() > 0);
 
-        assertTrue(testSet.getNumberOfTestResults() == 2);
+        assertEquals(2, testSet.getNumberOfTestResults());
 
-        assertTrue(testSet.getNumberOfBailOuts() == 1);
+        assertEquals(1, testSet.getNumberOfBailOuts());
 
-        assertTrue(testSet.getNumberOfComments() == 2);
+        assertEquals(2, testSet.getNumberOfComments());
 
         try {
             tapProducer.dump(testSet, tempFile);
@@ -166,12 +167,11 @@ public class TestTap13YamlProducer {
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
-                                                 Integer.valueOf(1));
+                1);
         assertTrue(testSet.addTestResult(okTestResult));
 
         try {
-            File fileOutput = null;
-            tapProducer.dump(testSet, fileOutput);
+            tapProducer.dump(testSet, (File) null);
         } catch (NullPointerException npe) {
             assertNotNull(npe);
         }
@@ -189,7 +189,7 @@ public class TestTap13YamlProducer {
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
-                                                 Integer.valueOf(1));
+                1);
         assertTrue(testSet.addTestResult(okTestResult));
 
         assertNull(testSet.getPlan());
@@ -211,7 +211,7 @@ public class TestTap13YamlProducer {
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
-                                                 Integer.valueOf(1));
+                1);
         assertTrue(testSet.addTestResult(okTestResult));
 
         assertNull(testSet.getPlan());
@@ -221,9 +221,7 @@ public class TestTap13YamlProducer {
 
         assertNotNull(testSet.getPlan());
 
-        StringWriter writer = null;
-
-        tapProducer.dump(testSet, writer);
+        tapProducer.dump(testSet, (StringWriter) null);
     }
 
     @Test(expected = ProducerException.class)
@@ -232,7 +230,7 @@ public class TestTap13YamlProducer {
 
         TestSet testSet = new TestSet();
         TestResult okTestResult = new TestResult(StatusValues.OK,
-                                                 Integer.valueOf(1));
+                1);
         assertTrue(testSet.addTestResult(okTestResult));
 
         assertNull(testSet.getPlan());
@@ -252,7 +250,7 @@ public class TestTap13YamlProducer {
         final Producer tapProducer = new TapProducer();
         final TestSet testSet = new TestSet();
         final TestResult okTestResult = new TestResult(StatusValues.OK,
-                                                 Integer.valueOf(1));
+                1);
         assertTrue(testSet.addTestResult(okTestResult));
         assertNull(testSet.getPlan());
         final Plan plan = new Plan(1, 1);

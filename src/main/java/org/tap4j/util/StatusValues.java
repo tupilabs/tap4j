@@ -39,7 +39,7 @@ public enum StatusValues {
     /**
      * Status value.
      */
-    private String textValue;
+    private final String textValue;
 
     /**
      * Constructor with parameter.

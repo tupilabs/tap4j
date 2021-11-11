@@ -46,14 +46,14 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     @Test
     public void testConsumerPlanskipall() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/comment_planskipall.tap");
-        assertTrue(testSet.getNumberOfTestResults() == 0);
+        assertEquals(0, testSet.getNumberOfTestResults());
 
         final Footer footer = testSet.getFooter();
         assertNull(footer);
 
         final SkipPlan skip = testSet.getPlan().getSkip();
         assertNotNull(skip);
-        assertTrue(skip.getReason().equals("Not implemented yet."));
+        assertEquals("Not implemented yet.", skip.getReason());
     }
 
     // header_plan_tr_footer.tap
@@ -62,9 +62,8 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan_tr_footer.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getNumberOfTestResults() == 2);
-        assertTrue(testSet.getTestResults().get(0).getDescription()
-            .equals("Test 1"));
+        assertEquals(2, testSet.getNumberOfTestResults());
+        assertEquals("Test 1", testSet.getTestResults().get(0).getDescription());
         assertNotNull(testSet.getFooter());
         assertNotNull(testSet.getFooter().getComment());
     }
@@ -75,9 +74,8 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan_tr.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getNumberOfTestResults() == 2);
-        assertTrue(testSet.getTestResults().get(0).getDescription()
-            .equals("Test 1"));
+        assertEquals(2, testSet.getNumberOfTestResults());
+        assertEquals("Test 1", testSet.getTestResults().get(0).getDescription());
         assertNull(testSet.getFooter());
     }
 
@@ -87,7 +85,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         final TestSet testSet = getTestSet("/org/tap4j/consumer/header_plan.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
-        assertTrue(testSet.getNumberOfTestResults() == 0);
+        assertEquals(0, testSet.getNumberOfTestResults());
         assertNull(testSet.getFooter());
     }
 
@@ -99,7 +97,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         assertNotNull(testSet.getPlan());
         assertTrue(testSet.getPlan().isSkip());
         assertNotNull(testSet.getPlan().getSkip());
-        assertTrue(testSet.getNumberOfTestResults() == 0);
+        assertEquals(0, testSet.getNumberOfTestResults());
         assertNull(testSet.getFooter());
     }
 
@@ -107,7 +105,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     @Test
     public void testConsumerHeaderTrPlan() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/header_tr_plan.tap");
-        assertTrue(testSet.getTestResults().size() == 2);
+        assertEquals(2, testSet.getTestResults().size());
         assertNotNull(testSet.getPlan());
         // assertFalse(
         // ((Tap13YamlParser)consumer).isPlanBeforeTestResult() );
@@ -118,11 +116,11 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     public void testConsumerPlanCommentTrFooter() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/plan_comment_tr_footer.tap");
         assertNull(testSet.getHeader());
-        assertTrue(testSet.getTestResults().size() == 3);
+        assertEquals(3, testSet.getTestResults().size());
         assertNotNull(testSet.getPlan());
         // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
-        assertTrue(testSet.getTestResults().size() == testSet.getPlan()
+        assertEquals(testSet.getTestResults().size(), (int) testSet.getPlan()
                 .getLastTestNumber());
         assertNotNull(testSet.getFooter());
     }
@@ -132,12 +130,12 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     public void testConsumerPlanTr() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/plan_tr.tap");
         assertNull(testSet.getHeader());
-        assertTrue(testSet.getTestResults().size() == 2);
+        assertEquals(2, testSet.getTestResults().size());
         assertNotNull(testSet.getPlan());
         // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
-        assertTrue(testSet.getTestResults().size() == testSet.getPlan()
-            .getLastTestNumber());
+        assertEquals(testSet.getTestResults().size(), (int) testSet.getPlan()
+                .getLastTestNumber());
         assertNull(testSet.getFooter());
     }
 
@@ -199,14 +197,12 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
 
     @Test
     public void testConsumerTapStream1AndPrintDetails() {
-        final StringBuilder tapStream = new StringBuilder();
-        tapStream.append("TAP version 13 # the header\n");
-        tapStream.append("1..1\n");
-        tapStream.append("ok 1\n");
-        tapStream
-            .append("Bail out! Out of memory exception # Contact admin! 9988\n");
-        final TestSet testSet = getConsumer().load(tapStream.toString());
-        assertTrue(testSet.getPlan().getLastTestNumber() == 1);
+        String tapStream = "TAP version 13 # the header\n" +
+                "1..1\n" +
+                "ok 1\n" +
+                "Bail out! Out of memory exception # Contact admin! 9988\n";
+        final TestSet testSet = getConsumer().load(tapStream);
+        assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getHeader().getComment());
         assertEquals(testSet.getBailOuts().get(0).getReason(),
@@ -239,7 +235,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     public void testWithSingleTestResult() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/single_tr.tap");
         assertNotNull(testSet);
-        assertTrue(testSet.getNumberOfTestResults() == 1);
+        assertEquals(1, testSet.getNumberOfTestResults());
     }
 
     /**
@@ -249,8 +245,10 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     public void testStateOfConsumer() {
         TestSet testSet = getTestSet("/org/tap4j/consumer/single_tr.tap");
         assertNotNull(testSet);
-        assertTrue(testSet.getNumberOfTestResults() == 1);
+        assertEquals(1, testSet.getNumberOfTestResults());
         testSet = getTestSet("/org/tap4j/consumer/two_tr.tap");
+        assertNotNull(testSet);
+        assertEquals(2, testSet.getNumberOfTestResults());
     }
 
 }

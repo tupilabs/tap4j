@@ -44,7 +44,7 @@ public class TapJunitRepresenter implements Representer {
     /**
      * Name of test suite.
      */
-    private String name;
+    private final String name;
 
     /**
      * @param name Test suite name.

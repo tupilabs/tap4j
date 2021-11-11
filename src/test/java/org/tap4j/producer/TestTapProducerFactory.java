@@ -26,8 +26,6 @@ package org.tap4j.producer;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.junit.Test;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;
@@ -54,7 +52,7 @@ public class TestTapProducerFactory {
     }
 
     @Test
-    public void testTapProducerFactoryConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public void testTapProducerFactoryConstructor() throws IllegalArgumentException {
         TapProducer producer = new TapProducer();
         assertNotNull(producer);
         Representer representer = new Tap13Representer();

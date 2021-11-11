@@ -40,7 +40,7 @@ public class SkipPlan implements Serializable {
     /**
      * The reason for the skip.
      */
-    private String reason;
+    private final String reason;
 
     /**
      * Constructor with parameter.

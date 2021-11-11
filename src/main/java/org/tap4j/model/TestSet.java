@@ -35,6 +35,7 @@ import org.tap4j.util.StatusValues;
  *
  * @since 1.0
  */
+@SuppressWarnings("ALL")
 public class TestSet implements Serializable {
 
     /**
@@ -55,22 +56,22 @@ public class TestSet implements Serializable {
     /**
      * List of TAP Lines.
      */
-    private List<TapElement> tapLines = new LinkedList<TapElement>();
+    private final List<TapElement> tapLines = new LinkedList<>();
 
     /**
      * List of Test Results.
      */
-    private List<TestResult> testResults = new LinkedList<TestResult>();
+    private final List<TestResult> testResults = new LinkedList<>();
 
     /**
      * List of Bail Outs.
      */
-    private List<BailOut> bailOuts = new LinkedList<BailOut>();
+    private final List<BailOut> bailOuts = new LinkedList<>();
 
     /**
      * List of comments.
      */
-    private List<Comment> comments = new LinkedList<Comment>();
+    private final List<Comment> comments = new LinkedList<>();
 
     /**
      * TAP Footer.
@@ -313,7 +314,7 @@ public class TestSet implements Serializable {
      *         otherwise.
      */
     public Boolean containsOk() {
-        Boolean containsOk = false;
+        boolean containsOk = false;
 
         for (TestResult testResult : this.testResults) {
             if (testResult.getStatus().equals(StatusValues.OK)) {
@@ -330,7 +331,7 @@ public class TestSet implements Serializable {
      *         <code>false</code> otherwise.
      */
     public Boolean containsNotOk() {
-        Boolean containsNotOk = false;
+        boolean containsNotOk = false;
 
         for (TestResult testResult : this.testResults) {
             if (testResult.getStatus().equals(StatusValues.NOT_OK)) {

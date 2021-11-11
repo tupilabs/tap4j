@@ -123,7 +123,7 @@ public class TapElementFactoryTest {
         testResult = (TestResult) TapElementFactory.createTapElement(" not ok 42");
         assertEquals(1, testResult.getIndentation());
         assertEquals(42, testResult.getTestNumber().intValue());
-        assertEquals(null, testResult.getDirective());
+        assertNull(testResult.getDirective());
         assertEquals(StatusValues.NOT_OK, testResult.getStatus());
 
         testResult = (TestResult) TapElementFactory.createTapElement("  ok 15 #SKIP");

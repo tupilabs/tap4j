@@ -40,7 +40,7 @@ public enum TapVersionValues {
     /**
      * The TAP version.
      */
-    private Integer version;
+    private final Integer version;
 
     /**
      * Constructor with parameter.

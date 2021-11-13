@@ -39,6 +39,10 @@ import org.parboiled.support.ToStringFormatter;
 import static org.parboiled.support.ParseTreeUtils.printNodeTree;
 import static org.parboiled.trees.GraphUtils.printTree;
 
+/**
+ * A TAP 13 parser, that uses a PEG grammar to parse TAP files,
+ * producing a parse tree.
+ */
 @BuildParseTree
 public class Tap13Parser extends BaseParser<Object> {
 

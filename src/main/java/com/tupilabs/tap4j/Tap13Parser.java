@@ -117,9 +117,9 @@ public class Tap13Parser extends BaseParser<Object> {
 
     // --- Terminals
 
-    public static Rule EOL = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of("\r\n"))).label("Newline");
+    public static final Rule EOL = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of("\r\n"))).label("Newline");
 
-    public static Rule WS = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of(" \t"))).label("Whitespace");
+    public static final Rule WS = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of(" \t"))).label("Whitespace");
 
     // --- main method for testing
 

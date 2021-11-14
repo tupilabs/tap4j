@@ -96,7 +96,7 @@ public class TestTap13YamlRepresenter {
         TestResult tr = new TestResult(StatusValues.OK, 1);
         tr.setDiagnostic(diagnostic);
         repr.printDiagnostic(pw, tr);
-        assertEquals("\n  ---\n  name: Ayrton\n  surname: Senna\n  ...\n", sw.toString());
+        assertTrue(sw.toString().contains("---\n  name: Ayrton\n  surname: Senna"));
     }
 
 }

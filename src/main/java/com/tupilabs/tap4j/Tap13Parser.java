@@ -80,22 +80,53 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 TestStatus(),
                 Optional(
-                        WS,
-                        TestNumber()),
+                        Sequence(
+                            WS,
+                            TestNumber()
+                        )
+                ),
                 Optional(
-                        WS,
-                        Text().label("Description")
+                        // We need to use FirstOf here due to the Text rule of the Description consuming WS, which makes
+                        // it harder to have Description WS Directive (since the WS was consumed as part of Description)
+                        FirstOf(
+                                // Description + Directive
+                                Sequence(
+                                        WS,
+                                        Text().label("Description"),
+                                        Directive()
+                                ),
+                                // Description
+                                Sequence(
+                                        WS,
+                                        Text().label("Description")
+                                ),
+                                // Directive
+                                Sequence(
+                                        WS,
+                                        Directive()
+                                )
+                        )
                 ),
                 Optional(EOL)
         );
     }
 
     Rule TestStatus() {
-        return FirstOf(String("ok"), String("not ok")).label("Test Status");
+        return FirstOf("ok", "not ok").label("Test Status");
     }
 
     Rule TestNumber() {
         return Number().label("Test Number");
+    }
+
+    Rule Directive() {
+        return Sequence(
+                String('#').label("Hash"),
+                WS,
+                FirstOf("skip", "SKIP", "todo", "TODO").label("Directive Type"),
+                Optional(WS),
+                Optional(Text().label("Description"))
+        );
     }
 
     // --- Support rules
@@ -105,21 +136,34 @@ public class Tap13Parser extends BaseParser<Object> {
     }
 
     Rule Text() {
-        return ZeroOrMore(
-            Sequence(
-                    TestNot(AnyOf("\r\n#")),
-                    ANY
-            )
-                    .suppressSubnodes()
-                    .label("Text")
-        );
+        return OneOrMore(
+                Sequence(
+                        TestNot(AnyOf("\r\n#")),
+                        ANY
+                )
+        )
+                .suppressSubnodes()
+                .label("Text");
     }
 
     // --- Terminals
 
     public static final Rule EOL = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of("\r\n"))).label("Newline");
 
-    public static final Rule WS = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of(" \t"))).label("Whitespace");
+    public static final Rule WS = new OneOrMoreMatcher(new AnyOfMatcher(Characters.of(" \t\f"))).label("Whitespace");
+
+    // --- Others
+
+    // we redefine the rule creation for string literals to automatically match trailing whitespace if the string
+    // literal ends with a space character, this way we don't have to insert extra whitespace() rules after each
+    // character or string literal
+
+//    @Override
+//    protected Rule fromStringLiteral(String string) {
+//        return string.endsWith(" ") ?
+//                Sequence(String(string.substring(0, string.length() - 1)), WS) :
+//                String(string);
+//    }
 
     // --- main method for testing
 
@@ -128,9 +172,11 @@ public class Tap13Parser extends BaseParser<Object> {
                 "1..20\n" +
                 "ok 1 the description is here\n" +
                 "not ok\n" +
-                // FIXME: continue here, add directives
-//                "not ok 13 # TODO bend space and time\n" +
-//                "ok 23 # skip Insufficient flogiston pressure.\n" +
+                "not ok 13 # TODO bend space and time\n" +
+                "not ok 13 # todo bend space and time again\n" +
+                "ok 23 test # skip Insufficient amount pressure.\n" +
+                "not ok 13 # TODO bend space and time\n" +
+                "ok 23 # skip Insufficient amount pressure.\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = new TracingParseRunner<>(parser.TestSet()).run(input);

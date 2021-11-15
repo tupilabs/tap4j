@@ -51,7 +51,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 Version(),
                 Plan(),
                 TestLines(),
-                ZeroOrMore(EOL),
+                ZeroOrMore(EOL), // FIXME: is there a way in parboiled to ignore the multiline EOL?
                 EOI
         ).label("Test Set");
     }

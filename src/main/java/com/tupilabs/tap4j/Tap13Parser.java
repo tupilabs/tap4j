@@ -51,6 +51,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 Version(),
                 Plan(),
                 TestLines(),
+                ZeroOrMore(EOL),
                 EOI
         ).label("Test Set");
     }
@@ -77,12 +78,31 @@ public class Tap13Parser extends BaseParser<Object> {
     }
 
     Rule TestLine() {
+        return FirstOf(
+                BailOut(),
+                TestResult()
+        );
+    }
+
+    Rule BailOut() {
+        return Sequence(
+                String("Bail out!"),
+                Optional(
+                        Sequence(
+                                WS,
+                                Text().label("Reason")
+                        )
+                )
+        );
+    }
+
+    Rule TestResult() {
         return Sequence(
                 TestStatus(),
                 Optional(
                         Sequence(
-                            WS,
-                            TestNumber()
+                                WS,
+                                TestNumber()
                         )
                 ),
                 Optional(
@@ -124,8 +144,10 @@ public class Tap13Parser extends BaseParser<Object> {
                 String('#').label("Hash"),
                 WS,
                 FirstOf("skip", "SKIP", "todo", "TODO").label("Directive Type"),
-                Optional(WS),
-                Optional(Text().label("Description"))
+                Optional(
+                        WS,
+                        Text().label("Description")
+                )
         );
     }
 
@@ -177,6 +199,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 "ok 23 test # skip Insufficient amount pressure.\n" +
                 "not ok 13 # TODO bend space and time\n" +
                 "ok 23 # skip Insufficient amount pressure.\n" +
+                "Bail out! MySQL is not running.\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = new TracingParseRunner<>(parser.TestSet()).run(input);

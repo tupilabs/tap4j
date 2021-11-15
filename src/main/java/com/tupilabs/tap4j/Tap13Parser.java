@@ -50,7 +50,7 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 Version(),
                 Plan(),
-                TestLines(),
+                Lines(),
                 ZeroOrMore(EOL), // FIXME: is there a way in parboiled to ignore the multiline EOL?
                 EOI
         ).label("Test Set");
@@ -69,34 +69,21 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 String("1.."),
                 Number(),
-                Optional(EOL)
+                EOL
         ).label("Plan");
     }
 
-    Rule TestLines() {
-        return ZeroOrMore(TestLine()).label("Test Lines");
+    Rule Lines() {
+        return ZeroOrMore(
+                FirstOf(
+                        TestLine(),
+                        BailOut(),
+                        Diagnostics()
+                )
+        ).label("Lines");
     }
 
     Rule TestLine() {
-        return FirstOf(
-                BailOut(),
-                TestResult()
-        );
-    }
-
-    Rule BailOut() {
-        return Sequence(
-                String("Bail out!"),
-                Optional(
-                        Sequence(
-                                WS,
-                                Text().label("Reason")
-                        )
-                )
-        );
-    }
-
-    Rule TestResult() {
         return Sequence(
                 TestStatus(),
                 Optional(
@@ -127,7 +114,7 @@ public class Tap13Parser extends BaseParser<Object> {
                                 )
                         )
                 ),
-                Optional(EOL)
+                EOL
         );
     }
 
@@ -149,6 +136,29 @@ public class Tap13Parser extends BaseParser<Object> {
                         Text().label("Description")
                 )
         );
+    }
+
+    Rule BailOut() {
+        return Sequence(
+                String("Bail out!").label("Bail Out Constant"),
+                Optional(
+                        Sequence(
+                                WS,
+                                Text().label("Reason")
+                        )
+                ),
+                EOL
+        ).label("Bail Out Line");
+    }
+
+    Rule Diagnostics () {
+        return Sequence(
+                "#",
+                Optional(
+                        Text().label("Diagnostic")
+                ),
+                EOL
+        ).label("Diagnostics Line");
     }
 
     // --- Support rules
@@ -200,6 +210,10 @@ public class Tap13Parser extends BaseParser<Object> {
                 "not ok 13 # TODO bend space and time\n" +
                 "ok 23 # skip Insufficient amount pressure.\n" +
                 "Bail out! MySQL is not running.\n" +
+                "#\n" +
+                "# Create a new Board and Tile, then place\n" +
+                "# the Tile onto the board.\n" +
+                "#\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = new TracingParseRunner<>(parser.TestSet()).run(input);

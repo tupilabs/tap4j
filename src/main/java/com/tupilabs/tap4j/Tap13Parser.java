@@ -77,6 +77,12 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 String("1.."),
                 Number(),
+                Optional(
+                        Sequence(
+                                WS,
+                                Comment()
+                        )
+                ),
                 EOL
         ).label("Plan");
     }
@@ -283,7 +289,7 @@ public class Tap13Parser extends BaseParser<Object> {
 //                "#\n" +
 //                "# Create a new Board and Tile, then place\n" +
 //                "# the Tile onto the board.\n" +
-                "1..9\n" +
+                "1..0 # Skipped: WWW::Mechanize not installed\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);

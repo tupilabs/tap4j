@@ -133,7 +133,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 FirstOf("skip", "SKIP", "todo", "TODO").label("Directive Type"),
                 Optional(
                         WS,
-                        Text().label("Directive Description")
+                        AnyText().label("Directive Description")
                 )
         );
     }
@@ -161,7 +161,7 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 String('#').label("Hash"),
                 Optional(
-                        Text().label("Diagnostic")
+                        AnyText().label("Diagnostic")
                 ),
                 EOL
         ).label("Diagnostics Line");
@@ -171,14 +171,7 @@ public class Tap13Parser extends BaseParser<Object> {
         return Sequence(
                 String('#').label("Hash"),
                 Optional(
-                        OneOrMore(
-                                Sequence(
-                                        TestNot(AnyOf("\r\n")),
-                                        ANY
-                                )
-                        )
-                                .suppressSubnodes()
-                                .label("Comment Text")
+                        AnyText().label("Comment Text")
                 )
         ).label("Comment");
     }
@@ -198,6 +191,17 @@ public class Tap13Parser extends BaseParser<Object> {
         )
                 .suppressSubnodes()
                 .label("Text");
+    }
+
+    Rule AnyText() {
+        return OneOrMore(
+                Sequence(
+                        TestNot(AnyOf("\r\n")),
+                        ANY
+                )
+        )
+                .suppressSubnodes()
+                .label("Any Text");
     }
 
     // --- Terminals
@@ -249,6 +253,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 "Bail out!   \n" +
                 "Bail out! Some reason\n" +
                 "Bail out! Some reason # with a comment\n" +
+                "not ok 15 # skip Class#method   \n" +
                 // "not ok # a comment\n" +
 //                "not ok 13 # TODO bend space and time\n" +
 //                "not ok 13 # todo bend space and time again\n" +

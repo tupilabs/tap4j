@@ -147,6 +147,12 @@ public class Tap13Parser extends BaseParser<Object> {
                                 Text().label("Reason")
                         )
                 ),
+                Optional(
+                        Sequence(
+                                WS,
+                                Comment()
+                        )
+                ),
                 EOL
         ).label("Bail Out Line");
     }
@@ -239,6 +245,10 @@ public class Tap13Parser extends BaseParser<Object> {
                 "ok # \n" +
                 "ok  #  \n" +
                 "ok 14 Test # failed Class#method \n" +
+                "Bail out!\n" +
+                "Bail out!   \n" +
+                "Bail out! Some reason\n" +
+                "Bail out! Some reason # with a comment\n" +
                 // "not ok # a comment\n" +
 //                "not ok 13 # TODO bend space and time\n" +
 //                "not ok 13 # todo bend space and time again\n" +

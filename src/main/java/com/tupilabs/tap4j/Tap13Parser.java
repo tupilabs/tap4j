@@ -212,12 +212,24 @@ public class Tap13Parser extends BaseParser<Object> {
 
     // --- Others
 
+    /**
+     * Preprocesses the input stream, doing the following:
+     *
+     * <ul>
+     * <li>Replaces multiple spaces by a single one.</li>
+     * <li>Removes trailing spaces.</li>
+     * <li>Removes empty lines.</li>
+     * </ul>
+     * @param input the input stream
+     * @return a String with no empty lines, no trailing spaces, and only single spaces.
+     */
     private String preprocess(String input) {
         return input
                 // replace multiple spaces by single space
                 .replaceAll(" +", " ")
-                // replace trailing space
+                // remove trailing space
                 .replaceAll(" \n", "\n")
+                // remove empty lines
                 .replaceAll("(?m)^[ \t]*\r?\n", "");
     }
 

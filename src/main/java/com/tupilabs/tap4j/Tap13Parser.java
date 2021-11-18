@@ -52,7 +52,6 @@ public class Tap13Parser extends BaseParser<Object> {
                 Version(),
                 Plan(),
                 Lines(),
-                ZeroOrMore(EOL), // FIXME: is there a way in parboiled to ignore the multiline EOL?
                 EOI
         ).label("Test Set");
     }
@@ -276,6 +275,7 @@ public class Tap13Parser extends BaseParser<Object> {
 //                "#\n" +
 //                "# Create a new Board and Tile, then place\n" +
 //                "# the Tile onto the board.\n" +
+                // "1..9\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);

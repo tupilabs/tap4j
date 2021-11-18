@@ -233,6 +233,7 @@ public class Tap13Parser extends BaseParser<Object> {
      * <li>Removes trailing spaces.</li>
      * <li>Removes empty lines.</li>
      * </ul>
+     *
      * @param input the input stream
      * @return a String with no empty lines, no trailing spaces, and only single spaces.
      */
@@ -279,16 +280,16 @@ public class Tap13Parser extends BaseParser<Object> {
                 "Bail out! Some reason\n" +
                 "Bail out! Some reason # with a comment\n" +
                 "not ok 15 # skip Class#method   \n" +
-                // "not ok # a comment\n" +
-//                "not ok 13 # TODO bend space and time\n" +
-//                "not ok 13 # todo bend space and time again\n" +
-//                "ok 23 test # skip Insufficient amount pressure.\n" +
-//                "not ok 13 # TODO bend space and time\n" +
-//                "ok 23 # skip Insufficient amount pressure.\n" +
-//                "Bail out! MySQL is not running.\n" +
-//                "#\n" +
-//                "# Create a new Board and Tile, then place\n" +
-//                "# the Tile onto the board.\n" +
+                "not ok # a comment\n" +
+                "not ok 13 # TODO bend space and time\n" +
+                "not ok 13 # todo bend space and time again\n" +
+                "ok 23 test # skip Insufficient amount pressure.\n" +
+                "not ok 13 # TODO bend space and time\n" +
+                "ok 23 # skip Insufficient amount pressure.\n" +
+                "Bail out! MySQL is not running.\n" +
+                "#\n" +
+                "# Create a new Board and Tile, then place\n" +
+                "# the Tile onto the board.\n" +
                 "1..0 # Skipped: WWW::Mechanize not installed\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();

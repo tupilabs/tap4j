@@ -50,8 +50,16 @@ public class Tap13Parser extends BaseParser<Object> {
     Rule TestSet() {
         return Sequence(
                 Version(),
-                Plan(),
-                Lines(),
+                FirstOf(
+                        Sequence(
+                                Plan(),
+                                Lines()
+                        ),
+                        Sequence(
+                                Lines(),
+                                Plan()
+                        )
+                ),
                 EOI
         ).label("Test Set");
     }
@@ -241,7 +249,7 @@ public class Tap13Parser extends BaseParser<Object> {
 
     public static void main(String[] args) {
         String input = "TAP Version 13\n" +
-                "1..20\n" +
+                // "1..20\n" +
                 "ok 1 \n" +
                 "not ok 2 \n" +
                 "ok 3\n" +
@@ -275,7 +283,7 @@ public class Tap13Parser extends BaseParser<Object> {
 //                "#\n" +
 //                "# Create a new Board and Tile, then place\n" +
 //                "# the Tile onto the board.\n" +
-                // "1..9\n" +
+                "1..9\n" +
                 "";
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);

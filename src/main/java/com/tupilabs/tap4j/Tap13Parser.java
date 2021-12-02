@@ -28,11 +28,9 @@ import org.parboiled.Rule;
 import org.parboiled.annotations.BuildParseTree;
 import org.parboiled.buffers.IndentDedentInputBuffer;
 import org.parboiled.common.Predicates;
-import org.parboiled.common.StringUtils;
 import org.parboiled.matchers.AnyOfMatcher;
 import org.parboiled.matchers.OneOrMoreMatcher;
 import org.parboiled.matchers.ZeroOrMoreMatcher;
-import org.parboiled.parserunners.BasicParseRunner;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.Characters;
 import org.parboiled.support.Filters;
@@ -45,10 +43,9 @@ import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.parboiled.errors.ErrorUtils.printParseErrors;
 import static org.parboiled.support.ParseTreeUtils.printNodeTree;
 import static org.parboiled.trees.GraphUtils.printTree;
-
-import static org.parboiled.errors.ErrorUtils.printParseErrors;
 
 /**
  * A TAP 13 parser, that uses a PEG grammar to parse TAP files,

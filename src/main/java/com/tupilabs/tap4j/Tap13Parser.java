@@ -26,23 +26,35 @@ package com.tupilabs.tap4j;
 import org.parboiled.BaseParser;
 import org.parboiled.Rule;
 import org.parboiled.annotations.BuildParseTree;
+import org.parboiled.buffers.IndentDedentInputBuffer;
 import org.parboiled.common.Predicates;
 import org.parboiled.common.StringUtils;
 import org.parboiled.matchers.AnyOfMatcher;
 import org.parboiled.matchers.OneOrMoreMatcher;
 import org.parboiled.matchers.ZeroOrMoreMatcher;
 import org.parboiled.parserunners.BasicParseRunner;
+import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.Characters;
 import org.parboiled.support.Filters;
 import org.parboiled.support.ParsingResult;
 import org.parboiled.support.ToStringFormatter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static org.parboiled.support.ParseTreeUtils.printNodeTree;
 import static org.parboiled.trees.GraphUtils.printTree;
+
+import static org.parboiled.errors.ErrorUtils.printParseErrors;
 
 /**
  * A TAP 13 parser, that uses a PEG grammar to parse TAP files,
  * producing a parse tree.
+ *
+ * <p>The parser objects created by parboiled are not thread-safe.</p>
  */
 @BuildParseTree
 public class Tap13Parser extends BaseParser<Object> {
@@ -91,6 +103,7 @@ public class Tap13Parser extends BaseParser<Object> {
         return ZeroOrMore(
                 FirstOf(
                         TestLine(),
+                        YamlBlock(),
                         BailOut(),
                         Diagnostics()
                 )
@@ -137,6 +150,31 @@ public class Tap13Parser extends BaseParser<Object> {
 
     Rule TestNumber() {
         return Number().label("Test Number");
+    }
+
+    Rule YamlBlock() {
+        return Sequence(
+                INDENT,
+                String("---").label("Yaml Block Start"),
+                EOL,
+                ZeroOrMore(
+                        YamlLine()
+                ).suppressSubnodes(),
+                String("...").label("Yaml Block End"),
+                EOL,
+                DEDENT
+        );
+    }
+
+    Rule YamlLine() {
+        return OneOrMore(
+                Sequence(
+                        TestNot(String("...")),
+                        ANY
+                )
+        )
+                .suppressSubnodes()
+                .label("Any Text");
     }
 
     Rule Directive() {
@@ -237,67 +275,51 @@ public class Tap13Parser extends BaseParser<Object> {
      * @param input the input stream
      * @return a String with no empty lines, no trailing spaces, and only single spaces.
      */
-    private String preprocess(String input) {
-        return input
-                // replace multiple spaces by single space
-                .replaceAll(" +", " ")
+    private String preprocess(String input) throws IOException {
+        final StringBuilder buffer = new StringBuilder();
+        // replace multiple spaces by single space
+        try (BufferedReader br = new BufferedReader(new StringReader(input))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                if (!line.startsWith(" ")) {
+                    buffer.append(line.replaceAll(" +", " "));
+                    buffer.append(System.lineSeparator());
+                } else {
+                    buffer.append(line);
+                    buffer.append(System.lineSeparator());
+                }
+            }
+        }
+        return buffer.toString()
                 // remove trailing space
                 .replaceAll(" \n", "\n")
                 // remove empty lines
                 .replaceAll("(?m)^[ \t]*\r?\n", "");
     }
 
-    public ParsingResult<Object> parse(String input) {
+    private int guessIndentation(String input) {
+        // FIXME: guess the indentation from the first two spaces or more found
+        return 2;
+    }
+
+    public ParsingResult<Object> parse(String input) throws IOException {
+        final String preprocessedInput = preprocess(input);
+        final int indentation = guessIndentation(preprocessedInput);
         Tap13Parser parser = new Tap13Parser();
-        return new BasicParseRunner<>(parser.TestSet()).run(preprocess(input));
+        // return new BasicParseRunner<>(parser.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
+        return new ReportingParseRunner<>(parser.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
     }
 
     // --- main method for testing
 
-    public static void main(String[] args) {
-        String input = "TAP Version 13\n" +
-                // "1..20\n" +
-                "ok 1 \n" +
-                "not ok 2 \n" +
-                "ok 3\n" +
-                "not ok\n" +
-                "\n" +
-                "\n" +
-                "   \n" +
-                // "   ok 4" + // invalid!
-                "ok 5 this is a test\n" +
-                "not ok also this!\n" +
-                "ok 7 # TODO failed!\n" +
-                "ok 8 description with # SKIP ah\n" +
-                "not ok 9 # always fails\n" +
-                "ok 10 # always fails 2 \n" +
-                "ok #\n" +
-                "ok # \n" +
-                "ok  #  \n" +
-                "ok 14 Test # failed Class#method \n" +
-                "Bail out!\n" +
-                "Bail out!   \n" +
-                "Bail out! Some reason\n" +
-                "Bail out! Some reason # with a comment\n" +
-                "not ok 15 # skip Class#method   \n" +
-                "not ok # a comment\n" +
-                "not ok 13 # TODO bend space and time\n" +
-                "not ok 13 # todo bend space and time again\n" +
-                "ok 23 test # skip Insufficient amount pressure.\n" +
-                "not ok 13 # TODO bend space and time\n" +
-                "ok 23 # skip Insufficient amount pressure.\n" +
-                "Bail out! MySQL is not running.\n" +
-                "#\n" +
-                "# Create a new Board and Tile, then place\n" +
-                "# the Tile onto the board.\n" +
-                "1..0 # Skipped: WWW::Mechanize not installed\n" +
-                "";
+    public static void main(String[] args) throws IOException {
+        String input = new String(Files.readAllBytes(Path.of("/home/kinow/Downloads/test.t")));
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);
-        // ParsingResult<Object> parsingResult = new BasicParseRunner<>(parser.TestSet()).run(input);
         if (parsingResult.hasErrors()) {
             System.err.println("\n--- ParseErrors ---\n");
-            System.err.println(StringUtils.join(parsingResult.parseErrors, "---\n"));
+            // System.err.println(StringUtils.join(parsingResult.parseErrors, "---\n"));
+            System.err.println(printParseErrors(parsingResult));
             System.err.println("\n--- ParseTree ---\n");
             System.err.println(printNodeTree(parsingResult, Filters.SKIP_EMPTY_OPTS_AND_ZOMS, Predicates.alwaysTrue()));
         } else if (!parsingResult.matched) {

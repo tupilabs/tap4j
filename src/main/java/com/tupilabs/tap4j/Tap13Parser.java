@@ -58,7 +58,7 @@ public class Tap13Parser extends BaseParser<Object> {
 
     Rule TestSet() {
         return Sequence(
-                Version(),
+                Optional(Version()),
                 FirstOf(
                         Sequence(
                                 Plan(),
@@ -309,8 +309,12 @@ public class Tap13Parser extends BaseParser<Object> {
 
     // --- main method for testing
 
+    private static void parse(Path file) {
+
+    }
+
     public static void main(String[] args) throws IOException {
-        String input = new String(Files.readAllBytes(Path.of("/home/kinow/Downloads/test.t")));
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/parser/issueFalseDupPlan/ihavetodoes.tap"));
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {

@@ -77,7 +77,7 @@ public class Tap13Parser extends BaseParser<Object> {
 
     Rule Version() {
         return Sequence(
-                String("TAP Version 13"),
+                IgnoreCase("TAP Version 13"),
                 EOL
         ).label("Version");
     }
@@ -308,10 +308,6 @@ public class Tap13Parser extends BaseParser<Object> {
     }
 
     // --- main method for testing
-
-    private static void parse(Path file) {
-
-    }
 
     public static void main(String[] args) throws IOException {
         String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/parser/issueFalseDupPlan/ihavetodoes.tap"));

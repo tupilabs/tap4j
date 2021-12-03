@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,14 +83,31 @@ public class AllFilesTest {
 
     @Test
     public void testAll() {
+        final String[] ignore = new String[] {
+                "consumer/issue3311330/fala.tap",
+                "consumer/invalid_comment_tr_bailout_header.tap",
+                "consumer/invalid_header_tr.tap",
+                "consumer/invalid_plan_header_plan.tap",
+                "consumer/invalid_plan_tr_header.tap",
+                "consumer/invalid_tr.tap",
+                "consumer/invalid_tr_footer.tap",
+                "consumer/invalid_tr_header_header_tr.tap",
+                "consumer/invalid_tr_plan_header.tap"
+        };
         final String directory = AllFilesTest.class.getResource("/org/tap4j/").getFile();
         Collection<File> files = FileUtils.listFiles(new File(directory), new String[] {"tap", "t"}, true);
         int failed = 0;
         int total = files.size();
+        outer:
         for (File file: files) {
+            for (String ignored : ignore) {
+                if (file.getAbsolutePath().endsWith(ignored)) {
+                    continue outer;
+                }
+            }
             try {
                 parse(Path.of(file.getAbsolutePath()), false);
-                System.out.printf("success [%s]%n", file.getAbsoluteFile());
+                // System.out.printf("success [%s]%n", file.getAbsoluteFile());
             } catch (IOException|RuntimeException e) {
                 System.err.printf("failed [%s]%n", file.getAbsoluteFile());
                 failed++;

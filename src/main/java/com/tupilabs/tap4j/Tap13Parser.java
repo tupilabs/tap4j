@@ -166,7 +166,7 @@ public class Tap13Parser extends BaseParser<Object> {
     Rule YamlLine() {
         return OneOrMore(
                 Sequence(
-                        TestNot(String("...")),
+                        TestNot(Sequence(String("..."), EOL)),
                         ANY
                 )
         )
@@ -310,7 +310,7 @@ public class Tap13Parser extends BaseParser<Object> {
     // --- main method for testing
 
     public static void main(String[] args) throws IOException {
-        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/parser/issueFalseDupPlan/ihavetodoes.tap"));
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/invalid_tr.tap"));
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {

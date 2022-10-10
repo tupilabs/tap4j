@@ -29,7 +29,7 @@
                 Remove JUnit and TestNG .ext packages
             </action>
             <action dev="kinow" type="update">
-                Update snakeyaml to 1.31
+                Update snakeyaml to 1.33
             </action>
         </release>
         <release version="4.4.2" date="2019-05-01" description="4.4.2 release">

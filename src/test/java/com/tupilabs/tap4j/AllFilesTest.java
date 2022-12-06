@@ -26,6 +26,7 @@ package com.tupilabs.tap4j;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import org.parboiled.Parboiled;
 import org.parboiled.common.Predicates;
 import org.parboiled.support.Filters;
 import org.parboiled.support.ParsingResult;
@@ -82,7 +83,7 @@ public class AllFilesTest {
 
     private static void parse(Path path, boolean verbose) throws IOException {
         final String tapStream = Files.readString(path);
-        Tap13Parser parser = new Tap13Parser();
+        Tap13Parser parser = Parboiled.createParser(Tap13Parser.class);
         ParsingResult<Object> parsingResult = parser.parse(tapStream);
         if (parsingResult.hasErrors()) {
             if (verbose) {

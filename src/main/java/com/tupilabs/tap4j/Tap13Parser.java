@@ -24,6 +24,7 @@
 package com.tupilabs.tap4j;
 
 import org.parboiled.BaseParser;
+import org.parboiled.Parboiled;
 import org.parboiled.Rule;
 import org.parboiled.annotations.BuildParseTree;
 import org.parboiled.buffers.IndentDedentInputBuffer;
@@ -54,6 +55,7 @@ import static org.parboiled.trees.GraphUtils.printTree;
  *
  * @since 5.0
  */
+@SuppressWarnings({"InfiniteRecursion"})
 @BuildParseTree
 public class Tap13Parser extends BaseParser<Object> {
 
@@ -61,6 +63,10 @@ public class Tap13Parser extends BaseParser<Object> {
      * Default indentation level for TAP streams.
      */
     private final static int DEFAULT_INDENT = 2;
+
+    public Tap13Parser() {
+        super();
+    }
 
     /**
      * The TAP 13 TestSet.
@@ -83,6 +89,23 @@ public class Tap13Parser extends BaseParser<Object> {
                 Optional(DEDENT),
                 EOI
         ).label("Test Set");
+    }
+
+    Rule Subtest() {
+        return Sequence(
+                INDENT,
+                FirstOf(
+                        Sequence(
+                                Plan(),
+                                Lines()
+                        ),
+                        Sequence(
+                                Lines(),
+                                Plan()
+                        )
+                ),
+                DEDENT
+        ).label("Indented Test Set");
     }
 
     // --- TAP Rules
@@ -126,7 +149,8 @@ public class Tap13Parser extends BaseParser<Object> {
                         TestLine(),
                         YamlBlock(),
                         BailOut(),
-                        Diagnostics()
+                        Diagnostics(),
+                        Subtest()
                 )
         ).label("Lines");
     }
@@ -355,9 +379,8 @@ public class Tap13Parser extends BaseParser<Object> {
     public ParsingResult<Object> parse(String input) throws IOException {
         final String preprocessedInput = preprocess(input);
         final int indentation = guessIndentation(preprocessedInput);
-        Tap13Parser parser = new Tap13Parser();
-        // return new BasicParseRunner<>(parser.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
-        return new ReportingParseRunner<>(parser.TestSet()).run(
+        // return new BasicParseRunner<>(this.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
+        return new ReportingParseRunner<>(this.TestSet()).run(
                 new IndentDedentInputBuffer(
                         preprocessedInput.toCharArray(),
                         indentation,
@@ -370,8 +393,9 @@ public class Tap13Parser extends BaseParser<Object> {
     // --- main method for testing
 
     public static void main(String[] args) throws IOException {
-        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/header_planskipall.tap"));
-        Tap13Parser parser = new Tap13Parser();
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/issue3504508/sample.tap"));
+        // Tap13Parser parser = new Tap13Parser();
+        Tap13Parser parser = Parboiled.createParser(Tap13Parser.class);
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {
             System.err.println("\n--- ParseErrors ---\n");

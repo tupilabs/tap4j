@@ -34,9 +34,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Objects;
 
 import static org.parboiled.errors.ErrorUtils.printParseErrors;
 import static org.parboiled.support.ParseTreeUtils.printNodeTree;
@@ -84,7 +83,7 @@ public class AllFilesTest {
     @Test
     public void testAll() {
         final String[] ignore = new String[] {
-                "consumer/issue3311330/fala.tap",
+                "consumer/issue3311330/fail_a.tap",
                 "consumer/invalid_comment_tr_bailout_header.tap",
                 "consumer/invalid_header_tr.tap",
                 "consumer/invalid_plan_header_plan.tap",
@@ -94,7 +93,7 @@ public class AllFilesTest {
                 "consumer/invalid_tr_header_header_tr.tap",
                 "consumer/invalid_tr_plan_header.tap"
         };
-        final String directory = AllFilesTest.class.getResource("/org/tap4j/").getFile();
+        final String directory = Objects.requireNonNull(AllFilesTest.class.getResource("/org/tap4j/")).getFile();
         Collection<File> files = FileUtils.listFiles(new File(directory), new String[] {"tap", "t"}, true);
         int failed = 0;
         int total = files.size();
@@ -106,7 +105,7 @@ public class AllFilesTest {
                 }
             }
             try {
-                parse(Path.of(file.getAbsolutePath()), false);
+                parse(Path.of(file.getAbsolutePath()), Boolean.parseBoolean(System.getenv("TAP_DEBUG")));
                 // System.out.printf("success [%s]%n", file.getAbsoluteFile());
             } catch (IOException|RuntimeException e) {
                 System.err.printf("failed [%s]%n", file.getAbsoluteFile());

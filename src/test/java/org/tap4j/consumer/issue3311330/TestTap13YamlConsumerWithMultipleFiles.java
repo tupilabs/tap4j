@@ -41,7 +41,7 @@ public class TestTap13YamlConsumerWithMultipleFiles extends BaseTapTest {
         assertNotNull("Empty Test Set", testSet);
         assertEquals("Wrong number of tests", 2, testSet.getTestResults().size());
 
-        testSet = getTestSet("/org/tap4j/consumer/issue3311330/fala.tap");
+        testSet = getTestSet("/org/tap4j/consumer/issue3311330/fail_a.tap");
         assertNotNull("Empty Test Set", testSet);
         assertEquals("Wrong number of tests", 3, testSet.getTestResults().size());
 

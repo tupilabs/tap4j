@@ -23,8 +23,8 @@
  */
 package org.tap4j.perl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,8 +33,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.Directive;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
@@ -60,7 +60,7 @@ public class TestPerlIntegration {
 
     private TapProducer tapProducer = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tapProducer = new TapProducer();
     }

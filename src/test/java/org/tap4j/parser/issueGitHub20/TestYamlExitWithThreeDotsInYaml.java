@@ -1,6 +1,6 @@
 package org.tap4j.parser.issueGitHub20;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
@@ -9,12 +9,10 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Objects;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /*Somewhere near line 250 of Tap13Parser we see the following code:
 
@@ -54,8 +52,10 @@ yaml block is finished yet. Perhaps we should look for the change in indentation
 Also, btw, it seems that the Jenkins TAP plugin does not respect the newlines that are present in the preformatted text
 (raw_output above) and it seems to assume the value can always be displayed in a single line. However, that is another
 issue.*/
+
 /**
  * Parser has incorrect logic for ending yaml diagnostics
+ *
  * @since 4.0.6
  */
 public class TestYamlExitWithThreeDotsInYaml {
@@ -63,9 +63,9 @@ public class TestYamlExitWithThreeDotsInYaml {
     @Test
     public void testYamlExitWithThreeDotsInYaml() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub20/issue-20-tap-stream.tap")
-            .getFile()));
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                        .getResource("/org/tap4j/parser/issueGitHub20/issue-20-tap-stream.tap"))
+                .getFile()));
 
         assertEquals(1, testSet.getTestResults().size());
 
@@ -75,12 +75,12 @@ public class TestYamlExitWithThreeDotsInYaml {
 
         String multiLineYaml = (String) yaml.get("raw_output");
 
-        assertThat(multiLineYaml, is(equalTo("Running sometest\n" +
-                                                     "..........\n" +
-                                                     "..........\n" +
-                                                     "...\n" +
-                                                     "Done sometest\n" +
-                                                     "__________\n")));
+        assertEquals(multiLineYaml, "Running sometest\n" +
+                "..........\n" +
+                "..........\n" +
+                "...\n" +
+                "Done sometest\n" +
+                "__________\n");
     }
 
 }

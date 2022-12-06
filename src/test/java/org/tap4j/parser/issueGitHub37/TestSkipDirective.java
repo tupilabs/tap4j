@@ -23,9 +23,9 @@
  */
 package org.tap4j.parser.issueGitHub37;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerImpl;
 import org.tap4j.model.TestSet;

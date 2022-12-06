@@ -23,7 +23,7 @@
  */
 package org.tap4j.consumer.subtestOrder;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
@@ -32,8 +32,8 @@ import org.tap4j.producer.TapProducerFactory;
 
 import java.io.File;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for correct subtests order.

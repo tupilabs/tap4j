@@ -23,10 +23,10 @@
  */
 package org.tap4j.consumer.issue3311330;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.TestSet;
 
@@ -38,16 +38,16 @@ public class TestTap13YamlConsumerWithMultipleFiles extends BaseTapTest {
     @Test
     public void testConsumerWithMultipleFiles() {
         TestSet testSet = getTestSet("/org/tap4j/consumer/issue3311330/1.tap");
-        assertNotNull("Empty Test Set", testSet);
-        assertEquals("Wrong number of tests", 2, testSet.getTestResults().size());
+        assertNotNull(testSet, "Empty Test Set");
+        assertEquals(2, testSet.getTestResults().size(), "Wrong number of tests");
 
         testSet = getTestSet("/org/tap4j/consumer/issue3311330/fail_a.tap");
-        assertNotNull("Empty Test Set", testSet);
-        assertEquals("Wrong number of tests", 3, testSet.getTestResults().size());
+        assertNotNull(testSet, "Empty Test Set");
+        assertEquals(3, testSet.getTestResults().size(), "Wrong number of tests");
 
         testSet = getTestSet("/org/tap4j/consumer/issue3311330/oi.tap");
-        assertNotNull("Empty Test Set", testSet);
-        assertEquals("Wrong number of tests", 1, testSet.getTestResults().size());
+        assertNotNull(testSet, "Empty Test Set");
+        assertEquals(1, testSet.getTestResults().size(), "Wrong number of tests");
     }
 
 }

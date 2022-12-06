@@ -23,15 +23,15 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.util.DirectiveValues;
 import org.tap4j.util.StatusValues;
 
@@ -46,7 +46,7 @@ public class TestTAPTestResult {
     protected TestResult notOkTestResult = null;
     protected TestResult okTestResultSkip = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         okTestResult = new TestResult(StatusValues.OK, 1);
         okTestResult.setDescription("- First test");

@@ -1,12 +1,13 @@
 package org.tap4j.representer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Directive;
@@ -198,14 +199,14 @@ public class TestTap13Representer {
         assertEquals("1..10 skip Any reason\n", sw.toString());
     }
 
-    @Test(expected = RepresenterException.class)
+    @Test
     public void printPlanEmptyAllowed() {
         DumperOptions options = new DumperOptions();
         options.setAllowEmptyTestPlan(false);
         Tap13Representer repr = new Tap13Representer(options);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        repr.printPlan(pw, null);
+        Assertions.assertThrows(RepresenterException.class, () -> repr.printPlan(pw, null));
     }
 
     @Test

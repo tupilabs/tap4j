@@ -23,13 +23,13 @@
  */
 package org.tap4j.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.TapElement;
 import org.tap4j.model.Text;
 
@@ -40,7 +40,7 @@ public class TestMemento {
 
     private static StreamStatus memento = null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         memento = new StreamStatus();
     }

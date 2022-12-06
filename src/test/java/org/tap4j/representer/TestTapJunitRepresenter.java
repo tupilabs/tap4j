@@ -23,10 +23,10 @@
  */
 package org.tap4j.representer;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
@@ -41,7 +41,7 @@ public class TestTapJunitRepresenter {
 
     private TestSet testSet;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testSet = new TestSet();
         testSet.setPlan(new Plan(2));
@@ -61,7 +61,7 @@ public class TestTapJunitRepresenter {
                           + "<testcase time=\"0\" classname=\"OnlySuccess\" name=\"null\">\n"
                           + "</testcase>\n" + "</testsuite>";
 
-        assertTrue("Wrong XML output", s.contains(expected));
+        assertTrue(s.contains(expected), "Wrong XML output");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class TestTapJunitRepresenter {
                           + "<failure message=\"null\" type=\"Failure\" />\n"
                           + "</testcase>\n" + "</testsuite>";
 
-        assertTrue("Wrong XML output", s.contains(expected));
+        assertTrue(s.contains(expected), "Wrong XML output");
     }
 
 }

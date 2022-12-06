@@ -24,7 +24,9 @@
 package com.tupilabs.tap4j;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import org.parboiled.common.Predicates;
 import org.parboiled.support.Filters;
 import org.parboiled.support.ParsingResult;
@@ -34,8 +36,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static org.parboiled.errors.ErrorUtils.printParseErrors;
 import static org.parboiled.support.ParseTreeUtils.printNodeTree;
@@ -51,6 +55,11 @@ import static org.parboiled.trees.GraphUtils.printTree;
  * @since 5.0.0
  */
 public class AllFilesTest {
+
+    @TestFactory
+    Collection<DynamicTest> dynamicTests() {
+        return Arrays.asList();
+    }
 
     private static void parse(Path path, boolean verbose) throws IOException {
         final String tapStream = Files.readString(path);

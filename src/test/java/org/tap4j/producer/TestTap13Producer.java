@@ -23,15 +23,15 @@
  */
 package org.tap4j.producer;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Footer;
 import org.tap4j.model.Header;
@@ -52,7 +52,7 @@ public class TestTap13Producer {
     private File tempFile;
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tapProducer = new TapProducer();
         testSet = new TestSet();
@@ -128,7 +128,6 @@ public class TestTap13Producer {
         testSet.addTestResult(okTestResult);
         String output = tapProducer.dump(testSet);
         assertFalse(output.contains("-1"));
-
     }
 
 }

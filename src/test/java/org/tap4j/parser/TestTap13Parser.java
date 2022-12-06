@@ -23,15 +23,15 @@
  */
 package org.tap4j.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.tap4j.model.TestSet;
 
 import java.io.File;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.tap4j.model.TestSet;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Tests for TAP 13 Parser.
@@ -41,7 +41,7 @@ public class TestTap13Parser {
 
     private Tap13Parser parser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         parser = new Tap13Parser();
     }
@@ -90,15 +90,14 @@ public class TestTap13Parser {
         assertEquals(Integer.valueOf(13), testSet.getHeader().getVersion());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void testHeaderDuplicated() {
         String tap = "TAP version 13\n" +
                 "TAP version 13\n" +
                 "1..1\n" +
                 "ok 1\n" +
                 "TAP end # a comment";
-        parser.parseTapStream(tap);
-        fail("Not supposed to get here");
+        Assertions.assertThrows(ParserException.class, () -> parser.parseTapStream(tap));
     }
 
     @Test
@@ -129,14 +128,13 @@ public class TestTap13Parser {
         assertEquals(Integer.valueOf(1), testSet.getPlan().getInitialTestNumber());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void testPlanDuplicated() {
         String tap = "TAP version 13 # a comment\n" +
                 "1..1\n" +
                 "1..2\n" +
                 "ok 1";
-        parser.parseTapStream(tap);
-        fail("Not supposed to get here");
+        Assertions.assertThrows(ParserException.class, () -> parser.parseTapStream(tap));
     }
 
     @Test
@@ -166,9 +164,9 @@ public class TestTap13Parser {
         assertEquals("a comment", testSet.getPlan().getComment().getText());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void notExistentFile() {
-        parser.parseFile(new File(""+System.currentTimeMillis()+System.nanoTime()));
+        Assertions.assertThrows(ParserException.class, () -> parser.parseFile(new File(""+System.currentTimeMillis()+System.nanoTime())));
     }
 
 }

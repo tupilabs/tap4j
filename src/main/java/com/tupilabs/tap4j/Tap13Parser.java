@@ -29,6 +29,7 @@ import org.parboiled.Rule;
 import org.parboiled.annotations.BuildParseTree;
 import org.parboiled.buffers.IndentDedentInputBuffer;
 import org.parboiled.common.Predicates;
+import org.parboiled.errors.ErrorUtils;
 import org.parboiled.matchers.AnyOfMatcher;
 import org.parboiled.matchers.OneOrMoreMatcher;
 import org.parboiled.matchers.ZeroOrMoreMatcher;
@@ -64,18 +65,17 @@ public class Tap13Parser extends BaseParser<Object> {
      */
     private final static int DEFAULT_INDENT = 2;
 
-    public Tap13Parser() {
-        super();
-    }
-
     /**
      * The TAP 13 TestSet.
      * @return a TestSet rule.
      */
     Rule TestSet() {
         return Sequence(
+                ZeroOrMore(CommentLine()),
                 Optional(INDENT),
+                ZeroOrMore(CommentLine()),
                 Optional(Version()),
+                ZeroOrMore(CommentLine()),
                 FirstOf(
                         Sequence(
                                 Plan(),
@@ -86,7 +86,9 @@ public class Tap13Parser extends BaseParser<Object> {
                                 Plan()
                         )
                 ),
+                ZeroOrMore(CommentLine()),
                 Optional(DEDENT),
+                ZeroOrMore(CommentLine()),
                 EOI
         ).label("Test Set");
     }
@@ -146,13 +148,24 @@ public class Tap13Parser extends BaseParser<Object> {
     Rule Lines() {
         return ZeroOrMore(
                 FirstOf(
-                        TestLine(),
+                        TapLine(),
                         YamlBlock(),
                         BailOut(),
                         Diagnostics(),
                         Subtest()
                 )
         ).label("Lines");
+    }
+
+    Rule IgnoredLine() {
+        return Sequence(AnyText(), Optional(EOL));
+    }
+
+    Rule TapLine() {
+        return FirstOf(
+                CommentLine(),
+                TestLine()
+        );
     }
 
     /**
@@ -292,6 +305,10 @@ public class Tap13Parser extends BaseParser<Object> {
         ).label("Comment");
     }
 
+    Rule CommentLine() {
+        return Sequence(Comment(), EOL);
+    }
+
     // --- Support rules
 
     Rule Number() {
@@ -393,16 +410,16 @@ public class Tap13Parser extends BaseParser<Object> {
     // --- main method for testing
 
     public static void main(String[] args) throws IOException {
-        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/issue3504508/sample.tap"));
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/parser/issueYaml/phantomjs.tap"));
         // Tap13Parser parser = new Tap13Parser();
         Tap13Parser parser = Parboiled.createParser(Tap13Parser.class);
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {
             System.err.println("\n--- ParseErrors ---\n");
             // System.err.println(StringUtils.join(parsingResult.parseErrors, "---\n"));
-            System.err.println(printParseErrors(parsingResult));
+            System.err.println(ErrorUtils.printParseErrors(parsingResult));
             System.err.println("\n--- ParseTree ---\n");
-            System.err.println(printNodeTree(parsingResult, Filters.SKIP_EMPTY_OPTS_AND_ZOMS, Predicates.alwaysTrue()));
+            System.err.println(printNodeTree(parsingResult));
         } else if (!parsingResult.matched) {
             System.err.println("\n--- No Matches! ---\n");
         } else {

@@ -48,16 +48,27 @@ import static org.parboiled.support.ParseTreeUtils.printNodeTree;
 import static org.parboiled.trees.GraphUtils.printTree;
 
 /**
- * A TAP 13 parser, that uses a PEG grammar to parse TAP files,
- * producing a parse tree.
+ * A TAP 13 parser, that uses a PEG grammar to parse TAP files, producing a parse tree.
  *
- * <p>The parser objects created by parboiled are not thread-safe.</p>
+ * <p><strong>NOTE: The parser objects created by parboiled are not thread-safe.</strong></p>
+ *
+ * @since 5.0
  */
 @BuildParseTree
 public class Tap13Parser extends BaseParser<Object> {
 
+    /**
+     * Default indentation level for TAP streams.
+     */
+    private final static int DEFAULT_INDENT = 2;
+
+    /**
+     * The TAP 13 TestSet.
+     * @return a TestSet rule.
+     */
     Rule TestSet() {
         return Sequence(
+                Optional(INDENT),
                 Optional(Version()),
                 FirstOf(
                         Sequence(
@@ -69,12 +80,17 @@ public class Tap13Parser extends BaseParser<Object> {
                                 Plan()
                         )
                 ),
+                Optional(DEDENT),
                 EOI
         ).label("Test Set");
     }
 
     // --- TAP Rules
 
+    /**
+     * TAP Version.
+     * @return the TAP Version header.
+     */
     Rule Version() {
         return Sequence(
                 IgnoreCase("TAP Version 13"),
@@ -82,6 +98,10 @@ public class Tap13Parser extends BaseParser<Object> {
         ).label("Version");
     }
 
+    /**
+     * The TAP Plan.
+     * @return TAP plan.
+     */
     Rule Plan() {
         return Sequence(
                 String("1.."),
@@ -96,6 +116,10 @@ public class Tap13Parser extends BaseParser<Object> {
         ).label("Plan");
     }
 
+    /**
+     * Rule for the lines of the TAP stream.
+     * @return lines of a TAP stream.
+     */
     Rule Lines() {
         return ZeroOrMore(
                 FirstOf(
@@ -107,6 +131,10 @@ public class Tap13Parser extends BaseParser<Object> {
         ).label("Lines");
     }
 
+    /**
+     * A single TAP line.
+     * @return a TAP line.
+     */
     Rule TestLine() {
         return Sequence(
                 TestStatus(),
@@ -141,14 +169,26 @@ public class Tap13Parser extends BaseParser<Object> {
         );
     }
 
+    /**
+     * The TestStatus (OK, NOK).
+     * @return the TAP TestStatus.
+     */
     Rule TestStatus() {
         return FirstOf("ok", "not ok").label("Test Status");
     }
 
+    /**
+     * The TestNumber.
+     * @return the TAP TestNumber.
+     */
     Rule TestNumber() {
         return Number().label("Test Number");
     }
 
+    /**
+     * A YAML-ish block.
+     * @return the YAML-ish block.
+     */
     Rule YamlBlock() {
         return Sequence(
                 INDENT,
@@ -163,6 +203,10 @@ public class Tap13Parser extends BaseParser<Object> {
         );
     }
 
+    /**
+     * A YAML line.
+     * @return a YAML line.
+     */
     Rule YamlLine() {
         return OneOrMore(
                 Sequence(
@@ -278,6 +322,9 @@ public class Tap13Parser extends BaseParser<Object> {
         try (BufferedReader br = new BufferedReader(new StringReader(input))) {
             String line;
             while((line = br.readLine()) != null) {
+                if (line.trim().equals("")) {
+                    continue;
+                }
                 if (!line.startsWith(" ")) {
                     buffer.append(line.replaceAll(" +", " "));
                     buffer.append(System.lineSeparator());
@@ -295,8 +342,14 @@ public class Tap13Parser extends BaseParser<Object> {
     }
 
     private int guessIndentation(String input) {
-        // FIXME: guess the indentation from the first two spaces or more found
-        return 2;
+        int indent = 0;
+        for (int i = 0; i < input.length(); ++i) {
+            if (input.charAt(i) != ' ') {
+                break;
+            }
+            indent++;
+        }
+        return indent > 0 ? indent : DEFAULT_INDENT;
     }
 
     public ParsingResult<Object> parse(String input) throws IOException {
@@ -304,13 +357,20 @@ public class Tap13Parser extends BaseParser<Object> {
         final int indentation = guessIndentation(preprocessedInput);
         Tap13Parser parser = new Tap13Parser();
         // return new BasicParseRunner<>(parser.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
-        return new ReportingParseRunner<>(parser.TestSet()).run(new IndentDedentInputBuffer(preprocessedInput.toCharArray(), indentation, /* comments chart */ null, /* strict */ false));
+        return new ReportingParseRunner<>(parser.TestSet()).run(
+                new IndentDedentInputBuffer(
+                        preprocessedInput.toCharArray(),
+                        indentation,
+                        /* comments char */ "#",
+                        /* strict */ false,
+                        /* skipEmptyLines */ true
+                ));
     }
 
     // --- main method for testing
 
     public static void main(String[] args) throws IOException {
-        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/invalid_tr.tap"));
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/5.tap"));
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {

@@ -20,9 +20,10 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */package org.tap4j.parser.issueGitHub33;
+ */
+package org.tap4j.parser.issueGitHub33;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
@@ -31,12 +32,10 @@ import org.tap4j.parser.issue3406964.TestDirectives;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Objects;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /*
 *
@@ -94,6 +93,7 @@ ok 1 - sometest
 
 /**
  * tap4j trips over YAML/TAP output that is included in the diagnostics of its own YAML
+ *
  * @since 4.0.9
  */
 public class TestYamlWithYamlInDiagnostics {
@@ -101,9 +101,9 @@ public class TestYamlWithYamlInDiagnostics {
     @Test
     public void testYamlWithYamlInDiagnostics() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub33/issue-33_tap_stream.tap")
-            .getFile()));
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                        .getResource("/org/tap4j/parser/issueGitHub33/issue-33_tap_stream.tap"))
+                .getFile()));
 
         assertEquals(1, testSet.getTestResults().size());
 
@@ -113,45 +113,44 @@ public class TestYamlWithYamlInDiagnostics {
 
         String multiLineYaml = (String) yaml.get("raw_output");
 
-        assertThat(multiLineYaml, is(equalTo(
-                                                     "Running sometest\n" +
-                                                     ".....\n" +
-                                                     "================================================================================\n" +
-                                                     "Verification failed.\n" +
-                                                     "\n" +
-                                                     "    ---------------------\n" +
-                                                     "    Framework Diagnostic:\n" +
-                                                     "    ---------------------\n" +
-                                                     "    ContainsSubstring failed.\n" +
-                                                     "    --> The string must contain the substring.\n" +
-                                                     "\n" +
-                                                     "    Actual String:\n" +
-                                                     "        TAP version 13\n" +
-                                                     "        1..2\n" +
-                                                     "          ---\n" +
-                                                     "            datetime: 2013-09-12T08:35:14\n" +
-                                                     "          ...\n" +
-                                                     "        ok 1 - testcases.SingleSilentTest\n" +
-                                                     "          ---\n" +
-                                                     "            datetime: 2013-09-12T08:35:15\n" +
-                                                     "            raw_output:\n" +
-                                                     "          ...\n" +
-                                                     "        not ok 2 - testcases.SimpleTestWithSharedFixture\n" +
-                                                     "          ---\n" +
-                                                     "            datetime: 2013-09-12T08:35:16\n" +
-                                                     "            raw_output:\n" +
-                                                     "          ...\n" +
-                                                     "\n" +
-                                                     "    Expected Substring:\n" +
-                                                     "\n" +
-                                                     "        ok 2 - testcases.SimpleTestWithSharedFixture\n" +
-                                                     "          ---\n" +
-                                                     "            datetime: 2013-09-12T08:35:16\n" +
-                                                     "          ...\n" +
-                                                     "\n" +
-                                                     "================================================================================\n" +
-                                                     "Done sometest\n" +
-                                                     "__________\n")));
+        assertEquals(multiLineYaml, "Running sometest\n" +
+                ".....\n" +
+                "================================================================================\n" +
+                "Verification failed.\n" +
+                "\n" +
+                "    ---------------------\n" +
+                "    Framework Diagnostic:\n" +
+                "    ---------------------\n" +
+                "    ContainsSubstring failed.\n" +
+                "    --> The string must contain the substring.\n" +
+                "\n" +
+                "    Actual String:\n" +
+                "        TAP version 13\n" +
+                "        1..2\n" +
+                "          ---\n" +
+                "            datetime: 2013-09-12T08:35:14\n" +
+                "          ...\n" +
+                "        ok 1 - testcases.SingleSilentTest\n" +
+                "          ---\n" +
+                "            datetime: 2013-09-12T08:35:15\n" +
+                "            raw_output:\n" +
+                "          ...\n" +
+                "        not ok 2 - testcases.SimpleTestWithSharedFixture\n" +
+                "          ---\n" +
+                "            datetime: 2013-09-12T08:35:16\n" +
+                "            raw_output:\n" +
+                "          ...\n" +
+                "\n" +
+                "    Expected Substring:\n" +
+                "\n" +
+                "        ok 2 - testcases.SimpleTestWithSharedFixture\n" +
+                "          ---\n" +
+                "            datetime: 2013-09-12T08:35:16\n" +
+                "          ...\n" +
+                "\n" +
+                "================================================================================\n" +
+                "Done sometest\n" +
+                "__________\n");
     }
 
 }

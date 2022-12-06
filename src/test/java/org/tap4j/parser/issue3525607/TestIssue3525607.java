@@ -23,11 +23,11 @@
  */
 package org.tap4j.parser.issue3525607;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.Comment;
 import org.tap4j.model.TestResult;

@@ -23,8 +23,8 @@
  */
 package org.tap4j.model;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.tap4j.util.DirectiveValues;
 import org.tap4j.util.StatusValues;
 

@@ -23,11 +23,11 @@
  */
 package org.tap4j.producer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -35,8 +35,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedHashMap;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.BailOut;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Footer;
@@ -62,7 +63,7 @@ public class TestTap13YamlProducer {
 
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         DumperOptions options = new DumperOptions();
         options.setAllowEmptyTestPlan(Boolean.FALSE);
@@ -158,7 +159,7 @@ public class TestTap13YamlProducer {
         // }
     }
 
-    @Test(expected = ProducerException.class)
+    @Test
     public void testDumpFailsForMissingPlan() {
         DumperOptions options = new DumperOptions();
         options.setAllowEmptyTestPlan(Boolean.FALSE);
@@ -178,9 +179,7 @@ public class TestTap13YamlProducer {
 
         StringWriter sw = new StringWriter();
 
-        tapProducer.dump(testSet, sw);
-
-        fail("Not supposed to get here");
+        Assertions.assertThrows(ProducerException.class, () -> tapProducer.dump(testSet, sw));
     }
 
     @Test
@@ -202,10 +201,9 @@ public class TestTap13YamlProducer {
         StringWriter sw = new StringWriter();
 
         tapProducer.dump(testSet, sw);
-
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testDumpToNullWriter() {
         Producer tapProducer = new TapProducer();
 
@@ -221,10 +219,10 @@ public class TestTap13YamlProducer {
 
         assertNotNull(testSet.getPlan());
 
-        tapProducer.dump(testSet, (StringWriter) null);
+        Assertions.assertThrows(NullPointerException.class, () -> tapProducer.dump(testSet, (StringWriter) null));
     }
 
-    @Test(expected = ProducerException.class)
+    @Test
     public void testDumpToInvalidFile() {
         Producer tapProducer = new TapProducer();
 
@@ -242,10 +240,10 @@ public class TestTap13YamlProducer {
 
         File outputFile = new File("");
 
-        tapProducer.dump(testSet, outputFile);
+        Assertions.assertThrows(ProducerException.class, () -> tapProducer.dump(testSet, outputFile));
     }
 
-    @Test(expected = ProducerException.class)
+    @Test
     public void testDumpToInvalidWriter() {
         final Producer tapProducer = new TapProducer();
         final TestSet testSet = new TestSet();
@@ -278,7 +276,8 @@ public class TestTap13YamlProducer {
         }
 
         try {
-            tapProducer.dump(testSet, writer);
+            FileWriter finalWriter = writer;
+            Assertions.assertThrows(ProducerException.class, () -> tapProducer.dump(testSet, finalWriter));
         } finally {
             if (tempFile.exists()) {
                 if (!tempFile.delete()) {

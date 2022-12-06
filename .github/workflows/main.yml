@@ -35,13 +35,13 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        java: [ 8, 11 ]
+        java: [ 11 ]
         experimental: [ false ]
         include:
           - java: 17
             os: ubuntu-latest
             experimental: true
-          - java: 8
+          - java: 11
             os: windows-latest
             experimental: true
     steps:

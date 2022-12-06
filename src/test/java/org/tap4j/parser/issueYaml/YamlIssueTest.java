@@ -23,7 +23,7 @@
  */
 package org.tap4j.parser.issueYaml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Tap13Parser;
@@ -31,8 +31,8 @@ import org.tap4j.parser.Tap13Parser;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * TAP Streams that contain corrupted YAML should be possible to parse using an extra option.

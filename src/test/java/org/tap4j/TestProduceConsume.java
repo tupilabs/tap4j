@@ -17,17 +17,17 @@
  */
 package org.tap4j;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerImpl;
 import org.tap4j.model.BailOut;
@@ -61,7 +61,7 @@ public class TestProduceConsume {
 
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tapProducer = new TapProducer(new Tap13Representer());
         tapConsumer = new TapConsumerImpl();

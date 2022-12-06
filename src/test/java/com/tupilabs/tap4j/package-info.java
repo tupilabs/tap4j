@@ -21,29 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tap4j.util;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.Test;
 
 /**
- * Tests for status values.
+ * Tests.
  */
-public class TestStatusValues {
-
-    @Test
-    public void testToString() {
-        assertEquals("ok",  StatusValues.OK.toString());
-        assertEquals("not ok",  StatusValues.NOT_OK.toString());
-    }
-
-    @Test
-    public void testGetStatusValues() {
-        assertNull(StatusValues.get(null));
-        assertEquals(StatusValues.OK, StatusValues.get("ok"));
-        assertEquals(StatusValues.NOT_OK, StatusValues.get("not ok"));
-    }
-
-}
+package com.tupilabs.tap4j;

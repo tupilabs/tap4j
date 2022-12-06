@@ -23,14 +23,14 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @since 1.0
@@ -43,7 +43,7 @@ public class TestTAPPlan {
     protected final static Integer LAST_TEST_NUMBER = 3;
     protected final static String REASON = "Function not yet implemented.";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         simplePlan = new Plan(INITIAL_TEST_NUMBER, LAST_TEST_NUMBER);
         simplePlan.setComment(new Comment("Plan's comment."));

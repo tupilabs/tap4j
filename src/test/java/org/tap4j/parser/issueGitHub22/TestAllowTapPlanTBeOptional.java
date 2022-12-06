@@ -1,11 +1,11 @@
 package org.tap4j.parser.issueGitHub22;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.nio.charset.Charset;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Tap13Parser;
 import org.tap4j.parser.issue3406964.TestDirectives;

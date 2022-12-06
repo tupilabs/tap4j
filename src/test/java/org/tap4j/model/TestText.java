@@ -23,10 +23,10 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @since 1.0
@@ -35,7 +35,7 @@ public class TestText {
 
     protected Text text;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         text = new Text("Invalid token");
     }

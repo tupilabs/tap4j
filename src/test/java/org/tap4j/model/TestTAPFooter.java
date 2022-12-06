@@ -23,11 +23,11 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests TAP Footer.
@@ -40,7 +40,7 @@ public class TestTAPFooter {
 
     private final static String FOOTER_TEXT = "done";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         footer = new Footer(FOOTER_TEXT);
     }

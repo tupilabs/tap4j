@@ -23,18 +23,19 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.Footer;
 import org.tap4j.model.SkipPlan;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.ParserException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests for a TAP 13 parser. Without YAML or subtests.
@@ -140,59 +141,51 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
     }
 
     // invalid_comment_tr_bailout_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidCommentTrBailoutHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_comment_tr_bailout_header.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_comment_tr_bailout_header.tap"));
     }
 
     // invalid_header_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidHeaderTr() {
-        getTestSet("/org/tap4j/consumer/invalid_header_tr.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_header_tr.tap"));
     }
 
     // invalid_plan_header_plan.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidPlanHeaderPlan() {
-        getConsumer().load("/org/tap4j/consumer/invalid_plan_header_plan.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getConsumer().load("/org/tap4j/consumer/invalid_plan_header_plan.tap"));
     }
 
     // invalid_plan_tr_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidPlanTrHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_plan_tr_header.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_plan_tr_header.tap"));
     }
 
     // invalid_tr_footer.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrFooter() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_footer.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_footer.tap"));
     }
 
     // invalid_tr_header_header_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrHeaderHeaderTr() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_header_header_tr.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_header_header_tr.tap"));
     }
 
     // invalid_tr_plan_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrPlanHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_plan_header.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_plan_header.tap"));
     }
 
     // invalid_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTr() {
-        getTestSet("/org/tap4j/consumer/invalid_tr.tap");
-        fail("Not supposed to get here");
+        Assertions.assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr.tap"));
     }
 
     @Test

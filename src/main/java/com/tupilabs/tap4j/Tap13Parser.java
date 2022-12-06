@@ -361,7 +361,7 @@ public class Tap13Parser extends BaseParser<Object> {
                 new IndentDedentInputBuffer(
                         preprocessedInput.toCharArray(),
                         indentation,
-                        /* comments char */ "#",
+                        /* comments char */ null, // We must use null here so that 1..0 # SKIP ALL is parsed OK.
                         /* strict */ false,
                         /* skipEmptyLines */ true
                 ));
@@ -370,7 +370,7 @@ public class Tap13Parser extends BaseParser<Object> {
     // --- main method for testing
 
     public static void main(String[] args) throws IOException {
-        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/5.tap"));
+        String input = Files.readString(Path.of("/home/kinow/Development/java/workspace/tap4j/src/test/resources/org/tap4j/consumer/header_planskipall.tap"));
         Tap13Parser parser = new Tap13Parser();
         ParsingResult<Object> parsingResult = parser.parse(input);
         if (parsingResult.hasErrors()) {

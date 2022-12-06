@@ -24,7 +24,6 @@
 package com.tupilabs.tap4j;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.parboiled.common.Predicates;
@@ -37,7 +36,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -57,8 +55,29 @@ import static org.parboiled.trees.GraphUtils.printTree;
 public class AllFilesTest {
 
     @TestFactory
-    Collection<DynamicTest> dynamicTests() {
-        return Arrays.asList();
+    Stream<DynamicTest> dynamicTests() {
+        final String[] ignore = new String[] {
+                "consumer/issue3311330/fail_a.tap",
+                "consumer/invalid_comment_tr_bailout_header.tap",
+                "consumer/invalid_header_tr.tap",
+                "consumer/invalid_plan_header_plan.tap",
+                "consumer/invalid_plan_tr_header.tap",
+                "consumer/invalid_tr.tap",
+                "consumer/invalid_tr_footer.tap",
+                "consumer/invalid_tr_header_header_tr.tap",
+                "consumer/invalid_tr_plan_header.tap"
+        };
+        final String directory = Objects.requireNonNull(AllFilesTest.class.getResource("/org/tap4j/")).getFile();
+        final Stream<File> files = FileUtils
+                .listFiles(new File(directory), new String[] {"tap", "t"}, true)
+                .stream()
+                .filter(file -> Arrays.stream(ignore).noneMatch(ignored -> file.getAbsolutePath().endsWith(ignored)));
+        return files
+                .map(file -> DynamicTest.dynamicTest(
+                        String.format("TAP PEG Parser regression test file [%s]", file.getName()),
+                        () -> parse(Path.of(file.getAbsolutePath()), Boolean.parseBoolean(System.getenv("TAP_DEBUG")))
+                        )
+                );
     }
 
     private static void parse(Path path, boolean verbose) throws IOException {
@@ -73,7 +92,7 @@ public class AllFilesTest {
                 System.err.println("\n--- ParseTree ---\n");
                 System.err.println(printNodeTree(parsingResult, Filters.SKIP_EMPTY_OPTS_AND_ZOMS, Predicates.alwaysTrue()));
             }
-            throw new RuntimeException("Errors parsing TAP file");
+            throw new RuntimeException(String.format("Errors parsing TAP file [%s]", path.getFileName()));
         } else if (!parsingResult.matched) {
             throw new RuntimeException("No match!");
         }
@@ -87,40 +106,5 @@ public class AllFilesTest {
             );
             System.out.println(tree);
         }
-    }
-
-    @Test
-    public void testAll() {
-        final String[] ignore = new String[] {
-                "consumer/issue3311330/fail_a.tap",
-                "consumer/invalid_comment_tr_bailout_header.tap",
-                "consumer/invalid_header_tr.tap",
-                "consumer/invalid_plan_header_plan.tap",
-                "consumer/invalid_plan_tr_header.tap",
-                "consumer/invalid_tr.tap",
-                "consumer/invalid_tr_footer.tap",
-                "consumer/invalid_tr_header_header_tr.tap",
-                "consumer/invalid_tr_plan_header.tap"
-        };
-        final String directory = Objects.requireNonNull(AllFilesTest.class.getResource("/org/tap4j/")).getFile();
-        Collection<File> files = FileUtils.listFiles(new File(directory), new String[] {"tap", "t"}, true);
-        int failed = 0;
-        int total = files.size();
-        outer:
-        for (File file: files) {
-            for (String ignored : ignore) {
-                if (file.getAbsolutePath().endsWith(ignored)) {
-                    continue outer;
-                }
-            }
-            try {
-                parse(Path.of(file.getAbsolutePath()), Boolean.parseBoolean(System.getenv("TAP_DEBUG")));
-                // System.out.printf("success [%s]%n", file.getAbsoluteFile());
-            } catch (IOException|RuntimeException e) {
-                System.err.printf("failed [%s]%n", file.getAbsoluteFile());
-                failed++;
-            }
-        }
-        System.out.printf("%.2f%% - failed [%d] success [%d] total [%d] %n", ((float) (total - failed) / total) * 100, failed, total - failed, total);
     }
 }

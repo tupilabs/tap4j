@@ -39,12 +39,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /*
-*
-* If the diagnostics string that is produced contains more tap output with YAML in is diagnostics tap4j bails out, incorrectly deducing that the YAML in the diagnostics (which is at a different indentation level and should be ignored by the parser and just included as part of the diagnostic text) should be parsed and it falls over.
+If the diagnostics string that is produced contains more tap output with YAML
+in is diagnostics tap4j bails out, incorrectly deducing that the YAML in the
+diagnostics (which is at a different indentation level and should be ignored
+by the parser and just included as part of the diagnostic text) should be
+parsed and it falls over.
 
-
-The following tap stream demonstrates this issue, with the diagnostics actually containing a tap stream that is not part of the "main" tap stream.
-
+The following tap stream demonstrates this issue, with the diagnostics actually
+containing a tap stream that is not part of the "main" tap stream.
 
 TAP version 13
 1..1
@@ -90,7 +92,8 @@ ok 1 - some_test
       ================================================================================
       Done some_test
       __________
-  ...*/
+  ...
+*/
 
 /**
  * tap4j trips over YAML/TAP output included in the diagnostics of its own YAML
@@ -119,13 +122,13 @@ public class TestYamlWithYamlInDiagnostics {
                 .....
                 ================================================================================
                 Verification failed.
-                
+
                     ---------------------
                     Framework Diagnostic:
                     ---------------------
                     ContainsSubstring failed.
                     --> The string must contain the substring.
-                
+
                     Actual String:
                         TAP version 13
                         1..2
@@ -142,14 +145,14 @@ public class TestYamlWithYamlInDiagnostics {
                             datetime: 2013-09-12T08:35:16
                             raw_output:
                           ...
-                
+
                     Expected Substring:
-                
+
                         ok 2 - testcases.SimpleTestWithSharedFixture
                           ---
                             datetime: 2013-09-12T08:35:16
                           ...
-                
+
                 ================================================================================
                 Done some_test
                 __________

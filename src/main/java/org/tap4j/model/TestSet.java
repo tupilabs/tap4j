@@ -23,6 +23,7 @@
  */
 package org.tap4j.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +32,7 @@ import org.tap4j.util.StatusValues;
 
 /**
  * A Test Set is the top element in a TAP File. It holds references to the
- * Header, Plan, List of Test Results and the rest of elements in TAP spec.
+ * Header, Plan, List of Test Results, and the rest of the elements in TAP spec.
  *
  * @since 1.0
  */
@@ -40,6 +41,7 @@ public class TestSet implements Serializable {
     /**
      * Serial Version UID.
      */
+    @Serial
     private static final long serialVersionUID = 114777557084672201L;
 
     /**
@@ -63,7 +65,7 @@ public class TestSet implements Serializable {
     private final List<TestResult> testResults = new LinkedList<>();
 
     /**
-     * List of Bail Outs.
+     * List of Bail-Outs.
      */
     private final List<BailOut> bailOuts = new LinkedList<>();
 
@@ -164,7 +166,7 @@ public class TestSet implements Serializable {
      * Test Number in the sequence.
      *
      * @param testResult TAP TestResult.
-     * @return Whether could add to TestResult list or not.
+     * @return Whether you could add to the TestResult list or not.
      */
     public boolean addTestResult(TestResult testResult) {
         if (testResult.getTestNumber() == null
@@ -177,7 +179,7 @@ public class TestSet implements Serializable {
 
     /**
      * @param bailOut Bail Out.
-     * @return Whether could add to BailOut list or not.
+     * @return Whether you could add to the BailOut list or not.
      */
     public boolean addBailOut(BailOut bailOut) {
         this.bailOuts.add(bailOut);
@@ -185,7 +187,7 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * @param comment Comment. Whether could add to Comment list or not.
+     * @param comment Comment. Whether you could add to the Comment list or not.
      * @return True if could successfully add the comment.
      */
     public boolean addComment(Comment comment) {
@@ -197,7 +199,7 @@ public class TestSet implements Serializable {
      * Removes a TAP Line from the list.
      *
      * @param tapLine TAP Line object.
-     * @return True if could successfully remove the TAP Line from the list.
+     * @return True if you could successfully remove the TAP Line from the list.
      */
     protected boolean removeTapLine(TapResult tapLine) {
         return this.tapLines.remove(tapLine);
@@ -207,7 +209,7 @@ public class TestSet implements Serializable {
      * Removes a Test Result from the list.
      *
      * @param testResult Test Result.
-     * @return True if could successfully remove the Test Result from the list.
+     * @return True if you could successfully remove the Test Result from the list.
      */
     public boolean removeTestResult(TestResult testResult) {
         boolean flag = false;
@@ -219,10 +221,10 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * Removes a Bail Out from the list.
+     * Removes a Bail-Out from the list.
      *
      * @param bailOut Bail Out object.
-     * @return True if could successfully remove the Bail Out from the list.
+     * @return True if you could successfully remove the Bail-Out from the list.
      */
     public boolean removeBailOut(BailOut bailOut) {
         boolean flag = false;
@@ -237,7 +239,7 @@ public class TestSet implements Serializable {
      * Removes a Comment from the list.
      *
      * @param comment Comment.
-     * @return True if could successfully remove the Comment from the list.
+     * @return True if you could successfully remove the Comment from the list.
      */
     public boolean removeComment(Comment comment) {
         boolean flag = false;
@@ -249,7 +251,7 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * @return Number of TAP Lines. It includes Test Results, Bail Outs and
+     * @return Number of TAP Lines. It includes Test Results, Bail-Outs and
      *         Comments (the footer is not included).
      */
     public int getNumberOfTapLines() {
@@ -264,7 +266,7 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * @return Number of Bail Outs.
+     * @return Number of Bail-Outs.
      */
     public int getNumberOfBailOuts() {
         return this.bailOuts.size();
@@ -292,7 +294,7 @@ public class TestSet implements Serializable {
     }
 
     /**
-     * @return <code>true</code> if it has any Bail Out statement,
+     * @return <code>true</code> if it has any Bail-Out statement,
      *         <code>false</code> otherwise.
      */
     public boolean hasBailOut() {
@@ -347,12 +349,12 @@ public class TestSet implements Serializable {
      *         otherwise.
      */
     public Boolean containsBailOut() {
-        return this.bailOuts.size() > 0;
+        return !this.bailOuts.isEmpty();
     }
 
     /**
      * @param testNumber test result number.
-     * @return Test Result with given number.
+     * @return Test Result with the given number.
      */
     public TestResult getTestResult(Integer testNumber) {
         TestResult foundTestResult = null;

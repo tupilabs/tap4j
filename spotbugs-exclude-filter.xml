@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 The MIT License
 
@@ -21,17 +22,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-
-# Security Policy
-
-## Supported Versions
-
-| Version      | Supported          |
-|--------------|--------------------|
-| 5.x-SNAPSHOT | :white_check_mark: |
-| 4.x          | :white_check_mark: |
-| < 4.0        | :x:                |
-
-## Reporting a Vulnerability
-
-Please contact @kinow on GitHub or Twitter if you have found any vulnerabilities. Thank you!
+<FindBugsFilter>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="org.tap4j.parser.Tap13Parser"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+</FindBugsFilter>

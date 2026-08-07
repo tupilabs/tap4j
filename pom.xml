@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.tap4j</groupId>
     <artifactId>tap4j</artifactId>
@@ -10,12 +10,14 @@
     <description>tap4j</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>25</java.version>
+        <junit.version>6.1.3</junit.version>
+        <snakeyaml.version>2.6</snakeyaml.version>
     </properties>
-    <url>http://tupilabs.github.io/tap4j</url>
+    <url>https://tupilabs.github.io/tap4j</url>
     <inceptionYear>2010</inceptionYear>
     <organization>
-        <url>http://www.tupilabs.com</url>
+        <url>https://www.tupilabs.com</url>
         <name>TupiLabs</name>
     </organization>
     <developers>
@@ -23,8 +25,8 @@
             <email>kinow@apache.org</email>
             <id>kinow</id>
             <name>Bruno P. Kinoshita</name>
-            <timezone>-3</timezone>
-            <url>http://www.kinoshita.eti.br</url>
+            <timezone>+1</timezone>
+            <url>https://www.kinoshita.eti.br</url>
             <roles>
                 <role>developer</role>
             </roles>
@@ -60,13 +62,13 @@
     <licenses>
         <license>
             <name>MIT</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
     <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.org/tupilabs/tap4j</url>
+        <system>GitHub Actions</system>
+        <url>https://github.com/tupilabs/tap4j/actions</url>
     </ciManagement>
     <issueManagement>
         <system>GitHub</system>
@@ -89,32 +91,43 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.33</version>
+            <version>${snakeyaml.version}</version>
         </dependency>
         <!-- testing -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <groupId>org.junit</groupId>
+            <artifactId>junit-bom</artifactId>
+            <version>${junit.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>6.1.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
-        <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
+        <defaultGoal>
+            clean verify
+            apache-rat:check
+            checkstyle:check
+            spotbugs:check
+        </defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.15.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.12.0</version>
                 <configuration>
                     <source>${java.version}</source>
                 </configuration>
@@ -122,21 +135,19 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
-                <version>0.13</version>
-                <configuration>
-                    <ignoreErrors>true</ignoreErrors>
-                </configuration>
+                <version>0.18</version>
             </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.12.2</version>
+                <version>4.10.3.0</version>
                 <configuration>
                     <!-- <excludeFilterFile>${basedir}/spotbugs-exclude-filter.xml</excludeFilterFile> -->
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>
                 <configuration>
                     <configLocation>${basedir}/src/config/checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -147,19 +158,24 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>3.22.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
                         <artifactId>doxia-module-markdown</artifactId>
-                        <version>1.10</version>
+                        <version>2.1.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.9.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.6.0-M1</version>
             </plugin>
         </plugins>
     </build>

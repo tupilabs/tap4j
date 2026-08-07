@@ -23,15 +23,16 @@
  */
 package org.tap4j.parser.issueGitHub6;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.issue3406964.TestDirectives;
+
+import java.io.File;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * The parser keeps complaining about a missing plan in a stream that does have
@@ -48,8 +49,8 @@ public class TestMissingTapPlan {
     @Test
     public void testTapPlan() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumerWithoutSubtests();
-        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub6/test-report.tap")
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                .getResource("/org/tap4j/parser/issueGitHub6/test-report.tap"))
             .getFile()));
 
         assertNotNull(testSet);

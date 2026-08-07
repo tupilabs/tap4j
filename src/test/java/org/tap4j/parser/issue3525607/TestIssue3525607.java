@@ -23,15 +23,15 @@
  */
 package org.tap4j.parser.issue3525607;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.Comment;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for issue 3525607
@@ -42,15 +42,23 @@ public class TestIssue3525607 extends BaseTapTest {
 
     @Test
     public void testTestResultWithCommentDiagnostics() {
-        final String tap = "1..2\n" + "ok 1 - OK\n" + "# No errors found\n"
-                + "not ok 2\n" + "# Invalid stream character\n"
-                + "# Missing end transmission signal\n"
-                + "# Aborting mission!\n" + "ok";
+        final String tap = """
+            1..2
+            ok 1 - OK
+            # No errors found
+            not ok 2
+            # Invalid stream character
+            # Missing end transmission signal
+            # Aborting mission!
+            ok""";
         final TestSet testSet = getConsumer().load(tap);
         assertEquals("No errors found",
-                testSet.getTestResult(1).getComments().get(0).getText());
-        final String expected = "Invalid stream character\n"
-                + "Missing end transmission signal\n" + "Aborting mission!\n";
+            testSet.getTestResult(1).getComments().getFirst().getText());
+        final String expected = """
+            Invalid stream character
+            Missing end transmission signal
+            Aborting mission!
+            """;
         final StringBuilder actualCommentText = new StringBuilder();
         final TestResult testResult = testSet.getTestResult(2);
         final List<Comment> comments = testResult.getComments();

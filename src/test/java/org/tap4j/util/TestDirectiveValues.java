@@ -23,10 +23,10 @@
  */
 package org.tap4j.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Tests for directive values.
@@ -35,8 +35,8 @@ public class TestDirectiveValues {
 
     @Test
     public void testToString() {
-        assertEquals("SKIP",  DirectiveValues.SKIP.toString());
-        assertEquals("TODO",  DirectiveValues.TODO.toString());
+        assertEquals("SKIP", DirectiveValues.SKIP.toString());
+        assertEquals("TODO", DirectiveValues.TODO.toString());
     }
 
     @Test

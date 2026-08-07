@@ -24,8 +24,8 @@
 
 /**
  * Tests for GitHub issue #41.
- *
+ * <p>
  * When an empty plan, 1..0, occurred right after a previous plan, it used to be
- * evaluated as error added a test case
+ * evaluated as an error added a test case
  */
 package org.tap4j.parser.issueGitHub41;

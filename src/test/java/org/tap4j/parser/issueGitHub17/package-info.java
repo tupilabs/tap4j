@@ -1,6 +1,6 @@
 /**
  * Tests for GitHub issue #17.
- *
- * Stream with subtests chopping off last yaml diagnostic
+ * <p>
+ * Stream with subtests chopping off last YAML diagnostic.
  */
 package org.tap4j.parser.issueGitHub17;

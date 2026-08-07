@@ -23,11 +23,12 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * @since 1.0
@@ -38,7 +39,7 @@ public class TestTAPHeader {
 
     protected final static Integer TAP_VERSION = 13;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.header = new Header(TAP_VERSION);
     }
@@ -46,14 +47,14 @@ public class TestTAPHeader {
     @Test
     public void testHeader() {
         assertNotNull(this.header);
-        assertEquals(this.header.getVersion(), TestTAPHeader.TAP_VERSION);
+        assertEquals(TestTAPHeader.TAP_VERSION, this.header.getVersion());
     }
 
     @Test
     public void testComment() {
         this.header.setComment(new Comment("Header's comment."));
         assertNotNull(this.header.getComment());
-        assertEquals(this.header.getComment().getText(), "Header's comment.");
+        assertEquals("Header's comment.", this.header.getComment().getText());
 
     }
 

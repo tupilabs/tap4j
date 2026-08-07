@@ -23,18 +23,19 @@
  */
 package org.tap4j.parser.issueGitHub15;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.util.List;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.issue3406964.TestDirectives;
+
+import java.io.File;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * TAP Streams with a subtest as first test fail, complaining about a duplicate
@@ -50,8 +51,8 @@ public class TestSubtestAsFirstTestNoPlan {
     @Test
     public void testSubtestAsFirstTest() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub15/issue-15-tap-stream.tap")
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                .getResource("/org/tap4j/parser/issueGitHub15/issue-15-tap-stream.tap"))
             .getFile()));
 
         assertNotNull(testSet);

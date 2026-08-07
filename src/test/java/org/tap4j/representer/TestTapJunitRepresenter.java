@@ -23,14 +23,14 @@
  */
 package org.tap4j.representer;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.StatusValues;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for TAP JUnit representer.
@@ -41,7 +41,7 @@ public class TestTapJunitRepresenter {
 
     private TestSet testSet;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testSet = new TestSet();
         testSet.setPlan(new Plan(2));
@@ -54,14 +54,17 @@ public class TestTapJunitRepresenter {
         Representer r = new TapJunitRepresenter("OnlySuccess");
         String s = r.representData(testSet);
 
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
-                          + "<testsuite failures=\"0\" time=\"0.0\" errors=\"0\" skipped=\"0\" tests=\"2\" name=\"OnlySuccess\">\n"
-                          + "<testcase time=\"0\" classname=\"OnlySuccess\" name=\"null\">\n"
-                          + "</testcase>\n"
-                          + "<testcase time=\"0\" classname=\"OnlySuccess\" name=\"null\">\n"
-                          + "</testcase>\n" + "</testsuite>\n";
+        String expected = """
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <testsuite failures="0" time="0.0" errors="0" skipped="0" tests="2" name="OnlySuccess">
+            <testcase time="0" classname="OnlySuccess" name="null">
+            </testcase>
+            <testcase time="0" classname="OnlySuccess" name="null">
+            </testcase>
+            </testsuite>
+            """;
 
-        assertEquals("Wrong XML output", expected, s);
+        assertEquals(expected, s, "Wrong XML output");
     }
 
     @Test
@@ -75,17 +78,20 @@ public class TestTapJunitRepresenter {
         Representer r = new TapJunitRepresenter("WithFailures");
         String s = r.representData(testSet2);
 
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
-                          + "<testsuite failures=\"1\" time=\"0.0\" errors=\"0\" skipped=\"0\" tests=\"3\" name=\"WithFailures\">\n"
-                          + "<testcase time=\"0\" classname=\"WithFailures\" name=\"null\">\n"
-                          + "</testcase>\n"
-                          + "<testcase time=\"0\" classname=\"WithFailures\" name=\"null\">\n"
-                          + "</testcase>\n"
-                          + "<testcase time=\"0\" classname=\"WithFailures\" name=\"null\">\n"
-                          + "<failure message=\"null\" type=\"Failure\" />\n"
-                          + "</testcase>\n" + "</testsuite>\n";
+        String expected = """
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <testsuite failures="1" time="0.0" errors="0" skipped="0" tests="3" name="WithFailures">
+            <testcase time="0" classname="WithFailures" name="null">
+            </testcase>
+            <testcase time="0" classname="WithFailures" name="null">
+            </testcase>
+            <testcase time="0" classname="WithFailures" name="null">
+            <failure message="null" type="Failure" />
+            </testcase>
+            </testsuite>
+            """;
 
-        assertEquals("Wrong XML output", expected, s);
+        assertEquals(expected, s, "Wrong XML output");
     }
 
 }

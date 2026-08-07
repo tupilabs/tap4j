@@ -23,17 +23,17 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.tap4j.util.DirectiveValues;
+import org.tap4j.util.StatusValues;
 
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.tap4j.util.DirectiveValues;
-import org.tap4j.util.StatusValues;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests Test Results and Directives/Status.
@@ -46,7 +46,7 @@ public class TestTAPTestResult {
     protected TestResult notOkTestResult = null;
     protected TestResult okTestResultSkip = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         okTestResult = new TestResult(StatusValues.OK, 1);
         okTestResult.setDescription("- First test");
@@ -55,10 +55,10 @@ public class TestTAPTestResult {
         notOkTestResult.setTestNumber(2);
         okTestResultSkip = new TestResult(StatusValues.NOT_OK, 3);
         Directive skipDirective = new Directive(DirectiveValues.SKIP,
-                                                "Skip it until next release of the produce.");
+            "Skip it until next release of the produce.");
         okTestResultSkip.setDirective(skipDirective);
         final Comment comment = new Comment(
-                                      "This status is set to true in another method.");
+            "This status is set to true in another method.");
         comment.setInline(Boolean.TRUE);
         okTestResultSkip.addComment(comment);
     }
@@ -67,7 +67,7 @@ public class TestTAPTestResult {
     public void testOkTestResult() {
         assertNotNull(okTestResult);
         assertTrue(okTestResult.getTestNumber() > 0);
-        assertEquals(okTestResult.getStatus(), StatusValues.OK);
+        assertEquals(StatusValues.OK, okTestResult.getStatus());
         assertNull(okTestResult.getDirective());
     }
 
@@ -75,7 +75,7 @@ public class TestTAPTestResult {
     public void testNotOkTestResult() {
         assertNotNull(notOkTestResult);
         assertTrue(notOkTestResult.getTestNumber() > 0);
-        assertEquals(notOkTestResult.getStatus(), StatusValues.NOT_OK);
+        assertEquals(StatusValues.NOT_OK, notOkTestResult.getStatus());
         assertNull(notOkTestResult.getDirective());
     }
 
@@ -84,19 +84,19 @@ public class TestTAPTestResult {
         assertNotNull(okTestResultSkip);
         assertTrue(okTestResultSkip.getTestNumber() > 0);
         okTestResultSkip.setStatus(StatusValues.OK);
-        assertEquals(okTestResultSkip.getStatus(), StatusValues.OK);
+        assertEquals(StatusValues.OK, okTestResultSkip.getStatus());
         assertNotNull(okTestResultSkip.getDirective());
     }
 
     @Test
     public void testInlineComment() {
-        assertTrue(okTestResultSkip.getComments().get(0).isInline());
+        assertTrue(okTestResultSkip.getComments().getFirst().isInline());
     }
 
     @Test
     public void testCommentText() {
-        assertEquals(okTestResultSkip.getComments().get(0).getText(),
-                            "This status is set to true in another method.");
+        assertEquals("This status is set to true in another method.",
+            okTestResultSkip.getComments().getFirst().getText());
         okTestResult.setComments(Collections.emptyList());
         assertEquals(0, okTestResult.getComments().size());
     }

@@ -23,28 +23,31 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.Footer;
 import org.tap4j.model.SkipPlan;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.ParserException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Tests for a TAP 13 parser. Without YAML or subtests.
+ *
  * @since 1.0
  */
 public class TestTap13Consumer extends BaseTapTest {// NOPMD
 
     // comment_planskipall.tap
     @Test
-    public void testConsumerPlanskipall() {
+    public void testConsumerPlanSkipAll() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/comment_planskipall.tap");
         assertEquals(0, testSet.getNumberOfTestResults());
 
@@ -63,7 +66,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
         assertEquals(2, testSet.getNumberOfTestResults());
-        assertEquals("Test 1", testSet.getTestResults().get(0).getDescription());
+        assertEquals("Test 1", testSet.getTestResults().getFirst().getDescription());
         assertNotNull(testSet.getFooter());
         assertNotNull(testSet.getFooter().getComment());
     }
@@ -75,7 +78,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
         assertEquals(2, testSet.getNumberOfTestResults());
-        assertEquals("Test 1", testSet.getTestResults().get(0).getDescription());
+        assertEquals("Test 1", testSet.getTestResults().getFirst().getDescription());
         assertNull(testSet.getFooter());
     }
 
@@ -91,7 +94,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
 
     // header_planskipall.tap
     @Test
-    public void testConsumerHeaderPlanskipall() {
+    public void testConsumerHeaderPlanSkipAll() {
         final TestSet testSet = getTestSet("/org/tap4j/consumer/header_planskipall.tap");
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getPlan());
@@ -121,7 +124,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
         assertEquals(testSet.getTestResults().size(), (int) testSet.getPlan()
-                .getLastTestNumber());
+            .getLastTestNumber());
         assertNotNull(testSet.getFooter());
     }
 
@@ -135,80 +138,73 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
         // assertTrue(
         // ((TapConsumerImpl)consumer).isPlanBeforeTestResult() );
         assertEquals(testSet.getTestResults().size(), (int) testSet.getPlan()
-                .getLastTestNumber());
+            .getLastTestNumber());
         assertNull(testSet.getFooter());
     }
 
     // invalid_comment_tr_bailout_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidCommentTrBailoutHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_comment_tr_bailout_header.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_comment_tr_bailout_header.tap"));
     }
 
     // invalid_header_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidHeaderTr() {
-        getTestSet("/org/tap4j/consumer/invalid_header_tr.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_header_tr.tap"));
     }
 
     // invalid_plan_header_plan.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidPlanHeaderPlan() {
-        getConsumer().load("/org/tap4j/consumer/invalid_plan_header_plan.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_plan_header_plan.tap"));
     }
 
     // invalid_plan_tr_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidPlanTrHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_plan_tr_header.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_plan_tr_header.tap"));
     }
 
     // invalid_tr_footer.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrFooter() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_footer.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_footer.tap"));
     }
 
     // invalid_tr_header_header_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrHeaderHeaderTr() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_header_header_tr.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_header_header_tr.tap"));
     }
 
     // invalid_tr_plan_header.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTrPlanHeader() {
-        getTestSet("/org/tap4j/consumer/invalid_tr_plan_header.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr_plan_header.tap"));
     }
 
     // invalid_tr.tap
-    @Test(expected = TapConsumerException.class)
+    @Test
     public void testConsumerInvalidTr() {
-        getTestSet("/org/tap4j/consumer/invalid_tr.tap");
-        fail("Not supposed to get here");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/invalid_tr.tap"));
     }
 
     @Test
     public void testConsumerTapStream1AndPrintDetails() {
-        String tapStream = "TAP version 13 # the header\n" +
-                "1..1\n" +
-                "ok 1\n" +
-                "Bail out! Out of memory exception # Contact admin! 9988\n";
+        String tapStream = """
+            TAP version 13 # the header
+            1..1
+            ok 1
+            Bail out! Out of memory exception # Contact admin! 9988
+            """;
         final TestSet testSet = getConsumer().load(tapStream);
         assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
         assertNotNull(testSet.getHeader());
         assertNotNull(testSet.getHeader().getComment());
-        assertEquals(testSet.getBailOuts().get(0).getReason(),
-                            "Out of memory exception ");
-        assertEquals(testSet.getBailOuts().get(0).getComment()
-            .getText(), "Contact admin! 9988");
+        assertEquals("Out of memory exception ",
+            testSet.getBailOuts().getFirst().getReason());
+        assertEquals("Contact admin! 9988", testSet.getBailOuts().getFirst().getComment().getText());
     }
 
     /**
@@ -223,7 +219,7 @@ public class TestTap13Consumer extends BaseTapTest {// NOPMD
             testSet = tapConsumer.load(invalidTapStream);
             fail("Not supposed to get here");
         } catch (TapConsumerException tapConsumerException) {
-            assertTrue(tapConsumerException.getCause() instanceof ParserException);
+            assertInstanceOf(ParserException.class, tapConsumerException.getCause());
         }
         assertNull(testSet);
     }

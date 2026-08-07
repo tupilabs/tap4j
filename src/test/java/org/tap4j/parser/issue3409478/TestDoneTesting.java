@@ -23,12 +23,12 @@
  */
 package org.tap4j.parser.issue3409478;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * <p>Test class for issue 3409478.</p>
@@ -52,8 +52,12 @@ public class TestDoneTesting {
 
     @Test
     public void testDoneTesting() {
-        String tapStream = "ok 1 - Test1;\n" + "ok 2 - got document root\n"
-                           + "ok 3 - document root ok\n" + "1..3\n" + "ok";
+        String tapStream = """
+            ok 1 - Test1;
+            ok 2 - got document root
+            ok 3 - document root ok
+            1..3
+            ok""";
 
         TestSet testSet = consumer.load(tapStream);
         assertEquals(3, testSet.getTestResults().size());

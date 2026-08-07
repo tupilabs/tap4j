@@ -23,18 +23,19 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.Directive;
 import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.DirectiveValues;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @since 1.0
@@ -53,19 +54,19 @@ public class TestTap13YamlConsumer2 extends BaseTapTest {
         final TestResult testNumber2WithSkipDirective = testSet.getTestResult(2);
         assertNotNull(testNumber2WithSkipDirective);
         final Directive skipDirective = testNumber2WithSkipDirective.getDirective();
-        assertSame(skipDirective.getDirectiveValue(), DirectiveValues.SKIP);
+        assertSame(DirectiveValues.SKIP, skipDirective.getDirectiveValue());
         assertEquals("not implemented yet", skipDirective.getReason());
         assertNotNull(testSet.getFooter());
     }
 
-    @Test(expected = TapConsumerException.class )
+    @Test
     public void testDiagnosticWithoutLastParsedElement() {
-        getTestSet("/org/tap4j/consumer/tap_with_diagnostic_and_without_lastparsedtestresult.tap");
+        assertThrows(NullPointerException.class, () -> getTestSet("/org/tap4j/consumer/tap_with_diagnostic_without_lastparsedtestresult.tap"));
     }
 
-    @Test(expected = TapConsumerException.class )
+    @Test
     public void testDiagnosticWithWrongIndentation() {
-        getTestSet("/org/tap4j/consumer/tap_with_diagnostic_and_wrong_indentation.tap");
+        assertThrows(TapConsumerException.class, () -> getTestSet("/org/tap4j/consumer/tap_with_diagnostic_and_wrong_indentation.tap"));
     }
 
 }

@@ -24,13 +24,14 @@
  */
 package org.tap4j;
 
-import java.io.File;
-
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerImpl;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Parser;
 import org.tap4j.parser.Tap13Parser;
+
+import java.io.File;
+import java.util.Objects;
 
 /**
  * Base class for TAP tests.
@@ -39,6 +40,7 @@ public class BaseTapTest {
 
     /**
      * Get a test set for a given file name.
+     *
      * @param name File name.
      * @return Test Set.
      */
@@ -47,21 +49,23 @@ public class BaseTapTest {
     }
 
     /**
-     * Get a test set for given parser and file name.
+     * Get a test set for the given parser and file name.
+     *
      * @param parser Parser.
-     * @param name File name.
+     * @param name   File name.
      * @return Test Set.
      */
     protected TestSet getTestSet(Parser parser, String name) {
         TapConsumer consumer = getConsumer(parser);
         return consumer
-                .load(new File(getClass()
-                    .getResource(name)
-                    .getFile()));
+            .load(new File(Objects.requireNonNull(getClass()
+                    .getResource(name))
+                .getFile()));
     }
 
     /**
      * Get a tap consumer.
+     *
      * @return TAP Consumer.
      */
     protected TapConsumer getConsumer() {
@@ -70,6 +74,7 @@ public class BaseTapTest {
 
     /**
      * Get a consumer for with a given parser.
+     *
      * @param parser TAP parser.
      * @return TAP Consumer.
      */

@@ -23,10 +23,11 @@
  */
 package org.tap4j.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 /**
  * Tests for status values.
@@ -35,8 +36,8 @@ public class TestStatusValues {
 
     @Test
     public void testToString() {
-        assertEquals("ok",  StatusValues.OK.toString());
-        assertEquals("not ok",  StatusValues.NOT_OK.toString());
+        assertEquals("ok", StatusValues.OK.toString());
+        assertEquals("not ok", StatusValues.NOT_OK.toString());
     }
 
     @Test

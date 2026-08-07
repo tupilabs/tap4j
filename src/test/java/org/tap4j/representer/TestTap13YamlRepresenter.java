@@ -23,9 +23,9 @@
  */
 package org.tap4j.representer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.tap4j.model.TestResult;
+import org.tap4j.util.StatusValues;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -33,9 +33,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.tap4j.model.TestResult;
-import org.tap4j.util.StatusValues;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test TAP 13 YAML representer.
@@ -49,9 +49,9 @@ public class TestTap13YamlRepresenter {
         DumperOptions options = new DumperOptions();
         options.setIndent(100);
         options.setPrintDiagnostics(true);
-        Tap13Representer repr = new Tap13Representer(options);
-        assertNotNull(repr.getOptions());
-        assertEquals(options, repr.getOptions());
+        Tap13Representer representer = new Tap13Representer(options);
+        assertNotNull(representer.getOptions());
+        assertEquals(options, representer.getOptions());
         assertEquals(100, options.getIndent());
         assertTrue(options.isPrintDiagnostics());
     }
@@ -60,12 +60,12 @@ public class TestTap13YamlRepresenter {
     public void printDiagnosticNull() {
         DumperOptions options = new DumperOptions();
         options.setPrintDiagnostics(true);
-        Tap13Representer repr = new Tap13Representer(options);
+        Tap13Representer representer = new Tap13Representer(options);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         TestResult tr = new TestResult(StatusValues.OK, 1);
         tr.setDiagnostic(null);
-        repr.printDiagnostic(pw, tr);
+        representer.printDiagnostic(pw, tr);
         assertEquals("", sw.toString());
     }
 
@@ -74,12 +74,12 @@ public class TestTap13YamlRepresenter {
         Map<String, Object> diagnostic = new HashMap<>();
         DumperOptions options = new DumperOptions();
         options.setPrintDiagnostics(true);
-        Tap13Representer repr = new Tap13Representer(options);
+        Tap13Representer representer = new Tap13Representer(options);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         TestResult tr = new TestResult(StatusValues.OK, 1);
         tr.setDiagnostic(diagnostic);
-        repr.printDiagnostic(pw, tr);
+        representer.printDiagnostic(pw, tr);
         assertEquals("", sw.toString());
     }
 
@@ -90,12 +90,12 @@ public class TestTap13YamlRepresenter {
         diagnostic.put("surname", "Senna");
         DumperOptions options = new DumperOptions();
         options.setPrintDiagnostics(true);
-        Tap13Representer repr = new Tap13Representer(options);
+        Tap13Representer representer = new Tap13Representer(options);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         TestResult tr = new TestResult(StatusValues.OK, 1);
         tr.setDiagnostic(diagnostic);
-        repr.printDiagnostic(pw, tr);
+        representer.printDiagnostic(pw, tr);
         assertEquals("\n  ---\n  name: Ayrton\n  surname: Senna\n  ...\n", sw.toString());
     }
 

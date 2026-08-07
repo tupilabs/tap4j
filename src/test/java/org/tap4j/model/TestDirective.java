@@ -23,12 +23,12 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.util.DirectiveValues;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Tests a TAP directive.
@@ -39,15 +39,15 @@ public class TestDirective {
 
     private Directive directive;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         directive = new Directive(DirectiveValues.TODO, "Not implemented yet.");
     }
 
     @Test
     public void testDirective() {
-        assertEquals(directive.getReason(), "Not implemented yet.");
-        assertEquals(directive.getDirectiveValue(), DirectiveValues.TODO);
+        assertEquals("Not implemented yet.", directive.getReason());
+        assertEquals(DirectiveValues.TODO, directive.getDirectiveValue());
     }
 
     @Test

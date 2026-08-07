@@ -23,16 +23,17 @@
  */
 package org.tap4j.parser.issueYaml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.Tap13Parser;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * TAP Streams that contain corrupted YAML should be possible to parse using an extra option.
@@ -40,16 +41,16 @@ import static org.junit.Assert.assertNotNull;
 public class YamlIssueTest {
 
     /**
-     * corrupted yaml content should not break TAP parser.
+     * Corrupted YAML content should not break TAP parser.
      */
     @Test
     public void testParsingCorruptedYaml() {
 
         Tap13Parser tapParser = new Tap13Parser("UTF-8", true, true, true);
 
-        TestSet testSet = tapParser.parseFile(new File(YamlIssueTest.class
-                .getResource("/org/tap4j/parser/issueYaml/jsdom_test_result.tap")
-                .getFile()));
+        TestSet testSet = tapParser.parseFile(new File(Objects.requireNonNull(YamlIssueTest.class
+                .getResource("/org/tap4j/parser/issueYaml/jsdom_test_result.tap"))
+            .getFile()));
 
         assertNotNull(testSet);
 

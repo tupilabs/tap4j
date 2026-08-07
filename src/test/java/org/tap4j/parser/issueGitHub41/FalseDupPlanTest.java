@@ -23,17 +23,18 @@
  */
 package org.tap4j.parser.issueGitHub41;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.util.List;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
+
+import java.io.File;
+import java.util.List;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * TAP Streams with a 1..0 plan could fail, complaining about a duplicate
@@ -50,9 +51,9 @@ public class FalseDupPlanTest {
     public void testParsingWhenEmptyPlansPresent() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
 
-        TestSet testSet = tapConsumer.load(new File(FalseDupPlanTest.class
-                .getResource("/org/tap4j/parser/issueFalseDupPlan/npm-test.tap")
-                .getFile()));
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(FalseDupPlanTest.class
+                .getResource("/org/tap4j/parser/issueFalseDupPlan/npm-test.tap"))
+            .getFile()));
 
         assertNotNull(testSet);
 

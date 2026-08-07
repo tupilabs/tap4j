@@ -23,7 +23,7 @@
  */
 package org.tap4j.consumer.subtestOrder;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
@@ -31,9 +31,10 @@ import org.tap4j.model.TestSet;
 import org.tap4j.producer.TapProducerFactory;
 
 import java.io.File;
+import java.util.Objects;
 
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests for correct subtests order.
@@ -44,19 +45,21 @@ public class TestSubtestOrder extends BaseTapTest {
     @Test
     public void testProducingSubtests() {
         final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
-        final TestSet testSet = consumer.load(new File(TestSubtestOrder.class
-                .getResource("/org/tap4j/consumer/subtestOrder/subtest.tap").getFile()));
-        String expected = "1..2\n"
-                + "ok 1 - First test\n"
-                + "    1..1\n"
-                + "        1..1\n"
-                + "        ok 1 - Internal subtest subtest\n"
-                + "    ok 1 - Internal subtest\n"
-                + "ok 2 - Some subtest\n";
+        final TestSet testSet = consumer.load(new File(Objects.requireNonNull(TestSubtestOrder.class
+            .getResource("/org/tap4j/consumer/subtestOrder/subtest.tap")).getFile()));
+        String expected = """
+            1..2
+            ok 1 - First test
+                1..1
+                    1..1
+                    ok 1 - Internal subtest subtest
+                ok 1 - Internal subtest
+            ok 2 - Some subtest
+            """;
         assertEquals(expected, TapProducerFactory.makeTap13Producer().dump(testSet));
         assertNotNull(testSet.getTestResult(2).getSubtest());
         assertNotNull(testSet.getTestResult(2).getSubtest()
-                .getTestResult(1).getSubtest());
+            .getTestResult(1).getSubtest());
     }
 
 }

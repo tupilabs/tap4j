@@ -23,15 +23,15 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.tap4j.parser.Parser;
+import org.tap4j.parser.Tap13Parser;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Test;
-import org.tap4j.parser.Parser;
-import org.tap4j.parser.Tap13Parser;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test class for TAP Consumer Factory.
@@ -44,14 +44,14 @@ public class TestTapConsumerFactory {
     public void testMakeTap13Consumer() {
         final TapConsumer tapConsumer = TapConsumerFactory.makeTap13Consumer();
         final Parser tap13Parser = tapConsumer.getParser();
-        assertTrue(tap13Parser instanceof Tap13Parser);
+        assertInstanceOf(Tap13Parser.class, tap13Parser);
     }
 
     @Test
     public void testMakeTap13YamlConsumer() {
         final TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
         final Parser tap13YamlParser = tapConsumer.getParser();
-        assertTrue(tap13YamlParser instanceof Tap13Parser);
+        assertInstanceOf(Tap13Parser.class, tap13YamlParser);
     }
 
     @Test

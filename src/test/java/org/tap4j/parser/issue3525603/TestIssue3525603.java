@@ -23,23 +23,26 @@
  */
 package org.tap4j.parser.issue3525603;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for issue 3525603.
  *
  * @since 3.0
  */
-public class Test3525603 {
+public class TestIssue3525603 {
 
     @Test
     public void testDoneTestingMark() {
-        final String tap = "1..1\n" + "ok 1\n" + "ok";
+        final String tap = """
+            1..1
+            ok 1
+            ok""";
         final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
         final TestSet testSet = consumer.load(tap);
         assertEquals(1, testSet.getTestResults().size());

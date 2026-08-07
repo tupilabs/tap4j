@@ -23,11 +23,11 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
@@ -49,22 +49,22 @@ public class TestTapConsumerExceptionTest {
     public void testTapConsumerException2() {
         exception = new TapConsumerException("Error parsing document");
         assertNotNull(exception);
-        assertEquals(exception.getMessage(), "Error parsing document");
+        assertEquals("Error parsing document", exception.getMessage());
     }
 
     @Test
     public void testTapConsumerException3() {
         exception = new TapConsumerException(new NullPointerException("Null TAP Stream")); // NOPMD
         assertNotNull(exception);
-        assertTrue(exception.getCause() instanceof NullPointerException);
+        assertInstanceOf(NullPointerException.class, exception.getCause());
     }
 
     @Test
     public void testTapConsumerException4() {
         exception = new TapConsumerException("Null", new NullPointerException()); // NOPMD
         assertNotNull(exception);
-        assertEquals(exception.getMessage(), "Null");
-        assertTrue(exception.getCause() instanceof NullPointerException);
+        assertEquals("Null", exception.getMessage());
+        assertInstanceOf(NullPointerException.class, exception.getCause());
     }
 
 }

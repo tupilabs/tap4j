@@ -23,14 +23,15 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * @since 1.0
@@ -43,7 +44,7 @@ public class TestTAPPlan {
     protected final static Integer LAST_TEST_NUMBER = 3;
     protected final static String REASON = "Function not yet implemented.";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         simplePlan = new Plan(INITIAL_TEST_NUMBER, LAST_TEST_NUMBER);
         simplePlan.setComment(new Comment("Plan's comment."));
@@ -54,8 +55,8 @@ public class TestTAPPlan {
     @Test
     public void testSimplePlan() {
         assertNotNull(simplePlan);
-        assertEquals(simplePlan.getInitialTestNumber(), INITIAL_TEST_NUMBER);
-        assertEquals(simplePlan.getLastTestNumber(), LAST_TEST_NUMBER);
+        assertEquals(INITIAL_TEST_NUMBER, simplePlan.getInitialTestNumber());
+        assertEquals(LAST_TEST_NUMBER, simplePlan.getLastTestNumber());
         assertNull(simplePlan.getSkip());
         assertFalse(simplePlan.isSkip());
         assertNotNull(simplePlan.getComment());
@@ -64,22 +65,22 @@ public class TestTAPPlan {
     @Test
     public void testSkipAllPlan() {
         assertNotNull(skipAllPlan);
-        assertEquals(skipAllPlan.getInitialTestNumber(), INITIAL_TEST_NUMBER);
-        assertEquals(skipAllPlan.getLastTestNumber(), LAST_TEST_NUMBER);
+        assertEquals(INITIAL_TEST_NUMBER, skipAllPlan.getInitialTestNumber());
+        assertEquals(LAST_TEST_NUMBER, skipAllPlan.getLastTestNumber());
         assertTrue(skipAllPlan.isSkip());
         assertNotNull(skipAllPlan.getSkip());
-        assertEquals(skipAllPlan.getSkip().getReason(), TestTAPPlan.REASON);
+        assertEquals(TestTAPPlan.REASON, skipAllPlan.getSkip().getReason());
         skipAllPlan = new Plan(skipAllPlan.getInitialTestNumber(),
-                skipAllPlan.getLastTestNumber(), skipAllPlan.getSkip());
+            skipAllPlan.getLastTestNumber(), skipAllPlan.getSkip());
         assertNotNull(skipAllPlan);
         assertNotNull(skipAllPlan.getSkip());
-        assertEquals(skipAllPlan.getSkip().getReason(), REASON);
+        assertEquals(REASON, skipAllPlan.getSkip().getReason());
     }
 
     @Test
     public void testSkip() {
         SkipPlan skip = skipAllPlan.getSkip();
-        assertEquals(skip.getReason(), REASON);
+        assertEquals(REASON, skip.getReason());
     }
 
 }

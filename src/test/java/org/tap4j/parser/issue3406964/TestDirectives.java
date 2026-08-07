@@ -23,13 +23,7 @@
  */
 package org.tap4j.parser.issue3406964;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import java.io.File;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.Directive;
@@ -37,9 +31,16 @@ import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.DirectiveValues;
 
+import java.io.File;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 /**
  * Test class for issue 3406964. The skip directive in TAP can contain both
- * upper and lower case SKIP and TO DO text. However tap4j is considering only
+ * upper and lower case SKIP and TO DO text. However, tap4j is considering only
  * the upper case version.
  *
  * @since 2.0.5
@@ -52,52 +53,52 @@ public class TestDirectives {
     public void testSkipDirective() {
         consumer = TapConsumerFactory.makeTap13YamlConsumer();
 
-        TestSet testSet = consumer.load(new File(TestDirectives.class
-                .getResource("/org/tap4j/parser/issue3406964/ihaveskips.tap")
+        TestSet testSet = consumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                .getResource("/org/tap4j/parser/issue3406964/ihaveskips.tap"))
                 .getFile()));
-        assertNotNull("Empty Test Set", testSet);
-        assertEquals("Wrong number of tests", 3, testSet.getTestResults().size());
+        assertNotNull(testSet, "Empty Test Set");
+        assertEquals(3, testSet.getTestResults().size(), "Wrong number of tests");
 
         TestResult tr1 = testSet.getTestResult(1);
         Directive directive = tr1.getDirective();
 
-        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
+        assertSame(DirectiveValues.SKIP, directive.getDirectiveValue());
 
         TestResult tr2 = testSet.getTestResult(2);
         directive = tr2.getDirective();
 
-        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
-        assertEquals(directive.getReason(), "me too");
-        assertEquals(tr2.getDescription(), "- Wrong version in path ");
+        assertSame(DirectiveValues.SKIP, directive.getDirectiveValue());
+        assertEquals("me too", directive.getReason());
+        assertEquals("- Wrong version in path ", tr2.getDescription());
 
         TestResult tr3 = testSet.getTestResult(3);
         directive = tr3.getDirective();
 
-        assertSame(directive.getDirectiveValue(), DirectiveValues.SKIP);
-        assertEquals(directive.getReason(), "well, then...");
+        assertSame(DirectiveValues.SKIP, directive.getDirectiveValue());
+        assertEquals("well, then...", directive.getReason());
     }
 
     @Test
     public void testTodoDirective() {
         consumer = TapConsumerFactory.makeTap13YamlConsumer();
 
-        TestSet testSet = consumer.load(new File(TestDirectives.class
-                .getResource("/org/tap4j/parser/issue3406964/ihavetodoes.tap")
+        TestSet testSet = consumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                .getResource("/org/tap4j/parser/issue3406964/ihavetodoes.tap"))
                 .getFile()));
-        assertNotNull("Empty Test Set", testSet);
-        assertEquals("Wrong number of tests", 2, testSet.getTestResults().size());
+        assertNotNull(testSet, "Empty Test Set");
+        assertEquals(2, testSet.getTestResults().size(), "Wrong Number of Tests");
 
         TestResult tr1 = testSet.getTestResult(1);
         Directive directive = tr1.getDirective();
 
-        assertSame(directive.getDirectiveValue(), DirectiveValues.TODO);
+        assertSame(DirectiveValues.TODO, directive.getDirectiveValue());
 
         TestResult tr2 = testSet.getTestResult(2);
         directive = tr2.getDirective();
 
-        assertSame(directive.getDirectiveValue(), DirectiveValues.TODO);
-        assertEquals(directive.getReason(), "configure tail");
-        assertEquals(tr2.getDescription(), "");
+        assertSame(DirectiveValues.TODO, directive.getDirectiveValue());
+        assertEquals("configure tail", directive.getReason());
+        assertEquals("", tr2.getDescription());
 
     }
 

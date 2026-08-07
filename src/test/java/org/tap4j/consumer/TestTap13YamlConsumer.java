@@ -23,17 +23,17 @@
  */
 package org.tap4j.consumer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import java.util.Map;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.StatusValues;
 import org.tap4j.util.TapVersionValues;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * @since 1.0
@@ -50,14 +50,13 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
         assertEquals(3, (int) testSet.getPlan().getLastTestNumber());
         assertEquals(3, testSet.getTestResults().size());
-        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.OK);
+        assertSame(StatusValues.OK, testSet.getTestResult(1).getStatus());
         assertNotNull(testSet.getTestResult(2).getDiagnostic());
-        assertSame(testSet.getTestResult(2).getStatus(), StatusValues.NOT_OK);
-        final Map<String, Object> diagnostic = testSet.getTestResult(2)
-                .getDiagnostic();
+        assertSame(StatusValues.NOT_OK, testSet.getTestResult(2).getStatus());
+        final Map<String, Object> diagnostic = testSet.getTestResult(2).getDiagnostic();
         assertNotNull(diagnostic);
-        assertEquals(diagnostic.get("file"), "t/something.t");
-        assertSame(testSet.getTestResult(3).getStatus(), StatusValues.OK);
+        assertEquals("t/something.t", diagnostic.get("file"));
+        assertSame(StatusValues.OK, testSet.getTestResult(3).getStatus());
     }
 
     @Test
@@ -70,13 +69,12 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
         assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
         assertEquals(1, testSet.getTestResults().size());
-        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.NOT_OK);
+        assertSame(StatusValues.NOT_OK, testSet.getTestResult(1).getStatus());
         assertNotNull(testSet.getTestResult(1).getDiagnostic());
         Map<String, Object> diagnostic = testSet.getTestResult(1)
-                .getDiagnostic();
+            .getDiagnostic();
         assertNotNull(diagnostic);
-        assertEquals(diagnostic.get("file"),
-                "org.tap4j.testng.TestGoogleBrunoKinoshita.java");
+        assertEquals("org.tap4j.testng.TestGoogleBrunoKinoshita.java", diagnostic.get("file"));
     }
 
     @Test
@@ -86,10 +84,10 @@ public class TestTap13YamlConsumer extends BaseTapTest {
         assertEquals(1, (int) testSet.getPlan().getInitialTestNumber());
         assertEquals(1, (int) testSet.getPlan().getLastTestNumber());
         assertEquals(1, testSet.getTestResults().size());
-        assertSame(testSet.getTestResult(1).getStatus(), StatusValues.NOT_OK);
+        assertSame(StatusValues.NOT_OK, testSet.getTestResult(1).getStatus());
         assertNotNull(testSet.getTestResult(1).getDiagnostic());
         Map<String, Object> diagnostic = testSet.getTestResult(1)
-                .getDiagnostic();
+            .getDiagnostic();
         assertNotNull(diagnostic);
         assertEquals("org.tap4j.testng.konobi.java", diagnostic.get("file"));
         assertNotNull(diagnostic.get("stack"));

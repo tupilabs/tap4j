@@ -1,18 +1,26 @@
 package org.tap4j.parser.issueGitHub17;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.parser.issue3406964.TestDirectives;
 
-/*When parsing the TAP Stream below with a TAPConsumerFactory.makeTap13YamlConsumer, it seems that tap4j (using 4.0.4) does not hold onto the YAML diagnostic for anotherDummyTest. Note that it finds it correctly when there are no subtests, and the subtests themselves are handled correctly in the presence of the yaml, but it is not placing this value into the Map when there are subtests.
+import java.io.File;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+/*
+When parsing the TAP Stream below with a TAPConsumerFactory.makeTap13YamlConsumer,
+it seems that tap4j (using 4.0.4) does not hold onto the YAML diagnostic for anotherDummyTest.
+
+Note that it finds it correctly when there are no subtests, and the subtests themselves are
+handled correctly in the presence of the YAML, but it is not placing this value into the Map
+when there are subtests.
 
 TAP version 13
 1..2
@@ -35,8 +43,10 @@ ok 2 - anotherDummyTest
   ...
   1..1
   ok*/
+
 /**
- * Stream with subtests chopping off last yaml diagnostic
+ * Stream with subtests chopping off the last YAML diagnostic.
+ *
  * @since 4.0.5
  */
 public class TestLastYamlishBeingCut {
@@ -44,8 +54,8 @@ public class TestLastYamlishBeingCut {
     @Test
     public void testLastYamlishBeingCut() {
         TapConsumer tapConsumer = TapConsumerFactory.makeTap13YamlConsumer();
-        TestSet testSet = tapConsumer.load(new File(TestDirectives.class
-            .getResource("/org/tap4j/parser/issueGitHub17/issue-17-tap-stream.tap")
+        TestSet testSet = tapConsumer.load(new File(Objects.requireNonNull(TestDirectives.class
+                .getResource("/org/tap4j/parser/issueGitHub17/issue-17-tap-stream.tap"))
             .getFile()));
 
         assertEquals(2, testSet.getTestResults().size());

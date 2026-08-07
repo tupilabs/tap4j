@@ -17,17 +17,8 @@
  */
 package org.tap4j;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerImpl;
 import org.tap4j.model.BailOut;
@@ -42,11 +33,20 @@ import org.tap4j.producer.TapProducer;
 import org.tap4j.representer.Tap13Representer;
 import org.tap4j.util.StatusValues;
 
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Test where the producer outputs a tap file and then a consumer reads it and
  * checks if the values are correct. For example, you create a test with a Test
  * Result with a String there. Then you use the consumer to read the tap file
- * created and check if the consumer can read the String. Voila.
+ * created and check if the consumer can read the String. Voilà.
  *
  * @since 1.0
  */
@@ -61,7 +61,7 @@ public class TestProduceConsume {
 
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tapProducer = new TapProducer(new Tap13Representer());
         tapConsumer = new TapConsumerImpl();
@@ -104,7 +104,7 @@ public class TestProduceConsume {
 
     @Test
     public void testTapProducerConsumer() {
-        assertTrue(testSet.getTapLines().size() > 0);
+        assertFalse(testSet.getTapLines().isEmpty());
 
         // testProducer
         try {
@@ -120,18 +120,18 @@ public class TestProduceConsume {
             assertNotNull(testSet.getPlan());
             assertEquals(3, testSet.getNumberOfTestResults());
             assertNotNull(testSet.getFooter());
-            assertTrue(testSet.getTapLines().size() > 0);
+            assertFalse(testSet.getTapLines().isEmpty());
             assertTrue(testSet.getNumberOfTapLines() > 0);
             assertTrue(testSet.containsOk());
             assertFalse(testSet.containsBailOut());
             assertTrue(testSet.containsNotOk());
-            assertTrue(testSet.getComments().size() > 0);
+            assertFalse(testSet.getComments().isEmpty());
             assertTrue(testSet.getNumberOfComments() > 0);
             assertEquals(testSet.getComments().size(), testSet
                     .getNumberOfComments());
             assertNotNull(tapConsumer.getTestSet());
-            assertEquals(testSet.getTestResult(1).getStatus(),
-                                StatusValues.OK);
+            assertEquals(StatusValues.OK,
+                testSet.getTestResult(1).getStatus());
         }
     }
 

@@ -1,10 +1,10 @@
 TAP version 13
 1..1
-ok 1 - sometest
+ok 1 - some_test
   ---
     datetime: 2013-11-14T15:42:54
     raw_output: |
-      Running sometest
+      Running some_test
       .....
       ================================================================================
       Verification failed.
@@ -40,6 +40,6 @@ ok 1 - sometest
                 ...
       
       ================================================================================
-      Done sometest
+      Done some_test
       __________
   ...

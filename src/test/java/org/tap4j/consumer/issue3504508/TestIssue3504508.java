@@ -23,13 +23,7 @@
  */
 package org.tap4j.consumer.issue3504508;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.io.File;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.consumer.TapConsumer;
 import org.tap4j.consumer.TapConsumerFactory;
@@ -37,6 +31,13 @@ import org.tap4j.model.TestSet;
 import org.tap4j.parser.Tap13Parser;
 import org.tap4j.producer.Producer;
 import org.tap4j.producer.TapProducer;
+
+import java.io.File;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Tests for subtests.
@@ -50,25 +51,27 @@ public class TestIssue3504508 extends BaseTapTest {
         final TestSet testSet = getTestSet(new Tap13Parser(/* enable subtests*/ true), "/org/tap4j/consumer/issue3504508/sample.tap");
         assertNull(testSet.getTestResult(1).getSubtest());
         assertNotNull(testSet.getTestResult(2).getSubtest()
-                .getTestResult(2).getSubtest());
+            .getTestResult(2).getSubtest());
         assertEquals(3, testSet.getTestResults().size());
     }
 
     @Test
     public void testProducingSubtests() {
-        final String expected = "1..3\n"
-                + "ok 1 - First test\n"
-                + "    1..2\n"
-                + "    ok 1 - This is a subtest\n"
-                + "        1..2\n"
-                + "        ok 1 - This is a subtest\n"
-                + "        ok 2 - So is this\n"
-                + "    ok 2 - So is this\n"
-                + "ok 2 - An example subtest\n"
-                + "ok 3 - Third test\n";
+        final String expected = """
+            1..3
+            ok 1 - First test
+                1..2
+                ok 1 - This is a subtest
+                    1..2
+                    ok 1 - This is a subtest
+                    ok 2 - So is this
+                ok 2 - So is this
+            ok 2 - An example subtest
+            ok 3 - Third test
+            """;
         final TapConsumer consumer = TapConsumerFactory.makeTap13YamlConsumer();
-        final TestSet testSet = consumer.load(new File(TestIssue3504508.class
-                .getResource("/org/tap4j/consumer/issue3504508/sample.tap").getFile()));
+        final TestSet testSet = consumer.load(new File(Objects.requireNonNull(TestIssue3504508.class
+            .getResource("/org/tap4j/consumer/issue3504508/sample.tap")).getFile()));
         final Producer producer = new TapProducer();
         assertEquals(expected, producer.dump(testSet));
     }

@@ -23,12 +23,12 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 /**
@@ -41,7 +41,7 @@ public class TestTAPBailOut {
     protected BailOut bailOut;
     private final static String REASON = "It is monday.";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         bailOut = new BailOut(REASON);
         bailOut.setComment(new Comment("Bail out comment"));
@@ -50,7 +50,7 @@ public class TestTAPBailOut {
     @Test
     public void testBailOut() {
         assertNotNull(bailOut);
-        assertEquals(bailOut.getReason(), REASON);
+        assertEquals(REASON, bailOut.getReason());
         assertNotNull(bailOut.getComment());
         assertNotNull(bailOut.getComment().getText());
         bailOut = new BailOut(null);

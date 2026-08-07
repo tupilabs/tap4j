@@ -23,13 +23,15 @@
  */
 package org.tap4j.representer;
 
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.tap4j.producer.TapProducerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Test;
-import org.tap4j.producer.TapProducerFactory;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests for TAP Producer Factory.
@@ -46,13 +48,20 @@ public class TestTapProducerFactory {
         assertNotNull(TapProducerFactory.makeTapJunitProducer("any-name"));
     }
 
-    @Test(expected=Throwable.class)
-    public void testPrivateConstructor() throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final Constructor<?> c = TapProducerFactory.class
-                .getDeclaredConstructors()[0];
-        c.setAccessible(true);
-        final Object o = c.newInstance((Object[]) null);
-        assertNotNull(o);
+    @Test
+    void testPrivateConstructor() throws Exception {
+        Constructor<?> constructor =
+            TapProducerFactory.class.getDeclaredConstructor();
+
+        constructor.setAccessible(true);
+
+        InvocationTargetException exception =
+            assertThrows(
+                InvocationTargetException.class,
+                constructor::newInstance
+            );
+
+        assertInstanceOf(AssertionError.class, exception.getCause());
     }
 
 }

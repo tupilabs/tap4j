@@ -23,16 +23,16 @@
  */
 package org.tap4j.parser.issueGitHub5;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.BaseTapTest;
 import org.tap4j.model.TestSet;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 /**
- * If there is random STDOUT after a tap plan at end, it fails.
+ * If there is random STDOUT after a tap plan at the end, it fails.
  * <p>
- * This issue has been fixed, as consequence of fixing issue 3409478.
+ * This issue has been fixed, as a consequence of fixing issue 3409478.
  * <p>
  *
  * @since 2.0.6
@@ -40,7 +40,7 @@ import org.tap4j.model.TestSet;
 public class TestRandomStdoutAfterTestPlanAtEnd extends BaseTapTest {
 
     /**
-     * Tests a TapConsumer reading a plan at end with random output afterwards.
+     * Tests a TapConsumer reading a plan at the end with random output afterwards.
      */
     @Test
     public void testRandomStoutAfterTestPlanAtEnd() {

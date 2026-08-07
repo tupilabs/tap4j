@@ -23,12 +23,12 @@
  */
 package org.tap4j.producer;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.tap4j.representer.Representer;
 import org.tap4j.representer.Tap13Representer;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test Class for TAP Producer Factories.
@@ -41,14 +41,14 @@ public class TestTapProducerFactory {
     public void testMakeTap13Producer() {
         final Producer tapProducer = new TapProducer();
         final Representer tap13Representer = tapProducer.getRepresenter();
-        assertTrue(tap13Representer instanceof Tap13Representer);
+        assertInstanceOf(Tap13Representer.class, tap13Representer);
     }
 
     @Test
     public void testMakeTap13YamlProducer() {
         final Producer tapProducer = new TapProducer();
         final Representer tap13YamlRepresenter = tapProducer.getRepresenter();
-        assertTrue(tap13YamlRepresenter instanceof Tap13Representer);
+        assertInstanceOf(Tap13Representer.class, tap13YamlRepresenter);
     }
 
     @Test

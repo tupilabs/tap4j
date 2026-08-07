@@ -23,15 +23,8 @@
  */
 package org.tap4j.producer;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.model.Comment;
 import org.tap4j.model.Footer;
 import org.tap4j.model.Header;
@@ -39,6 +32,12 @@ import org.tap4j.model.Plan;
 import org.tap4j.model.TestResult;
 import org.tap4j.model.TestSet;
 import org.tap4j.util.StatusValues;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @since 1.0
@@ -52,7 +51,7 @@ public class TestTap13Producer {
     private File tempFile;
     private static final Integer INITIAL_TEST_STEP = 1;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tapProducer = new TapProducer();
         testSet = new TestSet();
@@ -81,7 +80,7 @@ public class TestTap13Producer {
 
     @Test
     public void testTapProducer() {
-        assertTrue(testSet.getTapLines().size() > 0);
+        assertFalse(testSet.getTapLines().isEmpty());
         tapProducer.dump(testSet, tempFile);
 
         // BufferedReader reader = null;
@@ -128,7 +127,6 @@ public class TestTap13Producer {
         testSet.addTestResult(okTestResult);
         String output = tapProducer.dump(testSet);
         assertFalse(output.contains("-1"));
-
     }
 
 }

@@ -23,11 +23,11 @@
  */
 package org.tap4j.producer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
@@ -49,22 +49,22 @@ public class TestTapProducerExceptionTest {
     public void testTapProducerException2() {
         exception = new ProducerException("Error parsing document");
         assertNotNull(exception);
-        assertEquals(exception.getMessage(), "Error parsing document");
+        assertEquals("Error parsing document", exception.getMessage());
     }
 
     @Test
     public void testTapProducerException3() {
         exception = new ProducerException(new NullPointerException("Null TAP Stream")); // NOPMD
         assertNotNull(exception);
-        assertTrue(exception.getCause() instanceof NullPointerException);
+        assertInstanceOf(NullPointerException.class, exception.getCause());
     }
 
     @Test
     public void testTapProducerException4() {
         exception = new ProducerException("Null", new NullPointerException()); // NOPMD
         assertNotNull(exception);
-        assertEquals(exception.getMessage(), "Null");
-        assertTrue(exception.getCause() instanceof NullPointerException);
+        assertEquals("Null", exception.getMessage());
+        assertInstanceOf(NullPointerException.class, exception.getCause());
     }
 
 }

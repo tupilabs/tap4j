@@ -23,15 +23,15 @@
  */
 package org.tap4j.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tap4j.util.StatusValues;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @since 1.0
@@ -47,7 +47,7 @@ public class TestTestSet {
     protected TestResult tr1;
     protected Text text;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testSet = new TestSet();
         // Header
@@ -80,10 +80,10 @@ public class TestTestSet {
         assertEquals(1, this.testSet.getComments().size());
         assertEquals(1, this.testSet.getNumberOfComments());
         assertEquals(this.testSet.getNumberOfTapLines(), this.testSet
-                .getTapLines().size());
+            .getTapLines().size());
         assertEquals(4, this.testSet.getNumberOfTapLines());
         assertEquals(this.testSet.getNumberOfTestResults(), this.testSet
-                .getTestResults().size());
+            .getTestResults().size());
         assertEquals(1, this.testSet.getNumberOfTestResults());
         assertEquals(2, this.testSet.getNextTestNumber());
         assertTrue(this.testSet.hasBailOut());

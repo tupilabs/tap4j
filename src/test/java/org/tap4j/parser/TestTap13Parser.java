@@ -23,15 +23,15 @@
  */
 package org.tap4j.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.tap4j.model.TestSet;
 
 import java.io.File;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.tap4j.model.TestSet;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests for TAP 13 Parser.
@@ -41,7 +41,7 @@ public class TestTap13Parser {
 
     private Tap13Parser parser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         parser = new Tap13Parser();
     }
@@ -59,116 +59,125 @@ public class TestTap13Parser {
         String tap = "1..1\n" +
                 "ok 1 # a comment";
         TestSet testSet = parser.parseTapStream(tap);
-        assertEquals("a comment", testSet.getTestResult(1).getComments().get(0).getText());
+        assertEquals("a comment", testSet.getTestResult(1).getComments().getFirst().getText());
     }
 
     @Test
     public void testFooterWithAnEmptyComment() {
-        String tap = "1..1\n" +
-                "ok 1\n" +
-                "TAP end #";
+        String tap = """
+            1..1
+            ok 1
+            TAP end #""";
         TestSet testSet = parser.parseTapStream(tap);
         assertNull(testSet.getFooter().getComment());
     }
 
     @Test
     public void testFooterWithComment() {
-        String tap = "1..1\n" +
-                "ok 1\n" +
-                "TAP end # a comment";
+        String tap = """
+            1..1
+            ok 1
+            TAP end # a comment""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getFooter().getComment().getText());
     }
 
     @Test
     public void testHeader() {
-        String tap = "TAP version 13\n" +
-                "1..1\n" +
-                "ok 1\n" +
-                "TAP end # a comment";
+        String tap = """
+            TAP version 13
+            1..1
+            ok 1
+            TAP end # a comment""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(Integer.valueOf(13), testSet.getHeader().getVersion());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void testHeaderDuplicated() {
-        String tap = "TAP version 13\n" +
-                "TAP version 13\n" +
-                "1..1\n" +
-                "ok 1\n" +
-                "TAP end # a comment";
-        parser.parseTapStream(tap);
-        fail("Not supposed to get here");
+        String tap = """
+            TAP version 13
+            TAP version 13
+            1..1
+            ok 1
+            TAP end # a comment""";
+        assertThrows(ParserException.class, () -> parser.parseTapStream(tap));
     }
 
     @Test
     public void testHeaderWithEmptyComment() {
-        String tap = "TAP version 13 #\n" +
-                "1..1\n" +
-                "ok 1";
+        String tap = """
+            TAP version 13 #
+            1..1
+            ok 1""";
         TestSet testSet = parser.parseTapStream(tap);
         assertNull(testSet.getHeader().getComment());
     }
 
     @Test
     public void testHeaderWithComment() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1\n" +
-                "ok 1\n" +
-                "TAP end # a comment";
+        String tap = """
+            TAP version 13 # a comment
+            1..1
+            ok 1
+            TAP end # a comment""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getHeader().getComment().getText());
     }
 
     @Test
     public void testPlan() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1\n" +
-                "ok 1";
+        String tap = """
+            TAP version 13 # a comment
+            1..1
+            ok 1""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals(Integer.valueOf(1), testSet.getPlan().getInitialTestNumber());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void testPlanDuplicated() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1\n" +
-                "1..2\n" +
-                "ok 1";
-        parser.parseTapStream(tap);
-        fail("Not supposed to get here");
+        String tap = """
+            TAP version 13 # a comment
+            1..1
+            1..2
+            ok 1""";
+        assertThrows(ParserException.class, () -> parser.parseTapStream(tap));
     }
 
     @Test
     public void testPlanSkip() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1 # skip betsu ni\n" +
-                "ok 1";
+        String tap = """
+            TAP version 13 # a comment
+            1..1 # skip betsu ni
+            ok 1""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("betsu ni", testSet.getPlan().getSkip().getReason());
     }
 
     @Test
     public void testPlanWithEmptyComment() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1 #\n" +
-                "ok 1";
+        String tap = """
+            TAP version 13 # a comment
+            1..1 #
+            ok 1""";
         TestSet testSet = parser.parseTapStream(tap);
         assertNull(testSet.getPlan().getComment());
     }
 
     @Test
     public void testPlanWithComment() {
-        String tap = "TAP version 13 # a comment\n" +
-                "1..1 # a comment\n" +
-                "ok 1";
+        String tap = """
+            TAP version 13 # a comment
+            1..1 # a comment
+            ok 1""";
         TestSet testSet = parser.parseTapStream(tap);
         assertEquals("a comment", testSet.getPlan().getComment().getText());
     }
 
-    @Test(expected=ParserException.class)
+    @Test
     public void notExistentFile() {
-        parser.parseFile(new File(""+System.currentTimeMillis()+System.nanoTime()));
+        assertThrows(ParserException.class, () -> parser.parseFile(new File("notExistentFile")));
     }
 
 }

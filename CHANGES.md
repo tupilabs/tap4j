@@ -30,6 +30,7 @@ THE SOFTWARE.
 - Fixed Spotbugs issues (ignored, mainly).
 - Bumped dependencies.
 - Bumped Java to 25.
+- Bump org.junit.jupiter:junit-jupiter from 6.1.2 to 6.1.3
 - Fixed RAT issues.
 - Added CHANGES.md file.
 - Updated links and information in README.md.

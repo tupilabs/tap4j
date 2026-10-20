@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 # tap4j changelog
 
+<!-- changelog:next-release -->
 ## 5.0.0 (unreleased)
 
 - Upgraded JUnit from 4.x to 6.x.

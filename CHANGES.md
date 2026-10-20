@@ -31,7 +31,8 @@ THE SOFTWARE.
 - Fixed Spotbugs issues (ignored, mainly).
 - Bumped dependencies.
 - Bumped Java to 25.
-- Bump com.github.spotbugs:spotbugs-maven-plugin from 4.10.3.0 to 4.10.4.1
+- Bump com.github.spotbugs:spotbugs-maven-plugin from 4.10.3.0 to 4.10.5.0 #84
+- Bump org.apache.maven.doxia:doxia-module-markdown from 2.1.0 to 2.2.0 #85
 - Bump org.apache.maven.plugins:maven-compiler-plugin from 3.15.0 to 3.16.0
 - Bump org.apache.maven.plugins:maven-surefire-plugin from 3.6.0-M1 to 3.6.0
 - Bump org.junit.jupiter:junit-jupiter from 6.1.2 to 6.1.3
